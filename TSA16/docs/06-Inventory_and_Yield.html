@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Section 7 Inventory, Yield and Carbon | Mackenzie TSR Technical Summary</title>
+  <meta name="description" content="<p>This is the bookdown for the Mackenzie TSR Tecnical Summary
+The HTML output format for this example is bookdown::gitbook,
+set in the _output.yml file.</p>" />
+  <meta name="generator" content="bookdown 0.30 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Section 7 Inventory, Yield and Carbon | Mackenzie TSR Technical Summary" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="<p>This is the bookdown for the Mackenzie TSR Tecnical Summary
+The HTML output format for this example is bookdown::gitbook,
+set in the _output.yml file.</p>" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Section 7 Inventory, Yield and Carbon | Mackenzie TSR Technical Summary" />
+  
+  <meta name="twitter:description" content="<p>This is the bookdown for the Mackenzie TSR Tecnical Summary
+The HTML output format for this example is bookdown::gitbook,
+set in the _output.yml file.</p>" />
+  
+
+<meta name="author" content="Kelly Izzard RPF" />
+
+
+<meta name="date" content="2022-12-24" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="05-Landbase_Definition.html"/>
+<link rel="next" href="07-Forest_Health.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Mackenzie TSA TSR Analysis Report</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
+<li class="chapter" data-level="2" data-path="01-intro.html"><a href="01-intro.html"><i class="fa fa-check"></i><b>2</b> Current Condition</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="01-intro.html"><a href="01-intro.html#unit-description"><i class="fa fa-check"></i><b>2.1</b> Unit Description</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="02-Overview_of_Basecase.html"><a href="02-Overview_of_Basecase.html"><i class="fa fa-check"></i><b>3</b> Overview of the Base case</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="02-Overview_of_Basecase.html"><a href="02-Overview_of_Basecase.html#base-case-objectives-and-modeling-parameters"><i class="fa fa-check"></i><b>3.1</b> Base Case Objectives and Modeling Parameters</a></li>
+<li class="chapter" data-level="3.2" data-path="02-Overview_of_Basecase.html"><a href="02-Overview_of_Basecase.html#base-case-projection"><i class="fa fa-check"></i><b>3.2</b> Base Case Projection</a></li>
+<li class="chapter" data-level="3.3" data-path="02-Overview_of_Basecase.html"><a href="02-Overview_of_Basecase.html#base-case-diagnostics"><i class="fa fa-check"></i><b>3.3</b> Base Case Diagnostics</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="03-Alternative_Harvest_Flows.html"><a href="03-Alternative_Harvest_Flows.html"><i class="fa fa-check"></i><b>4</b> Alternative Harvest Flows</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="03-Alternative_Harvest_Flows.html"><a href="03-Alternative_Harvest_Flows.html#Salvage"><i class="fa fa-check"></i><b>4.1</b> Salvage Options</a></li>
+<li class="chapter" data-level="4.2" data-path="03-Alternative_Harvest_Flows.html"><a href="03-Alternative_Harvest_Flows.html#geographic-options"><i class="fa fa-check"></i><b>4.2</b> Geographic Options</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="04-Sensitivities.html"><a href="04-Sensitivities.html"><i class="fa fa-check"></i><b>5</b> Sensitivities and the Tranche Analysis concept</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="04-Sensitivities.html"><a href="04-Sensitivities.html#sensitivities"><i class="fa fa-check"></i><b>5.1</b> Sensitivities</a></li>
+<li class="chapter" data-level="5.2" data-path="04-Sensitivities.html"><a href="04-Sensitivities.html#the-tranche-analysis-concept"><i class="fa fa-check"></i><b>5.2</b> The Tranche Analysis Concept</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="05-Landbase_Definition.html"><a href="05-Landbase_Definition.html"><i class="fa fa-check"></i><b>6</b> Landbase Definition</a></li>
+<li class="chapter" data-level="7" data-path="06-Inventory_and_Yield.html"><a href="06-Inventory_and_Yield.html"><i class="fa fa-check"></i><b>7</b> Inventory, Yield and Carbon</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="06-Inventory_and_Yield.html"><a href="06-Inventory_and_Yield.html#inventory"><i class="fa fa-check"></i><b>7.1</b> Inventory</a></li>
+<li class="chapter" data-level="7.2" data-path="06-Inventory_and_Yield.html"><a href="06-Inventory_and_Yield.html#depletion-and-age-update"><i class="fa fa-check"></i><b>7.2</b> Depletion and Age Update</a></li>
+<li class="chapter" data-level="7.3" data-path="06-Inventory_and_Yield.html"><a href="06-Inventory_and_Yield.html#natural-stand-yield-tables-nsyt"><i class="fa fa-check"></i><b>7.3</b> Natural Stand Yield Tables (NSYT)</a></li>
+<li class="chapter" data-level="7.4" data-path="06-Inventory_and_Yield.html"><a href="06-Inventory_and_Yield.html#managed-stand-yield-tables-msyt"><i class="fa fa-check"></i><b>7.4</b> Managed Stand Yield Tables (MSYT)</a></li>
+<li class="chapter" data-level="7.5" data-path="06-Inventory_and_Yield.html"><a href="06-Inventory_and_Yield.html#carbon"><i class="fa fa-check"></i><b>7.5</b> Carbon</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="07-Forest_Health.html"><a href="07-Forest_Health.html"><i class="fa fa-check"></i><b>8</b> Forest Health/Natural Disturbance</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="07-Forest_Health.html"><a href="07-Forest_Health.html#fire"><i class="fa fa-check"></i><b>8.1</b> Fire</a></li>
+<li class="chapter" data-level="8.2" data-path="07-Forest_Health.html"><a href="07-Forest_Health.html#mountain-pine-beetle-ibm"><i class="fa fa-check"></i><b>8.2</b> Mountain Pine Beetle (IBM)</a></li>
+<li class="chapter" data-level="8.3" data-path="07-Forest_Health.html"><a href="07-Forest_Health.html#spruce-bark-beetle-ibs"><i class="fa fa-check"></i><b>8.3</b> Spruce Bark Beetle (IBS)</a></li>
+<li class="chapter" data-level="8.4" data-path="07-Forest_Health.html"><a href="07-Forest_Health.html#balsam-bark-beetle-ibb-and-balsam-decline"><i class="fa fa-check"></i><b>8.4</b> Balsam Bark Beetle (IBB) and Balsam Decline</a></li>
+<li class="chapter" data-level="8.5" data-path="07-Forest_Health.html"><a href="07-Forest_Health.html#drought-tranche"><i class="fa fa-check"></i><b>8.5</b> Drought Tranche</a></li>
+<li class="chapter" data-level="8.6" data-path="07-Forest_Health.html"><a href="07-Forest_Health.html#rusts"><i class="fa fa-check"></i><b>8.6</b> Rusts</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="08-Unit_Economics_Sensitivities.html"><a href="08-Unit_Economics_Sensitivities.html"><i class="fa fa-check"></i><b>9</b> Unit Economics Sensitivities</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="08-Unit_Economics_Sensitivities.html"><a href="08-Unit_Economics_Sensitivities.html#geographic-tranche"><i class="fa fa-check"></i><b>9.1</b> Geographic Tranche</a></li>
+<li class="chapter" data-level="9.2" data-path="08-Unit_Economics_Sensitivities.html"><a href="08-Unit_Economics_Sensitivities.html#operating-areas"><i class="fa fa-check"></i><b>9.2</b> Operating Areas</a></li>
+<li class="chapter" data-level="9.3" data-path="08-Unit_Economics_Sensitivities.html"><a href="08-Unit_Economics_Sensitivities.html#development-costs"><i class="fa fa-check"></i><b>9.3</b> Development Costs</a></li>
+<li class="chapter" data-level="9.4" data-path="08-Unit_Economics_Sensitivities.html"><a href="08-Unit_Economics_Sensitivities.html#relative-value"><i class="fa fa-check"></i><b>9.4</b> Relative Value</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="09-Cumulative_Effects.html"><a href="09-Cumulative_Effects.html"><i class="fa fa-check"></i><b>10</b> Cumulative Effects</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="09-Cumulative_Effects.html"><a href="09-Cumulative_Effects.html#caribou"><i class="fa fa-check"></i><b>10.1</b> Caribou</a></li>
+<li class="chapter" data-level="10.2" data-path="09-Cumulative_Effects.html"><a href="09-Cumulative_Effects.html#grizzly-bear"><i class="fa fa-check"></i><b>10.2</b> Grizzly Bear</a></li>
+<li class="chapter" data-level="10.3" data-path="09-Cumulative_Effects.html"><a href="09-Cumulative_Effects.html#fisher"><i class="fa fa-check"></i><b>10.3</b> Fisher</a></li>
+<li class="chapter" data-level="10.4" data-path="09-Cumulative_Effects.html"><a href="09-Cumulative_Effects.html#fisheries-sensitive-watersheds"><i class="fa fa-check"></i><b>10.4</b> Fisheries Sensitive Watersheds</a></li>
+<li class="chapter" data-level="10.5" data-path="09-Cumulative_Effects.html"><a href="09-Cumulative_Effects.html#aquatic-ecosystem-healthwhopr"><i class="fa fa-check"></i><b>10.5</b> Aquatic Ecosystem Health/WHOPR</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Mackenzie TSR Technical Summary</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="inventory-yield-and-carbon" class="section level1 hasAnchor" number="7">
+<h1><span class="header-section-number">Section 7</span> Inventory, Yield and Carbon<a href="06-Inventory_and_Yield.html#inventory-yield-and-carbon" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="inventory" class="section level2 hasAnchor" number="7.1">
+<h2><span class="header-section-number">7.1</span> Inventory<a href="06-Inventory_and_Yield.html#inventory" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The Vegetation Resources Inventory (VRI) is the standard for forest cover inventory in the province of British Columbia. It follows a set of procedures with associated standards, administered by the ministry.</p>
+<p>The VRI is a photo based, two phased program. Phase 1 delineates polygons of homogenous land cover types through photo interpretation and provides estimates of the vegetation attributes for each polygon. Phase 2 is ground sampling to verify the accuracy of volumes and some of the key Phase 1 vegetation attributes.</p>
+<p>VRI attribute adjustments, as described in early VRI documentation are not being applied to VRI inventories as a standard. When designed, the objective was to adjust VRI photo estimated inventories using the results of ground sampling data analyses. Procedures to adjust and maintain adjusted inventories are complex, and large sample sizes are needed to provide meaningful adjustments.Complex inventory adjustment procedures were developed, however, a database needed to accommodate the additional attributes/tools needed to house an adjusted inventory was not built. Based on the complexities and costs associated with adjusting and maintaining VRI inventories, development of these tools and database were discontinued. Ground sample data analyses (CMI/YSM) are currently being used to describe the accuracy of inventories.</p>
+<p>It should be noted that non-standard adjustments have been applied to inventories, where logical, to address known inventory concerns (i.e., using LiDAR to improve estimated heights, or reducing the live volumes in MPB impacted stands). The FAIB are currently testing/implementing new data/tools to adjust specific inventory attributes</p>
+<p>Phase I VRI program for the Mackenzie TSA was completed in 2012 and covers two thirds of the TSA with the northern third remaining. Most of the southern portion of the TSA (67%) is based on aerial photography acquired between 1999 and 2010, but some of the current forest inventory of the TSA is based on photography dating as far back as 1956.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:figure21"></span>
+<img src="images2/ref_year.png" alt="Mackenzie VRI Reference Year" width="80%" />
+<p class="caption">
+Figure 7.1: Mackenzie VRI Reference Year
+</p>
+</div>
+<p>The inventory data has been updated to 2020 for recent harvest depletions and major disturbances. To identify any harvested or disturbed areas not yet recorded in the inventory the consolidated cutblock layer was used. In addition to existing ministry databases the consolidated cutblock layer also includes satellite change detection data to identify any recent major disturbance areas not recorded in any of the other data sources.</p>
+<p>The Mackenzie TSA has been severely impacted by mountain pine beetle (IBM). FAIB has developed a process to estimate the amount of dead pine volume that exists in land bases affected by IBM. In 2015 the forest inventory incorporated changes to account for IBM losses. For inventories captured before the IBM outbreak like the Mackenzie TSA, stand density and volume estimates were adjusted / pro-rated based on the BC Provincial Mountain Pine Beetle Model (BCMPB) output and a Year of Death data layer</p>
+<p>A total of 1.309M ha had VRI/VDYP attributes adjusted affecting 49% of the THLB (518 334 ha). Yield curves developed for this TSR represent live (green) volume only based on the 2015 BCMPB adjustment.</p>
+</div>
+<div id="depletion-and-age-update" class="section level2 hasAnchor" number="7.2">
+<h2><span class="header-section-number">7.2</span> Depletion and Age Update<a href="06-Inventory_and_Yield.html#depletion-and-age-update" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The following SQL script implements the VRI age update:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb2-1"><a href="06-Inventory_and_Yield.html#cb2-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-2"><a href="06-Inventory_and_Yield.html#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="06-Inventory_and_Yield.html#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="kw">drop</span> <span class="kw">table</span> <span class="cf">if</span> <span class="kw">exists</span> tsa16_openings2020;</span>
+<span id="cb2-4"><a href="06-Inventory_and_Yield.html#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="06-Inventory_and_Yield.html#cb2-5" aria-hidden="true" tabindex="-1"></a>\echo <span class="co">---------------------------------------</span></span>
+<span id="cb2-6"><a href="06-Inventory_and_Yield.html#cb2-6" aria-hidden="true" tabindex="-1"></a>\echo <span class="kw">create</span> opening <span class="kw">table</span> <span class="kw">with</span> integrated_au</span>
+<span id="cb2-7"><a href="06-Inventory_and_Yield.html#cb2-7" aria-hidden="true" tabindex="-1"></a>\echo <span class="co">--------------------------------------</span></span>
+<span id="cb2-8"><a href="06-Inventory_and_Yield.html#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-9"><a href="06-Inventory_and_Yield.html#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="kw">create</span> <span class="kw">table</span> tsa16_openings2020 <span class="kw">as</span> (<span class="kw">select</span> a.ogc_fid, a.feature_id <span class="kw">as</span> vri_feature_id,a.open_id <span class="kw">as</span> vri_opening_id2020,</span>
+<span id="cb2-10"><a href="06-Inventory_and_Yield.html#cb2-10" aria-hidden="true" tabindex="-1"></a>a.cc_opening_id,</span>
+<span id="cb2-11"><a href="06-Inventory_and_Yield.html#cb2-11" aria-hidden="true" tabindex="-1"></a>a.cc_harvest_year,</span>
+<span id="cb2-12"><a href="06-Inventory_and_Yield.html#cb2-12" aria-hidden="true" tabindex="-1"></a>a.cc_data_source,</span>
+<span id="cb2-13"><a href="06-Inventory_and_Yield.html#cb2-13" aria-hidden="true" tabindex="-1"></a>a.n_log_dist,</span>
+<span id="cb2-14"><a href="06-Inventory_and_Yield.html#cb2-14" aria-hidden="true" tabindex="-1"></a>a.n_log_date, </span>
+<span id="cb2-15"><a href="06-Inventory_and_Yield.html#cb2-15" aria-hidden="true" tabindex="-1"></a>a.project_id,</span>
+<span id="cb2-16"><a href="06-Inventory_and_Yield.html#cb2-16" aria-hidden="true" tabindex="-1"></a>a.proj_date,</span>
+<span id="cb2-17"><a href="06-Inventory_and_Yield.html#cb2-17" aria-hidden="true" tabindex="-1"></a>a.ref_year,</span>
+<span id="cb2-18"><a href="06-Inventory_and_Yield.html#cb2-18" aria-hidden="true" tabindex="-1"></a>a.proj_age_1 <span class="kw">as</span> vri_age2020</span>
+<span id="cb2-19"><a href="06-Inventory_and_Yield.html#cb2-19" aria-hidden="true" tabindex="-1"></a><span class="kw">from</span> tsa16_ar2020 a <span class="kw">where</span> cc_harvest_year <span class="op">&gt;</span> <span class="dv">0</span>);</span>
+<span id="cb2-20"><a href="06-Inventory_and_Yield.html#cb2-20" aria-hidden="true" tabindex="-1"></a>vacuum tsa16_openings2020;</span>
+<span id="cb2-21"><a href="06-Inventory_and_Yield.html#cb2-21" aria-hidden="true" tabindex="-1"></a><span class="kw">analyze</span> verbose tsa16_openings2020;</span>
+<span id="cb2-22"><a href="06-Inventory_and_Yield.html#cb2-22" aria-hidden="true" tabindex="-1"></a><span class="kw">drop</span> <span class="kw">table</span> <span class="cf">if</span> <span class="kw">exists</span> tsa16_age2021;</span>
+<span id="cb2-23"><a href="06-Inventory_and_Yield.html#cb2-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-24"><a href="06-Inventory_and_Yield.html#cb2-24" aria-hidden="true" tabindex="-1"></a>\echo <span class="co">---------------------------------------</span></span>
+<span id="cb2-25"><a href="06-Inventory_and_Yield.html#cb2-25" aria-hidden="true" tabindex="-1"></a>\echo <span class="kw">create</span> age2020 spatial <span class="kw">table</span> <span class="kw">with</span> fids <span class="kw">table</span> (CFMLB)</span>
+<span id="cb2-26"><a href="06-Inventory_and_Yield.html#cb2-26" aria-hidden="true" tabindex="-1"></a>\echo <span class="co">-----------------------------------------</span></span>
+<span id="cb2-27"><a href="06-Inventory_and_Yield.html#cb2-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-28"><a href="06-Inventory_and_Yield.html#cb2-28" aria-hidden="true" tabindex="-1"></a><span class="kw">create</span> <span class="kw">table</span> tsa16_age2021 <span class="kw">as</span> (<span class="kw">select</span> a.ogc_fid <span class="kw">as</span> ogc,a.feature_id <span class="kw">as</span> fid,</span>
+<span id="cb2-29"><a href="06-Inventory_and_Yield.html#cb2-29" aria-hidden="true" tabindex="-1"></a>a.cflb_fact,</span>
+<span id="cb2-30"><a href="06-Inventory_and_Yield.html#cb2-30" aria-hidden="true" tabindex="-1"></a>a.wkb_geometry,</span>
+<span id="cb2-31"><a href="06-Inventory_and_Yield.html#cb2-31" aria-hidden="true" tabindex="-1"></a>b.<span class="op">*</span>,</span>
+<span id="cb2-32"><a href="06-Inventory_and_Yield.html#cb2-32" aria-hidden="true" tabindex="-1"></a>c.ru_id,</span>
+<span id="cb2-33"><a href="06-Inventory_and_Yield.html#cb2-33" aria-hidden="true" tabindex="-1"></a>c.fire_year,</span>
+<span id="cb2-34"><a href="06-Inventory_and_Yield.html#cb2-34" aria-hidden="true" tabindex="-1"></a>c.fire_severity_grid,</span>
+<span id="cb2-35"><a href="06-Inventory_and_Yield.html#cb2-35" aria-hidden="true" tabindex="-1"></a>proj_age_1 <span class="kw">as</span> vri_age2017,</span>
+<span id="cb2-36"><a href="06-Inventory_and_Yield.html#cb2-36" aria-hidden="true" tabindex="-1"></a>d.<span class="op">*</span></span>
+<span id="cb2-37"><a href="06-Inventory_and_Yield.html#cb2-37" aria-hidden="true" tabindex="-1"></a><span class="kw">from</span> fids a <span class="kw">left</span> <span class="kw">join</span> tsa16_openings2020 b <span class="kw">using</span> (ogc_fid) </span>
+<span id="cb2-38"><a href="06-Inventory_and_Yield.html#cb2-38" aria-hidden="true" tabindex="-1"></a><span class="kw">left</span> <span class="kw">join</span> tsa16_ar2018_inc c <span class="kw">using</span> (ogc_fid)</span>
+<span id="cb2-39"><a href="06-Inventory_and_Yield.html#cb2-39" aria-hidden="true" tabindex="-1"></a><span class="kw">left</span> <span class="kw">join</span> integrated_au d <span class="kw">on</span> a.feature_id <span class="op">=</span> d.feature_id); </span>
+<span id="cb2-40"><a href="06-Inventory_and_Yield.html#cb2-40" aria-hidden="true" tabindex="-1"></a>vacuum tsa16_age2021;</span>
+<span id="cb2-41"><a href="06-Inventory_and_Yield.html#cb2-41" aria-hidden="true" tabindex="-1"></a><span class="kw">analyze</span> verbose tsa16_age2021;</span>
+<span id="cb2-42"><a href="06-Inventory_and_Yield.html#cb2-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-43"><a href="06-Inventory_and_Yield.html#cb2-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-44"><a href="06-Inventory_and_Yield.html#cb2-44" aria-hidden="true" tabindex="-1"></a>\echo <span class="co">---------------------------------------</span></span>
+<span id="cb2-45"><a href="06-Inventory_and_Yield.html#cb2-45" aria-hidden="true" tabindex="-1"></a>\echo calculate fire_age: <span class="dv">10</span> <span class="dt">year</span> regen delay assigned radomly within severity polys adjusted <span class="kw">to</span> <span class="dv">2020</span></span>
+<span id="cb2-46"><a href="06-Inventory_and_Yield.html#cb2-46" aria-hidden="true" tabindex="-1"></a>\echo <span class="co">--------------------------------------</span></span>
+<span id="cb2-47"><a href="06-Inventory_and_Yield.html#cb2-47" aria-hidden="true" tabindex="-1"></a><span class="kw">alter</span> <span class="kw">table</span> tsa16_age2021 <span class="kw">add</span> <span class="kw">column</span> fire_age <span class="dt">numeric</span>;</span>
+<span id="cb2-48"><a href="06-Inventory_and_Yield.html#cb2-48" aria-hidden="true" tabindex="-1"></a><span class="kw">select</span> setseed(<span class="fl">0.5</span>);</span>
+<span id="cb2-49"><a href="06-Inventory_and_Yield.html#cb2-49" aria-hidden="true" tabindex="-1"></a><span class="kw">update</span> tsa16_age2021 <span class="kw">set</span> fire_age <span class="op">=</span> <span class="cf">case</span> </span>
+<span id="cb2-50"><a href="06-Inventory_and_Yield.html#cb2-50" aria-hidden="true" tabindex="-1"></a><span class="cf">when</span> fire_severity_grid <span class="op">=</span> <span class="dv">1</span> <span class="kw">and</span> <span class="kw">random</span>() <span class="op">&lt;=</span> <span class="fl">0.1</span> <span class="cf">then</span> <span class="dv">2011</span> <span class="op">-</span> fire_year </span>
+<span id="cb2-51"><a href="06-Inventory_and_Yield.html#cb2-51" aria-hidden="true" tabindex="-1"></a><span class="cf">when</span> fire_severity_grid<span class="op">=</span> <span class="dv">2</span> <span class="kw">and</span> <span class="kw">random</span>() <span class="op">&lt;=</span> <span class="fl">0.3</span> <span class="cf">then</span> <span class="dv">2011</span> <span class="op">-</span> fire_year</span>
+<span id="cb2-52"><a href="06-Inventory_and_Yield.html#cb2-52" aria-hidden="true" tabindex="-1"></a><span class="cf">when</span> fire_severity_grid<span class="op">=</span> <span class="dv">3</span> <span class="kw">and</span> <span class="kw">random</span>() <span class="op">&lt;=</span> <span class="fl">0.5</span> <span class="cf">then</span> <span class="dv">2011</span><span class="op">-</span> fire_year</span>
+<span id="cb2-53"><a href="06-Inventory_and_Yield.html#cb2-53" aria-hidden="true" tabindex="-1"></a><span class="cf">when</span> fire_severity_grid <span class="op">=</span> <span class="dv">4</span> <span class="kw">and</span> <span class="kw">random</span>() <span class="op">&lt;=</span> <span class="fl">0.95</span> <span class="cf">then</span> <span class="dv">2011</span> <span class="op">-</span> fire_year </span>
+<span id="cb2-54"><a href="06-Inventory_and_Yield.html#cb2-54" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span> vri_age2017 <span class="op">+</span> <span class="dv">3</span> <span class="cf">end</span>;</span>
+<span id="cb2-55"><a href="06-Inventory_and_Yield.html#cb2-55" aria-hidden="true" tabindex="-1"></a>                                                              </span>
+<span id="cb2-56"><a href="06-Inventory_and_Yield.html#cb2-56" aria-hidden="true" tabindex="-1"></a>\echo <span class="co">---------------------------------------</span></span>
+<span id="cb2-57"><a href="06-Inventory_and_Yield.html#cb2-57" aria-hidden="true" tabindex="-1"></a>\echo <span class="kw">start</span> age netdown</span>
+<span id="cb2-58"><a href="06-Inventory_and_Yield.html#cb2-58" aria-hidden="true" tabindex="-1"></a>\echo <span class="co">---------------------------------------</span></span>
+<span id="cb2-59"><a href="06-Inventory_and_Yield.html#cb2-59" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb2-60"><a href="06-Inventory_and_Yield.html#cb2-60" aria-hidden="true" tabindex="-1"></a><span class="kw">alter</span> <span class="kw">table</span> tsa16_age2021 <span class="kw">add</span> <span class="kw">column</span> age_adj <span class="dt">numeric</span>;</span>
+<span id="cb2-61"><a href="06-Inventory_and_Yield.html#cb2-61" aria-hidden="true" tabindex="-1"></a><span class="kw">update</span> tsa16_age2021 <span class="kw">set</span> age_adj <span class="op">=</span> <span class="cf">case</span> </span>
+<span id="cb2-62"><a href="06-Inventory_and_Yield.html#cb2-62" aria-hidden="true" tabindex="-1"></a><span class="cf">when</span> fire_severity_grid <span class="kw">is</span> <span class="kw">not</span> <span class="kw">null</span> <span class="kw">and</span> <span class="dv">2020</span> <span class="op">-</span> fire_year <span class="op">&gt;</span> rslt_age_2018 <span class="cf">then</span> fire_age</span>
+<span id="cb2-63"><a href="06-Inventory_and_Yield.html#cb2-63" aria-hidden="true" tabindex="-1"></a><span class="cf">when</span>  rslt_age_2018 <span class="kw">is</span> <span class="kw">not</span> <span class="kw">null</span> <span class="cf">then</span> rslt_age_2018 <span class="op">+</span><span class="dv">2</span></span>
+<span id="cb2-64"><a href="06-Inventory_and_Yield.html#cb2-64" aria-hidden="true" tabindex="-1"></a><span class="cf">when</span>  cc_harvest_year <span class="kw">is</span> <span class="kw">not</span> <span class="kw">null</span> <span class="cf">then</span> <span class="dv">2020</span> <span class="op">-</span> cc_harvest_year</span>
+<span id="cb2-65"><a href="06-Inventory_and_Yield.html#cb2-65" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span> fire_age <span class="cf">end</span>;</span>
+<span id="cb2-66"><a href="06-Inventory_and_Yield.html#cb2-66" aria-hidden="true" tabindex="-1"></a>                                                                  </span>
+<span id="cb2-67"><a href="06-Inventory_and_Yield.html#cb2-67" aria-hidden="true" tabindex="-1"></a>\echo <span class="co">---------------------------------------</span></span>
+<span id="cb2-68"><a href="06-Inventory_and_Yield.html#cb2-68" aria-hidden="true" tabindex="-1"></a>\echo clean_up crown forest</span>
+<span id="cb2-69"><a href="06-Inventory_and_Yield.html#cb2-69" aria-hidden="true" tabindex="-1"></a>\echo <span class="co">--------------------------------------    </span></span>
+<span id="cb2-70"><a href="06-Inventory_and_Yield.html#cb2-70" aria-hidden="true" tabindex="-1"></a><span class="kw">alter</span> <span class="kw">table</span> tsa16_age2021 <span class="kw">add</span> <span class="kw">column</span> age2020 <span class="dt">numeric</span>;</span>
+<span id="cb2-71"><a href="06-Inventory_and_Yield.html#cb2-71" aria-hidden="true" tabindex="-1"></a><span class="kw">update</span> tsa16_age2021 <span class="kw">set</span> age2020 <span class="op">=</span> <span class="cf">case</span> <span class="cf">when</span> cflb_fact <span class="op">&gt;</span> <span class="dv">0</span> <span class="kw">and</span> age_adj <span class="kw">is</span> <span class="kw">null</span> <span class="cf">then</span> <span class="dv">0</span> <span class="cf">else</span> age_adj <span class="cf">end</span>;</span></code></pre></div>
+</div>
+<div id="natural-stand-yield-tables-nsyt" class="section level2 hasAnchor" number="7.3">
+<h2><span class="header-section-number">7.3</span> Natural Stand Yield Tables (NSYT)<a href="06-Inventory_and_Yield.html#natural-stand-yield-tables-nsyt" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Existing natural stands are those that have not been logged or are not subject to silviculture treatment (planting/density control). Natural stands have had their yields projected using the Variable Density Yield Prediction (VDYP7) model. VDYP7 is an empirical growth and yield prediction model for natural stands, based upon data from temporary inventory sample plots and permanent growth and yield sample plots.</p>
+<p>In development of VDYP 7, both temporary sample plot (TSP) data that covered the majority of the province (52,000 plots), plus permanent sample plot (PSP) data (9,300 plots) were used. Additionally, inventory audit samples (2,700 plots) were used to validate the model. The strength of the model should also be about how it performs against independent data; in the case of the recent Mackenzie inventory assessment results, VDYP 7 projections were generally in agreement with ground measurements if anything trending to being conservative by about 7% (in overall volume comparisons).</p>
+<p>Below illustrates all growth natural PSPs in FAIB’s database in the BWBSdk, for both PL and SX mixed and pure species plots. This is the largest single BGC variant in Mackenzie. The average PSPL site index in Mackenzie is PL=18m, SW=19. This is plotted against a VDYP 7 run in the BWBS, PL:60% SX:40%, with leading site index = 20 (RED DASHED LINE). This comparison helps support the VDYP 7 projection as being robust and well within the range of the subjectively located PSP remeasured data.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:figure22"></span>
+<img src="images2/vdyp.bmp" alt="PSP in BSWSdk" width="90%" />
+<p class="caption">
+Figure 7.2: PSP in BSWSdk
+</p>
+</div>
+<p>The live volume projections for natural stands were created for each inventory polygon. Input information for the VDYP7 model is drawn from attributes of individual VRI polygons, each of which will constitute a discrete analysis unit for naturally established stands in the base case.</p>
+<p>Dead volume estimates due to the mountain pine beetle infestation are discussed in the Forest Health Section - Mountain Pine Beetle. The natural stand yield estimates were then adjusted in the timber supply model to account for losses due to natural disturbance not captured in the inventory. See Forest Health Section - Spruce Bark Beetle and Forest Health Section - Balsam Decline for future discussion.</p>
+<p>Sensitivity analysis assessed the impacts of increasing and decreasing natural stand yield estimates by 5%, 15%, and 25% respectively.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:figure23"></span>
+<img src="images2/nsyt.png" alt="NSYT Sensitivities" width="80%" />
+<p class="caption">
+Figure 7.3: NSYT Sensitivities
+</p>
+</div>
+<div id="change-monitoring-inventory-cmi" class="section level3 hasAnchor" number="7.3.1">
+<h3><span class="header-section-number">7.3.1</span> Change Monitoring Inventory (CMI)<a href="06-Inventory_and_Yield.html#change-monitoring-inventory-cmi" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>In 2018/2019 FAIB initiated a Change Monitoring Inventory (CMI) sampling program for the Mackenzie TSA. The program established 134 plots in mature forest on a systematic grid spanning the southern two-thirds of the TSA. Data from the CMI plots were summarised and contrasted with data collected from 59 additional mature phase 1 audit plots established in 2011 to assess inventory metrics used to determine natural stand yield estimates (NSYT). The combined sampling coverage makes Mackenzie TSA one of the most intensely sampled units in the province.</p>
+<p>Some of the major findings of the survey include:</p>
+<p>– Detailed statistical analysis suggests that the ratio of CMI ground sample yield estimates with the phase 1 volume per hectare estimates (based on TSR NSYT volume estimates) likely falls within a region of practical equivalence and that the phase 1 volume estimates should be considered a reasonable approximation of the ground condition.</p>
+<p>– Sampling suggests there is a statistically significant difference between balsam volume estimated from the ground plots and those estimated in the phase 1. Sampling suggests Balsam is substantially underestimated in the phase 1 inventory.</p>
+<p>– The CMI sampling also suggests that dead pine volume is overestimated in the phase 1, but there is significantly more merchantable dead balsam volume, which has not been captured in the inventory.</p>
+</div>
+</div>
+<div id="managed-stand-yield-tables-msyt" class="section level2 hasAnchor" number="7.4">
+<h2><span class="header-section-number">7.4</span> Managed Stand Yield Tables (MSYT)<a href="06-Inventory_and_Yield.html#managed-stand-yield-tables-msyt" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>In the base case, managed stand yield estimates were produced using Table Interpolation Program for Stand Yields (TIPSY) console. TIPSY provides yield tables for single species and even aged stands based upon the interpolation of yield tables generated by the individual tree growth model Tree and Stand Simulator (TASS). Mixed species yield tables generated by TIPSY are weighted averages of single species yields and do not directly consider inter species interactions.</p>
+<p>BatchTipsy Composer version 2019.10.28 was be used for this analysis. This version uses a database of TASS III generated yield tables for lodgepole pine and white spruce and TASS II generated yield tables for all other species.</p>
+<p>Generating unique yield curves fully utilizes field data stored in both the VRI and RESULTS databases. Input information for TIPSY was based on stand initiation characteristics including species, initial density, regeneration method (planted or natural), genetic gains, and potential site index. TIPSY also enables considerations for various silviculture treatments, forest health, and general operational adjustment factors.</p>
+<p>The species composition for existing managed stands was taken from RESULTS and augmented with natural stand composition using total stems from VRI survey data. Species composition was adjusted by combining the two sets of data to allow for changes in species composition from the time of planting until the time of survey. The PSPL was used for assigning site index for managed stands at the opening id or feature id level. If PSPL site index didn’t exist, a BEC zone and subzone average was used.</p>
+<p>In addition to a set of managed stand yield tables (MSYTs), a stand age was derived from RESULTS for those stands that are currently managed. The age was intended for use in timber supply modeling.Stands that did not have sufficient existing data were assigned to an aggregate yield curve. These curves had a species composition and density derived from an average of the BEC zone and subzone based on recent planting history in the TSA. The curves were linked to a feature_id (provincially unique identifier) using BEC zone and subzone. In addition, a feature_id species specific set of site indices were derived from the PSPL.</p>
+<p>Over the timber supply modelling horizon stands may transition from one stand type to another, this is to ensure that an appropriate yield is projected for each stand under different conditions throughout the planning horizon. As discussed, natural stands require a VDYP yield curve for their current condition, and a TIPSY yield curve for their future managed condition.</p>
+<p>Existing managed stands (stands with a silviculture record) regenerated prior to 1987 require a TIPSY yield curves to reflect their current and future conditions. These stands are built in TIPSY assuming stems are regenerated naturally because stands regenerated prior to 1987 have limited planting records and were frequently regenerated without stocking standards. Existing managed stands regenerated after 1987 require a single yield curve, assuming stems are planted, to reflect their current and future conditions; this is based on the assumption that their future condition will be very similar to their current condition.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:figure24"></span>
+<img src="images2/msyt.png" alt="MSYT Sensitivities" width="80%" />
+<p class="caption">
+Figure 7.4: MSYT Sensitivities
+</p>
+</div>
+<div id="young-stand-monitoring-ysm" class="section level3 hasAnchor" number="7.4.1">
+<h3><span class="header-section-number">7.4.1</span> Young Stand Monitoring (YSM)<a href="06-Inventory_and_Yield.html#young-stand-monitoring-ysm" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>In 2018/2019 FAIB initiated a Young Stand Monitoring (YSM) sampling program establishing 51 plots across the Mackenzie TSA. The target population focused on 15 - 50-year-old stands in the analysis forest as defined by the VRI rank 1 layer.</p>
+<p>Some key YSM objectives are to: describe the characteristics and structure of young stands, report on forest health, assess the accuracy of predicted attributes, and compare against growth models to help evaluate if young stands will meet future timber supply expectations.</p>
+<p>The Mackenzie YSM samples established in 2018 are scheduled for five-year remeasurement in 2023 and will provide for growth comparisons between ground measurements and TIPSY projections. In addition, neighbouring TSAs have had 5year remeasurements already completed, and to date have shown that TASS / TIPSY projected growth rates are consistent with (Williams Lake) or conservative (Prince George) when compared against actual ground measured growth rates.</p>
+<p>Some of the major findings of the Mackenzie survey include:</p>
+<p>– There is a statistically significant difference in yield between the MSYT at age 60 for the plots sampled and the projected plot yields based on the sample data. YSM sampling suggests that the MSYT are conservative in their yield estimates.</p>
+<p>– There is a statistically significant site index bias between the PSPL and the ground sample with the PSPL underestimating Spruce site index by up to 19% on average.</p>
+<p>– The deciduous proportion in the YSM samples (% of total volume sampled) was 20% suggesting substantial engress of deciduous in managed stands</p>
+<p>– There was 75% agreement between the species composition from YSM ground samples as compared with the MSYT inputs (derived from RESULTS and the VRI)</p>
+<p>YSM/MSYT Comparison</p>
+<p>YSM samples are on a grid and therefore represent an unbiassed sample of the young stand population. We spatially matched each YSM plot location with a TSR-based MSYT / NSYT to compare against and ask the question: “will the growth of young stands meet TSR expectations at rotation?”. Without yet having remeasured YSM plot data up to rotation, we need an interim method to project the stem mapped YSM tree lists to rotation age. All ground-based attributes are used to project YSM samples forward (i.e.., ground based site index, species composition, tree size, spatial distribution pattern, forest health incidence), because the goal is to compare measured ground data against a TSR based MSYT / NSYT. The differences in parametrization of yield projections are intentional for the purposes of comparing TSR assumptions / expectations, against YSM remeasured data (supplemented with TASS projections where remeasured YSM data are not yet available).</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:figure25"></span>
+<img src="images2/ysm.png" alt="MSYT/YSM(TASS) Comparison " width="80%" />
+<p class="caption">
+Figure 7.5: MSYT/YSM(TASS) Comparison
+</p>
+</div>
+</div>
+<div id="site-productivity" class="section level3 hasAnchor" number="7.4.2">
+<h3><span class="header-section-number">7.4.2</span> Site Productivity<a href="06-Inventory_and_Yield.html#site-productivity" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Site index is a measurement of site productivity based on the height of a site tree at breast height age 50 years.</p>
+<p>In the base case, volume estimates for natural stands used inventory site index estimates derived using Site Tools while volume estimates for managed stands utilized estimates from the Provincial Site Productivity Layer (PSPL) version 7.
+The PSPL is a database of site index values for commercial species, which can be linked to the ecological, biophysical, and/or climatic conditions of growing sites across the province. The PSPL layer utilizes the same one-hectare grid framework as FAIB’s spatial data management process applied in this TSR.</p>
+<p>A site index value is provided for each species that could potentially be found growing in each hectare based on the ecological, biophysical, and/or climatic conditions of that hectare.</p>
+<p>There are two sources of site index estimates in the PSPL:</p>
+<p>– The first source uses the Site Index Estimates by BEC Site Series (SIBEC) model which provides site index estimates based on ecosystem classifications from predictive ecosystem mapping (PEM) or a terrestrial ecosystem mapping (TEM). The SIBEC model provides site index estimate for multiple tree species that are expected to be found growing on each of the BEC site series across the province.</p>
+<p>– The other source is the biophysical model developed by FAIB which is a regression equation that predicts site index from BEC zone and biophysical variables, such as slope, aspect, elevation, and climate variables. The biophysical model is applied where the PEM or TEM data required for SIBEC are not available or are not reliable. The SIBEC model currently does not cover all BEC site series and tree species combinations across the province and the biophysical model is applied to these exceptions.</p>
+<p><strong>The following describes the process of site index assignmnet for MSYT production:</strong></p>
+<p>Site Productivity data is joined with the VRI (for every feature that can grow trees) in the following order:</p>
+<ol style="list-style-type: decimal">
+<li>PEM/TEM + SIBEC<br />
+</li>
+<li>BIOPHYSICAL Model<br />
+</li>
+<li>Nearest Neighbour (99m)<br />
+</li>
+<li>Site Index Conversion(s)<br />
+</li>
+<li>Bec zone/subzone averages<br />
+</li>
+<li>Site Index Conversion(s) on the averages<br />
+</li>
+<li>VRI site index for leading species</li>
+</ol>
+<p>Site Productivity (SP) Points</p>
+<ul>
+<li>a set of points are generated that cover the province in a regular grid</li>
+<li>a grid point is <strong>only</strong> generated where the point covers a <strong>“forested”</strong> area</li>
+<li>a site index is assigned to this point in a hierarchical manner</li>
+</ul>
+<ol style="list-style-type: decimal">
+<li>PEM/TEM + SIBEC
+<ul>
+<li>PEM/TEM map the spatial site series</li>
+<li>SIBEC provides the site index for the site series</li>
+<li>SIBEC currently does not cover all site series found in PEM/TEM</li>
+<li>PEM/TEM does not cover the entire province</li>
+<li>only the approved PEM/TEM are used for TSR</li>
+</ul></li>
+<li>BIOPHYSICAL Model
+<ul>
+<li>where SIBEC is not complete or a PEM/TEM is not available, a biophysical model is used to generate site index</li>
+<li>the biophysical model is extrapolated to +/-5% beyond the range of the data used to develop the model</li>
+<li>beyond this, NULL site index values are generated, leading to some SP points appearing in the data with NULL values
+Merge SP points and VRI</li>
+</ul></li>
+</ol>
+<ul>
+<li>intersect the SP Points with VRI polygons</li>
+<li>attach a VRI feature id to each SP Point</li>
+<li>where a <strong>“treed”</strong> polygonal feature exists in VRI but not in the SPROD:
+<ul>
+<li>find any sprod points (with valid site index values) that are within 99m of the polygon</li>
+<li>assign these site index values to the VRI feature id</li>
+</ul></li>
+</ul>
+<p>Run site index conversions on all points to fill in gaps</p>
+<ul>
+<li>example: Sx site index provided, but either Sw or Se is missing</li>
+<li>in general we don’t have Sx, we have either Sw or Se so need these site index values</li>
+<li>hence why we have to run the site index conversions</li>
+<li>TASS requires a site index for each species</li>
+<li>Tipsy has been modified to accept all species site index as opposed to leading species site index</li>
+<li>we don’t have a site index equation for Sx</li>
+<li>Note that Se is generally found in ESSF</li>
+</ul>
+<p>Create average site index values</p>
+<ul>
+<li>generate a set of average site index (by species) for each VRI feature</li>
+<li>generate a set of average site index (by species) for each BEC zone and sub zone</li>
+<li>this averaging may give a slight upward bias since area from a Bec zone/subzone may be missing</li>
+<li>the assumption is that the excluded areas probably have a lower site index</li>
+</ul>
+<p>Run site index conversions on the bec averages
+- again need to fill in the gaps</p>
+<p><strong>Species lookup for Site index</strong></p>
+<p>Volume table derivation requires that each tree species be assigned an appropraite site index value. A set of Planted species and/or a set of Ingress species are derived from Results data. The site index for each of these species is derived using a lookup to the site indices by species generated as detailed above.</p>
+<p>In some cases, a species found in Results may not have an equivalent species site index in site productivity. There are a number of substitutions that can be applied to attempt to replace the missing site indices with reasonable values. These are, in order:</p>
+<ol style="list-style-type: decimal">
+<li>Use the bec zone/subzone averages for species
+<ul>
+<li>example: if Bg is missing a site index value, look up the average Bg site index for the bec zone/subzone</li>
+</ul></li>
+<li>Where species specific site index values are still missing, get the leading species site index values for all openings within a VRI feature_id. Use these to fill in the missing site index values. This may require an additional site index conversion run. Note that when the VRI site index is used, if there is an opening link to Results, the site index in VRI is actually the Results site index.</li>
+</ol>
+<p><strong>Site Index from ground samples:</strong></p>
+<p>The question often arises: why not use site index from Results instead of the Site Producitivity site index?</p>
+<p>In general it is good practice to obtain site index values from ground sampling. In Silviculture surveys, this is accomplished using the growth intercept method. However, in practice only 6% of openings in the Province use this method to capture a site index. So we can only consider replacing a Site Productivity site index in 6% of the areas surveyed in the province.</p>
+<p>There is a potential that some of the ground measured trees were planted trees with genetic gain. If a tree with a positive genetic gain was used to determine the SI in the field, the genetic gain would also be applied in the yield curves - essentially double counting the gain that would result in higher modeled yields than expected.</p>
+<p>Given the above factors, VRI is used to fill the final missing site index values.</p>
+<p>The YSM sample program provides a mechanism to quatify the differences between site index on the ground and site index from the Site Productivity tile. This is verified on a managment unit basis. Only if there is a significant difference beween the two is there a reason to look at using the results site index.</p>
+<p>Sensitivity analysis explored the effect of increasing the average site index for Spruce for managed stand yields by 18%. Spruce makes approximately 50% of the species composition in existing managed stands and approximately 45% in future (modelled based) managed stands. In pure Spruce (Sw or Se) stands this yields an average 33.5% increase in volume between ages 70 - 90 years. The following chart depicts the harvest flow when Sw site index is increased by 18% (red line). The MSYT sensitivities (increase MSYT yield by 15 and 25%) have been included for contrast.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:figure26"></span>
+<img src="images2/si.png" alt="Site Index Sensitivity " width="80%" />
+<p class="caption">
+Figure 7.6: Site Index Sensitivity
+</p>
+</div>
+</div>
+<div id="genetic-worth" class="section level3 hasAnchor" number="7.4.3">
+<h3><span class="header-section-number">7.4.3</span> Genetic Worth<a href="06-Inventory_and_Yield.html#genetic-worth" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Licensees are obliged by regulation to use the best available seed source when regenerating sites with planted stock. Planted stock may have faster growth than natural trees that regenerate on the site. The faster growth may be due to either use of high quality genetically improved seed from seed orchards or use of seed harvested from superior wild trees.</p>
+<p>Tree improvement programs cycle between generations of testing, selection and breeding</p>
+<ul>
+<li>Parents are evaluated based on the performance of their offspring in progeny tests which are well replicated and use peer reviewed experimental design</li>
+<li>Data is collected after 10 to 15 years of field testing</li>
+<li>The best parents and the best offspring from the best families are selected for seed orchards</li>
+<li>Each tree is given a “breeding value” that represents its genetic contribution to a trait like growth</li>
+<li>Breeding values are calculated from measurements in field trials and the family connections throughout the program increase the precision of estimates</li>
+<li>Each generation new data is collected that improves the accuracy of all values</li>
+<li>Genetic worth estimates for a seed orchard seedlot are based on breeding values calculated from multiple years of field data and all the family connections tested in many different environments</li>
+</ul>
+<p>As such genetic worth is an indication of the quality of genetically improved seed, as represented by a percentage volume increase expected near rotation age. Information on the use of select seed and the associated genetic gains are available from the Seed Planning and Registry Application (SPAR) of the Forest Improvement and Research Management Branch. RESULTS information provides a seed source for individual plantations and thus enables linkage to the genetic gain database.</p>
+<p>The seed use and its genetic worth recorded in RESULTS for each existing managed stand was considered in the production of the yield curves used in the base case.</p>
+<p>In the Mackenzie TSA Pl comprises 56% of the species composition planted since 2010 of which 36% were sown from select seed. Sx comprises 43% of the species planted of which 87% were sown from select seed.The weighted average of select seed used (from which genetic worth is estimated) since 2010 equals 58% of all seedlings sown of which over 69% has a genetic worth &gt; 0. Of that select seed sown over the past decade the total weighted average of genetic worth was 19%. The weighted average genetic worth for Pl select seed is 9% while the weighted average genetic worth for Sx select seed is 24%.</p>
+<p>The values reported in SPAR are greater than the genetic gain values reported in RESULTS that were used to produce MSYT.
+For future MSYT used in the base case the average genetic worth assignment for Pl is 1.5% while the average genetic worth assignment for Sw and Se is 19% and 14%, respectively.</p>
+</div>
+</div>
+<div id="carbon" class="section level2 hasAnchor" number="7.5">
+<h2><span class="header-section-number">7.5</span> Carbon<a href="06-Inventory_and_Yield.html#carbon" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Forest carbon is of emerging importance in forest management in British Columbia. The implementation of projects under the Forest Carbon Initiative (FCI) should be considered as management practice impacts on forest carbon. The carbon stocks in a given forest ecosystem are described by different carbon pools. The five terrestrial ecosystem carbon pools defined by the Intergovernmental Panel on Climate Change (IPCC) include aboveground biomass carbon (ABC), belowground biomass carbon (BBC), dead organic matter (DOM), forest floor litter (FFL), and soil organic carbon (SOC). The sum of all fives pools is referred to as total ecosystem carbon (TEC).</p>
+<p>From the climate change perspective, regardless of what management strategies are implemented on the ground, the ultimate goal is to reduce greenhouse gas (GHG) emissions to the atmosphere. The net ecosystem carbon balance (NECB) is used to describe the net change between the given ecosystem and the atmosphere. If the atmosphere is used as the basis for measuring gains or losses, a positive NECB means the atmospheric carbon pool is increasing, thus, the given ecosystem is losing carbon, namely, a carbon source ecosystem, while a negative NECB means the ecosystem is a carbon sink.</p>
+<p>In order to make different GHGs (e.g., carbon dioxide, methane) comparable in carbon accounting, carbon dioxide equivalent (CO2e) is adopted, and a global warming potential (GWP) over 100 years is used to convert each greenhouse gas into CO2e. The conversions in this analysis are: 1 CO = 1 CO2e; 1 CH4 = 25 CO2e; 1 N2O = 298 CO2e. The harvested wood product (HWP) 100 years retention factors were used according to “Protocol for the Creation of Forest Carbon Offsets in British Columbia Version 1.0”. In this analysis, a set of simple factors 0.234 and 0.405 were adopted for carbon in-use and carbon in-landfill after 100 years, respectively.</p>
+<p>In the base case, the harvest flow was 2.97 and 2.69 million cubic metres for the first 10 years (2020-2029), and the next 10 years (2030-2039), respectively. The harvest flow was 2.47 million cubic metres for the next 70 years, and in the year 100, the harvest level was 2.63 million cubic metres. The other major disturbances causing direct GHG emissions were also modelled, such as wildfires (~6164 ha per year in non-THLB and ~820 ha per year in THLB) and future road building (~208 ha per year).</p>
+<p>The graph below describes the total ecosystem carbon (TEC) in TSA, THLB and nonTHLB.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:figure66"></span>
+<img src="images2/carb1.png" alt="Area by Disturbance Category" width="90%" />
+<p class="caption">
+Figure 2.10: Area by Disturbance Category
+</p>
+</div>
+<p>The graph below describes the forest carbon for the Mackenzie TSA base case (ABC: Aboveground Biomass Carbon, BBC: Belowground Biomass Carbon, FFL: Forest Floor Litter, DOM: Dead Organic Matter, SOC: Soil Organic Carbon).</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:figure67"></span>
+<img src="images2/carb2.png" alt="Forest Carbon" width="90%" />
+<p class="caption">
+Figure 2.11: Forest Carbon
+</p>
+</div>
+<p>In 2020, the aboveground biomass carbon (ABC), belowground biomass carbon (BBC), forest floor litter (FFL), dead organic matter (DOM), and soil organic carbon (SOC) pool are around 746, 166, 663, 223, and 910 Mt CO2e, respectively. All the pools are relatively stable, except the ABC, which decrease ~26.8% over the first 100 years due to harvesting and fires.</p>
+<p>The total ecosystem carbon (TEC, see figure below) increased about 1.2% in non-THLB, while it decreased about 22.6% in THLB. The cause of the decrease in THLB is largely due to harvesting and all the harvested wood products being treated as one-time emissions.</p>
+<p>The graph below describes the total ecosystem carbon (TEC) in TSA, THLB and non-THLB</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:figure68"></span>
+<img src="images2/carb3.png" alt="Total Ecosystem Carbon" width="90%" />
+<p class="caption">
+Figure 7.7: Total Ecosystem Carbon
+</p>
+</div>
+<p>The carbon density varied according to land use types, ranged from 200 tonnes per hectare (wildlife habitat areas) to 261 tonnes per hectare (provincial parks and miscellaneous reserves), with a mean of 243 tonnes per hectare for the whole TSA. The table below describes the land use types areas, total ecosystem carbon (TEC), and carbon density.</p>
+<table class="table table-striped" style="font-size: 10px; margin-left: auto; margin-right: auto;">
+<caption style="font-size: initial !important;">
+<span id="tab:table24">Table 7.1: </span>Land Use Types
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+Land use Type
+</th>
+<th style="text-align:left;">
+Area (ha)
+</th>
+<th style="text-align:right;">
+TEC (Mt C)
+</th>
+<th style="text-align:right;">
+Carbon Density (T/ha)
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Inaccessible Forest
+</td>
+<td style="text-align:left;">
+8,557
+</td>
+<td style="text-align:right;">
+2.1
+</td>
+<td style="text-align:right;">
+245
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Inoperable Forest
+</td>
+<td style="text-align:left;">
+774,647
+</td>
+<td style="text-align:right;">
+178.7
+</td>
+<td style="text-align:right;">
+231
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Non-Merchantable Forest
+</td>
+<td style="text-align:left;">
+129,897
+</td>
+<td style="text-align:right;">
+29.2
+</td>
+<td style="text-align:right;">
+225
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Old growth management areas
+</td>
+<td style="text-align:left;">
+46,294
+</td>
+<td style="text-align:right;">
+11.1
+</td>
+<td style="text-align:right;">
+239
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Provincial parks and miscellaneous reserves
+</td>
+<td style="text-align:left;">
+364,047
+</td>
+<td style="text-align:right;">
+94.9
+</td>
+<td style="text-align:right;">
+261
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Ungulate winter ranges
+</td>
+<td style="text-align:left;">
+291,898
+</td>
+<td style="text-align:right;">
+61.8
+</td>
+<td style="text-align:right;">
+212
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Wildlife habitat areas
+</td>
+<td style="text-align:left;">
+34,423
+</td>
+<td style="text-align:right;">
+6.9
+</td>
+<td style="text-align:right;">
+200
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Retention
+</td>
+<td style="text-align:left;">
+117,100
+</td>
+<td style="text-align:right;">
+29.7
+</td>
+<td style="text-align:right;">
+253
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Timber Harvesting Landbase
+</td>
+<td style="text-align:left;">
+1,228,877
+</td>
+<td style="text-align:right;">
+313.2
+</td>
+<td style="text-align:right;">
+255
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Total
+</td>
+<td style="text-align:left;">
+2,995,740
+</td>
+<td style="text-align:right;">
+727.5
+</td>
+<td style="text-align:right;">
+243
+</td>
+</tr>
+</tbody>
+</table>
+<p>The graph below describes greenhouse gas emissions by disturbance types (wildfire, harvests, slash burning, and road building) and net ecosystem carbon balances (NECB).</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:figure69"></span>
+<img src="images2/carb4.png" alt="Green house Gas Emissions" width="90%" />
+<p class="caption">
+Figure 7.8: Green house Gas Emissions
+</p>
+</div>
+<p>The TSA is a carbon source (NECB &gt; 0, see figure below), with an annual carbon loss of ~2.7 (range varies from 1.4 to 3.6) Mt CO2e over the 100 years analysis forecasts. The major carbon sources are timber harvesting, which releases ~3.3 Mt CO2e annually, ranging from 2.9 to 3.9 Mt CO2e depending on harvests (all the harvested logs are treated as one-time emission). The wildfires are the second largest carbon source, releasing ~1.2 Mt CO2e annually (ranging from 0.8 to 1.6 Mt CO2e). Slash-burnings release ~0.7 Mt CO2e in annual emissions (ranging from 0.6 to 0.9 Mt CO2e). Future road building is ~ 0.03 Mt CO2e, per year.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:figure70"></span>
+<img src="images2/carb5.png" alt="Carbon Status" width="90%" />
+<p class="caption">
+Figure 7.9: Carbon Status
+</p>
+</div>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="05-Landbase_Definition.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="07-Forest_Health.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subssection",
+"scroll_highligt": true
+}
+});
+});
+</script>
+
+</body>
+
+</html>
