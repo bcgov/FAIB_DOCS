@@ -3,7 +3,7 @@
 
 
 
-# Forest Health/Natural Disturbance
+# Forest Health/Natural Disturbance{#pathways}
 
 Forest Health and the potential impacts of [climate change on natural disturbance](https://www2.gov.bc.ca/assets/gov/environment/natural-resource-stewardship/nrs-climate-change/applied-science/2c_va_disturbance-aug30-final.pdf) is a major theme for this review. Yield adjustments where made to account for mortality not captured in the inventory and stand recovery was also simulated in the timber supply model. The following schematic depicts the various potential pathways for stand treatment in the timber supply model.
 

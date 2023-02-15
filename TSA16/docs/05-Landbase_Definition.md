@@ -1,7 +1,7 @@
 
 
 
-# Landbase Definition
+# Landbase Definition{#netdown}
 
 The Analysis Forest Landbase (AFLB) refers to the forested area of the TSA that the provincial government manages for a variety of natural resource values.  This excludes non-forested areas (e.g., water, rock and ice), non-productive forest (e.g., alpine areas, areas with very low productivity, roads),non-commercial forest (e.g., brush areas), and areas excluded from the TSA for analysis purpose (Area-based tenures, private land).  The analysis forest does include federally-protected areas because of their contribution to biodiversity. 
 

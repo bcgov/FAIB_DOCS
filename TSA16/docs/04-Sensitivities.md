@@ -90,7 +90,7 @@ The following table details a selection of sensitivity analysis and alternative 
   <tr>
    <td style="text-align:left;"> Merchantability definition </td>
    <td style="text-align:left;"> MHA &gt; 80 years OR MHV &gt; 125 cubic metres per year </td>
-   <td style="text-align:left;"> 3.3 million cubic metres per year (held for first 3 decades) </td>
+   <td style="text-align:left;"> 3.3 million cubic metres per year (held for first 3&lt;a0&gt;decades) </td>
    <td style="text-align:left;"> + 11/22/33 % over first 3 decades </td>
    <td style="text-align:left;"> 11.00% </td>
    <td style="text-align:left;"> 22.00% </td>
@@ -222,7 +222,7 @@ The following table details a selection of sensitivity analysis and alternative 
   <tr>
    <td style="text-align:left;"> Deciduous </td>
    <td style="text-align:left;"> Partition All Deciduous leading stands </td>
-   <td style="text-align:left;"> 2.78 million cubic metres per year/Deciduous partition = 210 000 cubic metres per year </td>
+   <td style="text-align:left;"> 2.78 million cubic metres per year/Deciduous partition = 210&lt;a0&gt;000 cubic metres per year </td>
    <td style="text-align:left;"> -6.50% </td>
    <td style="text-align:left;"> -6.50% </td>
    <td style="text-align:left;"> 0.00% </td>
@@ -232,7 +232,7 @@ The following table details a selection of sensitivity analysis and alternative 
   </tr>
   <tr>
    <td style="text-align:left;"> Deciduous </td>
-   <td style="text-align:left;"> Remove all Deciduous leading stands &gt; 75 % </td>
+   <td style="text-align:left;"> Remove all Deciduous leading stands &gt;&lt;a0&gt;75 % </td>
    <td style="text-align:left;"> 2.93 million cubic metres per year </td>
    <td style="text-align:left;"> -1.50% </td>
    <td style="text-align:left;"> -1.50% </td>
@@ -243,8 +243,8 @@ The following table details a selection of sensitivity analysis and alternative 
   </tr>
   <tr>
    <td style="text-align:left;"> Deciduous </td>
-   <td style="text-align:left;"> Partition Deciduous leading stand &gt; 75 % </td>
-   <td style="text-align:left;"> 2.93 million cubic metres per year / Deciduous partition = 63 000 cubic metres per year </td>
+   <td style="text-align:left;"> Partition Deciduous leading stand &gt;&lt;a0&gt;75 % </td>
+   <td style="text-align:left;"> 2.93 million cubic metres per year / Deciduous partition = 63&lt;a0&gt;000&lt;a0&gt;cubic metres per year </td>
    <td style="text-align:left;"> -1.50% </td>
    <td style="text-align:left;"> -1.50% </td>
    <td style="text-align:left;"> 0.00% </td>
@@ -287,7 +287,7 @@ The following table details a selection of sensitivity analysis and alternative 
   </tr>
   <tr>
    <td style="text-align:left;"> Harvest system </td>
-   <td style="text-align:left;"> Remove mixed and cable ground from THLB in the North (Rest of the TSA – ROT) </td>
+   <td style="text-align:left;"> Remove mixed and cable ground from THLB in the North (Rest of the TSA &lt;96&gt; ROT) </td>
    <td style="text-align:left;"> 2.43 million cubic metres per year </td>
    <td style="text-align:left;"> -18.30% </td>
    <td style="text-align:left;"> -18.30% </td>
@@ -419,7 +419,7 @@ The following table details a selection of sensitivity analysis and alternative 
   </tr>
   <tr>
    <td style="text-align:left;"> Balsam decline/ Climate Change </td>
-   <td style="text-align:left;"> Yield curves from mature Balsam leading stands (&gt; 50 percent Balsam) decremented 1 percent per year </td>
+   <td style="text-align:left;"> Yield curves from mature Balsam leading stands (&gt;&lt;a0&gt;50 percent Balsam) decremented 1&lt;a0&gt;percent per year </td>
    <td style="text-align:left;"> 2.8 million cubic metres per year </td>
    <td style="text-align:left;"> -3.20% </td>
    <td style="text-align:left;"> -3.20% </td>
@@ -452,7 +452,7 @@ The following table details a selection of sensitivity analysis and alternative 
   </tr>
   <tr>
    <td style="text-align:left;"> NRL </td>
-   <td style="text-align:left;"> Apply OAF2 to capture NRL losses in NSYT dynamically over time (incrementally increasing to 6 percent at 130 years) </td>
+   <td style="text-align:left;"> Apply OAF2 to capture NRL losses in NSYT dynamically over time (incrementally increasing to 6&lt;a0&gt;percent at 130&lt;a0&gt;years) </td>
    <td style="text-align:left;"> 2.73 million cubic metres per year </td>
    <td style="text-align:left;"> -8.3/-8.3% in 1st and 2nd periods respectively </td>
    <td style="text-align:left;"> -8.30% </td>

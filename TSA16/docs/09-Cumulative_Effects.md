@@ -202,976 +202,976 @@ export(grizBC, 'c:/data/tsa16/grizzly/grizCore.csv')
 ```
  - Determine the proportion of core area each unit and classify (flag) units based on 60% threshold for each time step modeled and create choropleth maps based on threshold flag.
 
- <table class="table table-striped" style="font-size: 8px; margin-left: auto; margin-right: auto;">
- <caption style="font-size: initial !important;">(\#tab:table11) Grizzly Core Area Summary</caption>
-  <thead>
-   <tr>
-    <th style="text-align:left;"> GBPU </th>
-    <th style="text-align:left;"> Assessment Unit </th>
-    <th style="text-align:left;"> ha </th>
-    <th style="text-align:left;"> sum.FilteredCore0 </th>
-    <th style="text-align:left;"> sum.FilteredCore10 </th>
-    <th style="text-align:left;"> sum.FilteredCore50 </th>
-    <th style="text-align:left;"> sum.FilteredCore100 </th>
-    <th style="text-align:right;"> core0 </th>
-    <th style="text-align:right;"> core10 </th>
-    <th style="text-align:right;"> core100 </th>
-    <th style="text-align:right;"> core50 </th>
-   </tr>
-  </thead>
- <tbody>
-   <tr>
-    <td style="text-align:left;"> Finlay-Ospika </td>
-    <td style="text-align:left;"> Akie </td>
-    <td style="text-align:left;"> 102,467.70 </td>
-    <td style="text-align:left;"> 78,379.40 </td>
-    <td style="text-align:left;"> 77,905.40 </td>
-    <td style="text-align:left;"> 75,278.50 </td>
-    <td style="text-align:left;"> 70,045.70 </td>
-    <td style="text-align:right;"> 0.76 </td>
-    <td style="text-align:right;"> 0.76 </td>
-    <td style="text-align:right;"> 0.73 </td>
-    <td style="text-align:right;"> 0.68 </td>
-   </tr>
-   <tr>
-    <td style="text-align:left;"> Finlay-Ospika </td>
-    <td style="text-align:left;"> Akie River </td>
-    <td style="text-align:left;"> 45,937.10 </td>
-    <td style="text-align:left;"> 42,442.30 </td>
-    <td style="text-align:left;"> 42,441.70 </td>
-    <td style="text-align:left;"> 42,441.70 </td>
-    <td style="text-align:left;"> 33,646.80 </td>
-    <td style="text-align:right;"> 0.92 </td>
-    <td style="text-align:right;"> 0.92 </td>
-    <td style="text-align:right;"> 0.92 </td>
-    <td style="text-align:right;"> 0.73 </td>
-   </tr>
-   <tr>
-    <td style="text-align:left;"> Finlay-Ospika </td>
-    <td style="text-align:left;"> Buffalohead </td>
-    <td style="text-align:left;"> 250,130.30 </td>
-    <td style="text-align:left;"> 137,868.20 </td>
-    <td style="text-align:left;"> 136,832.60 </td>
-    <td style="text-align:left;"> 127,345.80 </td>
-    <td style="text-align:left;"> 120,565.60 </td>
-    <td style="text-align:right;"> 0.55 </td>
-    <td style="text-align:right;"> 0.55 </td>
-    <td style="text-align:right;"> 0.51 </td>
-    <td style="text-align:right;"> 0.48 </td>
-   </tr>
-   <tr>
-    <td style="text-align:left;"> Finlay-Ospika </td>
-    <td style="text-align:left;"> Collins - Davis </td>
-    <td style="text-align:left;"> 222,003.30 </td>
-    <td style="text-align:left;"> 150,837.70 </td>
-    <td style="text-align:left;"> 150,094.60 </td>
-    <td style="text-align:left;"> 111,332.50 </td>
-    <td style="text-align:left;"> 95,502.50 </td>
-    <td style="text-align:right;"> 0.68 </td>
-    <td style="text-align:right;"> 0.68 </td>
-    <td style="text-align:right;"> 0.50 </td>
-    <td style="text-align:right;"> 0.43 </td>
-   </tr>
-   <tr>
-    <td style="text-align:left;"> Finlay-Ospika </td>
-    <td style="text-align:left;"> Fox </td>
-    <td style="text-align:left;"> 279,712.10 </td>
-    <td style="text-align:left;"> 255,452.30 </td>
-    <td style="text-align:left;"> 248,592.60 </td>
-    <td style="text-align:left;"> 248,592.60 </td>
-    <td style="text-align:left;"> 248,592.60 </td>
-    <td style="text-align:right;"> 0.91 </td>
-    <td style="text-align:right;"> 0.89 </td>
-    <td style="text-align:right;"> 0.89 </td>
-    <td style="text-align:right;"> 0.89 </td>
-   </tr>
-   <tr>
-    <td style="text-align:left;"> Finlay-Ospika </td>
-    <td style="text-align:left;"> Ingenika </td>
-    <td style="text-align:left;"> 124,380.40 </td>
-    <td style="text-align:left;"> 97,797.90 </td>
-    <td style="text-align:left;"> 97,543.20 </td>
-    <td style="text-align:left;"> 87,440.40 </td>
-    <td style="text-align:left;"> 70,332.60 </td>
-    <td style="text-align:right;"> 0.79 </td>
-    <td style="text-align:right;"> 0.78 </td>
-    <td style="text-align:right;"> 0.70 </td>
-    <td style="text-align:right;"> 0.57 </td>
-   </tr>
-   <tr>
-    <td style="text-align:left;"> Finlay-Ospika </td>
-    <td style="text-align:left;"> Lower Akie </td>
-    <td style="text-align:left;"> 19,934.40 </td>
-    <td style="text-align:left;"> 11,516.40 </td>
-    <td style="text-align:left;"> 11,364.30 </td>
-    <td style="text-align:left;"> 11,353.60 </td>
-    <td style="text-align:left;"> 5,068.30 </td>
-    <td style="text-align:right;"> 0.58 </td>
-    <td style="text-align:right;"> 0.57 </td>
-    <td style="text-align:right;"> 0.57 </td>
-    <td style="text-align:right;"> 0.25 </td>
-   </tr>
-   <tr>
-    <td style="text-align:left;"> Finlay-Ospika </td>
-    <td style="text-align:left;"> Lower Ospika </td>
-    <td style="text-align:left;"> 135,093.40 </td>
-    <td style="text-align:left;"> 90,402.30 </td>
-    <td style="text-align:left;"> 89,246.00 </td>
-    <td style="text-align:left;"> 61,762.00 </td>
-    <td style="text-align:left;"> 48,239.20 </td>
-    <td style="text-align:right;"> 0.67 </td>
-    <td style="text-align:right;"> 0.66 </td>
-    <td style="text-align:right;"> 0.46 </td>
-    <td style="text-align:right;"> 0.36 </td>
-   </tr>
-   <tr>
-    <td style="text-align:left;"> Finlay-Ospika </td>
-    <td style="text-align:left;"> Lower Pesika </td>
-    <td style="text-align:left;"> 4,953.30 </td>
-    <td style="text-align:left;"> 4,943.60 </td>
-    <td style="text-align:left;"> 4,943.20 </td>
-    <td style="text-align:left;"> 3,552.00 </td>
-    <td style="text-align:left;"> 1,557.50 </td>
-    <td style="text-align:right;"> 1.00 </td>
-    <td style="text-align:right;"> 1.00 </td>
-    <td style="text-align:right;"> 0.72 </td>
-    <td style="text-align:right;"> 0.31 </td>
-   </tr>
-   <tr>
-    <td style="text-align:left;"> Finlay-Ospika </td>
-    <td style="text-align:left;"> McCusker </td>
-    <td style="text-align:left;"> 96,897.50 </td>
-    <td style="text-align:left;"> 76,557.50 </td>
-    <td style="text-align:left;"> 76,532.40 </td>
-    <td style="text-align:left;"> 72,548.80 </td>
-    <td style="text-align:left;"> 56,380.50 </td>
-    <td style="text-align:right;"> 0.79 </td>
-    <td style="text-align:right;"> 0.79 </td>
-    <td style="text-align:right;"> 0.75 </td>
-    <td style="text-align:right;"> 0.58 </td>
-   </tr>
-   <tr>
-    <td style="text-align:left;"> Finlay-Ospika </td>
-    <td style="text-align:left;"> North Firesteel </td>
-    <td style="text-align:left;"> 44,195.70 </td>
-    <td style="text-align:left;"> 43,887.00 </td>
-    <td style="text-align:left;"> 42,314.50 </td>
-    <td style="text-align:left;"> 42,314.50 </td>
-    <td style="text-align:left;"> 42,314.50 </td>
-    <td style="text-align:right;"> 0.99 </td>
-    <td style="text-align:right;"> 0.96 </td>
-    <td style="text-align:right;"> 0.96 </td>
-    <td style="text-align:right;"> 0.96 </td>
-   </tr>
-   <tr>
-    <td style="text-align:left;"> Finlay-Ospika </td>
-    <td style="text-align:left;"> North Ingenika </td>
-    <td style="text-align:left;"> 47,688.10 </td>
-    <td style="text-align:left;"> 40,295.30 </td>
-    <td style="text-align:left;"> 40,200.90 </td>
-    <td style="text-align:left;"> 33,849.70 </td>
-    <td style="text-align:left;"> 18,319.20 </td>
-    <td style="text-align:right;"> 0.84 </td>
-    <td style="text-align:right;"> 0.84 </td>
-    <td style="text-align:right;"> 0.71 </td>
-    <td style="text-align:right;"> 0.38 </td>
-   </tr>
-   <tr>
-    <td style="text-align:left;"> Finlay-Ospika </td>
-    <td style="text-align:left;"> Obo River </td>
-    <td style="text-align:left;"> 130,244.00 </td>
-    <td style="text-align:left;"> 119,154.60 </td>
-    <td style="text-align:left;"> 119,147.60 </td>
-    <td style="text-align:left;"> 119,147.60 </td>
-    <td style="text-align:left;"> 119,147.60 </td>
-    <td style="text-align:right;"> 0.91 </td>
-    <td style="text-align:right;"> 0.91 </td>
-    <td style="text-align:right;"> 0.91 </td>
-    <td style="text-align:right;"> 0.91 </td>
-   </tr>
-   <tr>
-    <td style="text-align:left;"> Finlay-Ospika </td>
-    <td style="text-align:left;"> Pelly </td>
-    <td style="text-align:left;"> 138,724.30 </td>
-    <td style="text-align:left;"> 119,640.30 </td>
-    <td style="text-align:left;"> 119,563.80 </td>
-    <td style="text-align:left;"> 115,475.90 </td>
-    <td style="text-align:left;"> 90,694.00 </td>
-    <td style="text-align:right;"> 0.86 </td>
-    <td style="text-align:right;"> 0.86 </td>
-    <td style="text-align:right;"> 0.83 </td>
-    <td style="text-align:right;"> 0.65 </td>
-   </tr>
-   <tr>
-    <td style="text-align:left;"> Finlay-Ospika </td>
-    <td style="text-align:left;"> Pesika </td>
-    <td style="text-align:left;"> 67,973.50 </td>
-    <td style="text-align:left;"> 63,734.30 </td>
-    <td style="text-align:left;"> 63,685.50 </td>
-    <td style="text-align:left;"> 62,871.30 </td>
-    <td style="text-align:left;"> 45,985.30 </td>
-    <td style="text-align:right;"> 0.94 </td>
-    <td style="text-align:right;"> 0.94 </td>
-    <td style="text-align:right;"> 0.92 </td>
-    <td style="text-align:right;"> 0.68 </td>
-   </tr>
-   <tr>
-    <td style="text-align:left;"> Finlay-Ospika </td>
-    <td style="text-align:left;"> South Firesteel </td>
-    <td style="text-align:left;"> 94,642.60 </td>
-    <td style="text-align:left;"> 78,551.90 </td>
-    <td style="text-align:left;"> 78,279.50 </td>
-    <td style="text-align:left;"> 78,279.50 </td>
-    <td style="text-align:left;"> 78,279.50 </td>
-    <td style="text-align:right;"> 0.83 </td>
-    <td style="text-align:right;"> 0.83 </td>
-    <td style="text-align:right;"> 0.83 </td>
-    <td style="text-align:right;"> 0.83 </td>
-   </tr>
-   <tr>
-    <td style="text-align:left;"> Finlay-Ospika </td>
-    <td style="text-align:left;"> Swannell </td>
-    <td style="text-align:left;"> 63,898.20 </td>
-    <td style="text-align:left;"> 55,400.00 </td>
-    <td style="text-align:left;"> 53,961.20 </td>
-    <td style="text-align:left;"> 49,155.80 </td>
-    <td style="text-align:left;"> 46,802.30 </td>
-    <td style="text-align:right;"> 0.87 </td>
-    <td style="text-align:right;"> 0.84 </td>
-    <td style="text-align:right;"> 0.77 </td>
-    <td style="text-align:right;"> 0.73 </td>
-   </tr>
-   <tr>
-    <td style="text-align:left;"> Finlay-Ospika </td>
-    <td style="text-align:left;"> Thutade </td>
-    <td style="text-align:left;"> 406,497.90 </td>
-    <td style="text-align:left;"> 329,481.70 </td>
-    <td style="text-align:left;"> 324,893.60 </td>
-    <td style="text-align:left;"> 323,936.30 </td>
-    <td style="text-align:left;"> 321,824.30 </td>
-    <td style="text-align:right;"> 0.81 </td>
-    <td style="text-align:right;"> 0.80 </td>
-    <td style="text-align:right;"> 0.80 </td>
-    <td style="text-align:right;"> 0.79 </td>
-   </tr>
-   <tr>
-    <td style="text-align:left;"> Finlay-Ospika </td>
-    <td style="text-align:left;"> Upper Akie River </td>
-    <td style="text-align:left;"> 148,524.80 </td>
-    <td style="text-align:left;"> 93,420.40 </td>
-    <td style="text-align:left;"> 93,420.40 </td>
-    <td style="text-align:left;"> 93,420.40 </td>
-    <td style="text-align:left;"> 86,879.90 </td>
-    <td style="text-align:right;"> 0.63 </td>
-    <td style="text-align:right;"> 0.63 </td>
-    <td style="text-align:right;"> 0.63 </td>
-    <td style="text-align:right;"> 0.58 </td>
-   </tr>
-   <tr>
-    <td style="text-align:left;"> Finlay-Ospika </td>
-    <td style="text-align:left;"> Upper Ospika </td>
-    <td style="text-align:left;"> 44,639.00 </td>
-    <td style="text-align:left;"> 38,746.90 </td>
-    <td style="text-align:left;"> 38,746.90 </td>
-    <td style="text-align:left;"> 35,020.50 </td>
-    <td style="text-align:left;"> 25,234.30 </td>
-    <td style="text-align:right;"> 0.87 </td>
-    <td style="text-align:right;"> 0.87 </td>
-    <td style="text-align:right;"> 0.78 </td>
-    <td style="text-align:right;"> 0.57 </td>
-   </tr>
-   <tr>
-    <td style="text-align:left;"> Finlay-Ospika </td>
-    <td style="text-align:left;"> Upper Pelly </td>
-    <td style="text-align:left;"> 134,656.30 </td>
-    <td style="text-align:left;"> 115,552.50 </td>
-    <td style="text-align:left;"> 115,552.50 </td>
-    <td style="text-align:left;"> 115,552.50 </td>
-    <td style="text-align:left;"> 114,802.20 </td>
-    <td style="text-align:right;"> 0.86 </td>
-    <td style="text-align:right;"> 0.86 </td>
-    <td style="text-align:right;"> 0.86 </td>
-    <td style="text-align:right;"> 0.85 </td>
-   </tr>
-   <tr>
-    <td style="text-align:left;"> Finlay-Ospika </td>
-    <td style="text-align:left;"> Wicked River </td>
-    <td style="text-align:left;"> 60,617.50 </td>
-    <td style="text-align:left;"> 51,625.60 </td>
-    <td style="text-align:left;"> 51,614.60 </td>
-    <td style="text-align:left;"> 45,039.10 </td>
-    <td style="text-align:left;"> 34,069.80 </td>
-    <td style="text-align:right;"> 0.85 </td>
-    <td style="text-align:right;"> 0.85 </td>
-    <td style="text-align:right;"> 0.74 </td>
-    <td style="text-align:right;"> 0.56 </td>
-   </tr>
-   <tr>
-    <td style="text-align:left;"> Finlay-Ospika </td>
-    <td style="text-align:left;"> Kwadacha </td>
-    <td style="text-align:left;"> 116,009.60 </td>
-    <td style="text-align:left;"> 70,825.30 </td>
-    <td style="text-align:left;"> 70,287.70 </td>
-    <td style="text-align:left;"> 70,287.70 </td>
-    <td style="text-align:left;"> 70,287.70 </td>
-    <td style="text-align:right;"> 0.61 </td>
-    <td style="text-align:right;"> 0.61 </td>
-    <td style="text-align:right;"> 0.61 </td>
-    <td style="text-align:right;"> 0.61 </td>
-   </tr>
-   <tr>
-    <td style="text-align:left;"> Finlay-Ospika </td>
-    <td style="text-align:left;"> Kwadacha Addition </td>
-    <td style="text-align:left;"> 12,789.60 </td>
-    <td style="text-align:left;"> 12,747.60 </td>
-    <td style="text-align:left;"> 12,747.60 </td>
-    <td style="text-align:left;"> 12,747.60 </td>
-    <td style="text-align:left;"> 12,747.60 </td>
-    <td style="text-align:right;"> 1.00 </td>
-    <td style="text-align:right;"> 1.00 </td>
-    <td style="text-align:right;"> 1.00 </td>
-    <td style="text-align:right;"> 1.00 </td>
-   </tr>
-   <tr>
-    <td style="text-align:left;"> Finlay-Ospika </td>
-    <td style="text-align:left;"> Finlay-Russel </td>
-    <td style="text-align:left;"> 117,087.40 </td>
-    <td style="text-align:left;"> 102,900.90 </td>
-    <td style="text-align:left;"> 102,871.80 </td>
-    <td style="text-align:left;"> 102,871.80 </td>
-    <td style="text-align:left;"> 102,851.60 </td>
-    <td style="text-align:right;"> 0.88 </td>
-    <td style="text-align:right;"> 0.88 </td>
-    <td style="text-align:right;"> 0.88 </td>
-    <td style="text-align:right;"> 0.88 </td>
-   </tr>
-   <tr>
-    <td style="text-align:left;"> Finlay-Ospika </td>
-    <td style="text-align:left;"> Ed Bird Estells Lake </td>
-    <td style="text-align:left;"> 5,263.70 </td>
-    <td style="text-align:left;"> 3,597.10 </td>
-    <td style="text-align:left;"> 3,328.20 </td>
-    <td style="text-align:left;"> 3,158.20 </td>
-    <td style="text-align:left;"> 3,141.60 </td>
-    <td style="text-align:right;"> 0.68 </td>
-    <td style="text-align:right;"> 0.63 </td>
-    <td style="text-align:right;"> 0.60 </td>
-    <td style="text-align:right;"> 0.60 </td>
-   </tr>
-   <tr>
-    <td style="text-align:left;"> Finlay-Ospika </td>
-    <td style="text-align:left;"> Ospika Cones </td>
-    <td style="text-align:left;"> 1,505.30 </td>
-    <td style="text-align:left;"> 1,505.30 </td>
-    <td style="text-align:left;"> 1,505.30 </td>
-    <td style="text-align:left;"> 1,505.30 </td>
-    <td style="text-align:left;"> 1,283.80 </td>
-    <td style="text-align:right;"> 1.00 </td>
-    <td style="text-align:right;"> 1.00 </td>
-    <td style="text-align:right;"> 1.00 </td>
-    <td style="text-align:right;"> 0.85 </td>
-   </tr>
-   <tr>
-    <td style="text-align:left;"> Finlay-Ospika </td>
-    <td style="text-align:left;"> Tatlatui </td>
-    <td style="text-align:left;"> 103,388.50 </td>
-    <td style="text-align:left;"> 83,718.90 </td>
-    <td style="text-align:left;"> 83,193.70 </td>
-    <td style="text-align:left;"> 83,193.70 </td>
-    <td style="text-align:left;"> 83,193.70 </td>
-    <td style="text-align:right;"> 0.81 </td>
-    <td style="text-align:right;"> 0.80 </td>
-    <td style="text-align:right;"> 0.80 </td>
-    <td style="text-align:right;"> 0.80 </td>
-   </tr>
-   <tr>
-    <td style="text-align:left;"> Moberly </td>
-    <td style="text-align:left;"> Clearwater </td>
-    <td style="text-align:left;"> 109,885.70 </td>
-    <td style="text-align:left;"> 78,149.90 </td>
-    <td style="text-align:left;"> 76,430.60 </td>
-    <td style="text-align:left;"> 62,365.50 </td>
-    <td style="text-align:left;"> 61,993.50 </td>
-    <td style="text-align:right;"> 0.71 </td>
-    <td style="text-align:right;"> 0.70 </td>
-    <td style="text-align:right;"> 0.57 </td>
-    <td style="text-align:right;"> 0.56 </td>
-   </tr>
-   <tr>
-    <td style="text-align:left;"> Moberly </td>
-    <td style="text-align:left;"> Misinchinka </td>
-    <td style="text-align:left;"> 103,373.10 </td>
-    <td style="text-align:left;"> 49,014.10 </td>
-    <td style="text-align:left;"> 36,740.40 </td>
-    <td style="text-align:left;"> 29,188.30 </td>
-    <td style="text-align:left;"> 28,518.60 </td>
-    <td style="text-align:right;"> 0.47 </td>
-    <td style="text-align:right;"> 0.36 </td>
-    <td style="text-align:right;"> 0.28 </td>
-    <td style="text-align:right;"> 0.28 </td>
-   </tr>
-   <tr>
-    <td style="text-align:left;"> Moberly </td>
-    <td style="text-align:left;"> Morfee </td>
-    <td style="text-align:left;"> 21,067.20 </td>
-    <td style="text-align:left;"> 4,612.80 </td>
-    <td style="text-align:left;"> 4,067.30 </td>
-    <td style="text-align:left;"> 3,963.00 </td>
-    <td style="text-align:left;"> 3,894.60 </td>
-    <td style="text-align:right;"> 0.22 </td>
-    <td style="text-align:right;"> 0.19 </td>
-    <td style="text-align:right;"> 0.19 </td>
-    <td style="text-align:right;"> 0.18 </td>
-   </tr>
-   <tr>
-    <td style="text-align:left;"> Moberly </td>
-    <td style="text-align:left;"> Parsnip </td>
-    <td style="text-align:left;"> 121,467.90 </td>
-    <td style="text-align:left;"> 73,309.70 </td>
-    <td style="text-align:left;"> 63,584.90 </td>
-    <td style="text-align:left;"> 46,895.70 </td>
-    <td style="text-align:left;"> 40,285.10 </td>
-    <td style="text-align:right;"> 0.60 </td>
-    <td style="text-align:right;"> 0.52 </td>
-    <td style="text-align:right;"> 0.39 </td>
-    <td style="text-align:right;"> 0.33 </td>
-   </tr>
-   <tr>
-    <td style="text-align:left;"> Moberly </td>
-    <td style="text-align:left;"> Selwyn </td>
-    <td style="text-align:left;"> 57,059.20 </td>
-    <td style="text-align:left;"> 37,638.90 </td>
-    <td style="text-align:left;"> 37,289.60 </td>
-    <td style="text-align:left;"> 23,411.70 </td>
-    <td style="text-align:left;"> 18,774.00 </td>
-    <td style="text-align:right;"> 0.66 </td>
-    <td style="text-align:right;"> 0.65 </td>
-    <td style="text-align:right;"> 0.41 </td>
-    <td style="text-align:right;"> 0.33 </td>
-   </tr>
-   <tr>
-    <td style="text-align:left;"> Moberly </td>
-    <td style="text-align:left;"> Heather Dina Lake </td>
-    <td style="text-align:left;"> 5,970.00 </td>
-    <td style="text-align:left;"> 2,348.60 </td>
-    <td style="text-align:left;"> 1,182.90 </td>
-    <td style="text-align:left;"> 1,090.00 </td>
-    <td style="text-align:left;"> 1,089.20 </td>
-    <td style="text-align:right;"> 0.39 </td>
-    <td style="text-align:right;"> 0.20 </td>
-    <td style="text-align:right;"> 0.18 </td>
-    <td style="text-align:right;"> 0.18 </td>
-   </tr>
-   <tr>
-    <td style="text-align:left;"> Muskwa </td>
-    <td style="text-align:left;"> Bluff Creek </td>
-    <td style="text-align:left;"> 24,474.40 </td>
-    <td style="text-align:left;"> 22,769.90 </td>
-    <td style="text-align:left;"> 22,769.90 </td>
-    <td style="text-align:left;"> 22,769.90 </td>
-    <td style="text-align:left;"> 22,769.90 </td>
-    <td style="text-align:right;"> 0.93 </td>
-    <td style="text-align:right;"> 0.93 </td>
-    <td style="text-align:right;"> 0.93 </td>
-    <td style="text-align:right;"> 0.93 </td>
-   </tr>
-   <tr>
-    <td style="text-align:left;"> Muskwa </td>
-    <td style="text-align:left;"> Braid </td>
-    <td style="text-align:left;"> 132,949.30 </td>
-    <td style="text-align:left;"> 127,728.50 </td>
-    <td style="text-align:left;"> 122,781.40 </td>
-    <td style="text-align:left;"> 122,781.40 </td>
-    <td style="text-align:left;"> 122,781.40 </td>
-    <td style="text-align:right;"> 0.96 </td>
-    <td style="text-align:right;"> 0.92 </td>
-    <td style="text-align:right;"> 0.92 </td>
-    <td style="text-align:right;"> 0.92 </td>
-   </tr>
-   <tr>
-    <td style="text-align:left;"> Muskwa </td>
-    <td style="text-align:left;"> Frog </td>
-    <td style="text-align:left;"> 287,281.70 </td>
-    <td style="text-align:left;"> 262,231.80 </td>
-    <td style="text-align:left;"> 260,800.00 </td>
-    <td style="text-align:left;"> 260,800.00 </td>
-    <td style="text-align:left;"> 260,800.00 </td>
-    <td style="text-align:right;"> 0.91 </td>
-    <td style="text-align:right;"> 0.91 </td>
-    <td style="text-align:right;"> 0.91 </td>
-    <td style="text-align:right;"> 0.91 </td>
-   </tr>
-   <tr>
-    <td style="text-align:left;"> Muskwa </td>
-    <td style="text-align:left;"> Upper Gataga </td>
-    <td style="text-align:left;"> 101,216.60 </td>
-    <td style="text-align:left;"> 38,997.30 </td>
-    <td style="text-align:left;"> 38,961.90 </td>
-    <td style="text-align:left;"> 38,961.90 </td>
-    <td style="text-align:left;"> 38,961.90 </td>
-    <td style="text-align:right;"> 0.39 </td>
-    <td style="text-align:right;"> 0.38 </td>
-    <td style="text-align:right;"> 0.38 </td>
-    <td style="text-align:right;"> 0.38 </td>
-   </tr>
-   <tr>
-    <td style="text-align:left;"> Muskwa </td>
-    <td style="text-align:left;"> Frog-Gataga </td>
-    <td style="text-align:left;"> 346,177.70 </td>
-    <td style="text-align:left;"> 302,586.00 </td>
-    <td style="text-align:left;"> 295,561.70 </td>
-    <td style="text-align:left;"> 295,561.70 </td>
-    <td style="text-align:left;"> 295,561.70 </td>
-    <td style="text-align:right;"> 0.87 </td>
-    <td style="text-align:right;"> 0.85 </td>
-    <td style="text-align:right;"> 0.85 </td>
-    <td style="text-align:right;"> 0.85 </td>
-   </tr>
-   <tr>
-    <td style="text-align:left;"> Nation </td>
-    <td style="text-align:left;"> Tudyah A </td>
-    <td style="text-align:left;"> 4,929.50 </td>
-    <td style="text-align:left;"> 228.8 </td>
-    <td style="text-align:left;"> 0 </td>
-    <td style="text-align:left;"> 0 </td>
-    <td style="text-align:left;"> 0 </td>
-    <td style="text-align:right;"> 0.05 </td>
-    <td style="text-align:right;"> 0.00 </td>
-    <td style="text-align:right;"> 0.00 </td>
-    <td style="text-align:right;"> 0.00 </td>
-   </tr>
-   <tr>
-    <td style="text-align:left;"> Nation </td>
-    <td style="text-align:left;"> Tudyah B </td>
-    <td style="text-align:left;"> 4,737.30 </td>
-    <td style="text-align:left;"> 17.4 </td>
-    <td style="text-align:left;"> 0 </td>
-    <td style="text-align:left;"> 0 </td>
-    <td style="text-align:left;"> 0 </td>
-    <td style="text-align:right;"> 0.00 </td>
-    <td style="text-align:right;"> 0.00 </td>
-    <td style="text-align:right;"> 0.00 </td>
-    <td style="text-align:right;"> 0.00 </td>
-   </tr>
-   <tr>
-    <td style="text-align:left;"> Omineca </td>
-    <td style="text-align:left;"> Aiken </td>
-    <td style="text-align:left;"> 38,466.00 </td>
-    <td style="text-align:left;"> 29,425.10 </td>
-    <td style="text-align:left;"> 29,198.00 </td>
-    <td style="text-align:left;"> 26,358.80 </td>
-    <td style="text-align:left;"> 23,881.20 </td>
-    <td style="text-align:right;"> 0.76 </td>
-    <td style="text-align:right;"> 0.76 </td>
-    <td style="text-align:right;"> 0.69 </td>
-    <td style="text-align:right;"> 0.62 </td>
-   </tr>
-   <tr>
-    <td style="text-align:left;"> Omineca </td>
-    <td style="text-align:left;"> Blackwater </td>
-    <td style="text-align:left;"> 193,825.60 </td>
-    <td style="text-align:left;"> 36,101.20 </td>
-    <td style="text-align:left;"> 23,448.30 </td>
-    <td style="text-align:left;"> 6,075.20 </td>
-    <td style="text-align:left;"> 5,567.00 </td>
-    <td style="text-align:right;"> 0.19 </td>
-    <td style="text-align:right;"> 0.12 </td>
-    <td style="text-align:right;"> 0.03 </td>
-    <td style="text-align:right;"> 0.03 </td>
-   </tr>
-   <tr>
-    <td style="text-align:left;"> Omineca </td>
-    <td style="text-align:left;"> Chunamon </td>
-    <td style="text-align:left;"> 198,747.30 </td>
-    <td style="text-align:left;"> 100,779.50 </td>
-    <td style="text-align:left;"> 99,814.80 </td>
-    <td style="text-align:left;"> 77,942.00 </td>
-    <td style="text-align:left;"> 70,870.10 </td>
-    <td style="text-align:right;"> 0.51 </td>
-    <td style="text-align:right;"> 0.50 </td>
-    <td style="text-align:right;"> 0.39 </td>
-    <td style="text-align:right;"> 0.36 </td>
-   </tr>
-   <tr>
-    <td style="text-align:left;"> Omineca </td>
-    <td style="text-align:left;"> Connaghan Creek </td>
-    <td style="text-align:left;"> 8,461.90 </td>
-    <td style="text-align:left;"> 5,962.70 </td>
-    <td style="text-align:left;"> 5,937.00 </td>
-    <td style="text-align:left;"> 4,235.30 </td>
-    <td style="text-align:left;"> 4,222.30 </td>
-    <td style="text-align:right;"> 0.70 </td>
-    <td style="text-align:right;"> 0.70 </td>
-    <td style="text-align:right;"> 0.50 </td>
-    <td style="text-align:right;"> 0.50 </td>
-   </tr>
-   <tr>
-    <td style="text-align:left;"> Omineca </td>
-    <td style="text-align:left;"> Discovery </td>
-    <td style="text-align:left;"> 13,262.50 </td>
-    <td style="text-align:left;"> 5,924.20 </td>
-    <td style="text-align:left;"> 5,909.60 </td>
-    <td style="text-align:left;"> 4,010.20 </td>
-    <td style="text-align:left;"> 3,671.70 </td>
-    <td style="text-align:right;"> 0.45 </td>
-    <td style="text-align:right;"> 0.45 </td>
-    <td style="text-align:right;"> 0.30 </td>
-    <td style="text-align:right;"> 0.28 </td>
-   </tr>
-   <tr>
-    <td style="text-align:left;"> Omineca </td>
-    <td style="text-align:left;"> Duckling </td>
-    <td style="text-align:left;"> 28,212.20 </td>
-    <td style="text-align:left;"> 14,113.00 </td>
-    <td style="text-align:left;"> 13,908.10 </td>
-    <td style="text-align:left;"> 12,421.50 </td>
-    <td style="text-align:left;"> 11,770.20 </td>
-    <td style="text-align:right;"> 0.50 </td>
-    <td style="text-align:right;"> 0.49 </td>
-    <td style="text-align:right;"> 0.44 </td>
-    <td style="text-align:right;"> 0.42 </td>
-   </tr>
-   <tr>
-    <td style="text-align:left;"> Omineca </td>
-    <td style="text-align:left;"> Eklund </td>
-    <td style="text-align:left;"> 24,933.30 </td>
-    <td style="text-align:left;"> 14,218.30 </td>
-    <td style="text-align:left;"> 14,069.20 </td>
-    <td style="text-align:left;"> 10,933.60 </td>
-    <td style="text-align:left;"> 10,877.20 </td>
-    <td style="text-align:right;"> 0.57 </td>
-    <td style="text-align:right;"> 0.56 </td>
-    <td style="text-align:right;"> 0.44 </td>
-    <td style="text-align:right;"> 0.44 </td>
-   </tr>
-   <tr>
-    <td style="text-align:left;"> Omineca </td>
-    <td style="text-align:left;"> Gaffney </td>
-    <td style="text-align:left;"> 151,921.90 </td>
-    <td style="text-align:left;"> 40,689.40 </td>
-    <td style="text-align:left;"> 36,399.20 </td>
-    <td style="text-align:left;"> 12,461.60 </td>
-    <td style="text-align:left;"> 11,622.60 </td>
-    <td style="text-align:right;"> 0.27 </td>
-    <td style="text-align:right;"> 0.24 </td>
-    <td style="text-align:right;"> 0.08 </td>
-    <td style="text-align:right;"> 0.08 </td>
-   </tr>
-   <tr>
-    <td style="text-align:left;"> Omineca </td>
-    <td style="text-align:left;"> Germansen Mountain </td>
-    <td style="text-align:left;"> 11,454.50 </td>
-    <td style="text-align:left;"> 9,086.00 </td>
-    <td style="text-align:left;"> 9,085.00 </td>
-    <td style="text-align:left;"> 7,037.80 </td>
-    <td style="text-align:left;"> 6,940.80 </td>
-    <td style="text-align:right;"> 0.79 </td>
-    <td style="text-align:right;"> 0.79 </td>
-    <td style="text-align:right;"> 0.61 </td>
-    <td style="text-align:right;"> 0.61 </td>
-   </tr>
-   <tr>
-    <td style="text-align:left;"> Omineca </td>
-    <td style="text-align:left;"> Gillis </td>
-    <td style="text-align:left;"> 36,968.30 </td>
-    <td style="text-align:left;"> 25,686.80 </td>
-    <td style="text-align:left;"> 25,502.30 </td>
-    <td style="text-align:left;"> 16,134.50 </td>
-    <td style="text-align:left;"> 16,097.80 </td>
-    <td style="text-align:right;"> 0.69 </td>
-    <td style="text-align:right;"> 0.69 </td>
-    <td style="text-align:right;"> 0.44 </td>
-    <td style="text-align:right;"> 0.44 </td>
-   </tr>
-   <tr>
-    <td style="text-align:left;"> Omineca </td>
-    <td style="text-align:left;"> Jackfish </td>
-    <td style="text-align:left;"> 17,768.50 </td>
-    <td style="text-align:left;"> 6,392.50 </td>
-    <td style="text-align:left;"> 6,381.50 </td>
-    <td style="text-align:left;"> 5,324.20 </td>
-    <td style="text-align:left;"> 5,242.20 </td>
-    <td style="text-align:right;"> 0.36 </td>
-    <td style="text-align:right;"> 0.36 </td>
-    <td style="text-align:right;"> 0.30 </td>
-    <td style="text-align:right;"> 0.30 </td>
-   </tr>
-   <tr>
-    <td style="text-align:left;"> Omineca </td>
-    <td style="text-align:left;"> Klawli </td>
-    <td style="text-align:left;"> 79,797.40 </td>
-    <td style="text-align:left;"> 40,824.80 </td>
-    <td style="text-align:left;"> 40,194.80 </td>
-    <td style="text-align:left;"> 19,813.70 </td>
-    <td style="text-align:left;"> 19,324.70 </td>
-    <td style="text-align:right;"> 0.51 </td>
-    <td style="text-align:right;"> 0.50 </td>
-    <td style="text-align:right;"> 0.25 </td>
-    <td style="text-align:right;"> 0.24 </td>
-   </tr>
-   <tr>
-    <td style="text-align:left;"> Omineca </td>
-    <td style="text-align:left;"> Manson River </td>
-    <td style="text-align:left;"> 22,446.40 </td>
-    <td style="text-align:left;"> 4,249.70 </td>
-    <td style="text-align:left;"> 4,102.70 </td>
-    <td style="text-align:left;"> 2,314.50 </td>
-    <td style="text-align:left;"> 2,248.50 </td>
-    <td style="text-align:right;"> 0.19 </td>
-    <td style="text-align:right;"> 0.18 </td>
-    <td style="text-align:right;"> 0.10 </td>
-    <td style="text-align:right;"> 0.10 </td>
-   </tr>
-   <tr>
-    <td style="text-align:left;"> Omineca </td>
-    <td style="text-align:left;"> Mesilinka </td>
-    <td style="text-align:left;"> 122,522.20 </td>
-    <td style="text-align:left;"> 79,280.00 </td>
-    <td style="text-align:left;"> 78,297.90 </td>
-    <td style="text-align:left;"> 66,885.00 </td>
-    <td style="text-align:left;"> 58,117.90 </td>
-    <td style="text-align:right;"> 0.65 </td>
-    <td style="text-align:right;"> 0.64 </td>
-    <td style="text-align:right;"> 0.55 </td>
-    <td style="text-align:right;"> 0.47 </td>
-   </tr>
-   <tr>
-    <td style="text-align:left;"> Omineca </td>
-    <td style="text-align:left;"> Nation </td>
-    <td style="text-align:left;"> 13,761.50 </td>
-    <td style="text-align:left;"> 4,316.70 </td>
-    <td style="text-align:left;"> 1,960.40 </td>
-    <td style="text-align:left;"> 0 </td>
-    <td style="text-align:left;"> 0 </td>
-    <td style="text-align:right;"> 0.31 </td>
-    <td style="text-align:right;"> 0.14 </td>
-    <td style="text-align:right;"> 0.00 </td>
-    <td style="text-align:right;"> 0.00 </td>
-   </tr>
-   <tr>
-    <td style="text-align:left;"> Omineca </td>
-    <td style="text-align:left;"> Nina Creek </td>
-    <td style="text-align:left;"> 22,195.40 </td>
-    <td style="text-align:left;"> 14,743.10 </td>
-    <td style="text-align:left;"> 14,673.00 </td>
-    <td style="text-align:left;"> 11,421.10 </td>
-    <td style="text-align:left;"> 9,837.60 </td>
-    <td style="text-align:right;"> 0.66 </td>
-    <td style="text-align:right;"> 0.66 </td>
-    <td style="text-align:right;"> 0.51 </td>
-    <td style="text-align:right;"> 0.44 </td>
-   </tr>
-   <tr>
-    <td style="text-align:left;"> Omineca </td>
-    <td style="text-align:left;"> Osilinka </td>
-    <td style="text-align:left;"> 230,036.70 </td>
-    <td style="text-align:left;"> 128,506.70 </td>
-    <td style="text-align:left;"> 126,612.90 </td>
-    <td style="text-align:left;"> 112,109.60 </td>
-    <td style="text-align:left;"> 106,567.80 </td>
-    <td style="text-align:right;"> 0.56 </td>
-    <td style="text-align:right;"> 0.55 </td>
-    <td style="text-align:right;"> 0.49 </td>
-    <td style="text-align:right;"> 0.46 </td>
-   </tr>
-   <tr>
-    <td style="text-align:left;"> Omineca </td>
-    <td style="text-align:left;"> Philip </td>
-    <td style="text-align:left;"> 187,603.60 </td>
-    <td style="text-align:left;"> 32,770.70 </td>
-    <td style="text-align:left;"> 9,400.80 </td>
-    <td style="text-align:left;"> 2,722.10 </td>
-    <td style="text-align:left;"> 2,441.10 </td>
-    <td style="text-align:right;"> 0.17 </td>
-    <td style="text-align:right;"> 0.05 </td>
-    <td style="text-align:right;"> 0.01 </td>
-    <td style="text-align:right;"> 0.01 </td>
-   </tr>
-   <tr>
-    <td style="text-align:left;"> Omineca </td>
-    <td style="text-align:left;"> Philip Lake </td>
-    <td style="text-align:left;"> 12,798.40 </td>
-    <td style="text-align:left;"> 2,068.40 </td>
-    <td style="text-align:left;"> 0 </td>
-    <td style="text-align:left;"> 0 </td>
-    <td style="text-align:left;"> 0 </td>
-    <td style="text-align:right;"> 0.16 </td>
-    <td style="text-align:right;"> 0.00 </td>
-    <td style="text-align:right;"> 0.00 </td>
-    <td style="text-align:right;"> 0.00 </td>
-   </tr>
-   <tr>
-    <td style="text-align:left;"> Omineca </td>
-    <td style="text-align:left;"> South Germansen - Upper Manson </td>
-    <td style="text-align:left;"> 16,291.00 </td>
-    <td style="text-align:left;"> 8,047.70 </td>
-    <td style="text-align:left;"> 7,894.40 </td>
-    <td style="text-align:left;"> 2,499.20 </td>
-    <td style="text-align:left;"> 2,460.20 </td>
-    <td style="text-align:right;"> 0.49 </td>
-    <td style="text-align:right;"> 0.48 </td>
-    <td style="text-align:right;"> 0.15 </td>
-    <td style="text-align:right;"> 0.15 </td>
-   </tr>
-   <tr>
-    <td style="text-align:left;"> Omineca </td>
-    <td style="text-align:left;"> Tutizza </td>
-    <td style="text-align:left;"> 49,376.00 </td>
-    <td style="text-align:left;"> 36,641.60 </td>
-    <td style="text-align:left;"> 35,805.00 </td>
-    <td style="text-align:left;"> 34,316.90 </td>
-    <td style="text-align:left;"> 32,193.10 </td>
-    <td style="text-align:right;"> 0.74 </td>
-    <td style="text-align:right;"> 0.73 </td>
-    <td style="text-align:right;"> 0.70 </td>
-    <td style="text-align:right;"> 0.65 </td>
-   </tr>
-   <tr>
-    <td style="text-align:left;"> Omineca </td>
-    <td style="text-align:left;"> Twenty Mile </td>
-    <td style="text-align:left;"> 21,105.60 </td>
-    <td style="text-align:left;"> 15,453.50 </td>
-    <td style="text-align:left;"> 14,888.40 </td>
-    <td style="text-align:left;"> 10,842.00 </td>
-    <td style="text-align:left;"> 9,170.00 </td>
-    <td style="text-align:right;"> 0.73 </td>
-    <td style="text-align:right;"> 0.71 </td>
-    <td style="text-align:right;"> 0.51 </td>
-    <td style="text-align:right;"> 0.43 </td>
-   </tr>
-   <tr>
-    <td style="text-align:left;"> Omineca </td>
-    <td style="text-align:left;"> Chase </td>
-    <td style="text-align:left;"> 35,945.30 </td>
-    <td style="text-align:left;"> 32,986.20 </td>
-    <td style="text-align:left;"> 32,816.20 </td>
-    <td style="text-align:left;"> 32,748.50 </td>
-    <td style="text-align:left;"> 32,638.60 </td>
-    <td style="text-align:right;"> 0.92 </td>
-    <td style="text-align:right;"> 0.91 </td>
-    <td style="text-align:right;"> 0.91 </td>
-    <td style="text-align:right;"> 0.91 </td>
-   </tr>
-   <tr>
-    <td style="text-align:left;"> Omineca </td>
-    <td style="text-align:left;"> Omineca </td>
-    <td style="text-align:left;"> 127,169.60 </td>
-    <td style="text-align:left;"> 112,835.50 </td>
-    <td style="text-align:left;"> 112,391.40 </td>
-    <td style="text-align:left;"> 109,827.90 </td>
-    <td style="text-align:left;"> 109,172.90 </td>
-    <td style="text-align:right;"> 0.89 </td>
-    <td style="text-align:right;"> 0.88 </td>
-    <td style="text-align:right;"> 0.86 </td>
-    <td style="text-align:right;"> 0.86 </td>
-   </tr>
-   <tr>
-    <td style="text-align:left;"> Omineca </td>
-    <td style="text-align:left;"> Muscovite </td>
-    <td style="text-align:left;"> 5,741.40 </td>
-    <td style="text-align:left;"> 4,182.90 </td>
-    <td style="text-align:left;"> 4,135.40 </td>
-    <td style="text-align:left;"> 4,007.20 </td>
-    <td style="text-align:left;"> 3,977.80 </td>
-    <td style="text-align:right;"> 0.73 </td>
-    <td style="text-align:right;"> 0.72 </td>
-    <td style="text-align:right;"> 0.70 </td>
-    <td style="text-align:right;"> 0.69 </td>
-   </tr>
-   <tr>
-    <td style="text-align:left;"> Parsnip </td>
-    <td style="text-align:left;"> Kennedy </td>
-    <td style="text-align:left;"> 24,347.10 </td>
-    <td style="text-align:left;"> 18,927.00 </td>
-    <td style="text-align:left;"> 17,876.90 </td>
-    <td style="text-align:left;"> 16,604.10 </td>
-    <td style="text-align:left;"> 15,908.80 </td>
-    <td style="text-align:right;"> 0.78 </td>
-    <td style="text-align:right;"> 0.73 </td>
-    <td style="text-align:right;"> 0.68 </td>
-    <td style="text-align:right;"> 0.65 </td>
-   </tr>
-   <tr>
-    <td style="text-align:left;"> Parsnip </td>
-    <td style="text-align:left;"> Pine Pass </td>
-    <td style="text-align:left;"> 10,255.10 </td>
-    <td style="text-align:left;"> 8,090.30 </td>
-    <td style="text-align:left;"> 8,001.10 </td>
-    <td style="text-align:left;"> 7,795.00 </td>
-    <td style="text-align:left;"> 7,795.00 </td>
-    <td style="text-align:right;"> 0.79 </td>
-    <td style="text-align:right;"> 0.78 </td>
-    <td style="text-align:right;"> 0.76 </td>
-    <td style="text-align:right;"> 0.76 </td>
-   </tr>
-   <tr>
-    <td style="text-align:left;"> Rocky </td>
-    <td style="text-align:left;"> Nabesche </td>
-    <td style="text-align:left;"> 152,345.10 </td>
-    <td style="text-align:left;"> 111,586.60 </td>
-    <td style="text-align:left;"> 110,799.20 </td>
-    <td style="text-align:left;"> 76,952.00 </td>
-    <td style="text-align:left;"> 66,638.70 </td>
-    <td style="text-align:right;"> 0.73 </td>
-    <td style="text-align:right;"> 0.73 </td>
-    <td style="text-align:right;"> 0.51 </td>
-    <td style="text-align:right;"> 0.44 </td>
-   </tr>
-   <tr>
-    <td style="text-align:left;"> Rocky </td>
-    <td style="text-align:left;"> Schooler </td>
-    <td style="text-align:left;"> 65,889.60 </td>
-    <td style="text-align:left;"> 49,483.00 </td>
-    <td style="text-align:left;"> 48,440.70 </td>
-    <td style="text-align:left;"> 17,138.70 </td>
-    <td style="text-align:left;"> 15,758.70 </td>
-    <td style="text-align:right;"> 0.75 </td>
-    <td style="text-align:right;"> 0.74 </td>
-    <td style="text-align:right;"> 0.26 </td>
-    <td style="text-align:right;"> 0.24 </td>
-   </tr>
- </tbody>
- </table>
+<table class="table table-striped" style="font-size: 8px; margin-left: auto; margin-right: auto;">
+<caption style="font-size: initial !important;">(\#tab:table11) Grizzly Core Area Summary</caption>
+ <thead>
+  <tr>
+   <th style="text-align:left;"> GBPU </th>
+   <th style="text-align:left;"> Assessment Unit </th>
+   <th style="text-align:left;"> ha </th>
+   <th style="text-align:left;"> sum.FilteredCore0 </th>
+   <th style="text-align:left;"> sum.FilteredCore10 </th>
+   <th style="text-align:left;"> sum.FilteredCore50 </th>
+   <th style="text-align:left;"> sum.FilteredCore100 </th>
+   <th style="text-align:right;"> core0 </th>
+   <th style="text-align:right;"> core10 </th>
+   <th style="text-align:right;"> core100 </th>
+   <th style="text-align:right;"> core50 </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> Finlay-Ospika </td>
+   <td style="text-align:left;"> Akie </td>
+   <td style="text-align:left;"> 102,467.70 </td>
+   <td style="text-align:left;"> 78,379.40 </td>
+   <td style="text-align:left;"> 77,905.40 </td>
+   <td style="text-align:left;"> 75,278.50 </td>
+   <td style="text-align:left;"> 70,045.70 </td>
+   <td style="text-align:right;"> 0.76 </td>
+   <td style="text-align:right;"> 0.76 </td>
+   <td style="text-align:right;"> 0.73 </td>
+   <td style="text-align:right;"> 0.68 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Finlay-Ospika </td>
+   <td style="text-align:left;"> Akie River </td>
+   <td style="text-align:left;"> 45,937.10 </td>
+   <td style="text-align:left;"> 42,442.30 </td>
+   <td style="text-align:left;"> 42,441.70 </td>
+   <td style="text-align:left;"> 42,441.70 </td>
+   <td style="text-align:left;"> 33,646.80 </td>
+   <td style="text-align:right;"> 0.92 </td>
+   <td style="text-align:right;"> 0.92 </td>
+   <td style="text-align:right;"> 0.92 </td>
+   <td style="text-align:right;"> 0.73 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Finlay-Ospika </td>
+   <td style="text-align:left;"> Buffalohead </td>
+   <td style="text-align:left;"> 250,130.30 </td>
+   <td style="text-align:left;"> 137,868.20 </td>
+   <td style="text-align:left;"> 136,832.60 </td>
+   <td style="text-align:left;"> 127,345.80 </td>
+   <td style="text-align:left;"> 120,565.60 </td>
+   <td style="text-align:right;"> 0.55 </td>
+   <td style="text-align:right;"> 0.55 </td>
+   <td style="text-align:right;"> 0.51 </td>
+   <td style="text-align:right;"> 0.48 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Finlay-Ospika </td>
+   <td style="text-align:left;"> Collins - Davis </td>
+   <td style="text-align:left;"> 222,003.30 </td>
+   <td style="text-align:left;"> 150,837.70 </td>
+   <td style="text-align:left;"> 150,094.60 </td>
+   <td style="text-align:left;"> 111,332.50 </td>
+   <td style="text-align:left;"> 95,502.50 </td>
+   <td style="text-align:right;"> 0.68 </td>
+   <td style="text-align:right;"> 0.68 </td>
+   <td style="text-align:right;"> 0.50 </td>
+   <td style="text-align:right;"> 0.43 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Finlay-Ospika </td>
+   <td style="text-align:left;"> Fox </td>
+   <td style="text-align:left;"> 279,712.10 </td>
+   <td style="text-align:left;"> 255,452.30 </td>
+   <td style="text-align:left;"> 248,592.60 </td>
+   <td style="text-align:left;"> 248,592.60 </td>
+   <td style="text-align:left;"> 248,592.60 </td>
+   <td style="text-align:right;"> 0.91 </td>
+   <td style="text-align:right;"> 0.89 </td>
+   <td style="text-align:right;"> 0.89 </td>
+   <td style="text-align:right;"> 0.89 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Finlay-Ospika </td>
+   <td style="text-align:left;"> Ingenika </td>
+   <td style="text-align:left;"> 124,380.40 </td>
+   <td style="text-align:left;"> 97,797.90 </td>
+   <td style="text-align:left;"> 97,543.20 </td>
+   <td style="text-align:left;"> 87,440.40 </td>
+   <td style="text-align:left;"> 70,332.60 </td>
+   <td style="text-align:right;"> 0.79 </td>
+   <td style="text-align:right;"> 0.78 </td>
+   <td style="text-align:right;"> 0.70 </td>
+   <td style="text-align:right;"> 0.57 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Finlay-Ospika </td>
+   <td style="text-align:left;"> Lower Akie </td>
+   <td style="text-align:left;"> 19,934.40 </td>
+   <td style="text-align:left;"> 11,516.40 </td>
+   <td style="text-align:left;"> 11,364.30 </td>
+   <td style="text-align:left;"> 11,353.60 </td>
+   <td style="text-align:left;"> 5,068.30 </td>
+   <td style="text-align:right;"> 0.58 </td>
+   <td style="text-align:right;"> 0.57 </td>
+   <td style="text-align:right;"> 0.57 </td>
+   <td style="text-align:right;"> 0.25 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Finlay-Ospika </td>
+   <td style="text-align:left;"> Lower Ospika </td>
+   <td style="text-align:left;"> 135,093.40 </td>
+   <td style="text-align:left;"> 90,402.30 </td>
+   <td style="text-align:left;"> 89,246.00 </td>
+   <td style="text-align:left;"> 61,762.00 </td>
+   <td style="text-align:left;"> 48,239.20 </td>
+   <td style="text-align:right;"> 0.67 </td>
+   <td style="text-align:right;"> 0.66 </td>
+   <td style="text-align:right;"> 0.46 </td>
+   <td style="text-align:right;"> 0.36 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Finlay-Ospika </td>
+   <td style="text-align:left;"> Lower Pesika </td>
+   <td style="text-align:left;"> 4,953.30 </td>
+   <td style="text-align:left;"> 4,943.60 </td>
+   <td style="text-align:left;"> 4,943.20 </td>
+   <td style="text-align:left;"> 3,552.00 </td>
+   <td style="text-align:left;"> 1,557.50 </td>
+   <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:right;"> 0.72 </td>
+   <td style="text-align:right;"> 0.31 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Finlay-Ospika </td>
+   <td style="text-align:left;"> McCusker </td>
+   <td style="text-align:left;"> 96,897.50 </td>
+   <td style="text-align:left;"> 76,557.50 </td>
+   <td style="text-align:left;"> 76,532.40 </td>
+   <td style="text-align:left;"> 72,548.80 </td>
+   <td style="text-align:left;"> 56,380.50 </td>
+   <td style="text-align:right;"> 0.79 </td>
+   <td style="text-align:right;"> 0.79 </td>
+   <td style="text-align:right;"> 0.75 </td>
+   <td style="text-align:right;"> 0.58 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Finlay-Ospika </td>
+   <td style="text-align:left;"> North Firesteel </td>
+   <td style="text-align:left;"> 44,195.70 </td>
+   <td style="text-align:left;"> 43,887.00 </td>
+   <td style="text-align:left;"> 42,314.50 </td>
+   <td style="text-align:left;"> 42,314.50 </td>
+   <td style="text-align:left;"> 42,314.50 </td>
+   <td style="text-align:right;"> 0.99 </td>
+   <td style="text-align:right;"> 0.96 </td>
+   <td style="text-align:right;"> 0.96 </td>
+   <td style="text-align:right;"> 0.96 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Finlay-Ospika </td>
+   <td style="text-align:left;"> North Ingenika </td>
+   <td style="text-align:left;"> 47,688.10 </td>
+   <td style="text-align:left;"> 40,295.30 </td>
+   <td style="text-align:left;"> 40,200.90 </td>
+   <td style="text-align:left;"> 33,849.70 </td>
+   <td style="text-align:left;"> 18,319.20 </td>
+   <td style="text-align:right;"> 0.84 </td>
+   <td style="text-align:right;"> 0.84 </td>
+   <td style="text-align:right;"> 0.71 </td>
+   <td style="text-align:right;"> 0.38 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Finlay-Ospika </td>
+   <td style="text-align:left;"> Obo River </td>
+   <td style="text-align:left;"> 130,244.00 </td>
+   <td style="text-align:left;"> 119,154.60 </td>
+   <td style="text-align:left;"> 119,147.60 </td>
+   <td style="text-align:left;"> 119,147.60 </td>
+   <td style="text-align:left;"> 119,147.60 </td>
+   <td style="text-align:right;"> 0.91 </td>
+   <td style="text-align:right;"> 0.91 </td>
+   <td style="text-align:right;"> 0.91 </td>
+   <td style="text-align:right;"> 0.91 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Finlay-Ospika </td>
+   <td style="text-align:left;"> Pelly </td>
+   <td style="text-align:left;"> 138,724.30 </td>
+   <td style="text-align:left;"> 119,640.30 </td>
+   <td style="text-align:left;"> 119,563.80 </td>
+   <td style="text-align:left;"> 115,475.90 </td>
+   <td style="text-align:left;"> 90,694.00 </td>
+   <td style="text-align:right;"> 0.86 </td>
+   <td style="text-align:right;"> 0.86 </td>
+   <td style="text-align:right;"> 0.83 </td>
+   <td style="text-align:right;"> 0.65 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Finlay-Ospika </td>
+   <td style="text-align:left;"> Pesika </td>
+   <td style="text-align:left;"> 67,973.50 </td>
+   <td style="text-align:left;"> 63,734.30 </td>
+   <td style="text-align:left;"> 63,685.50 </td>
+   <td style="text-align:left;"> 62,871.30 </td>
+   <td style="text-align:left;"> 45,985.30 </td>
+   <td style="text-align:right;"> 0.94 </td>
+   <td style="text-align:right;"> 0.94 </td>
+   <td style="text-align:right;"> 0.92 </td>
+   <td style="text-align:right;"> 0.68 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Finlay-Ospika </td>
+   <td style="text-align:left;"> South Firesteel </td>
+   <td style="text-align:left;"> 94,642.60 </td>
+   <td style="text-align:left;"> 78,551.90 </td>
+   <td style="text-align:left;"> 78,279.50 </td>
+   <td style="text-align:left;"> 78,279.50 </td>
+   <td style="text-align:left;"> 78,279.50 </td>
+   <td style="text-align:right;"> 0.83 </td>
+   <td style="text-align:right;"> 0.83 </td>
+   <td style="text-align:right;"> 0.83 </td>
+   <td style="text-align:right;"> 0.83 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Finlay-Ospika </td>
+   <td style="text-align:left;"> Swannell </td>
+   <td style="text-align:left;"> 63,898.20 </td>
+   <td style="text-align:left;"> 55,400.00 </td>
+   <td style="text-align:left;"> 53,961.20 </td>
+   <td style="text-align:left;"> 49,155.80 </td>
+   <td style="text-align:left;"> 46,802.30 </td>
+   <td style="text-align:right;"> 0.87 </td>
+   <td style="text-align:right;"> 0.84 </td>
+   <td style="text-align:right;"> 0.77 </td>
+   <td style="text-align:right;"> 0.73 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Finlay-Ospika </td>
+   <td style="text-align:left;"> Thutade </td>
+   <td style="text-align:left;"> 406,497.90 </td>
+   <td style="text-align:left;"> 329,481.70 </td>
+   <td style="text-align:left;"> 324,893.60 </td>
+   <td style="text-align:left;"> 323,936.30 </td>
+   <td style="text-align:left;"> 321,824.30 </td>
+   <td style="text-align:right;"> 0.81 </td>
+   <td style="text-align:right;"> 0.80 </td>
+   <td style="text-align:right;"> 0.80 </td>
+   <td style="text-align:right;"> 0.79 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Finlay-Ospika </td>
+   <td style="text-align:left;"> Upper Akie River </td>
+   <td style="text-align:left;"> 148,524.80 </td>
+   <td style="text-align:left;"> 93,420.40 </td>
+   <td style="text-align:left;"> 93,420.40 </td>
+   <td style="text-align:left;"> 93,420.40 </td>
+   <td style="text-align:left;"> 86,879.90 </td>
+   <td style="text-align:right;"> 0.63 </td>
+   <td style="text-align:right;"> 0.63 </td>
+   <td style="text-align:right;"> 0.63 </td>
+   <td style="text-align:right;"> 0.58 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Finlay-Ospika </td>
+   <td style="text-align:left;"> Upper Ospika </td>
+   <td style="text-align:left;"> 44,639.00 </td>
+   <td style="text-align:left;"> 38,746.90 </td>
+   <td style="text-align:left;"> 38,746.90 </td>
+   <td style="text-align:left;"> 35,020.50 </td>
+   <td style="text-align:left;"> 25,234.30 </td>
+   <td style="text-align:right;"> 0.87 </td>
+   <td style="text-align:right;"> 0.87 </td>
+   <td style="text-align:right;"> 0.78 </td>
+   <td style="text-align:right;"> 0.57 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Finlay-Ospika </td>
+   <td style="text-align:left;"> Upper Pelly </td>
+   <td style="text-align:left;"> 134,656.30 </td>
+   <td style="text-align:left;"> 115,552.50 </td>
+   <td style="text-align:left;"> 115,552.50 </td>
+   <td style="text-align:left;"> 115,552.50 </td>
+   <td style="text-align:left;"> 114,802.20 </td>
+   <td style="text-align:right;"> 0.86 </td>
+   <td style="text-align:right;"> 0.86 </td>
+   <td style="text-align:right;"> 0.86 </td>
+   <td style="text-align:right;"> 0.85 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Finlay-Ospika </td>
+   <td style="text-align:left;"> Wicked River </td>
+   <td style="text-align:left;"> 60,617.50 </td>
+   <td style="text-align:left;"> 51,625.60 </td>
+   <td style="text-align:left;"> 51,614.60 </td>
+   <td style="text-align:left;"> 45,039.10 </td>
+   <td style="text-align:left;"> 34,069.80 </td>
+   <td style="text-align:right;"> 0.85 </td>
+   <td style="text-align:right;"> 0.85 </td>
+   <td style="text-align:right;"> 0.74 </td>
+   <td style="text-align:right;"> 0.56 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Finlay-Ospika </td>
+   <td style="text-align:left;"> Kwadacha </td>
+   <td style="text-align:left;"> 116,009.60 </td>
+   <td style="text-align:left;"> 70,825.30 </td>
+   <td style="text-align:left;"> 70,287.70 </td>
+   <td style="text-align:left;"> 70,287.70 </td>
+   <td style="text-align:left;"> 70,287.70 </td>
+   <td style="text-align:right;"> 0.61 </td>
+   <td style="text-align:right;"> 0.61 </td>
+   <td style="text-align:right;"> 0.61 </td>
+   <td style="text-align:right;"> 0.61 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Finlay-Ospika </td>
+   <td style="text-align:left;"> Kwadacha Addition </td>
+   <td style="text-align:left;"> 12,789.60 </td>
+   <td style="text-align:left;"> 12,747.60 </td>
+   <td style="text-align:left;"> 12,747.60 </td>
+   <td style="text-align:left;"> 12,747.60 </td>
+   <td style="text-align:left;"> 12,747.60 </td>
+   <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:right;"> 1.00 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Finlay-Ospika </td>
+   <td style="text-align:left;"> Finlay-Russel </td>
+   <td style="text-align:left;"> 117,087.40 </td>
+   <td style="text-align:left;"> 102,900.90 </td>
+   <td style="text-align:left;"> 102,871.80 </td>
+   <td style="text-align:left;"> 102,871.80 </td>
+   <td style="text-align:left;"> 102,851.60 </td>
+   <td style="text-align:right;"> 0.88 </td>
+   <td style="text-align:right;"> 0.88 </td>
+   <td style="text-align:right;"> 0.88 </td>
+   <td style="text-align:right;"> 0.88 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Finlay-Ospika </td>
+   <td style="text-align:left;"> Ed Bird Estells Lake </td>
+   <td style="text-align:left;"> 5,263.70 </td>
+   <td style="text-align:left;"> 3,597.10 </td>
+   <td style="text-align:left;"> 3,328.20 </td>
+   <td style="text-align:left;"> 3,158.20 </td>
+   <td style="text-align:left;"> 3,141.60 </td>
+   <td style="text-align:right;"> 0.68 </td>
+   <td style="text-align:right;"> 0.63 </td>
+   <td style="text-align:right;"> 0.60 </td>
+   <td style="text-align:right;"> 0.60 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Finlay-Ospika </td>
+   <td style="text-align:left;"> Ospika Cones </td>
+   <td style="text-align:left;"> 1,505.30 </td>
+   <td style="text-align:left;"> 1,505.30 </td>
+   <td style="text-align:left;"> 1,505.30 </td>
+   <td style="text-align:left;"> 1,505.30 </td>
+   <td style="text-align:left;"> 1,283.80 </td>
+   <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:right;"> 0.85 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Finlay-Ospika </td>
+   <td style="text-align:left;"> Tatlatui </td>
+   <td style="text-align:left;"> 103,388.50 </td>
+   <td style="text-align:left;"> 83,718.90 </td>
+   <td style="text-align:left;"> 83,193.70 </td>
+   <td style="text-align:left;"> 83,193.70 </td>
+   <td style="text-align:left;"> 83,193.70 </td>
+   <td style="text-align:right;"> 0.81 </td>
+   <td style="text-align:right;"> 0.80 </td>
+   <td style="text-align:right;"> 0.80 </td>
+   <td style="text-align:right;"> 0.80 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Moberly </td>
+   <td style="text-align:left;"> Clearwater </td>
+   <td style="text-align:left;"> 109,885.70 </td>
+   <td style="text-align:left;"> 78,149.90 </td>
+   <td style="text-align:left;"> 76,430.60 </td>
+   <td style="text-align:left;"> 62,365.50 </td>
+   <td style="text-align:left;"> 61,993.50 </td>
+   <td style="text-align:right;"> 0.71 </td>
+   <td style="text-align:right;"> 0.70 </td>
+   <td style="text-align:right;"> 0.57 </td>
+   <td style="text-align:right;"> 0.56 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Moberly </td>
+   <td style="text-align:left;"> Misinchinka </td>
+   <td style="text-align:left;"> 103,373.10 </td>
+   <td style="text-align:left;"> 49,014.10 </td>
+   <td style="text-align:left;"> 36,740.40 </td>
+   <td style="text-align:left;"> 29,188.30 </td>
+   <td style="text-align:left;"> 28,518.60 </td>
+   <td style="text-align:right;"> 0.47 </td>
+   <td style="text-align:right;"> 0.36 </td>
+   <td style="text-align:right;"> 0.28 </td>
+   <td style="text-align:right;"> 0.28 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Moberly </td>
+   <td style="text-align:left;"> Morfee </td>
+   <td style="text-align:left;"> 21,067.20 </td>
+   <td style="text-align:left;"> 4,612.80 </td>
+   <td style="text-align:left;"> 4,067.30 </td>
+   <td style="text-align:left;"> 3,963.00 </td>
+   <td style="text-align:left;"> 3,894.60 </td>
+   <td style="text-align:right;"> 0.22 </td>
+   <td style="text-align:right;"> 0.19 </td>
+   <td style="text-align:right;"> 0.19 </td>
+   <td style="text-align:right;"> 0.18 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Moberly </td>
+   <td style="text-align:left;"> Parsnip </td>
+   <td style="text-align:left;"> 121,467.90 </td>
+   <td style="text-align:left;"> 73,309.70 </td>
+   <td style="text-align:left;"> 63,584.90 </td>
+   <td style="text-align:left;"> 46,895.70 </td>
+   <td style="text-align:left;"> 40,285.10 </td>
+   <td style="text-align:right;"> 0.60 </td>
+   <td style="text-align:right;"> 0.52 </td>
+   <td style="text-align:right;"> 0.39 </td>
+   <td style="text-align:right;"> 0.33 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Moberly </td>
+   <td style="text-align:left;"> Selwyn </td>
+   <td style="text-align:left;"> 57,059.20 </td>
+   <td style="text-align:left;"> 37,638.90 </td>
+   <td style="text-align:left;"> 37,289.60 </td>
+   <td style="text-align:left;"> 23,411.70 </td>
+   <td style="text-align:left;"> 18,774.00 </td>
+   <td style="text-align:right;"> 0.66 </td>
+   <td style="text-align:right;"> 0.65 </td>
+   <td style="text-align:right;"> 0.41 </td>
+   <td style="text-align:right;"> 0.33 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Moberly </td>
+   <td style="text-align:left;"> Heather Dina Lake </td>
+   <td style="text-align:left;"> 5,970.00 </td>
+   <td style="text-align:left;"> 2,348.60 </td>
+   <td style="text-align:left;"> 1,182.90 </td>
+   <td style="text-align:left;"> 1,090.00 </td>
+   <td style="text-align:left;"> 1,089.20 </td>
+   <td style="text-align:right;"> 0.39 </td>
+   <td style="text-align:right;"> 0.20 </td>
+   <td style="text-align:right;"> 0.18 </td>
+   <td style="text-align:right;"> 0.18 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Muskwa </td>
+   <td style="text-align:left;"> Bluff Creek </td>
+   <td style="text-align:left;"> 24,474.40 </td>
+   <td style="text-align:left;"> 22,769.90 </td>
+   <td style="text-align:left;"> 22,769.90 </td>
+   <td style="text-align:left;"> 22,769.90 </td>
+   <td style="text-align:left;"> 22,769.90 </td>
+   <td style="text-align:right;"> 0.93 </td>
+   <td style="text-align:right;"> 0.93 </td>
+   <td style="text-align:right;"> 0.93 </td>
+   <td style="text-align:right;"> 0.93 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Muskwa </td>
+   <td style="text-align:left;"> Braid </td>
+   <td style="text-align:left;"> 132,949.30 </td>
+   <td style="text-align:left;"> 127,728.50 </td>
+   <td style="text-align:left;"> 122,781.40 </td>
+   <td style="text-align:left;"> 122,781.40 </td>
+   <td style="text-align:left;"> 122,781.40 </td>
+   <td style="text-align:right;"> 0.96 </td>
+   <td style="text-align:right;"> 0.92 </td>
+   <td style="text-align:right;"> 0.92 </td>
+   <td style="text-align:right;"> 0.92 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Muskwa </td>
+   <td style="text-align:left;"> Frog </td>
+   <td style="text-align:left;"> 287,281.70 </td>
+   <td style="text-align:left;"> 262,231.80 </td>
+   <td style="text-align:left;"> 260,800.00 </td>
+   <td style="text-align:left;"> 260,800.00 </td>
+   <td style="text-align:left;"> 260,800.00 </td>
+   <td style="text-align:right;"> 0.91 </td>
+   <td style="text-align:right;"> 0.91 </td>
+   <td style="text-align:right;"> 0.91 </td>
+   <td style="text-align:right;"> 0.91 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Muskwa </td>
+   <td style="text-align:left;"> Upper Gataga </td>
+   <td style="text-align:left;"> 101,216.60 </td>
+   <td style="text-align:left;"> 38,997.30 </td>
+   <td style="text-align:left;"> 38,961.90 </td>
+   <td style="text-align:left;"> 38,961.90 </td>
+   <td style="text-align:left;"> 38,961.90 </td>
+   <td style="text-align:right;"> 0.39 </td>
+   <td style="text-align:right;"> 0.38 </td>
+   <td style="text-align:right;"> 0.38 </td>
+   <td style="text-align:right;"> 0.38 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Muskwa </td>
+   <td style="text-align:left;"> Frog-Gataga </td>
+   <td style="text-align:left;"> 346,177.70 </td>
+   <td style="text-align:left;"> 302,586.00 </td>
+   <td style="text-align:left;"> 295,561.70 </td>
+   <td style="text-align:left;"> 295,561.70 </td>
+   <td style="text-align:left;"> 295,561.70 </td>
+   <td style="text-align:right;"> 0.87 </td>
+   <td style="text-align:right;"> 0.85 </td>
+   <td style="text-align:right;"> 0.85 </td>
+   <td style="text-align:right;"> 0.85 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Nation </td>
+   <td style="text-align:left;"> Tudyah A </td>
+   <td style="text-align:left;"> 4,929.50 </td>
+   <td style="text-align:left;"> 228.8 </td>
+   <td style="text-align:left;"> 0 </td>
+   <td style="text-align:left;"> 0 </td>
+   <td style="text-align:left;"> 0 </td>
+   <td style="text-align:right;"> 0.05 </td>
+   <td style="text-align:right;"> 0.00 </td>
+   <td style="text-align:right;"> 0.00 </td>
+   <td style="text-align:right;"> 0.00 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Nation </td>
+   <td style="text-align:left;"> Tudyah B </td>
+   <td style="text-align:left;"> 4,737.30 </td>
+   <td style="text-align:left;"> 17.4 </td>
+   <td style="text-align:left;"> 0 </td>
+   <td style="text-align:left;"> 0 </td>
+   <td style="text-align:left;"> 0 </td>
+   <td style="text-align:right;"> 0.00 </td>
+   <td style="text-align:right;"> 0.00 </td>
+   <td style="text-align:right;"> 0.00 </td>
+   <td style="text-align:right;"> 0.00 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Omineca </td>
+   <td style="text-align:left;"> Aiken </td>
+   <td style="text-align:left;"> 38,466.00 </td>
+   <td style="text-align:left;"> 29,425.10 </td>
+   <td style="text-align:left;"> 29,198.00 </td>
+   <td style="text-align:left;"> 26,358.80 </td>
+   <td style="text-align:left;"> 23,881.20 </td>
+   <td style="text-align:right;"> 0.76 </td>
+   <td style="text-align:right;"> 0.76 </td>
+   <td style="text-align:right;"> 0.69 </td>
+   <td style="text-align:right;"> 0.62 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Omineca </td>
+   <td style="text-align:left;"> Blackwater </td>
+   <td style="text-align:left;"> 193,825.60 </td>
+   <td style="text-align:left;"> 36,101.20 </td>
+   <td style="text-align:left;"> 23,448.30 </td>
+   <td style="text-align:left;"> 6,075.20 </td>
+   <td style="text-align:left;"> 5,567.00 </td>
+   <td style="text-align:right;"> 0.19 </td>
+   <td style="text-align:right;"> 0.12 </td>
+   <td style="text-align:right;"> 0.03 </td>
+   <td style="text-align:right;"> 0.03 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Omineca </td>
+   <td style="text-align:left;"> Chunamon </td>
+   <td style="text-align:left;"> 198,747.30 </td>
+   <td style="text-align:left;"> 100,779.50 </td>
+   <td style="text-align:left;"> 99,814.80 </td>
+   <td style="text-align:left;"> 77,942.00 </td>
+   <td style="text-align:left;"> 70,870.10 </td>
+   <td style="text-align:right;"> 0.51 </td>
+   <td style="text-align:right;"> 0.50 </td>
+   <td style="text-align:right;"> 0.39 </td>
+   <td style="text-align:right;"> 0.36 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Omineca </td>
+   <td style="text-align:left;"> Connaghan Creek </td>
+   <td style="text-align:left;"> 8,461.90 </td>
+   <td style="text-align:left;"> 5,962.70 </td>
+   <td style="text-align:left;"> 5,937.00 </td>
+   <td style="text-align:left;"> 4,235.30 </td>
+   <td style="text-align:left;"> 4,222.30 </td>
+   <td style="text-align:right;"> 0.70 </td>
+   <td style="text-align:right;"> 0.70 </td>
+   <td style="text-align:right;"> 0.50 </td>
+   <td style="text-align:right;"> 0.50 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Omineca </td>
+   <td style="text-align:left;"> Discovery </td>
+   <td style="text-align:left;"> 13,262.50 </td>
+   <td style="text-align:left;"> 5,924.20 </td>
+   <td style="text-align:left;"> 5,909.60 </td>
+   <td style="text-align:left;"> 4,010.20 </td>
+   <td style="text-align:left;"> 3,671.70 </td>
+   <td style="text-align:right;"> 0.45 </td>
+   <td style="text-align:right;"> 0.45 </td>
+   <td style="text-align:right;"> 0.30 </td>
+   <td style="text-align:right;"> 0.28 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Omineca </td>
+   <td style="text-align:left;"> Duckling </td>
+   <td style="text-align:left;"> 28,212.20 </td>
+   <td style="text-align:left;"> 14,113.00 </td>
+   <td style="text-align:left;"> 13,908.10 </td>
+   <td style="text-align:left;"> 12,421.50 </td>
+   <td style="text-align:left;"> 11,770.20 </td>
+   <td style="text-align:right;"> 0.50 </td>
+   <td style="text-align:right;"> 0.49 </td>
+   <td style="text-align:right;"> 0.44 </td>
+   <td style="text-align:right;"> 0.42 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Omineca </td>
+   <td style="text-align:left;"> Eklund </td>
+   <td style="text-align:left;"> 24,933.30 </td>
+   <td style="text-align:left;"> 14,218.30 </td>
+   <td style="text-align:left;"> 14,069.20 </td>
+   <td style="text-align:left;"> 10,933.60 </td>
+   <td style="text-align:left;"> 10,877.20 </td>
+   <td style="text-align:right;"> 0.57 </td>
+   <td style="text-align:right;"> 0.56 </td>
+   <td style="text-align:right;"> 0.44 </td>
+   <td style="text-align:right;"> 0.44 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Omineca </td>
+   <td style="text-align:left;"> Gaffney </td>
+   <td style="text-align:left;"> 151,921.90 </td>
+   <td style="text-align:left;"> 40,689.40 </td>
+   <td style="text-align:left;"> 36,399.20 </td>
+   <td style="text-align:left;"> 12,461.60 </td>
+   <td style="text-align:left;"> 11,622.60 </td>
+   <td style="text-align:right;"> 0.27 </td>
+   <td style="text-align:right;"> 0.24 </td>
+   <td style="text-align:right;"> 0.08 </td>
+   <td style="text-align:right;"> 0.08 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Omineca </td>
+   <td style="text-align:left;"> Germansen Mountain </td>
+   <td style="text-align:left;"> 11,454.50 </td>
+   <td style="text-align:left;"> 9,086.00 </td>
+   <td style="text-align:left;"> 9,085.00 </td>
+   <td style="text-align:left;"> 7,037.80 </td>
+   <td style="text-align:left;"> 6,940.80 </td>
+   <td style="text-align:right;"> 0.79 </td>
+   <td style="text-align:right;"> 0.79 </td>
+   <td style="text-align:right;"> 0.61 </td>
+   <td style="text-align:right;"> 0.61 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Omineca </td>
+   <td style="text-align:left;"> Gillis </td>
+   <td style="text-align:left;"> 36,968.30 </td>
+   <td style="text-align:left;"> 25,686.80 </td>
+   <td style="text-align:left;"> 25,502.30 </td>
+   <td style="text-align:left;"> 16,134.50 </td>
+   <td style="text-align:left;"> 16,097.80 </td>
+   <td style="text-align:right;"> 0.69 </td>
+   <td style="text-align:right;"> 0.69 </td>
+   <td style="text-align:right;"> 0.44 </td>
+   <td style="text-align:right;"> 0.44 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Omineca </td>
+   <td style="text-align:left;"> Jackfish </td>
+   <td style="text-align:left;"> 17,768.50 </td>
+   <td style="text-align:left;"> 6,392.50 </td>
+   <td style="text-align:left;"> 6,381.50 </td>
+   <td style="text-align:left;"> 5,324.20 </td>
+   <td style="text-align:left;"> 5,242.20 </td>
+   <td style="text-align:right;"> 0.36 </td>
+   <td style="text-align:right;"> 0.36 </td>
+   <td style="text-align:right;"> 0.30 </td>
+   <td style="text-align:right;"> 0.30 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Omineca </td>
+   <td style="text-align:left;"> Klawli </td>
+   <td style="text-align:left;"> 79,797.40 </td>
+   <td style="text-align:left;"> 40,824.80 </td>
+   <td style="text-align:left;"> 40,194.80 </td>
+   <td style="text-align:left;"> 19,813.70 </td>
+   <td style="text-align:left;"> 19,324.70 </td>
+   <td style="text-align:right;"> 0.51 </td>
+   <td style="text-align:right;"> 0.50 </td>
+   <td style="text-align:right;"> 0.25 </td>
+   <td style="text-align:right;"> 0.24 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Omineca </td>
+   <td style="text-align:left;"> Manson River </td>
+   <td style="text-align:left;"> 22,446.40 </td>
+   <td style="text-align:left;"> 4,249.70 </td>
+   <td style="text-align:left;"> 4,102.70 </td>
+   <td style="text-align:left;"> 2,314.50 </td>
+   <td style="text-align:left;"> 2,248.50 </td>
+   <td style="text-align:right;"> 0.19 </td>
+   <td style="text-align:right;"> 0.18 </td>
+   <td style="text-align:right;"> 0.10 </td>
+   <td style="text-align:right;"> 0.10 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Omineca </td>
+   <td style="text-align:left;"> Mesilinka </td>
+   <td style="text-align:left;"> 122,522.20 </td>
+   <td style="text-align:left;"> 79,280.00 </td>
+   <td style="text-align:left;"> 78,297.90 </td>
+   <td style="text-align:left;"> 66,885.00 </td>
+   <td style="text-align:left;"> 58,117.90 </td>
+   <td style="text-align:right;"> 0.65 </td>
+   <td style="text-align:right;"> 0.64 </td>
+   <td style="text-align:right;"> 0.55 </td>
+   <td style="text-align:right;"> 0.47 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Omineca </td>
+   <td style="text-align:left;"> Nation </td>
+   <td style="text-align:left;"> 13,761.50 </td>
+   <td style="text-align:left;"> 4,316.70 </td>
+   <td style="text-align:left;"> 1,960.40 </td>
+   <td style="text-align:left;"> 0 </td>
+   <td style="text-align:left;"> 0 </td>
+   <td style="text-align:right;"> 0.31 </td>
+   <td style="text-align:right;"> 0.14 </td>
+   <td style="text-align:right;"> 0.00 </td>
+   <td style="text-align:right;"> 0.00 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Omineca </td>
+   <td style="text-align:left;"> Nina Creek </td>
+   <td style="text-align:left;"> 22,195.40 </td>
+   <td style="text-align:left;"> 14,743.10 </td>
+   <td style="text-align:left;"> 14,673.00 </td>
+   <td style="text-align:left;"> 11,421.10 </td>
+   <td style="text-align:left;"> 9,837.60 </td>
+   <td style="text-align:right;"> 0.66 </td>
+   <td style="text-align:right;"> 0.66 </td>
+   <td style="text-align:right;"> 0.51 </td>
+   <td style="text-align:right;"> 0.44 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Omineca </td>
+   <td style="text-align:left;"> Osilinka </td>
+   <td style="text-align:left;"> 230,036.70 </td>
+   <td style="text-align:left;"> 128,506.70 </td>
+   <td style="text-align:left;"> 126,612.90 </td>
+   <td style="text-align:left;"> 112,109.60 </td>
+   <td style="text-align:left;"> 106,567.80 </td>
+   <td style="text-align:right;"> 0.56 </td>
+   <td style="text-align:right;"> 0.55 </td>
+   <td style="text-align:right;"> 0.49 </td>
+   <td style="text-align:right;"> 0.46 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Omineca </td>
+   <td style="text-align:left;"> Philip </td>
+   <td style="text-align:left;"> 187,603.60 </td>
+   <td style="text-align:left;"> 32,770.70 </td>
+   <td style="text-align:left;"> 9,400.80 </td>
+   <td style="text-align:left;"> 2,722.10 </td>
+   <td style="text-align:left;"> 2,441.10 </td>
+   <td style="text-align:right;"> 0.17 </td>
+   <td style="text-align:right;"> 0.05 </td>
+   <td style="text-align:right;"> 0.01 </td>
+   <td style="text-align:right;"> 0.01 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Omineca </td>
+   <td style="text-align:left;"> Philip Lake </td>
+   <td style="text-align:left;"> 12,798.40 </td>
+   <td style="text-align:left;"> 2,068.40 </td>
+   <td style="text-align:left;"> 0 </td>
+   <td style="text-align:left;"> 0 </td>
+   <td style="text-align:left;"> 0 </td>
+   <td style="text-align:right;"> 0.16 </td>
+   <td style="text-align:right;"> 0.00 </td>
+   <td style="text-align:right;"> 0.00 </td>
+   <td style="text-align:right;"> 0.00 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Omineca </td>
+   <td style="text-align:left;"> South Germansen - Upper Manson </td>
+   <td style="text-align:left;"> 16,291.00 </td>
+   <td style="text-align:left;"> 8,047.70 </td>
+   <td style="text-align:left;"> 7,894.40 </td>
+   <td style="text-align:left;"> 2,499.20 </td>
+   <td style="text-align:left;"> 2,460.20 </td>
+   <td style="text-align:right;"> 0.49 </td>
+   <td style="text-align:right;"> 0.48 </td>
+   <td style="text-align:right;"> 0.15 </td>
+   <td style="text-align:right;"> 0.15 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Omineca </td>
+   <td style="text-align:left;"> Tutizza </td>
+   <td style="text-align:left;"> 49,376.00 </td>
+   <td style="text-align:left;"> 36,641.60 </td>
+   <td style="text-align:left;"> 35,805.00 </td>
+   <td style="text-align:left;"> 34,316.90 </td>
+   <td style="text-align:left;"> 32,193.10 </td>
+   <td style="text-align:right;"> 0.74 </td>
+   <td style="text-align:right;"> 0.73 </td>
+   <td style="text-align:right;"> 0.70 </td>
+   <td style="text-align:right;"> 0.65 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Omineca </td>
+   <td style="text-align:left;"> Twenty Mile </td>
+   <td style="text-align:left;"> 21,105.60 </td>
+   <td style="text-align:left;"> 15,453.50 </td>
+   <td style="text-align:left;"> 14,888.40 </td>
+   <td style="text-align:left;"> 10,842.00 </td>
+   <td style="text-align:left;"> 9,170.00 </td>
+   <td style="text-align:right;"> 0.73 </td>
+   <td style="text-align:right;"> 0.71 </td>
+   <td style="text-align:right;"> 0.51 </td>
+   <td style="text-align:right;"> 0.43 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Omineca </td>
+   <td style="text-align:left;"> Chase </td>
+   <td style="text-align:left;"> 35,945.30 </td>
+   <td style="text-align:left;"> 32,986.20 </td>
+   <td style="text-align:left;"> 32,816.20 </td>
+   <td style="text-align:left;"> 32,748.50 </td>
+   <td style="text-align:left;"> 32,638.60 </td>
+   <td style="text-align:right;"> 0.92 </td>
+   <td style="text-align:right;"> 0.91 </td>
+   <td style="text-align:right;"> 0.91 </td>
+   <td style="text-align:right;"> 0.91 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Omineca </td>
+   <td style="text-align:left;"> Omineca </td>
+   <td style="text-align:left;"> 127,169.60 </td>
+   <td style="text-align:left;"> 112,835.50 </td>
+   <td style="text-align:left;"> 112,391.40 </td>
+   <td style="text-align:left;"> 109,827.90 </td>
+   <td style="text-align:left;"> 109,172.90 </td>
+   <td style="text-align:right;"> 0.89 </td>
+   <td style="text-align:right;"> 0.88 </td>
+   <td style="text-align:right;"> 0.86 </td>
+   <td style="text-align:right;"> 0.86 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Omineca </td>
+   <td style="text-align:left;"> Muscovite </td>
+   <td style="text-align:left;"> 5,741.40 </td>
+   <td style="text-align:left;"> 4,182.90 </td>
+   <td style="text-align:left;"> 4,135.40 </td>
+   <td style="text-align:left;"> 4,007.20 </td>
+   <td style="text-align:left;"> 3,977.80 </td>
+   <td style="text-align:right;"> 0.73 </td>
+   <td style="text-align:right;"> 0.72 </td>
+   <td style="text-align:right;"> 0.70 </td>
+   <td style="text-align:right;"> 0.69 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Parsnip </td>
+   <td style="text-align:left;"> Kennedy </td>
+   <td style="text-align:left;"> 24,347.10 </td>
+   <td style="text-align:left;"> 18,927.00 </td>
+   <td style="text-align:left;"> 17,876.90 </td>
+   <td style="text-align:left;"> 16,604.10 </td>
+   <td style="text-align:left;"> 15,908.80 </td>
+   <td style="text-align:right;"> 0.78 </td>
+   <td style="text-align:right;"> 0.73 </td>
+   <td style="text-align:right;"> 0.68 </td>
+   <td style="text-align:right;"> 0.65 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Parsnip </td>
+   <td style="text-align:left;"> Pine Pass </td>
+   <td style="text-align:left;"> 10,255.10 </td>
+   <td style="text-align:left;"> 8,090.30 </td>
+   <td style="text-align:left;"> 8,001.10 </td>
+   <td style="text-align:left;"> 7,795.00 </td>
+   <td style="text-align:left;"> 7,795.00 </td>
+   <td style="text-align:right;"> 0.79 </td>
+   <td style="text-align:right;"> 0.78 </td>
+   <td style="text-align:right;"> 0.76 </td>
+   <td style="text-align:right;"> 0.76 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Rocky </td>
+   <td style="text-align:left;"> Nabesche </td>
+   <td style="text-align:left;"> 152,345.10 </td>
+   <td style="text-align:left;"> 111,586.60 </td>
+   <td style="text-align:left;"> 110,799.20 </td>
+   <td style="text-align:left;"> 76,952.00 </td>
+   <td style="text-align:left;"> 66,638.70 </td>
+   <td style="text-align:right;"> 0.73 </td>
+   <td style="text-align:right;"> 0.73 </td>
+   <td style="text-align:right;"> 0.51 </td>
+   <td style="text-align:right;"> 0.44 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Rocky </td>
+   <td style="text-align:left;"> Schooler </td>
+   <td style="text-align:left;"> 65,889.60 </td>
+   <td style="text-align:left;"> 49,483.00 </td>
+   <td style="text-align:left;"> 48,440.70 </td>
+   <td style="text-align:left;"> 17,138.70 </td>
+   <td style="text-align:left;"> 15,758.70 </td>
+   <td style="text-align:right;"> 0.75 </td>
+   <td style="text-align:right;"> 0.74 </td>
+   <td style="text-align:right;"> 0.26 </td>
+   <td style="text-align:right;"> 0.24 </td>
+  </tr>
+</tbody>
+</table>
 **Core Habitat Assessment Results**
 
 The following table summarises the change in core habitat resulting from base case harvest projection. The table details the number of grizzly bear assessment units that fall below the 60% threshold core security in four time periods: 2020, 2030, 2070 and 2120.
 
 
- <table class="table table-striped" style="font-size: 10px; margin-left: auto; margin-right: auto;">
- <caption style="font-size: initial !important;">(\#tab:table12) Grizzly Core Area Results</caption>
-  <thead>
-   <tr>
-    <th style="text-align:left;"> Category </th>
-    <th style="text-align:left;"> Current </th>
-    <th style="text-align:left;"> Year10 </th>
-    <th style="text-align:left;"> Year50 </th>
-    <th style="text-align:left;"> Year100 </th>
-   </tr>
-  </thead>
- <tbody>
-   <tr>
-    <td style="text-align:left;"> Above 60% Core </td>
-    <td style="text-align:left;"> 48 </td>
-    <td style="text-align:left;"> 47 </td>
-    <td style="text-align:left;"> 35 </td>
-    <td style="text-align:left;"> 28 </td>
-   </tr>
-   <tr>
-    <td style="text-align:left;"> Below 60% Core </td>
-    <td style="text-align:left;"> 22 </td>
-    <td style="text-align:left;"> 23 </td>
-    <td style="text-align:left;"> 35 </td>
-    <td style="text-align:left;"> 42 </td>
-   </tr>
-   <tr>
-    <td style="text-align:left;"> % Below </td>
-    <td style="text-align:left;"> 31.4% </td>
-    <td style="text-align:left;"> 32.9% </td>
-    <td style="text-align:left;"> 50.0% </td>
-    <td style="text-align:left;"> 60.0% </td>
-   </tr>
- </tbody>
- </table>
+<table class="table table-striped" style="font-size: 10px; margin-left: auto; margin-right: auto;">
+<caption style="font-size: initial !important;">(\#tab:table12) Grizzly Core Area Results</caption>
+ <thead>
+  <tr>
+   <th style="text-align:left;"> Category </th>
+   <th style="text-align:left;"> Current </th>
+   <th style="text-align:left;"> Year10 </th>
+   <th style="text-align:left;"> Year50 </th>
+   <th style="text-align:left;"> Year100 </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> Above 60% Core </td>
+   <td style="text-align:left;"> 48 </td>
+   <td style="text-align:left;"> 47 </td>
+   <td style="text-align:left;"> 35 </td>
+   <td style="text-align:left;"> 28 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Below 60% Core </td>
+   <td style="text-align:left;"> 22 </td>
+   <td style="text-align:left;"> 23 </td>
+   <td style="text-align:left;"> 35 </td>
+   <td style="text-align:left;"> 42 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> % Below </td>
+   <td style="text-align:left;"> 31.4% </td>
+   <td style="text-align:left;"> 32.9% </td>
+   <td style="text-align:left;"> 50.0% </td>
+   <td style="text-align:left;"> 60.0% </td>
+  </tr>
+</tbody>
+</table>
 
 The number of units that fall below the core security threshold 60% of the assessment doubles over the same period as a consequence of northward progression of development in the base case.The following figure on the illustrates the change in core area over the 100-year period. Core area at the start of the base case projection is coloured in red and is overlain by the core area at year 100 in green. As a result of road development projected for the base case, total core habitat is reduced by 17% (~ 755000 ha reduction in total area) over the first 100 years of the projection. Ongoing harvest and roading concentration in the southern portion of the TSA reduces core habitat by 47% (~ 235000 ha reduction) over the first 100 years with most of the reduction occurring in the first 30 years of the projection (37% reduction).
 
@@ -1219,41 +1219,41 @@ During a run, the area above the threshold density is tracked within each “uni
 
 The following table summarises the change in road density resulting from base case harvest projection. The table details the number of grizzly bear assessment units that exceed a 60% threshold of high-density area (> 0.6km/km2) in four time periods: 2020, 2030, 2070 and 2120.
 
- <table class="table table-striped" style="font-size: 10px; margin-left: auto; margin-right: auto;">
- <caption style="font-size: initial !important;">(\#tab:table13) Grizzly Road Density Results</caption>
-  <thead>
-   <tr>
-    <th style="text-align:left;"> Category </th>
-    <th style="text-align:left;"> Current </th>
-    <th style="text-align:left;"> Year10 </th>
-    <th style="text-align:left;"> Year50 </th>
-    <th style="text-align:left;"> Year100 </th>
-   </tr>
-  </thead>
- <tbody>
-   <tr>
-    <td style="text-align:left;"> Above 60% High Density </td>
-    <td style="text-align:left;"> 7 </td>
-    <td style="text-align:left;"> 7 </td>
-    <td style="text-align:left;"> 12 </td>
-    <td style="text-align:left;"> 15 </td>
-   </tr>
-   <tr>
-    <td style="text-align:left;"> Below 60% High Density </td>
-    <td style="text-align:left;"> 63 </td>
-    <td style="text-align:left;"> 63 </td>
-    <td style="text-align:left;"> 58 </td>
-    <td style="text-align:left;"> 55 </td>
-   </tr>
-   <tr>
-    <td style="text-align:left;"> % Above </td>
-    <td style="text-align:left;"> 10.0% </td>
-    <td style="text-align:left;"> 10.0% </td>
-    <td style="text-align:left;"> 17.1% </td>
-    <td style="text-align:left;"> 21.4% </td>
-   </tr>
- </tbody>
- </table>
+<table class="table table-striped" style="font-size: 10px; margin-left: auto; margin-right: auto;">
+<caption style="font-size: initial !important;">(\#tab:table13) Grizzly Road Density Results</caption>
+ <thead>
+  <tr>
+   <th style="text-align:left;"> Category </th>
+   <th style="text-align:left;"> Current </th>
+   <th style="text-align:left;"> Year10 </th>
+   <th style="text-align:left;"> Year50 </th>
+   <th style="text-align:left;"> Year100 </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> Above 60% High Density </td>
+   <td style="text-align:left;"> 7 </td>
+   <td style="text-align:left;"> 7 </td>
+   <td style="text-align:left;"> 12 </td>
+   <td style="text-align:left;"> 15 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Below 60% High Density </td>
+   <td style="text-align:left;"> 63 </td>
+   <td style="text-align:left;"> 63 </td>
+   <td style="text-align:left;"> 58 </td>
+   <td style="text-align:left;"> 55 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> % Above </td>
+   <td style="text-align:left;"> 10.0% </td>
+   <td style="text-align:left;"> 10.0% </td>
+   <td style="text-align:left;"> 17.1% </td>
+   <td style="text-align:left;"> 21.4% </td>
+  </tr>
+</tbody>
+</table>
 As a result of road development projected for the base case total % of units classified with > 60% of its area classified as high density (> 0.6km/km2) doubled (114% increase) over the first 100 years of the projection. In the absence of road density management (including deactivation and rehabilitation) just over 21% (15) units of the assessment units would be classified as high density by the end of the base case harvest projection.
 
 The following figure depicts the spatial distribution of units that fall above (green) the 60% threshold of high density roading.
@@ -1323,436 +1323,436 @@ Sensitivity analysis was developed to assess the potential impacts to timber sup
 </div>
 The draft FSWs encompass approximately 30% of the TSA and 25% of the THLB within the TSA.
 
- <table class="table table-striped" style="font-size: 10px; margin-left: auto; margin-right: auto;">
- <caption style="font-size: initial !important;">(\#tab:table14)Draft Fisheries Sensitive Watershed</caption>
-  <thead>
-   <tr>
-    <th style="text-align:left;"> NAME </th>
-    <th style="text-align:left;"> gross </th>
-    <th style="text-align:left;"> aflb </th>
-    <th style="text-align:left;"> thlb </th>
-    <th style="text-align:right;"> thlb% </th>
-    <th style="text-align:right;"> target eca % </th>
-    <th style="text-align:left;"> Notes </th>
-   </tr>
-  </thead>
- <tbody>
-   <tr>
-    <td style="text-align:left;"> Akie River </td>
-    <td style="text-align:left;"> 186,100 </td>
-    <td style="text-align:left;"> 60,276 </td>
-    <td style="text-align:left;"> 16,897 </td>
-    <td style="text-align:right;"> 9.08 </td>
-    <td style="text-align:right;"> 15 </td>
-    <td style="text-align:left;"> ECA from wtrshd specific report </td>
-   </tr>
-   <tr>
-    <td style="text-align:left;"> Attichika Creek </td>
-    <td style="text-align:left;"> 48,404 </td>
-    <td style="text-align:left;"> 18,786 </td>
-    <td style="text-align:left;"> 1,042 </td>
-    <td style="text-align:right;"> 2.15 </td>
-    <td style="text-align:right;"> 20 </td>
-    <td style="text-align:left;"> default ECA </td>
-   </tr>
-   <tr>
-    <td style="text-align:left;"> Attycelley Creek </td>
-    <td style="text-align:left;"> 13,424 </td>
-    <td style="text-align:left;"> 4,399 </td>
-    <td style="text-align:left;"> 0 </td>
-    <td style="text-align:right;"> 0.00 </td>
-    <td style="text-align:right;"> 20 </td>
-    <td style="text-align:left;"> default ECA </td>
-   </tr>
-   <tr>
-    <td style="text-align:left;"> Big Creek </td>
-    <td style="text-align:left;"> 13,634 </td>
-    <td style="text-align:left;"> 10,101 </td>
-    <td style="text-align:left;"> 4,202 </td>
-    <td style="text-align:right;"> 30.82 </td>
-    <td style="text-align:right;"> 20 </td>
-    <td style="text-align:left;"> default ECA </td>
-   </tr>
-   <tr>
-    <td style="text-align:left;"> Bower Creek </td>
-    <td style="text-align:left;"> 69,357 </td>
-    <td style="text-align:left;"> 28,083 </td>
-    <td style="text-align:left;"> 0 </td>
-    <td style="text-align:right;"> 0.00 </td>
-    <td style="text-align:right;"> 20 </td>
-    <td style="text-align:left;"> default ECA </td>
-   </tr>
-   <tr>
-    <td style="text-align:left;"> Bruin Creek </td>
-    <td style="text-align:left;"> 13,878 </td>
-    <td style="text-align:left;"> 10,123 </td>
-    <td style="text-align:left;"> 4,235 </td>
-    <td style="text-align:right;"> 30.52 </td>
-    <td style="text-align:right;"> 16 </td>
-    <td style="text-align:left;"> ECA from wtrshd specific report </td>
-   </tr>
-   <tr>
-    <td style="text-align:left;"> Chowika Creek </td>
-    <td style="text-align:left;"> 47,789 </td>
-    <td style="text-align:left;"> 26,110 </td>
-    <td style="text-align:left;"> 7,912 </td>
-    <td style="text-align:right;"> 16.56 </td>
-    <td style="text-align:right;"> 23 </td>
-    <td style="text-align:left;"> default ECA </td>
-   </tr>
-   <tr>
-    <td style="text-align:left;"> Clearwater Creek </td>
-    <td style="text-align:left;"> 63,146 </td>
-    <td style="text-align:left;"> 38,426 </td>
-    <td style="text-align:left;"> 18,998 </td>
-    <td style="text-align:right;"> 30.09 </td>
-    <td style="text-align:right;"> 20 </td>
-    <td style="text-align:left;"> default ECA </td>
-   </tr>
-   <tr>
-    <td style="text-align:left;"> Colbourne Creek </td>
-    <td style="text-align:left;"> 11,255 </td>
-    <td style="text-align:left;"> 9,890 </td>
-    <td style="text-align:left;"> 3,963 </td>
-    <td style="text-align:right;"> 35.21 </td>
-    <td style="text-align:right;"> 30 </td>
-    <td style="text-align:left;"> ECA from wtrshd specific report </td>
-   </tr>
-   <tr>
-    <td style="text-align:left;"> Collins Creek </td>
-    <td style="text-align:left;"> 12,181 </td>
-    <td style="text-align:left;"> 8,979 </td>
-    <td style="text-align:left;"> 2,630 </td>
-    <td style="text-align:right;"> 21.59 </td>
-    <td style="text-align:right;"> 18 </td>
-    <td style="text-align:left;"> ECA from wtrshd specific report </td>
-   </tr>
-   <tr>
-    <td style="text-align:left;"> Davis River </td>
-    <td style="text-align:left;"> 48,265 </td>
-    <td style="text-align:left;"> 33,007 </td>
-    <td style="text-align:left;"> 13,581 </td>
-    <td style="text-align:right;"> 28.14 </td>
-    <td style="text-align:right;"> 17 </td>
-    <td style="text-align:left;"> default ECA </td>
-   </tr>
-   <tr>
-    <td style="text-align:left;"> Del Creek </td>
-    <td style="text-align:left;"> 33,782 </td>
-    <td style="text-align:left;"> 3,022 </td>
-    <td style="text-align:left;"> 346 </td>
-    <td style="text-align:right;"> 1.02 </td>
-    <td style="text-align:right;"> 20 </td>
-    <td style="text-align:left;"> default ECA </td>
-   </tr>
-   <tr>
-    <td style="text-align:left;"> Ducette Creek </td>
-    <td style="text-align:left;"> 18,765 </td>
-    <td style="text-align:left;"> 15,219 </td>
-    <td style="text-align:left;"> 6,891 </td>
-    <td style="text-align:right;"> 36.72 </td>
-    <td style="text-align:right;"> 20 </td>
-    <td style="text-align:left;"> default ECA </td>
-   </tr>
-   <tr>
-    <td style="text-align:left;"> Flegel Creek </td>
-    <td style="text-align:left;"> 5,388 </td>
-    <td style="text-align:left;"> 3,080 </td>
-    <td style="text-align:left;"> 822 </td>
-    <td style="text-align:right;"> 15.25 </td>
-    <td style="text-align:right;"> 20 </td>
-    <td style="text-align:left;"> default ECA </td>
-   </tr>
-   <tr>
-    <td style="text-align:left;"> Fredrickson Creek </td>
-    <td style="text-align:left;"> 46,402 </td>
-    <td style="text-align:left;"> 9,084 </td>
-    <td style="text-align:left;"> 1,665 </td>
-    <td style="text-align:right;"> 3.59 </td>
-    <td style="text-align:right;"> 20 </td>
-    <td style="text-align:left;"> default ECA </td>
-   </tr>
-   <tr>
-    <td style="text-align:left;"> Klawli River </td>
-    <td style="text-align:left;"> 62,223 </td>
-    <td style="text-align:left;"> 46,425 </td>
-    <td style="text-align:left;"> 21,573 </td>
-    <td style="text-align:right;"> 34.67 </td>
-    <td style="text-align:right;"> 20 </td>
-    <td style="text-align:left;"> default ECA </td>
-   </tr>
-   <tr>
-    <td style="text-align:left;"> Lafferty Creek </td>
-    <td style="text-align:left;"> 18,154 </td>
-    <td style="text-align:left;"> 14,619 </td>
-    <td style="text-align:left;"> 6,302 </td>
-    <td style="text-align:right;"> 34.71 </td>
-    <td style="text-align:right;"> 24 </td>
-    <td style="text-align:left;"> ECA from wtrshd specific report </td>
-   </tr>
-   <tr>
-    <td style="text-align:left;"> Lay Creek </td>
-    <td style="text-align:left;"> 30,376 </td>
-    <td style="text-align:left;"> 8,156 </td>
-    <td style="text-align:left;"> 2,081 </td>
-    <td style="text-align:right;"> 6.85 </td>
-    <td style="text-align:right;"> 20 </td>
-    <td style="text-align:left;"> default ECA </td>
-   </tr>
-   <tr>
-    <td style="text-align:left;"> McGraw Creek </td>
-    <td style="text-align:left;"> 25,145 </td>
-    <td style="text-align:left;"> 9,194 </td>
-    <td style="text-align:left;"> 3,440 </td>
-    <td style="text-align:right;"> 13.68 </td>
-    <td style="text-align:right;"> 20 </td>
-    <td style="text-align:left;"> default ECA </td>
-   </tr>
-   <tr>
-    <td style="text-align:left;"> Misinchinka River </td>
-    <td style="text-align:left;"> 60,207 </td>
-    <td style="text-align:left;"> 40,138 </td>
-    <td style="text-align:left;"> 14,449 </td>
-    <td style="text-align:right;"> 24.00 </td>
-    <td style="text-align:right;"> 30 </td>
-    <td style="text-align:left;"> ECA from wtrshd specific report </td>
-   </tr>
-   <tr>
-    <td style="text-align:left;"> Nina Creek </td>
-    <td style="text-align:left;"> 22,689 </td>
-    <td style="text-align:left;"> 15,284 </td>
-    <td style="text-align:left;"> 3,840 </td>
-    <td style="text-align:right;"> 16.92 </td>
-    <td style="text-align:right;"> 9 </td>
-    <td style="text-align:left;"> ECA from wtrshd specific report </td>
-   </tr>
-   <tr>
-    <td style="text-align:left;"> Niven River </td>
-    <td style="text-align:left;"> 29,945 </td>
-    <td style="text-align:left;"> 9,943 </td>
-    <td style="text-align:left;"> 0 </td>
-    <td style="text-align:right;"> 0.00 </td>
-    <td style="text-align:right;"> 27 </td>
-    <td style="text-align:left;"> ECA from wtrshd specific report </td>
-   </tr>
-   <tr>
-    <td style="text-align:left;"> Osilinka Headwaters </td>
-    <td style="text-align:left;"> 37,200 </td>
-    <td style="text-align:left;"> 10,678 </td>
-    <td style="text-align:left;"> 5,019 </td>
-    <td style="text-align:right;"> 13.49 </td>
-    <td style="text-align:right;"> 20 </td>
-    <td style="text-align:left;"> default ECA </td>
-   </tr>
-   <tr>
-    <td style="text-align:left;"> Ospika River </td>
-    <td style="text-align:left;"> 297,927 </td>
-    <td style="text-align:left;"> 147,273 </td>
-    <td style="text-align:left;"> 56,822 </td>
-    <td style="text-align:right;"> 19.07 </td>
-    <td style="text-align:right;"> 9 </td>
-    <td style="text-align:left;"> ECA from wtrshd specific report </td>
-   </tr>
-   <tr>
-    <td style="text-align:left;"> Paul River </td>
-    <td style="text-align:left;"> 71,572 </td>
-    <td style="text-align:left;"> 9,844 </td>
-    <td style="text-align:left;"> 0 </td>
-    <td style="text-align:right;"> 0.00 </td>
-    <td style="text-align:right;"> 20 </td>
-    <td style="text-align:left;"> default ECA </td>
-   </tr>
-   <tr>
-    <td style="text-align:left;"> Pelly Creek </td>
-    <td style="text-align:left;"> 173,609 </td>
-    <td style="text-align:left;"> 67,097 </td>
-    <td style="text-align:left;"> 21,105 </td>
-    <td style="text-align:right;"> 12.16 </td>
-    <td style="text-align:right;"> 20 </td>
-    <td style="text-align:left;"> default ECA </td>
-   </tr>
-   <tr>
-    <td style="text-align:left;"> Pesika Creek </td>
-    <td style="text-align:left;"> 72,151 </td>
-    <td style="text-align:left;"> 41,500 </td>
-    <td style="text-align:left;"> 13,773 </td>
-    <td style="text-align:right;"> 19.09 </td>
-    <td style="text-align:right;"> 14 </td>
-    <td style="text-align:left;"> ECA from wtrshd specific report </td>
-   </tr>
-   <tr>
-    <td style="text-align:left;"> Point Creek </td>
-    <td style="text-align:left;"> 9,961 </td>
-    <td style="text-align:left;"> 3,719 </td>
-    <td style="text-align:left;"> 1,642 </td>
-    <td style="text-align:right;"> 16.49 </td>
-    <td style="text-align:right;"> 20 </td>
-    <td style="text-align:left;"> default ECA </td>
-   </tr>
-   <tr>
-    <td style="text-align:left;"> Portion Kwadacha_ws S154 </td>
-    <td style="text-align:left;"> 8,539 </td>
-    <td style="text-align:left;"> 5,776 </td>
-    <td style="text-align:left;"> 0 </td>
-    <td style="text-align:right;"> 0.00 </td>
-    <td style="text-align:right;"> 20 </td>
-    <td style="text-align:left;"> default ECA </td>
-   </tr>
-   <tr>
-    <td style="text-align:left;"> Portion Kwadacha_ws S155 </td>
-    <td style="text-align:left;"> 4,556 </td>
-    <td style="text-align:left;"> 166 </td>
-    <td style="text-align:left;"> 0 </td>
-    <td style="text-align:right;"> 0.00 </td>
-    <td style="text-align:right;"> 20 </td>
-    <td style="text-align:left;"> default ECA </td>
-   </tr>
-   <tr>
-    <td style="text-align:left;"> Prospector Creek </td>
-    <td style="text-align:left;"> 8,088 </td>
-    <td style="text-align:left;"> 4,447 </td>
-    <td style="text-align:left;"> 1,348 </td>
-    <td style="text-align:right;"> 16.66 </td>
-    <td style="text-align:right;"> 20 </td>
-    <td style="text-align:left;"> default ECA </td>
-   </tr>
-   <tr>
-    <td style="text-align:left;"> Russell Creek </td>
-    <td style="text-align:left;"> 42,726 </td>
-    <td style="text-align:left;"> 3,515 </td>
-    <td style="text-align:left;"> 376 </td>
-    <td style="text-align:right;"> 0.88 </td>
-    <td style="text-align:right;"> 20 </td>
-    <td style="text-align:left;"> default ECA </td>
-   </tr>
-   <tr>
-    <td style="text-align:left;"> Schooler Creek </td>
-    <td style="text-align:left;"> 26,949 </td>
-    <td style="text-align:left;"> 21,871 </td>
-    <td style="text-align:left;"> 9,483 </td>
-    <td style="text-align:right;"> 35.19 </td>
-    <td style="text-align:right;"> 20 </td>
-    <td style="text-align:left;"> default ECA </td>
-   </tr>
-   <tr>
-    <td style="text-align:left;"> Scott Creek </td>
-    <td style="text-align:left;"> 21,057 </td>
-    <td style="text-align:left;"> 14,006 </td>
-    <td style="text-align:left;"> 5,671 </td>
-    <td style="text-align:right;"> 26.93 </td>
-    <td style="text-align:right;"> 20 </td>
-    <td style="text-align:left;"> default ECA </td>
-   </tr>
-   <tr>
-    <td style="text-align:left;"> Swannell River </td>
-    <td style="text-align:left;"> 105,334 </td>
-    <td style="text-align:left;"> 51,556 </td>
-    <td style="text-align:left;"> 22,619 </td>
-    <td style="text-align:right;"> 21.47 </td>
-    <td style="text-align:right;"> 19 </td>
-    <td style="text-align:left;"> default ECA </td>
-   </tr>
-   <tr>
-    <td style="text-align:left;"> Tenakihi Creek </td>
-    <td style="text-align:left;"> 34,065 </td>
-    <td style="text-align:left;"> 21,874 </td>
-    <td style="text-align:left;"> 9,745 </td>
-    <td style="text-align:right;"> 28.61 </td>
-    <td style="text-align:right;"> 20 </td>
-    <td style="text-align:left;"> default ECA </td>
-   </tr>
-   <tr>
-    <td style="text-align:left;"> Trib North of Flagel Creek </td>
-    <td style="text-align:left;"> 9,152 </td>
-    <td style="text-align:left;"> 5,771 </td>
-    <td style="text-align:left;"> 2,087 </td>
-    <td style="text-align:right;"> 22.80 </td>
-    <td style="text-align:right;"> 20 </td>
-    <td style="text-align:left;"> default ECA </td>
-   </tr>
-   <tr>
-    <td style="text-align:left;"> Tsayliz Creek </td>
-    <td style="text-align:left;"> 33,555 </td>
-    <td style="text-align:left;"> 18,239 </td>
-    <td style="text-align:left;"> 8,532 </td>
-    <td style="text-align:right;"> 25.43 </td>
-    <td style="text-align:right;"> 11 </td>
-    <td style="text-align:left;"> ECA from wtrshd specific report </td>
-   </tr>
-   <tr>
-    <td style="text-align:left;"> Un-name Trib W Thudate Lake </td>
-    <td style="text-align:left;"> 10,135 </td>
-    <td style="text-align:left;"> 2,499 </td>
-    <td style="text-align:left;"> 0 </td>
-    <td style="text-align:right;"> 0.00 </td>
-    <td style="text-align:right;"> 20 </td>
-    <td style="text-align:left;"> default ECA </td>
-   </tr>
-   <tr>
-    <td style="text-align:left;"> Un-named Trib SE Thutade Lake </td>
-    <td style="text-align:left;"> 7,812 </td>
-    <td style="text-align:left;"> 773 </td>
-    <td style="text-align:left;"> 0 </td>
-    <td style="text-align:right;"> 0.00 </td>
-    <td style="text-align:right;"> 40 </td>
-    <td style="text-align:left;"> default ECA </td>
-   </tr>
-   <tr>
-    <td style="text-align:left;"> West Nabesche River </td>
-    <td style="text-align:left;"> 25,516 </td>
-    <td style="text-align:left;"> 14,532 </td>
-    <td style="text-align:left;"> 4,860 </td>
-    <td style="text-align:right;"> 19.05 </td>
-    <td style="text-align:right;"> 28 </td>
-    <td style="text-align:left;"> ECA from wtrshd specific report </td>
-   </tr>
-   <tr>
-    <td style="text-align:left;"> West of Prospector Creek </td>
-    <td style="text-align:left;"> 10,177 </td>
-    <td style="text-align:left;"> 5,680 </td>
-    <td style="text-align:left;"> 1,839 </td>
-    <td style="text-align:right;"> 18.07 </td>
-    <td style="text-align:right;"> 20 </td>
-    <td style="text-align:left;"> default ECA </td>
-   </tr>
-   <tr>
-    <td style="text-align:left;"> Weston Creek </td>
-    <td style="text-align:left;"> 10,023 </td>
-    <td style="text-align:left;"> 6,298 </td>
-    <td style="text-align:left;"> 3,322 </td>
-    <td style="text-align:right;"> 33.14 </td>
-    <td style="text-align:right;"> 20 </td>
-    <td style="text-align:left;"> default ECA </td>
-   </tr>
-   <tr>
-    <td style="text-align:left;"> Wrede Creek </td>
-    <td style="text-align:left;"> 52,741 </td>
-    <td style="text-align:left;"> 14,404 </td>
-    <td style="text-align:left;"> 6,018 </td>
-    <td style="text-align:right;"> 11.41 </td>
-    <td style="text-align:right;"> 20 </td>
-    <td style="text-align:left;"> ECA from wtrshd specific report </td>
-   </tr>
-   <tr>
-    <td style="text-align:left;"> Total FSWs </td>
-    <td style="text-align:left;"> 1,953,354 </td>
-    <td style="text-align:left;"> 893,862 </td>
-    <td style="text-align:left;"> 309,131 </td>
-    <td style="text-align:right;"> 15.83 </td>
-    <td style="text-align:right;"> NA </td>
-    <td style="text-align:left;">  </td>
-   </tr>
-   <tr>
-    <td style="text-align:left;"> Area Outside FSW </td>
-    <td style="text-align:left;"> -1,953,354 </td>
-    <td style="text-align:left;"> -893,862 </td>
-    <td style="text-align:left;"> -309,131 </td>
-    <td style="text-align:right;"> NA </td>
-    <td style="text-align:right;"> NA </td>
-    <td style="text-align:left;">  </td>
-   </tr>
- </tbody>
- </table>
+<table class="table table-striped" style="font-size: 10px; margin-left: auto; margin-right: auto;">
+<caption style="font-size: initial !important;">(\#tab:table14)Draft Fisheries Sensitive Watershed</caption>
+ <thead>
+  <tr>
+   <th style="text-align:left;"> NAME </th>
+   <th style="text-align:left;"> gross </th>
+   <th style="text-align:left;"> aflb </th>
+   <th style="text-align:left;"> thlb </th>
+   <th style="text-align:right;"> thlb% </th>
+   <th style="text-align:right;"> target eca % </th>
+   <th style="text-align:left;"> Notes </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> Akie River </td>
+   <td style="text-align:left;"> 186,100 </td>
+   <td style="text-align:left;"> 60,276 </td>
+   <td style="text-align:left;"> 16,897 </td>
+   <td style="text-align:right;"> 9.08 </td>
+   <td style="text-align:right;"> 15 </td>
+   <td style="text-align:left;"> ECA from wtrshd specific report </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Attichika Creek </td>
+   <td style="text-align:left;"> 48,404 </td>
+   <td style="text-align:left;"> 18,786 </td>
+   <td style="text-align:left;"> 1,042 </td>
+   <td style="text-align:right;"> 2.15 </td>
+   <td style="text-align:right;"> 20 </td>
+   <td style="text-align:left;"> default ECA </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Attycelley Creek </td>
+   <td style="text-align:left;"> 13,424 </td>
+   <td style="text-align:left;"> 4,399 </td>
+   <td style="text-align:left;"> 0 </td>
+   <td style="text-align:right;"> 0.00 </td>
+   <td style="text-align:right;"> 20 </td>
+   <td style="text-align:left;"> default ECA </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Big Creek </td>
+   <td style="text-align:left;"> 13,634 </td>
+   <td style="text-align:left;"> 10,101 </td>
+   <td style="text-align:left;"> 4,202 </td>
+   <td style="text-align:right;"> 30.82 </td>
+   <td style="text-align:right;"> 20 </td>
+   <td style="text-align:left;"> default ECA </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Bower Creek </td>
+   <td style="text-align:left;"> 69,357 </td>
+   <td style="text-align:left;"> 28,083 </td>
+   <td style="text-align:left;"> 0 </td>
+   <td style="text-align:right;"> 0.00 </td>
+   <td style="text-align:right;"> 20 </td>
+   <td style="text-align:left;"> default ECA </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Bruin Creek </td>
+   <td style="text-align:left;"> 13,878 </td>
+   <td style="text-align:left;"> 10,123 </td>
+   <td style="text-align:left;"> 4,235 </td>
+   <td style="text-align:right;"> 30.52 </td>
+   <td style="text-align:right;"> 16 </td>
+   <td style="text-align:left;"> ECA from wtrshd specific report </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Chowika Creek </td>
+   <td style="text-align:left;"> 47,789 </td>
+   <td style="text-align:left;"> 26,110 </td>
+   <td style="text-align:left;"> 7,912 </td>
+   <td style="text-align:right;"> 16.56 </td>
+   <td style="text-align:right;"> 23 </td>
+   <td style="text-align:left;"> default ECA </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Clearwater Creek </td>
+   <td style="text-align:left;"> 63,146 </td>
+   <td style="text-align:left;"> 38,426 </td>
+   <td style="text-align:left;"> 18,998 </td>
+   <td style="text-align:right;"> 30.09 </td>
+   <td style="text-align:right;"> 20 </td>
+   <td style="text-align:left;"> default ECA </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Colbourne Creek </td>
+   <td style="text-align:left;"> 11,255 </td>
+   <td style="text-align:left;"> 9,890 </td>
+   <td style="text-align:left;"> 3,963 </td>
+   <td style="text-align:right;"> 35.21 </td>
+   <td style="text-align:right;"> 30 </td>
+   <td style="text-align:left;"> ECA from wtrshd specific report </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Collins Creek </td>
+   <td style="text-align:left;"> 12,181 </td>
+   <td style="text-align:left;"> 8,979 </td>
+   <td style="text-align:left;"> 2,630 </td>
+   <td style="text-align:right;"> 21.59 </td>
+   <td style="text-align:right;"> 18 </td>
+   <td style="text-align:left;"> ECA from wtrshd specific report </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Davis River </td>
+   <td style="text-align:left;"> 48,265 </td>
+   <td style="text-align:left;"> 33,007 </td>
+   <td style="text-align:left;"> 13,581 </td>
+   <td style="text-align:right;"> 28.14 </td>
+   <td style="text-align:right;"> 17 </td>
+   <td style="text-align:left;"> default ECA </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Del Creek </td>
+   <td style="text-align:left;"> 33,782 </td>
+   <td style="text-align:left;"> 3,022 </td>
+   <td style="text-align:left;"> 346 </td>
+   <td style="text-align:right;"> 1.02 </td>
+   <td style="text-align:right;"> 20 </td>
+   <td style="text-align:left;"> default ECA </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Ducette Creek </td>
+   <td style="text-align:left;"> 18,765 </td>
+   <td style="text-align:left;"> 15,219 </td>
+   <td style="text-align:left;"> 6,891 </td>
+   <td style="text-align:right;"> 36.72 </td>
+   <td style="text-align:right;"> 20 </td>
+   <td style="text-align:left;"> default ECA </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Flegel Creek </td>
+   <td style="text-align:left;"> 5,388 </td>
+   <td style="text-align:left;"> 3,080 </td>
+   <td style="text-align:left;"> 822 </td>
+   <td style="text-align:right;"> 15.25 </td>
+   <td style="text-align:right;"> 20 </td>
+   <td style="text-align:left;"> default ECA </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Fredrickson Creek </td>
+   <td style="text-align:left;"> 46,402 </td>
+   <td style="text-align:left;"> 9,084 </td>
+   <td style="text-align:left;"> 1,665 </td>
+   <td style="text-align:right;"> 3.59 </td>
+   <td style="text-align:right;"> 20 </td>
+   <td style="text-align:left;"> default ECA </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Klawli River </td>
+   <td style="text-align:left;"> 62,223 </td>
+   <td style="text-align:left;"> 46,425 </td>
+   <td style="text-align:left;"> 21,573 </td>
+   <td style="text-align:right;"> 34.67 </td>
+   <td style="text-align:right;"> 20 </td>
+   <td style="text-align:left;"> default ECA </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Lafferty Creek </td>
+   <td style="text-align:left;"> 18,154 </td>
+   <td style="text-align:left;"> 14,619 </td>
+   <td style="text-align:left;"> 6,302 </td>
+   <td style="text-align:right;"> 34.71 </td>
+   <td style="text-align:right;"> 24 </td>
+   <td style="text-align:left;"> ECA from wtrshd specific report </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Lay Creek </td>
+   <td style="text-align:left;"> 30,376 </td>
+   <td style="text-align:left;"> 8,156 </td>
+   <td style="text-align:left;"> 2,081 </td>
+   <td style="text-align:right;"> 6.85 </td>
+   <td style="text-align:right;"> 20 </td>
+   <td style="text-align:left;"> default ECA </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> McGraw Creek </td>
+   <td style="text-align:left;"> 25,145 </td>
+   <td style="text-align:left;"> 9,194 </td>
+   <td style="text-align:left;"> 3,440 </td>
+   <td style="text-align:right;"> 13.68 </td>
+   <td style="text-align:right;"> 20 </td>
+   <td style="text-align:left;"> default ECA </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Misinchinka River </td>
+   <td style="text-align:left;"> 60,207 </td>
+   <td style="text-align:left;"> 40,138 </td>
+   <td style="text-align:left;"> 14,449 </td>
+   <td style="text-align:right;"> 24.00 </td>
+   <td style="text-align:right;"> 30 </td>
+   <td style="text-align:left;"> ECA from wtrshd specific report </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Nina Creek </td>
+   <td style="text-align:left;"> 22,689 </td>
+   <td style="text-align:left;"> 15,284 </td>
+   <td style="text-align:left;"> 3,840 </td>
+   <td style="text-align:right;"> 16.92 </td>
+   <td style="text-align:right;"> 9 </td>
+   <td style="text-align:left;"> ECA from wtrshd specific report </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Niven River </td>
+   <td style="text-align:left;"> 29,945 </td>
+   <td style="text-align:left;"> 9,943 </td>
+   <td style="text-align:left;"> 0 </td>
+   <td style="text-align:right;"> 0.00 </td>
+   <td style="text-align:right;"> 27 </td>
+   <td style="text-align:left;"> ECA from wtrshd specific report </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Osilinka Headwaters </td>
+   <td style="text-align:left;"> 37,200 </td>
+   <td style="text-align:left;"> 10,678 </td>
+   <td style="text-align:left;"> 5,019 </td>
+   <td style="text-align:right;"> 13.49 </td>
+   <td style="text-align:right;"> 20 </td>
+   <td style="text-align:left;"> default ECA </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Ospika River </td>
+   <td style="text-align:left;"> 297,927 </td>
+   <td style="text-align:left;"> 147,273 </td>
+   <td style="text-align:left;"> 56,822 </td>
+   <td style="text-align:right;"> 19.07 </td>
+   <td style="text-align:right;"> 9 </td>
+   <td style="text-align:left;"> ECA from wtrshd specific report </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Paul River </td>
+   <td style="text-align:left;"> 71,572 </td>
+   <td style="text-align:left;"> 9,844 </td>
+   <td style="text-align:left;"> 0 </td>
+   <td style="text-align:right;"> 0.00 </td>
+   <td style="text-align:right;"> 20 </td>
+   <td style="text-align:left;"> default ECA </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Pelly Creek </td>
+   <td style="text-align:left;"> 173,609 </td>
+   <td style="text-align:left;"> 67,097 </td>
+   <td style="text-align:left;"> 21,105 </td>
+   <td style="text-align:right;"> 12.16 </td>
+   <td style="text-align:right;"> 20 </td>
+   <td style="text-align:left;"> default ECA </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Pesika Creek </td>
+   <td style="text-align:left;"> 72,151 </td>
+   <td style="text-align:left;"> 41,500 </td>
+   <td style="text-align:left;"> 13,773 </td>
+   <td style="text-align:right;"> 19.09 </td>
+   <td style="text-align:right;"> 14 </td>
+   <td style="text-align:left;"> ECA from wtrshd specific report </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Point Creek </td>
+   <td style="text-align:left;"> 9,961 </td>
+   <td style="text-align:left;"> 3,719 </td>
+   <td style="text-align:left;"> 1,642 </td>
+   <td style="text-align:right;"> 16.49 </td>
+   <td style="text-align:right;"> 20 </td>
+   <td style="text-align:left;"> default ECA </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Portion Kwadacha_ws S154 </td>
+   <td style="text-align:left;"> 8,539 </td>
+   <td style="text-align:left;"> 5,776 </td>
+   <td style="text-align:left;"> 0 </td>
+   <td style="text-align:right;"> 0.00 </td>
+   <td style="text-align:right;"> 20 </td>
+   <td style="text-align:left;"> default ECA </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Portion Kwadacha_ws S155 </td>
+   <td style="text-align:left;"> 4,556 </td>
+   <td style="text-align:left;"> 166 </td>
+   <td style="text-align:left;"> 0 </td>
+   <td style="text-align:right;"> 0.00 </td>
+   <td style="text-align:right;"> 20 </td>
+   <td style="text-align:left;"> default ECA </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Prospector Creek </td>
+   <td style="text-align:left;"> 8,088 </td>
+   <td style="text-align:left;"> 4,447 </td>
+   <td style="text-align:left;"> 1,348 </td>
+   <td style="text-align:right;"> 16.66 </td>
+   <td style="text-align:right;"> 20 </td>
+   <td style="text-align:left;"> default ECA </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Russell Creek </td>
+   <td style="text-align:left;"> 42,726 </td>
+   <td style="text-align:left;"> 3,515 </td>
+   <td style="text-align:left;"> 376 </td>
+   <td style="text-align:right;"> 0.88 </td>
+   <td style="text-align:right;"> 20 </td>
+   <td style="text-align:left;"> default ECA </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Schooler Creek </td>
+   <td style="text-align:left;"> 26,949 </td>
+   <td style="text-align:left;"> 21,871 </td>
+   <td style="text-align:left;"> 9,483 </td>
+   <td style="text-align:right;"> 35.19 </td>
+   <td style="text-align:right;"> 20 </td>
+   <td style="text-align:left;"> default ECA </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Scott Creek </td>
+   <td style="text-align:left;"> 21,057 </td>
+   <td style="text-align:left;"> 14,006 </td>
+   <td style="text-align:left;"> 5,671 </td>
+   <td style="text-align:right;"> 26.93 </td>
+   <td style="text-align:right;"> 20 </td>
+   <td style="text-align:left;"> default ECA </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Swannell River </td>
+   <td style="text-align:left;"> 105,334 </td>
+   <td style="text-align:left;"> 51,556 </td>
+   <td style="text-align:left;"> 22,619 </td>
+   <td style="text-align:right;"> 21.47 </td>
+   <td style="text-align:right;"> 19 </td>
+   <td style="text-align:left;"> default ECA </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Tenakihi Creek </td>
+   <td style="text-align:left;"> 34,065 </td>
+   <td style="text-align:left;"> 21,874 </td>
+   <td style="text-align:left;"> 9,745 </td>
+   <td style="text-align:right;"> 28.61 </td>
+   <td style="text-align:right;"> 20 </td>
+   <td style="text-align:left;"> default ECA </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Trib North of Flagel Creek </td>
+   <td style="text-align:left;"> 9,152 </td>
+   <td style="text-align:left;"> 5,771 </td>
+   <td style="text-align:left;"> 2,087 </td>
+   <td style="text-align:right;"> 22.80 </td>
+   <td style="text-align:right;"> 20 </td>
+   <td style="text-align:left;"> default ECA </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Tsayliz Creek </td>
+   <td style="text-align:left;"> 33,555 </td>
+   <td style="text-align:left;"> 18,239 </td>
+   <td style="text-align:left;"> 8,532 </td>
+   <td style="text-align:right;"> 25.43 </td>
+   <td style="text-align:right;"> 11 </td>
+   <td style="text-align:left;"> ECA from wtrshd specific report </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Un-name Trib W Thudate Lake </td>
+   <td style="text-align:left;"> 10,135 </td>
+   <td style="text-align:left;"> 2,499 </td>
+   <td style="text-align:left;"> 0 </td>
+   <td style="text-align:right;"> 0.00 </td>
+   <td style="text-align:right;"> 20 </td>
+   <td style="text-align:left;"> default ECA </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Un-named Trib SE Thutade Lake </td>
+   <td style="text-align:left;"> 7,812 </td>
+   <td style="text-align:left;"> 773 </td>
+   <td style="text-align:left;"> 0 </td>
+   <td style="text-align:right;"> 0.00 </td>
+   <td style="text-align:right;"> 40 </td>
+   <td style="text-align:left;"> default ECA </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> West Nabesche River </td>
+   <td style="text-align:left;"> 25,516 </td>
+   <td style="text-align:left;"> 14,532 </td>
+   <td style="text-align:left;"> 4,860 </td>
+   <td style="text-align:right;"> 19.05 </td>
+   <td style="text-align:right;"> 28 </td>
+   <td style="text-align:left;"> ECA from wtrshd specific report </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> West of Prospector Creek </td>
+   <td style="text-align:left;"> 10,177 </td>
+   <td style="text-align:left;"> 5,680 </td>
+   <td style="text-align:left;"> 1,839 </td>
+   <td style="text-align:right;"> 18.07 </td>
+   <td style="text-align:right;"> 20 </td>
+   <td style="text-align:left;"> default ECA </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Weston Creek </td>
+   <td style="text-align:left;"> 10,023 </td>
+   <td style="text-align:left;"> 6,298 </td>
+   <td style="text-align:left;"> 3,322 </td>
+   <td style="text-align:right;"> 33.14 </td>
+   <td style="text-align:right;"> 20 </td>
+   <td style="text-align:left;"> default ECA </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Wrede Creek </td>
+   <td style="text-align:left;"> 52,741 </td>
+   <td style="text-align:left;"> 14,404 </td>
+   <td style="text-align:left;"> 6,018 </td>
+   <td style="text-align:right;"> 11.41 </td>
+   <td style="text-align:right;"> 20 </td>
+   <td style="text-align:left;"> ECA from wtrshd specific report </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Total FSWs </td>
+   <td style="text-align:left;"> 1,953,354 </td>
+   <td style="text-align:left;"> 893,862 </td>
+   <td style="text-align:left;"> 309,131 </td>
+   <td style="text-align:right;"> 15.83 </td>
+   <td style="text-align:right;"> NA </td>
+   <td style="text-align:left;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Area Outside FSW </td>
+   <td style="text-align:left;"> -1,953,354 </td>
+   <td style="text-align:left;"> -893,862 </td>
+   <td style="text-align:left;"> -309,131 </td>
+   <td style="text-align:right;"> NA </td>
+   <td style="text-align:right;"> NA </td>
+   <td style="text-align:left;">  </td>
+  </tr>
+</tbody>
+</table>
 Two management objectives were tested for each draft FSW:
 
 1.	Enhanced retention along small streams
