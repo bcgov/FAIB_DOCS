@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Modelling Foundations</title>
+  <meta name="description" content="Modelling Foundations" />
+  <meta name="generator" content="bookdown 0.40 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Modelling Foundations" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Modelling Foundations" />
+  
+  
+  
+
+<meta name="author" content="Kelly Izzard" />
+
+
+<meta name="date" content="2026-07-06" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+
+<link rel="next" href="simulated-annealing-and-the-sudoku-solver.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<link href="libs/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet" />
+<script src="libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+<script src="libs/plotly-binding-4.10.4/plotly.js"></script>
+<script src="libs/typedarray-0.1/typedarray.min.js"></script>
+<link href="libs/crosstalk-1.2.1/css/crosstalk.min.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.2.1/js/crosstalk.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-2.11.1/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-2.11.1/plotly-latest.min.js"></script>
+
+
+<style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#models-and-modellers"><i class="fa fa-check"></i><b>1.1</b> Models and Modellers</a>
+<ul>
+<li class="chapter" data-level="1.1.1" data-path="index.html"><a href="index.html#what-is-a-model"><i class="fa fa-check"></i><b>1.1.1</b> What is a Model</a></li>
+<li class="chapter" data-level="1.1.2" data-path="index.html"><a href="index.html#classification-of-models"><i class="fa fa-check"></i><b>1.1.2</b> Classification of Models</a></li>
+<li class="chapter" data-level="1.1.3" data-path="index.html"><a href="index.html#building-a-model-defining-the-problem-and-its-considerations"><i class="fa fa-check"></i><b>1.1.3</b> Building a Model (Defining the Problem and it’s Considerations)</a></li>
+<li class="chapter" data-level="1.1.4" data-path="index.html"><a href="index.html#the-modellers-creed"><i class="fa fa-check"></i><b>1.1.4</b> The Modeller’s creed</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="simulated-annealing-and-the-sudoku-solver.html"><a href="simulated-annealing-and-the-sudoku-solver.html"><i class="fa fa-check"></i><b>2</b> Simulated Annealing and the Sudoku Solver</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="simulated-annealing-and-the-sudoku-solver.html"><a href="simulated-annealing-and-the-sudoku-solver.html#introduction-1"><i class="fa fa-check"></i><b>2.1</b> Introduction</a></li>
+<li class="chapter" data-level="2.2" data-path="simulated-annealing-and-the-sudoku-solver.html"><a href="simulated-annealing-and-the-sudoku-solver.html#simple-model"><i class="fa fa-check"></i><b>2.2</b> Simple Model</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="simulated-annealing-and-the-sudoku-solver.html"><a href="simulated-annealing-and-the-sudoku-solver.html#plot-objective-value"><i class="fa fa-check"></i><b>2.2.1</b> Plot objective value</a></li>
+<li class="chapter" data-level="2.2.2" data-path="simulated-annealing-and-the-sudoku-solver.html"><a href="simulated-annealing-and-the-sudoku-solver.html#plot-search-trajectory"><i class="fa fa-check"></i><b>2.2.2</b> Plot search trajectory</a></li>
+<li class="chapter" data-level="2.2.3" data-path="simulated-annealing-and-the-sudoku-solver.html"><a href="simulated-annealing-and-the-sudoku-solver.html#plot-objective-function-with-optimization-path"><i class="fa fa-check"></i><b>2.2.3</b> Plot objective function with optimization path</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="simulated-annealing-and-the-sudoku-solver.html"><a href="simulated-annealing-and-the-sudoku-solver.html#sudoku-solver"><i class="fa fa-check"></i><b>2.3</b> Sudoku Solver</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="simulated-annealing-and-the-sudoku-solver.html"><a href="simulated-annealing-and-the-sudoku-solver.html#code-notes"><i class="fa fa-check"></i><b>2.3.1</b> Code Notes:</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="simulated-annealing-and-the-sudoku-solver.html"><a href="simulated-annealing-and-the-sudoku-solver.html#simulated-annealing-solver"><i class="fa fa-check"></i><b>2.4</b> Simulated Annealing Solver</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="simulated-annealing-and-the-sudoku-solver.html"><a href="simulated-annealing-and-the-sudoku-solver.html#code-notes-1"><i class="fa fa-check"></i><b>2.4.1</b> Code Notes:</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="simulated-annealing-and-the-sudoku-solver.html"><a href="simulated-annealing-and-the-sudoku-solver.html#d-plot-of-sudoku-loss-landscape"><i class="fa fa-check"></i><b>2.5</b> 3D plot of Sudoku loss landscape</a>
+<ul>
+<li class="chapter" data-level="2.5.1" data-path="simulated-annealing-and-the-sudoku-solver.html"><a href="simulated-annealing-and-the-sudoku-solver.html#why-use-pca"><i class="fa fa-check"></i><b>2.5.1</b> Why use PCA</a></li>
+<li class="chapter" data-level="2.5.2" data-path="simulated-annealing-and-the-sudoku-solver.html"><a href="simulated-annealing-and-the-sudoku-solver.html#interpretation"><i class="fa fa-check"></i><b>2.5.2</b> Interpretation</a></li>
+<li class="chapter" data-level="2.5.3" data-path="simulated-annealing-and-the-sudoku-solver.html"><a href="simulated-annealing-and-the-sudoku-solver.html#constraint-decomposition-and-the-sudoku-solver"><i class="fa fa-check"></i><b>2.5.3</b> Constraint Decomposition and the Sudoku Solver</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="simple-goal-programming-with-sann.html"><a href="simple-goal-programming-with-sann.html"><i class="fa fa-check"></i><b>3</b> Simple Goal Programming with SANN</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="simple-goal-programming-with-sann.html"><a href="simple-goal-programming-with-sann.html#introduction-2"><i class="fa fa-check"></i><b>3.1</b> Introduction</a></li>
+<li class="chapter" data-level="3.2" data-path="simple-goal-programming-with-sann.html"><a href="simple-goal-programming-with-sann.html#a-simple-goal-programming-model"><i class="fa fa-check"></i><b>3.2</b> A Simple Goal Programming Model</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="simple-goal-programming-with-sann.html"><a href="simple-goal-programming-with-sann.html#the-objective-function"><i class="fa fa-check"></i><b>3.2.1</b> The Objective Function</a></li>
+<li class="chapter" data-level="3.2.2" data-path="simple-goal-programming-with-sann.html"><a href="simple-goal-programming-with-sann.html#code-notes-2"><i class="fa fa-check"></i><b>3.2.2</b> Code Notes:</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="simple-goal-programming-with-sann.html"><a href="simple-goal-programming-with-sann.html#the-sann-optimization"><i class="fa fa-check"></i><b>3.3</b> The SANN Optimization</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="simple-goal-programming-with-sann.html"><a href="simple-goal-programming-with-sann.html#code-notes-3"><i class="fa fa-check"></i><b>3.3.1</b> Code Notes:</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="simple-goal-programming-with-sann.html"><a href="simple-goal-programming-with-sann.html#the-results"><i class="fa fa-check"></i><b>3.4</b> The Results</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="markov-chain-with-goal-programming.html"><a href="markov-chain-with-goal-programming.html"><i class="fa fa-check"></i><b>4</b> Markov Chain with Goal Programming</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="markov-chain-with-goal-programming.html"><a href="markov-chain-with-goal-programming.html#introduction-3"><i class="fa fa-check"></i><b>4.1</b> Introduction</a></li>
+<li class="chapter" data-level="4.2" data-path="markov-chain-with-goal-programming.html"><a href="markov-chain-with-goal-programming.html#markov-chain-and-goal-programming"><i class="fa fa-check"></i><b>4.2</b> Markov Chain and Goal Programming</a></li>
+<li class="chapter" data-level="4.3" data-path="markov-chain-with-goal-programming.html"><a href="markov-chain-with-goal-programming.html#the-markov-chain-transition-probability-matrix"><i class="fa fa-check"></i><b>4.3</b> The Markov Chain Transition Probability Matrix</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="markov-chain-with-goal-programming.html"><a href="markov-chain-with-goal-programming.html#code-notes-4"><i class="fa fa-check"></i><b>4.3.1</b> Code Notes:</a></li>
+<li class="chapter" data-level="4.3.2" data-path="markov-chain-with-goal-programming.html"><a href="markov-chain-with-goal-programming.html#markov-habitat-function"><i class="fa fa-check"></i><b>4.3.2</b> Markov Habitat Function</a></li>
+<li class="chapter" data-level="4.3.3" data-path="markov-chain-with-goal-programming.html"><a href="markov-chain-with-goal-programming.html#the-objective-function-1"><i class="fa fa-check"></i><b>4.3.3</b> The Objective Function</a></li>
+<li class="chapter" data-level="4.3.4" data-path="markov-chain-with-goal-programming.html"><a href="markov-chain-with-goal-programming.html#the-sann-optimization-and-results"><i class="fa fa-check"></i><b>4.3.4</b> The SANN Optimization and RESULTS</a></li>
+<li class="chapter" data-level="4.3.5" data-path="markov-chain-with-goal-programming.html"><a href="markov-chain-with-goal-programming.html#results"><i class="fa fa-check"></i><b>4.3.5</b> Results</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="monte-carlo-markov-chain.html"><a href="monte-carlo-markov-chain.html"><i class="fa fa-check"></i><b>5</b> Monte Carlo Markov Chain</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="monte-carlo-markov-chain.html"><a href="monte-carlo-markov-chain.html#introduction-4"><i class="fa fa-check"></i><b>5.1</b> Introduction</a></li>
+<li class="chapter" data-level="5.2" data-path="monte-carlo-markov-chain.html"><a href="monte-carlo-markov-chain.html#the-monte-carlo-markov-chain"><i class="fa fa-check"></i><b>5.2</b> The Monte Carlo Markov Chain</a></li>
+<li class="chapter" data-level="5.3" data-path="monte-carlo-markov-chain.html"><a href="monte-carlo-markov-chain.html#mcmc-sampling-loop-joint-bulk-and-tail-model"><i class="fa fa-check"></i><b>5.3</b> MCMC Sampling Loop (Joint Bulk and Tail Model)</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="monte-carlo-markov-chain.html"><a href="monte-carlo-markov-chain.html#code-notes-6"><i class="fa fa-check"></i><b>5.3.1</b> Code Notes:</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="monte-carlo-markov-chain.html"><a href="monte-carlo-markov-chain.html#results-1"><i class="fa fa-check"></i><b>5.4</b> Results</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="cellular-automata-and-the-game-of-life.html"><a href="cellular-automata-and-the-game-of-life.html"><i class="fa fa-check"></i><b>6</b> Cellular Automata and the Game of Life</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="cellular-automata-and-the-game-of-life.html"><a href="cellular-automata-and-the-game-of-life.html#introduction-5"><i class="fa fa-check"></i><b>6.1</b> Introduction</a></li>
+<li class="chapter" data-level="6.2" data-path="cellular-automata-and-the-game-of-life.html"><a href="cellular-automata-and-the-game-of-life.html#wolfram"><i class="fa fa-check"></i><b>6.2</b> Wolfram</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="cellular-automata-and-the-game-of-life.html"><a href="cellular-automata-and-the-game-of-life.html#codes-notes"><i class="fa fa-check"></i><b>6.2.1</b> Codes Notes</a></li>
+<li class="chapter" data-level="6.2.2" data-path="cellular-automata-and-the-game-of-life.html"><a href="cellular-automata-and-the-game-of-life.html#class-iii-rule-30"><i class="fa fa-check"></i><b>6.2.2</b> Class III Rule 30</a></li>
+<li class="chapter" data-level="6.2.3" data-path="cellular-automata-and-the-game-of-life.html"><a href="cellular-automata-and-the-game-of-life.html#class-iv-rule-90"><i class="fa fa-check"></i><b>6.2.3</b> Class IV Rule 90</a></li>
+<li class="chapter" data-level="6.2.4" data-path="cellular-automata-and-the-game-of-life.html"><a href="cellular-automata-and-the-game-of-life.html#class-iv-rule-125"><i class="fa fa-check"></i><b>6.2.4</b> Class IV Rule 125</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="cellular-automata-and-the-game-of-life.html"><a href="cellular-automata-and-the-game-of-life.html#the-game-of-life"><i class="fa fa-check"></i><b>6.3</b> The Game of Life</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="cellular-automata-and-the-game-of-life.html"><a href="cellular-automata-and-the-game-of-life.html#code-notes-7"><i class="fa fa-check"></i><b>6.3.1</b> Code Notes</a></li>
+<li class="chapter" data-level="6.3.2" data-path="cellular-automata-and-the-game-of-life.html"><a href="cellular-automata-and-the-game-of-life.html#animate"><i class="fa fa-check"></i><b>6.3.2</b> Animate</a></li>
+<li class="chapter" data-level="6.3.3" data-path="cellular-automata-and-the-game-of-life.html"><a href="cellular-automata-and-the-game-of-life.html#population-trend"><i class="fa fa-check"></i><b>6.3.3</b> Population Trend</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="neutral-landscape-models.html"><a href="neutral-landscape-models.html"><i class="fa fa-check"></i><b>7</b> Neutral Landscape Models</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="neutral-landscape-models.html"><a href="neutral-landscape-models.html#introduction-6"><i class="fa fa-check"></i><b>7.1</b> Introduction</a></li>
+<li class="chapter" data-level="7.2" data-path="neutral-landscape-models.html"><a href="neutral-landscape-models.html#testing-fragmentation-and-connectivity"><i class="fa fa-check"></i><b>7.2</b> Testing fragmentation and connectivity</a></li>
+<li class="chapter" data-level="7.3" data-path="neutral-landscape-models.html"><a href="neutral-landscape-models.html#nlm-results"><i class="fa fa-check"></i><b>7.3</b> NLM RESULTS</a></li>
+<li class="chapter" data-level="7.4" data-path="neutral-landscape-models.html"><a href="neutral-landscape-models.html#introducing-spatial-autocorrolation"><i class="fa fa-check"></i><b>7.4</b> Introducing Spatial Autocorrolation</a></li>
+<li class="chapter" data-level="7.5" data-path="neutral-landscape-models.html"><a href="neutral-landscape-models.html#cluster-results"><i class="fa fa-check"></i><b>7.5</b> CLUSTER RESULTS</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="summary.html"><a href="summary.html"><i class="fa fa-check"></i><b>8</b> Summary</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Modelling Foundations</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="header">
+<h1 class="title">Modelling Foundations</h1>
+<p class="author"><em>Kelly Izzard</em></p>
+<p class="date"><em>2026-07-06</em></p>
+</div>
+<div id="introduction" class="section level1 hasAnchor" number="1">
+<h1><span class="header-section-number">1</span> Introduction<a href="index.html#introduction" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="models-and-modellers" class="section level2 hasAnchor" number="1.1">
+<h2><span class="header-section-number">1.1</span> Models and Modellers<a href="index.html#models-and-modellers" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><em>“Models are always wrong….but some are useful”</em> <a href="https://en.wikipedia.org/wiki/George_E._P._Box">George Box</a></p>
+<p>The following was plagiarized liberally from <a href="https://www.andreasaltelli.eu/file/repository/Landscape_Ecology_in_Theory_and_Practice_.pdf">Landscape Ecology in Theory and Practice</a></p>
+<div id="what-is-a-model" class="section level3 hasAnchor" number="1.1.1">
+<h3><span class="header-section-number">1.1.1</span> What is a Model<a href="index.html#what-is-a-model" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>A model is an abstraction or representation of a system or process. There are many different kinds of models, and many mathematical models are commonly used in forestry and ecology. Forest landscape models (FLM) help to formalize our understanding and develop theory about how spatial patterns and processes interact, producing general insights into forest and landscape dynamics. Models can be characterized in various ways: for example, models may be deterministic or stochastic; analytical, simulation, optimation and/or goal programmimg; dynamics or static; and represent time as continuous or discrete. A model is spatial when the variables, inputs, or processes have explicit spatial locations represented in the model. A spatial model is only needed when explicit space (what is present and how it is arranged) is an important determinant of the process being studied.</p>
+</div>
+<div id="classification-of-models" class="section level3 hasAnchor" number="1.1.2">
+<h3><span class="header-section-number">1.1.2</span> Classification of Models<a href="index.html#classification-of-models" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><strong>Deterministic vs. Stochastic</strong></p>
+<p>Deterministic models produce the same outcome whenever the same inputs and parameters are used. They contain no randomness or uncertainty. In contrast, stochastic models incorporate chance events, so repeated simulations can yield different outcomes. Random numbers are often used to determine whether events occur, making results variable while preserving overall statistical patterns.</p>
+<p><strong>Analytical vs. Simulation</strong></p>
+<p>Analytical models have closed-form mathematical solutions that can be solved directly and often provide general insights into system behavior. Simulation models lack such solutions and instead use computer calculations to mimic system behavior step by step. Because of their complexity, many ecological and landscape models are simulation-based.</p>
+<p><strong>Optimization vs. Simulation</strong></p>
+<p>Simulation and optimization models serve different purposes. A simulation model evaluates how a system behaves under a given set of conditions, helping users understand system dynamics and predict outcomes. It answers questions such as <em>“What happens if?”</em> Optimization models, on the other hand, search for the best solution according to a defined objective (e.g., maximizing yield, minimizing cost, or balancing multiple objectives) while satisfying specified constraints. In practice, simulation is often used to assess system performance, whereas optimization is used to identify the most desirable decision or management strategy. The two approaches are frequently combined, with simulation models providing system responses that guide an optimization algorithm.</p>
+<p><strong>Dynamic vs. Static</strong></p>
+<p>Dynamic models represent systems that change over time, while static models describe fixed relationships or equilibrium conditions without a temporal component. For example, a model predicting vegetation succession is dynamic, whereas one relating vegetation type to soil characteristics is static.</p>
+<p><strong>Continuous vs. Discrete Time</strong></p>
+<p>Dynamic models can represent time continuously or in discrete steps. Continuous-time models use differential equations and can estimate change at very small intervals. Discrete-time models update the system at specific intervals (e.g., yearly, monthly, or by events such as fires), assuming conditions remain unchanged between updates.</p>
+<p><strong>Mechanistic, Process-Based, and Empirical Models</strong></p>
+<p>These classifications often overlap and can be difficult to distinguish:</p>
+<ul>
+<li><strong>Mechanistic models</strong> aim to represent underlying system mechanisms and processes based on real-world principles, such as physical or biological laws.</li>
+<li><strong>Process-based models</strong> explicitly simulate ecological processes (e.g., growth, mortality, photosynthesis) to predict outcomes.</li>
+<li><strong>Empirical models</strong> rely on observed data and statistical relationships, such as regression equations, to describe patterns.</li>
+</ul>
+<p>In practice, most forestry or ecological models combine theoretical concepts, process representations, and empirical data. As a result, the boundaries between mechanistic, process-based, and empirical models are often blurred, making strict classification challenging and sometimes subjective.</p>
+</div>
+<div id="building-a-model-defining-the-problem-and-its-considerations" class="section level3 hasAnchor" number="1.1.3">
+<h3><span class="header-section-number">1.1.3</span> Building a Model (Defining the Problem and it’s Considerations)<a href="index.html#building-a-model-defining-the-problem-and-its-considerations" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>A clear statement of model objectives provides the framework for model development and the context within which results must be interpreted. Definition of the problem should be as specific as possible, allowing one to determine the form of the model, the degree of complexity needed, and the spatial and temporal scales at which it will operate Once the problem is stated, a <strong>conceptual or qualitative model</strong> can be developed. The conceptual model identifies system boundaries (the temporal and spatial scales and associated inputs and outputs), the model components (state variables), and the relationships among the state variables. A conceptual model of sufficient detail allows the important variables and parameters (coefficients that control model processes), the system drivers and the required inputs and outputs to be defined.</p>
+<p>When developing a conceptual model, selecting the appropriate spatial and temporal scale is critical. Modellers must balance <strong>generality, precision, and realism</strong>, as no model can maximize all three simultaneously. A model may sacrifice generality to achieve realistic, site-specific predictions; sacrifice realism to produce more broadly applicable and precise predictions; or sacrifice precision to develop general theories that explain forest or landscape patterns qualitatively. The usefulness of a model depends on recognizing these trade-offs, understanding its assumptions and limitations, and comparing alternative models to test the robustness of conclusions.</p>
+<p>A second key consideration is the trade-off between model <strong>complexity and error</strong>. More complex models are not necessarily more accurate because additional parameters increase data requirements and uncertainty. Often, simpler models that aggregate similar components or operate at broader spatial and temporal scales can provide more reliable results. Model outputs should always be evaluated against empirical data, with sensitivity and error analyses used to identify major sources of uncertainty.</p>
+<p>Models should be <strong>spatially explicit</strong> when inputs, outputs, or processes vary across space. Spatial models are necessary when forest or landscape configuration influences outcomes, when the objective is to predict or project spatial patterns, or when local interactions generate forest-level phenomena. However, spatially explicit models are substantially more complex than spatially implicit models and should only be used when spatial processes are central to the question at hand.</p>
+<p>Overall, model development should follow the principle of <strong>parsimony</strong>: clearly define objectives, build the simplest model capable of addressing them, add complexity only when justified by data, and revise the model as evaluation reveals weaknesses or errors.</p>
+</div>
+<div id="the-modellers-creed" class="section level3 hasAnchor" number="1.1.4">
+<h3><span class="header-section-number">1.1.4</span> The Modeller’s creed<a href="index.html#the-modellers-creed" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The wise application of modeling tools recognizes the pitfalls and problems of model development and interpretation. The following are the important caveats for all modelling:</p>
+<ol style="list-style-type: decimal">
+<li><p><strong>Know thy model</strong>. The performance of each model is the logical consequence of the hypotheses and assumptions upon which that model is based. Alternative assumptions regarding systems behavior might be equally viable, but produce dramatically different results. Comparison among alternative model formulations is extremely desirable, and should be attempted where possible.</p></li>
+<li><p><strong>Errors propagate</strong>. Small errors in sensitive parameters can lead to large errors in outputs . Techniques for the analysis of effects of parameter errors are available and should always be employed before predictions are made. Assessment of errors of spatially explicit models remains a challenge, largely because of the added complexity of evaluating qualitative and quantitative spatial predictions.</p></li>
+<li><p><strong>All models are simplifications of reality</strong>. This is not a casual philosophical statement! It simply means that no single model will ever be a completely adequate description of reality. Therefore, the goal of model studies should be to define the applications for which a given model provides reliable and useful results. New applications of old models are not released from this requirement.</p></li>
+<li><p><strong>There are never enough data</strong>. The incomplete nature of data often requires parameter values to be estimated from a diversity of sources. Inconsistency in the methods of data collection and parameter estimation may result in model biases that are difficult to identify. Gaps in empirical information that do not allow adequate estimation of key parameters are often the greatest source of uncertainty in model predictions.</p></li>
+<li><p><strong>High tech methods do not guarantee a “good” model</strong>. Technologically advanced methodologies, including the availability of AI and higher level programming languages that facilitate model coding, do not assure the accuracy or reliability of results. When developing or interpreting models, it is critical for the user to understand fully the structure of the model, the assumptions that went into its development and the constraints (such as spatial or temporal scales) on its appropriate use.</p></li>
+<li><p><strong>Keep an open mind</strong>. There is no single paradigm for spatial modeling of forests or landscapes. Model development and testing requires a broad perspective on forests dynamics, forestry, landscape ecology and systems analysis techniques.</p></li>
+</ol>
+<p>The following provides simplified primers on some common modelling concepts, methods and techniques including:</p>
+<ol style="list-style-type: decimal">
+<li>Simulated Annealing</li>
+<li>Goal Programming</li>
+<li>Markov Chains in Goal Programming</li>
+<li>Monte Carlo Markov Chains (MCMC)</li>
+<li>Cellular Automata</li>
+<li>Neutral Landscape Models</li>
+<li>Spreading through Simulation</li>
+<li>Spatial Statistics</li>
+</ol>
+<p>Good Hunting!</p>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+
+<a href="simulated-annealing-and-the-sudoku-solver.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>
