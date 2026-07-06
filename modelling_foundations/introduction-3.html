@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>12 Introduction | Modelling Foundations</title>
+  <meta name="description" content="12 Introduction | Modelling Foundations" />
+  <meta name="generator" content="bookdown 0.40 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="12 Introduction | Modelling Foundations" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="12 Introduction | Modelling Foundations" />
+  
+  
+  
+
+<meta name="author" content="Kelly Izzard" />
+
+
+<meta name="date" content="2026-07-04" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="markov-chain-with-goal-programming.html"/>
+<link rel="next" href="markov-chain-and-goal-programming.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<link href="libs/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet" />
+<script src="libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+<script src="libs/plotly-binding-4.10.4/plotly.js"></script>
+<script src="libs/typedarray-0.1/typedarray.min.js"></script>
+<link href="libs/crosstalk-1.2.1/css/crosstalk.min.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.2.1/js/crosstalk.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-2.11.1/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-2.11.1/plotly-latest.min.js"></script>
+
+
+<style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
+<li class="chapter" data-level="2" data-path="simulated-annealing-and-the-sudoku-solver.html"><a href="simulated-annealing-and-the-sudoku-solver.html"><i class="fa fa-check"></i><b>2</b> Simulated Annealing and the Sudoku Solver</a></li>
+<li class="chapter" data-level="3" data-path="introduction-1.html"><a href="introduction-1.html"><i class="fa fa-check"></i><b>3</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="introduction-1.html"><a href="introduction-1.html#simple-model"><i class="fa fa-check"></i><b>3.1</b> Simple Model</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="introduction-1.html"><a href="introduction-1.html#plot-objective-value"><i class="fa fa-check"></i><b>3.1.1</b> Plot objective value</a></li>
+<li class="chapter" data-level="3.1.2" data-path="introduction-1.html"><a href="introduction-1.html#plot-search-trajectory"><i class="fa fa-check"></i><b>3.1.2</b> Plot search trajectory</a></li>
+<li class="chapter" data-level="3.1.3" data-path="introduction-1.html"><a href="introduction-1.html#plot-objective-function-with-optimization-path"><i class="fa fa-check"></i><b>3.1.3</b> Plot objective function with optimization path</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="sudoku-solver.html"><a href="sudoku-solver.html"><i class="fa fa-check"></i><b>4</b> Sudoku Solver</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="sudoku-solver.html"><a href="sudoku-solver.html#simulated-annealing-solver"><i class="fa fa-check"></i><b>4.1</b> Simulated Annealing Solver</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="d-plot-of-sudoku-loss-landscape.html"><a href="d-plot-of-sudoku-loss-landscape.html"><i class="fa fa-check"></i><b>5</b> 3D plot of Sudoku loss landscape</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="d-plot-of-sudoku-loss-landscape.html"><a href="d-plot-of-sudoku-loss-landscape.html#why-use-pca"><i class="fa fa-check"></i><b>5.1</b> Why use PCA</a></li>
+<li class="chapter" data-level="5.2" data-path="d-plot-of-sudoku-loss-landscape.html"><a href="d-plot-of-sudoku-loss-landscape.html#interpretation"><i class="fa fa-check"></i><b>5.2</b> Interpretation</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="constraint-decomposition-and-the-sudoku-solver.html"><a href="constraint-decomposition-and-the-sudoku-solver.html"><i class="fa fa-check"></i><b>6</b> Constraint Decomposition and the Sudoku Solver</a></li>
+<li class="chapter" data-level="7" data-path="simple-goal-programming-with-sann.html"><a href="simple-goal-programming-with-sann.html"><i class="fa fa-check"></i><b>7</b> Simple Goal Programming with SANN</a></li>
+<li class="chapter" data-level="8" data-path="introduction-2.html"><a href="introduction-2.html"><i class="fa fa-check"></i><b>8</b> Introduction</a></li>
+<li class="chapter" data-level="9" data-path="a-simple-goal-programming-model.html"><a href="a-simple-goal-programming-model.html"><i class="fa fa-check"></i><b>9</b> A Simple Goal Programming Model</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="a-simple-goal-programming-model.html"><a href="a-simple-goal-programming-model.html#the-objective-function"><i class="fa fa-check"></i><b>9.1</b> The Objective Function</a>
+<ul>
+<li class="chapter" data-level="9.1.1" data-path="a-simple-goal-programming-model.html"><a href="a-simple-goal-programming-model.html#normalized-deviations-from-the-target"><i class="fa fa-check"></i><b>9.1.1</b> Normalized Deviations from the Target</a></li>
+<li class="chapter" data-level="9.1.2" data-path="a-simple-goal-programming-model.html"><a href="a-simple-goal-programming-model.html#operational-constraints"><i class="fa fa-check"></i><b>9.1.2</b> Operational Constraints</a></li>
+</ul></li>
+<li class="chapter" data-level="9.2" data-path="a-simple-goal-programming-model.html"><a href="a-simple-goal-programming-model.html#the-sann-optimization"><i class="fa fa-check"></i><b>9.2</b> The SANN Optimization</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="the-results.html"><a href="the-results.html"><i class="fa fa-check"></i><b>10</b> The Results</a></li>
+<li class="chapter" data-level="11" data-path="markov-chain-with-goal-programming.html"><a href="markov-chain-with-goal-programming.html"><i class="fa fa-check"></i><b>11</b> Markov Chain with Goal Programming</a></li>
+<li class="chapter" data-level="12" data-path="introduction-3.html"><a href="introduction-3.html"><i class="fa fa-check"></i><b>12</b> Introduction</a></li>
+<li class="chapter" data-level="13" data-path="markov-chain-and-goal-programming.html"><a href="markov-chain-and-goal-programming.html"><i class="fa fa-check"></i><b>13</b> Markov Chain and Goal Programming</a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="markov-chain-and-goal-programming.html"><a href="markov-chain-and-goal-programming.html#the-markov-chain-transition-probability-matrix"><i class="fa fa-check"></i><b>13.1</b> The Markov Chain Transition Probability Matrix</a></li>
+<li class="chapter" data-level="13.2" data-path="markov-chain-and-goal-programming.html"><a href="markov-chain-and-goal-programming.html#markov-habitat-function"><i class="fa fa-check"></i><b>13.2</b> Markov Habitat Function</a></li>
+<li class="chapter" data-level="13.3" data-path="markov-chain-and-goal-programming.html"><a href="markov-chain-and-goal-programming.html#the-objective-function-1"><i class="fa fa-check"></i><b>13.3</b> The Objective Function</a></li>
+<li class="chapter" data-level="13.4" data-path="markov-chain-and-goal-programming.html"><a href="markov-chain-and-goal-programming.html#the-sann-optimization-and-results"><i class="fa fa-check"></i><b>13.4</b> The SANN Optimization and RESULTS</a></li>
+<li class="chapter" data-level="13.5" data-path="markov-chain-and-goal-programming.html"><a href="markov-chain-and-goal-programming.html#results"><i class="fa fa-check"></i><b>13.5</b> Results</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="introduction-4.html"><a href="introduction-4.html"><i class="fa fa-check"></i><b>14</b> Introduction</a></li>
+<li class="chapter" data-level="15" data-path="the-monte-carlo-markov-chain.html"><a href="the-monte-carlo-markov-chain.html"><i class="fa fa-check"></i><b>15</b> The Monte Carlo Markov Chain</a></li>
+<li class="chapter" data-level="16" data-path="mcmc-sampling-loop-joint-bulk-and-tail-model.html"><a href="mcmc-sampling-loop-joint-bulk-and-tail-model.html"><i class="fa fa-check"></i><b>16</b> MCMC Sampling Loop (Joint Bulk and Tail Model)</a></li>
+<li class="chapter" data-level="17" data-path="results-1.html"><a href="results-1.html"><i class="fa fa-check"></i><b>17</b> Results</a></li>
+<li class="chapter" data-level="18" data-path="cellular-automata-and-the-game-of-life.html"><a href="cellular-automata-and-the-game-of-life.html"><i class="fa fa-check"></i><b>18</b> Cellular Automata and the Game of Life</a></li>
+<li class="chapter" data-level="19" data-path="introduction-5.html"><a href="introduction-5.html"><i class="fa fa-check"></i><b>19</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="19.1" data-path="introduction-5.html"><a href="introduction-5.html#wolfram"><i class="fa fa-check"></i><b>19.1</b> Wolfram</a>
+<ul>
+<li class="chapter" data-level="19.1.1" data-path="introduction-5.html"><a href="introduction-5.html#class-iii-rule-30"><i class="fa fa-check"></i><b>19.1.1</b> Class III Rule 30</a></li>
+<li class="chapter" data-level="19.1.2" data-path="introduction-5.html"><a href="introduction-5.html#class-iv-rule-90"><i class="fa fa-check"></i><b>19.1.2</b> Class IV Rule 90</a></li>
+<li class="chapter" data-level="19.1.3" data-path="introduction-5.html"><a href="introduction-5.html#class-iv-rule-125"><i class="fa fa-check"></i><b>19.1.3</b> Class IV Rule 125</a></li>
+</ul></li>
+<li class="chapter" data-level="19.2" data-path="introduction-5.html"><a href="introduction-5.html#the-game-of-life"><i class="fa fa-check"></i><b>19.2</b> The Game of Life</a>
+<ul>
+<li class="chapter" data-level="19.2.1" data-path="introduction-5.html"><a href="introduction-5.html#animate"><i class="fa fa-check"></i><b>19.2.1</b> Animate</a></li>
+</ul></li>
+<li class="chapter" data-level="19.3" data-path="introduction-5.html"><a href="introduction-5.html#population-trend"><i class="fa fa-check"></i><b>19.3</b> Population Trend</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Modelling Foundations</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="introduction-3" class="section level1 hasAnchor" number="12">
+<h1><span class="header-section-number">12</span> Introduction<a href="introduction-3.html#introduction-3" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>A Markov Chain algorithm is a stochastic process that models systems which transition between a set of states according to
+fixed probabilities. The defining feature of a Markov Chain is the <strong>Markov property</strong>, which states that the probability of
+moving to the next state depends only on the current state and not on the sequence of previous states.
+These transition probabilities are typically organized into a matrix, where each entry represents the likelihood
+of moving from one state to another in a single step. Over repeated transitions, the system evolves through a
+sequence of states, generating a path known as a Markov process.</p>
+<p>Markov Chain algorithms are widely used to simulate dynamic systems and estimate long-term behaviour, particularly when
+analytical solutions are difficult to obtain. By repeatedly applying the transition rules, the algorithm can approximate
+steady-state distributions, such as equilibrium probabilities in ecological systems, weather patterns, or population dynamics.
+In computational contexts, Markov Chain methods also form the basis of techniques like Markov Chain Monte Carlo (MCMC),
+where random sampling is used to explore complex probability distributions. This makes them powerful tools for both prediction
+and optimization in systems influenced by uncertainty.
+satisfying all management constraints.</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="introduction-3.html#cb16-1" tabindex="-1"></a></span>
+<span id="cb16-2"><a href="introduction-3.html#cb16-2" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb16-3"><a href="introduction-3.html#cb16-3" tabindex="-1"></a><span class="fu">library</span>(matrixStats)</span>
+<span id="cb16-4"><a href="introduction-3.html#cb16-4" tabindex="-1"></a><span class="fu">library</span>(knitr)</span>
+<span id="cb16-5"><a href="introduction-3.html#cb16-5" tabindex="-1"></a><span class="fu">library</span>(kableExtra)</span>
+<span id="cb16-6"><a href="introduction-3.html#cb16-6" tabindex="-1"></a></span>
+<span id="cb16-7"><a href="introduction-3.html#cb16-7" tabindex="-1"></a><span class="fu">rm</span>(<span class="at">list =</span> <span class="fu">ls</span>())</span>
+<span id="cb16-8"><a href="introduction-3.html#cb16-8" tabindex="-1"></a></span>
+<span id="cb16-9"><a href="introduction-3.html#cb16-9" tabindex="-1"></a></span>
+<span id="cb16-10"><a href="introduction-3.html#cb16-10" tabindex="-1"></a></span>
+<span id="cb16-11"><a href="introduction-3.html#cb16-11" tabindex="-1"></a>knitr<span class="sc">::</span>opts_chunk<span class="sc">$</span><span class="fu">set</span>(</span>
+<span id="cb16-12"><a href="introduction-3.html#cb16-12" tabindex="-1"></a>  <span class="at">echo =</span> <span class="cn">TRUE</span>,               <span class="co">#Show code in the output</span></span>
+<span id="cb16-13"><a href="introduction-3.html#cb16-13" tabindex="-1"></a>  <span class="co">#fig.width = 4,             #Set the width of the figures (in inches)</span></span>
+<span id="cb16-14"><a href="introduction-3.html#cb16-14" tabindex="-1"></a>  <span class="co">#fig.height = 4,            #Set the height of the figures (in inches)</span></span>
+<span id="cb16-15"><a href="introduction-3.html#cb16-15" tabindex="-1"></a>  <span class="at">collapse =</span> <span class="cn">TRUE</span>,           <span class="co">#Collapsing code and output</span></span>
+<span id="cb16-16"><a href="introduction-3.html#cb16-16" tabindex="-1"></a>  <span class="co">#out.width = &#39;250px&#39;,       #Standardize output image width</span></span>
+<span id="cb16-17"><a href="introduction-3.html#cb16-17" tabindex="-1"></a>  <span class="co">#out.height = &#39;250px&#39;,      #Standardize output image height</span></span>
+<span id="cb16-18"><a href="introduction-3.html#cb16-18" tabindex="-1"></a>  <span class="at">message =</span> <span class="cn">FALSE</span>,           <span class="co">#Hide messages</span></span>
+<span id="cb16-19"><a href="introduction-3.html#cb16-19" tabindex="-1"></a>  <span class="at">warning =</span> <span class="cn">FALSE</span>            <span class="co">#Hide warnings</span></span>
+<span id="cb16-20"><a href="introduction-3.html#cb16-20" tabindex="-1"></a>)</span>
+<span id="cb16-21"><a href="introduction-3.html#cb16-21" tabindex="-1"></a></span>
+<span id="cb16-22"><a href="introduction-3.html#cb16-22" tabindex="-1"></a></span>
+<span id="cb16-23"><a href="introduction-3.html#cb16-23" tabindex="-1"></a></span>
+<span id="cb16-24"><a href="introduction-3.html#cb16-24" tabindex="-1"></a>knitr<span class="sc">::</span>opts_chunk<span class="sc">$</span><span class="fu">set</span>(</span>
+<span id="cb16-25"><a href="introduction-3.html#cb16-25" tabindex="-1"></a>  <span class="at">fig.width =</span> <span class="dv">12</span>,</span>
+<span id="cb16-26"><a href="introduction-3.html#cb16-26" tabindex="-1"></a>  <span class="at">fig.height =</span> <span class="dv">10</span>,</span>
+<span id="cb16-27"><a href="introduction-3.html#cb16-27" tabindex="-1"></a>  <span class="at">out.width =</span> <span class="st">&quot;80%&quot;</span></span>
+<span id="cb16-28"><a href="introduction-3.html#cb16-28" tabindex="-1"></a>)</span></code></pre></div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="markov-chain-with-goal-programming.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="markov-chain-and-goal-programming.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

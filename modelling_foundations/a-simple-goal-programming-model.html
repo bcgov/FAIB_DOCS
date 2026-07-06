@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>9 A Simple Goal Programming Model | Modelling Foundations</title>
+  <meta name="description" content="9 A Simple Goal Programming Model | Modelling Foundations" />
+  <meta name="generator" content="bookdown 0.40 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="9 A Simple Goal Programming Model | Modelling Foundations" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="9 A Simple Goal Programming Model | Modelling Foundations" />
+  
+  
+  
+
+<meta name="author" content="Kelly Izzard" />
+
+
+<meta name="date" content="2026-07-04" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="introduction-2.html"/>
+<link rel="next" href="the-results.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<link href="libs/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet" />
+<script src="libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+<script src="libs/plotly-binding-4.10.4/plotly.js"></script>
+<script src="libs/typedarray-0.1/typedarray.min.js"></script>
+<link href="libs/crosstalk-1.2.1/css/crosstalk.min.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.2.1/js/crosstalk.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-2.11.1/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-2.11.1/plotly-latest.min.js"></script>
+
+
+<style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
+<li class="chapter" data-level="2" data-path="simulated-annealing-and-the-sudoku-solver.html"><a href="simulated-annealing-and-the-sudoku-solver.html"><i class="fa fa-check"></i><b>2</b> Simulated Annealing and the Sudoku Solver</a></li>
+<li class="chapter" data-level="3" data-path="introduction-1.html"><a href="introduction-1.html"><i class="fa fa-check"></i><b>3</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="introduction-1.html"><a href="introduction-1.html#simple-model"><i class="fa fa-check"></i><b>3.1</b> Simple Model</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="introduction-1.html"><a href="introduction-1.html#plot-objective-value"><i class="fa fa-check"></i><b>3.1.1</b> Plot objective value</a></li>
+<li class="chapter" data-level="3.1.2" data-path="introduction-1.html"><a href="introduction-1.html#plot-search-trajectory"><i class="fa fa-check"></i><b>3.1.2</b> Plot search trajectory</a></li>
+<li class="chapter" data-level="3.1.3" data-path="introduction-1.html"><a href="introduction-1.html#plot-objective-function-with-optimization-path"><i class="fa fa-check"></i><b>3.1.3</b> Plot objective function with optimization path</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="sudoku-solver.html"><a href="sudoku-solver.html"><i class="fa fa-check"></i><b>4</b> Sudoku Solver</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="sudoku-solver.html"><a href="sudoku-solver.html#simulated-annealing-solver"><i class="fa fa-check"></i><b>4.1</b> Simulated Annealing Solver</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="d-plot-of-sudoku-loss-landscape.html"><a href="d-plot-of-sudoku-loss-landscape.html"><i class="fa fa-check"></i><b>5</b> 3D plot of Sudoku loss landscape</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="d-plot-of-sudoku-loss-landscape.html"><a href="d-plot-of-sudoku-loss-landscape.html#why-use-pca"><i class="fa fa-check"></i><b>5.1</b> Why use PCA</a></li>
+<li class="chapter" data-level="5.2" data-path="d-plot-of-sudoku-loss-landscape.html"><a href="d-plot-of-sudoku-loss-landscape.html#interpretation"><i class="fa fa-check"></i><b>5.2</b> Interpretation</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="constraint-decomposition-and-the-sudoku-solver.html"><a href="constraint-decomposition-and-the-sudoku-solver.html"><i class="fa fa-check"></i><b>6</b> Constraint Decomposition and the Sudoku Solver</a></li>
+<li class="chapter" data-level="7" data-path="simple-goal-programming-with-sann.html"><a href="simple-goal-programming-with-sann.html"><i class="fa fa-check"></i><b>7</b> Simple Goal Programming with SANN</a></li>
+<li class="chapter" data-level="8" data-path="introduction-2.html"><a href="introduction-2.html"><i class="fa fa-check"></i><b>8</b> Introduction</a></li>
+<li class="chapter" data-level="9" data-path="a-simple-goal-programming-model.html"><a href="a-simple-goal-programming-model.html"><i class="fa fa-check"></i><b>9</b> A Simple Goal Programming Model</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="a-simple-goal-programming-model.html"><a href="a-simple-goal-programming-model.html#the-objective-function"><i class="fa fa-check"></i><b>9.1</b> The Objective Function</a>
+<ul>
+<li class="chapter" data-level="9.1.1" data-path="a-simple-goal-programming-model.html"><a href="a-simple-goal-programming-model.html#normalized-deviations-from-the-target"><i class="fa fa-check"></i><b>9.1.1</b> Normalized Deviations from the Target</a></li>
+<li class="chapter" data-level="9.1.2" data-path="a-simple-goal-programming-model.html"><a href="a-simple-goal-programming-model.html#operational-constraints"><i class="fa fa-check"></i><b>9.1.2</b> Operational Constraints</a></li>
+</ul></li>
+<li class="chapter" data-level="9.2" data-path="a-simple-goal-programming-model.html"><a href="a-simple-goal-programming-model.html#the-sann-optimization"><i class="fa fa-check"></i><b>9.2</b> The SANN Optimization</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="the-results.html"><a href="the-results.html"><i class="fa fa-check"></i><b>10</b> The Results</a></li>
+<li class="chapter" data-level="11" data-path="markov-chain-with-goal-programming.html"><a href="markov-chain-with-goal-programming.html"><i class="fa fa-check"></i><b>11</b> Markov Chain with Goal Programming</a></li>
+<li class="chapter" data-level="12" data-path="introduction-3.html"><a href="introduction-3.html"><i class="fa fa-check"></i><b>12</b> Introduction</a></li>
+<li class="chapter" data-level="13" data-path="markov-chain-and-goal-programming.html"><a href="markov-chain-and-goal-programming.html"><i class="fa fa-check"></i><b>13</b> Markov Chain and Goal Programming</a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="markov-chain-and-goal-programming.html"><a href="markov-chain-and-goal-programming.html#the-markov-chain-transition-probability-matrix"><i class="fa fa-check"></i><b>13.1</b> The Markov Chain Transition Probability Matrix</a></li>
+<li class="chapter" data-level="13.2" data-path="markov-chain-and-goal-programming.html"><a href="markov-chain-and-goal-programming.html#markov-habitat-function"><i class="fa fa-check"></i><b>13.2</b> Markov Habitat Function</a></li>
+<li class="chapter" data-level="13.3" data-path="markov-chain-and-goal-programming.html"><a href="markov-chain-and-goal-programming.html#the-objective-function-1"><i class="fa fa-check"></i><b>13.3</b> The Objective Function</a></li>
+<li class="chapter" data-level="13.4" data-path="markov-chain-and-goal-programming.html"><a href="markov-chain-and-goal-programming.html#the-sann-optimization-and-results"><i class="fa fa-check"></i><b>13.4</b> The SANN Optimization and RESULTS</a></li>
+<li class="chapter" data-level="13.5" data-path="markov-chain-and-goal-programming.html"><a href="markov-chain-and-goal-programming.html#results"><i class="fa fa-check"></i><b>13.5</b> Results</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="introduction-4.html"><a href="introduction-4.html"><i class="fa fa-check"></i><b>14</b> Introduction</a></li>
+<li class="chapter" data-level="15" data-path="the-monte-carlo-markov-chain.html"><a href="the-monte-carlo-markov-chain.html"><i class="fa fa-check"></i><b>15</b> The Monte Carlo Markov Chain</a></li>
+<li class="chapter" data-level="16" data-path="mcmc-sampling-loop-joint-bulk-and-tail-model.html"><a href="mcmc-sampling-loop-joint-bulk-and-tail-model.html"><i class="fa fa-check"></i><b>16</b> MCMC Sampling Loop (Joint Bulk and Tail Model)</a></li>
+<li class="chapter" data-level="17" data-path="results-1.html"><a href="results-1.html"><i class="fa fa-check"></i><b>17</b> Results</a></li>
+<li class="chapter" data-level="18" data-path="cellular-automata-and-the-game-of-life.html"><a href="cellular-automata-and-the-game-of-life.html"><i class="fa fa-check"></i><b>18</b> Cellular Automata and the Game of Life</a></li>
+<li class="chapter" data-level="19" data-path="introduction-5.html"><a href="introduction-5.html"><i class="fa fa-check"></i><b>19</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="19.1" data-path="introduction-5.html"><a href="introduction-5.html#wolfram"><i class="fa fa-check"></i><b>19.1</b> Wolfram</a>
+<ul>
+<li class="chapter" data-level="19.1.1" data-path="introduction-5.html"><a href="introduction-5.html#class-iii-rule-30"><i class="fa fa-check"></i><b>19.1.1</b> Class III Rule 30</a></li>
+<li class="chapter" data-level="19.1.2" data-path="introduction-5.html"><a href="introduction-5.html#class-iv-rule-90"><i class="fa fa-check"></i><b>19.1.2</b> Class IV Rule 90</a></li>
+<li class="chapter" data-level="19.1.3" data-path="introduction-5.html"><a href="introduction-5.html#class-iv-rule-125"><i class="fa fa-check"></i><b>19.1.3</b> Class IV Rule 125</a></li>
+</ul></li>
+<li class="chapter" data-level="19.2" data-path="introduction-5.html"><a href="introduction-5.html#the-game-of-life"><i class="fa fa-check"></i><b>19.2</b> The Game of Life</a>
+<ul>
+<li class="chapter" data-level="19.2.1" data-path="introduction-5.html"><a href="introduction-5.html#animate"><i class="fa fa-check"></i><b>19.2.1</b> Animate</a></li>
+</ul></li>
+<li class="chapter" data-level="19.3" data-path="introduction-5.html"><a href="introduction-5.html#population-trend"><i class="fa fa-check"></i><b>19.3</b> Population Trend</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Modelling Foundations</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="a-simple-goal-programming-model" class="section level1 hasAnchor" number="9">
+<h1><span class="header-section-number">9</span> A Simple Goal Programming Model<a href="a-simple-goal-programming-model.html#a-simple-goal-programming-model" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>This following implements a <strong>goal programming model</strong> solved using the <strong>simulated annealing (SANN)</strong> optimization algorithm in <code>optim()</code>.
+The model seeks the optimal harvest allocation among three forest management units by minimizing a weighted objective function that
+balances deviations from target timber production (<strong>100,000 m³</strong>), revenue (<strong>$5,000,000</strong>), and habitat quality (<strong>300 quality habitat units</strong>). Relative priorities are assigned through weights, with revenue receiving the highest relative priority, followed by timber production and habitat conservation. Harvest, revenue, and habitat are calculated from unit-specific coefficients, and each goal deviation is
+normalized by its target value (<code>abs(harvest - target.harvest)/target.harvest</code>) before being combined into a single weighted objective function. To ensure feasible solutions, large penalty terms are added whenever constraints are violated, including a maximum total harvested area of 200 ha, a minimum habitat requirement of 250 units, and a maximum harvest of 80 ha in Unit 3. The optimization begins from an initial allocation of 50 ha in each unit and uses simulated annealing with an initial temperature of 50 over 50,000 iterations to explore alternative harvest allocations and identify a near-optimal solution. After convergence, the script calculates the resulting harvest, revenue, habitat value, and normalized goal deviations, verifies that all constraints have been satisfied, and reports the optimal harvest allocation and associated performance measures.</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="a-simple-goal-programming-model.html#cb12-1" tabindex="-1"></a></span>
+<span id="cb12-2"><a href="a-simple-goal-programming-model.html#cb12-2" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">55</span>)</span>
+<span id="cb12-3"><a href="a-simple-goal-programming-model.html#cb12-3" tabindex="-1"></a></span>
+<span id="cb12-4"><a href="a-simple-goal-programming-model.html#cb12-4" tabindex="-1"></a><span class="do">############################################################</span></span>
+<span id="cb12-5"><a href="a-simple-goal-programming-model.html#cb12-5" tabindex="-1"></a><span class="co"># MANAGEMENT GOALS</span></span>
+<span id="cb12-6"><a href="a-simple-goal-programming-model.html#cb12-6" tabindex="-1"></a><span class="do">############################################################</span></span>
+<span id="cb12-7"><a href="a-simple-goal-programming-model.html#cb12-7" tabindex="-1"></a></span>
+<span id="cb12-8"><a href="a-simple-goal-programming-model.html#cb12-8" tabindex="-1"></a><span class="co"># Target timber production (m3)</span></span>
+<span id="cb12-9"><a href="a-simple-goal-programming-model.html#cb12-9" tabindex="-1"></a>target.harvest <span class="ot">&lt;-</span> <span class="dv">100000</span></span>
+<span id="cb12-10"><a href="a-simple-goal-programming-model.html#cb12-10" tabindex="-1"></a></span>
+<span id="cb12-11"><a href="a-simple-goal-programming-model.html#cb12-11" tabindex="-1"></a><span class="co"># Target revenue ($)</span></span>
+<span id="cb12-12"><a href="a-simple-goal-programming-model.html#cb12-12" tabindex="-1"></a>target.revenue <span class="ot">&lt;-</span> <span class="dv">5000000</span></span>
+<span id="cb12-13"><a href="a-simple-goal-programming-model.html#cb12-13" tabindex="-1"></a></span>
+<span id="cb12-14"><a href="a-simple-goal-programming-model.html#cb12-14" tabindex="-1"></a><span class="co"># Target habitat score</span></span>
+<span id="cb12-15"><a href="a-simple-goal-programming-model.html#cb12-15" tabindex="-1"></a>target.habitat <span class="ot">&lt;-</span> <span class="dv">300</span></span>
+<span id="cb12-16"><a href="a-simple-goal-programming-model.html#cb12-16" tabindex="-1"></a></span>
+<span id="cb12-17"><a href="a-simple-goal-programming-model.html#cb12-17" tabindex="-1"></a></span>
+<span id="cb12-18"><a href="a-simple-goal-programming-model.html#cb12-18" tabindex="-1"></a><span class="do">############################################################</span></span>
+<span id="cb12-19"><a href="a-simple-goal-programming-model.html#cb12-19" tabindex="-1"></a><span class="co"># GOAL PRIORITIES (WEIGHTS)</span></span>
+<span id="cb12-20"><a href="a-simple-goal-programming-model.html#cb12-20" tabindex="-1"></a><span class="co">#</span></span>
+<span id="cb12-21"><a href="a-simple-goal-programming-model.html#cb12-21" tabindex="-1"></a><span class="co"># Larger values indicate greater importance.</span></span>
+<span id="cb12-22"><a href="a-simple-goal-programming-model.html#cb12-22" tabindex="-1"></a><span class="co">#</span></span>
+<span id="cb12-23"><a href="a-simple-goal-programming-model.html#cb12-23" tabindex="-1"></a><span class="co"># Harvest &gt; Revenue &gt; Habitat</span></span>
+<span id="cb12-24"><a href="a-simple-goal-programming-model.html#cb12-24" tabindex="-1"></a><span class="do">############################################################</span></span>
+<span id="cb12-25"><a href="a-simple-goal-programming-model.html#cb12-25" tabindex="-1"></a></span>
+<span id="cb12-26"><a href="a-simple-goal-programming-model.html#cb12-26" tabindex="-1"></a>w1 <span class="ot">&lt;-</span> <span class="dv">3</span>     <span class="co"># Harvest priority</span></span>
+<span id="cb12-27"><a href="a-simple-goal-programming-model.html#cb12-27" tabindex="-1"></a>w2 <span class="ot">&lt;-</span> <span class="dv">5</span>     <span class="co"># Revenue priority</span></span>
+<span id="cb12-28"><a href="a-simple-goal-programming-model.html#cb12-28" tabindex="-1"></a>w3 <span class="ot">&lt;-</span> <span class="dv">1</span>     <span class="co"># Habitat priority</span></span>
+<span id="cb12-29"><a href="a-simple-goal-programming-model.html#cb12-29" tabindex="-1"></a></span>
+<span id="cb12-30"><a href="a-simple-goal-programming-model.html#cb12-30" tabindex="-1"></a></span>
+<span id="cb12-31"><a href="a-simple-goal-programming-model.html#cb12-31" tabindex="-1"></a><span class="do">############################################################</span></span>
+<span id="cb12-32"><a href="a-simple-goal-programming-model.html#cb12-32" tabindex="-1"></a><span class="co"># FOREST MANAGEMENT UNIT COEFFICIENTS</span></span>
+<span id="cb12-33"><a href="a-simple-goal-programming-model.html#cb12-33" tabindex="-1"></a><span class="co">#</span></span>
+<span id="cb12-34"><a href="a-simple-goal-programming-model.html#cb12-34" tabindex="-1"></a><span class="co">#                 Unit1 Unit2 Unit3</span></span>
+<span id="cb12-35"><a href="a-simple-goal-programming-model.html#cb12-35" tabindex="-1"></a><span class="co"># Timber (m3/ha)     400    800     600</span></span>
+<span id="cb12-36"><a href="a-simple-goal-programming-model.html#cb12-36" tabindex="-1"></a><span class="co"># Revenue ($/ha)    20000 40000 30000</span></span>
+<span id="cb12-37"><a href="a-simple-goal-programming-model.html#cb12-37" tabindex="-1"></a><span class="co"># Habitat Quality     1     2     4</span></span>
+<span id="cb12-38"><a href="a-simple-goal-programming-model.html#cb12-38" tabindex="-1"></a><span class="do">############################################################</span></span>
+<span id="cb12-39"><a href="a-simple-goal-programming-model.html#cb12-39" tabindex="-1"></a></span>
+<span id="cb12-40"><a href="a-simple-goal-programming-model.html#cb12-40" tabindex="-1"></a>timber.coef  <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">400</span>, <span class="dv">800</span>, <span class="dv">600</span>)</span>
+<span id="cb12-41"><a href="a-simple-goal-programming-model.html#cb12-41" tabindex="-1"></a>revenue.coef <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">20000</span>, <span class="dv">40000</span>, <span class="dv">30000</span>)</span>
+<span id="cb12-42"><a href="a-simple-goal-programming-model.html#cb12-42" tabindex="-1"></a>habitat.coef <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">4</span>)</span></code></pre></div>
+<div id="the-objective-function" class="section level2 hasAnchor" number="9.1">
+<h2><span class="header-section-number">9.1</span> The Objective Function<a href="a-simple-goal-programming-model.html#the-objective-function" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>This function defines the objective function for a <strong>goal programming optimization model</strong> that evaluates a proposed
+harvest allocation vector (<code>x</code>). It first calculates three performance measures—total timber harvest, revenue,
+and habitat—by multiplying the decision variables by their respective coefficient vectors and summing the results.
+It then computes the normalized deviation of each measure from its target value, expressing how far the solution is
+from meeting each objective relative to the target. These deviations are combined into a single weighted objective
+value (<code>z</code>) using the user-defined weights (<code>w1</code>, <code>w2</code>, and <code>w3</code>), allowing the relative importance of each goal to be specified.
+The function also enforces operational constraints by applying large penalty values whenever the total harvested area exceeds 200 ha,
+habitat falls below 250 units, or harvest in Unit 3 exceeds 80 ha. The penalties are added to the objective value,
+making infeasible solutions much less desirable. Finally, the function returns the total objective value, where lower values
+represent solutions that better satisfy the management goals while remaining within the operational constraints.</p>
+<div id="normalized-deviations-from-the-target" class="section level3 hasAnchor" number="9.1.1">
+<h3><span class="header-section-number">9.1.1</span> Normalized Deviations from the Target<a href="a-simple-goal-programming-model.html#normalized-deviations-from-the-target" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Normalized deviations are used in goal programming to make different objectives—such as timber volume, revenue, and habitat—<strong>comparable on the same scale</strong>, since these variables are measured in different units and magnitudes. Without normalization, a large-scale variable (e.g., revenue in tens of thousands of dollars) would dominate the objective function, even if it is not the highest priority. By dividing each deviation by its target value, each goal is expressed as a <strong>relative (percentage-like) shortfall or surplus</strong>, allowing the model to fairly balance trade-offs across competing objectives based on their assigned weights rather than their raw numerical size.</p>
+</div>
+<div id="operational-constraints" class="section level3 hasAnchor" number="9.1.2">
+<h3><span class="header-section-number">9.1.2</span> Operational Constraints<a href="a-simple-goal-programming-model.html#operational-constraints" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>This section of the function implements <strong>penalty functions</strong> to discourage solutions that violate the optimization constraints.
+The variable <code>penalty</code> is initialized to zero, meaning there is no penalty if all constraints are satisfied. Each <code>if</code>
+statement checks whether a constraint has been violated. If the total harvest area (<code>sum(x)</code>) exceeds 200 ha,
+a penalty equal to <code>1000 × (sum(x) - 200)</code> is added, so the penalty increases in proportion to the number of hectares
+over the limit. Similarly, if the habitat value is less than the required minimum of 250 units,
+a penalty of <code>1000 × (250 - habitat)</code> is added, with larger shortfalls receiving larger penalties.
+Finally, if the harvest allocated to Unit 3 (<code>x[3]</code>) exceeds 80 ha, another penalty of <code>1000 × (x[3] - 80)</code>
+is applied. Because these penalties are added to the objective function, any solution that violates one or more
+constraints receives a much larger objective value, making it far less likely to be selected by the optimization algorithm.
+The multiplier of <strong>1000</strong> is chosen to make constraint violations much more costly than small improvements in the objective,
+effectively encouraging the algorithm to prioritize feasible solutions.</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="a-simple-goal-programming-model.html#cb13-1" tabindex="-1"></a></span>
+<span id="cb13-2"><a href="a-simple-goal-programming-model.html#cb13-2" tabindex="-1"></a></span>
+<span id="cb13-3"><a href="a-simple-goal-programming-model.html#cb13-3" tabindex="-1"></a></span>
+<span id="cb13-4"><a href="a-simple-goal-programming-model.html#cb13-4" tabindex="-1"></a>goal_function <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
+<span id="cb13-5"><a href="a-simple-goal-programming-model.html#cb13-5" tabindex="-1"></a>  </span>
+<span id="cb13-6"><a href="a-simple-goal-programming-model.html#cb13-6" tabindex="-1"></a>  <span class="do">##########################################################</span></span>
+<span id="cb13-7"><a href="a-simple-goal-programming-model.html#cb13-7" tabindex="-1"></a>  <span class="co"># PERFORMANCE METRICS</span></span>
+<span id="cb13-8"><a href="a-simple-goal-programming-model.html#cb13-8" tabindex="-1"></a>  <span class="do">##########################################################</span></span>
+<span id="cb13-9"><a href="a-simple-goal-programming-model.html#cb13-9" tabindex="-1"></a>  </span>
+<span id="cb13-10"><a href="a-simple-goal-programming-model.html#cb13-10" tabindex="-1"></a>  harvest <span class="ot">&lt;-</span> <span class="fu">sum</span>(timber.coef <span class="sc">*</span> x)</span>
+<span id="cb13-11"><a href="a-simple-goal-programming-model.html#cb13-11" tabindex="-1"></a>  </span>
+<span id="cb13-12"><a href="a-simple-goal-programming-model.html#cb13-12" tabindex="-1"></a>  revenue <span class="ot">&lt;-</span> <span class="fu">sum</span>(revenue.coef <span class="sc">*</span> x)</span>
+<span id="cb13-13"><a href="a-simple-goal-programming-model.html#cb13-13" tabindex="-1"></a>  </span>
+<span id="cb13-14"><a href="a-simple-goal-programming-model.html#cb13-14" tabindex="-1"></a>  habitat <span class="ot">&lt;-</span> <span class="fu">sum</span>(habitat.coef <span class="sc">*</span> x)</span>
+<span id="cb13-15"><a href="a-simple-goal-programming-model.html#cb13-15" tabindex="-1"></a>  </span>
+<span id="cb13-16"><a href="a-simple-goal-programming-model.html#cb13-16" tabindex="-1"></a>  <span class="do">##########################################################</span></span>
+<span id="cb13-17"><a href="a-simple-goal-programming-model.html#cb13-17" tabindex="-1"></a>  <span class="co"># NORMALIZED DEVIATIONS FROM TARGETS</span></span>
+<span id="cb13-18"><a href="a-simple-goal-programming-model.html#cb13-18" tabindex="-1"></a>  <span class="do">##########################################################</span></span>
+<span id="cb13-19"><a href="a-simple-goal-programming-model.html#cb13-19" tabindex="-1"></a>  </span>
+<span id="cb13-20"><a href="a-simple-goal-programming-model.html#cb13-20" tabindex="-1"></a>  d.harvest <span class="ot">&lt;-</span> <span class="fu">abs</span>(harvest <span class="sc">-</span> target.harvest) <span class="sc">/</span></span>
+<span id="cb13-21"><a href="a-simple-goal-programming-model.html#cb13-21" tabindex="-1"></a>    target.harvest</span>
+<span id="cb13-22"><a href="a-simple-goal-programming-model.html#cb13-22" tabindex="-1"></a>  </span>
+<span id="cb13-23"><a href="a-simple-goal-programming-model.html#cb13-23" tabindex="-1"></a>  d.revenue <span class="ot">&lt;-</span> <span class="fu">abs</span>(revenue <span class="sc">-</span> target.revenue) <span class="sc">/</span></span>
+<span id="cb13-24"><a href="a-simple-goal-programming-model.html#cb13-24" tabindex="-1"></a>    target.revenue</span>
+<span id="cb13-25"><a href="a-simple-goal-programming-model.html#cb13-25" tabindex="-1"></a>  </span>
+<span id="cb13-26"><a href="a-simple-goal-programming-model.html#cb13-26" tabindex="-1"></a>  d.habitat <span class="ot">&lt;-</span> <span class="fu">abs</span>(habitat <span class="sc">-</span> target.habitat) <span class="sc">/</span></span>
+<span id="cb13-27"><a href="a-simple-goal-programming-model.html#cb13-27" tabindex="-1"></a>    target.habitat</span>
+<span id="cb13-28"><a href="a-simple-goal-programming-model.html#cb13-28" tabindex="-1"></a>  </span>
+<span id="cb13-29"><a href="a-simple-goal-programming-model.html#cb13-29" tabindex="-1"></a>  <span class="do">##########################################################</span></span>
+<span id="cb13-30"><a href="a-simple-goal-programming-model.html#cb13-30" tabindex="-1"></a>  <span class="co"># GOAL PROGRAMMING OBJECTIVE Function</span></span>
+<span id="cb13-31"><a href="a-simple-goal-programming-model.html#cb13-31" tabindex="-1"></a>  <span class="do">##########################################################</span></span>
+<span id="cb13-32"><a href="a-simple-goal-programming-model.html#cb13-32" tabindex="-1"></a>  </span>
+<span id="cb13-33"><a href="a-simple-goal-programming-model.html#cb13-33" tabindex="-1"></a>  z <span class="ot">&lt;-</span> (w1 <span class="sc">*</span> d.harvest) <span class="sc">+</span></span>
+<span id="cb13-34"><a href="a-simple-goal-programming-model.html#cb13-34" tabindex="-1"></a>    (w2 <span class="sc">*</span> d.revenue) <span class="sc">+</span></span>
+<span id="cb13-35"><a href="a-simple-goal-programming-model.html#cb13-35" tabindex="-1"></a>    (w3 <span class="sc">*</span> d.habitat)</span>
+<span id="cb13-36"><a href="a-simple-goal-programming-model.html#cb13-36" tabindex="-1"></a>  </span>
+<span id="cb13-37"><a href="a-simple-goal-programming-model.html#cb13-37" tabindex="-1"></a>  <span class="do">##########################################################</span></span>
+<span id="cb13-38"><a href="a-simple-goal-programming-model.html#cb13-38" tabindex="-1"></a>  <span class="co">#</span></span>
+<span id="cb13-39"><a href="a-simple-goal-programming-model.html#cb13-39" tabindex="-1"></a>  <span class="co"># Constraint 1:</span></span>
+<span id="cb13-40"><a href="a-simple-goal-programming-model.html#cb13-40" tabindex="-1"></a>  <span class="co"># Total harvest area &lt;= 200 ha : upper, one-sided goal</span></span>
+<span id="cb13-41"><a href="a-simple-goal-programming-model.html#cb13-41" tabindex="-1"></a>  <span class="co">#</span></span>
+<span id="cb13-42"><a href="a-simple-goal-programming-model.html#cb13-42" tabindex="-1"></a>  <span class="co"># Constraint 2:</span></span>
+<span id="cb13-43"><a href="a-simple-goal-programming-model.html#cb13-43" tabindex="-1"></a>  <span class="co"># Habitat &gt;= 250 units: lower one - sided goal</span></span>
+<span id="cb13-44"><a href="a-simple-goal-programming-model.html#cb13-44" tabindex="-1"></a>  <span class="co">#</span></span>
+<span id="cb13-45"><a href="a-simple-goal-programming-model.html#cb13-45" tabindex="-1"></a>  <span class="co"># Constraint 3:</span></span>
+<span id="cb13-46"><a href="a-simple-goal-programming-model.html#cb13-46" tabindex="-1"></a>  <span class="co"># Unit 3 harvest &lt;= 80 ha: upper one-sided goal</span></span>
+<span id="cb13-47"><a href="a-simple-goal-programming-model.html#cb13-47" tabindex="-1"></a>  <span class="do">##########################################################</span></span>
+<span id="cb13-48"><a href="a-simple-goal-programming-model.html#cb13-48" tabindex="-1"></a>  </span>
+<span id="cb13-49"><a href="a-simple-goal-programming-model.html#cb13-49" tabindex="-1"></a>  penalty <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb13-50"><a href="a-simple-goal-programming-model.html#cb13-50" tabindex="-1"></a>  </span>
+<span id="cb13-51"><a href="a-simple-goal-programming-model.html#cb13-51" tabindex="-1"></a>  <span class="co"># Constraint 1</span></span>
+<span id="cb13-52"><a href="a-simple-goal-programming-model.html#cb13-52" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">sum</span>(x) <span class="sc">&gt;</span> <span class="dv">200</span>) {</span>
+<span id="cb13-53"><a href="a-simple-goal-programming-model.html#cb13-53" tabindex="-1"></a>    penalty <span class="ot">&lt;-</span> penalty <span class="sc">+</span></span>
+<span id="cb13-54"><a href="a-simple-goal-programming-model.html#cb13-54" tabindex="-1"></a>      <span class="dv">1000</span> <span class="sc">*</span> (<span class="fu">sum</span>(x) <span class="sc">-</span> <span class="dv">200</span>)</span>
+<span id="cb13-55"><a href="a-simple-goal-programming-model.html#cb13-55" tabindex="-1"></a>  }</span>
+<span id="cb13-56"><a href="a-simple-goal-programming-model.html#cb13-56" tabindex="-1"></a>  </span>
+<span id="cb13-57"><a href="a-simple-goal-programming-model.html#cb13-57" tabindex="-1"></a>  <span class="co"># Constraint 2</span></span>
+<span id="cb13-58"><a href="a-simple-goal-programming-model.html#cb13-58" tabindex="-1"></a>  <span class="cf">if</span> (habitat <span class="sc">&lt;</span> <span class="dv">250</span>) {</span>
+<span id="cb13-59"><a href="a-simple-goal-programming-model.html#cb13-59" tabindex="-1"></a>    penalty <span class="ot">&lt;-</span> penalty <span class="sc">+</span></span>
+<span id="cb13-60"><a href="a-simple-goal-programming-model.html#cb13-60" tabindex="-1"></a>      <span class="dv">1000</span> <span class="sc">*</span> (<span class="dv">250</span> <span class="sc">-</span> habitat)</span>
+<span id="cb13-61"><a href="a-simple-goal-programming-model.html#cb13-61" tabindex="-1"></a>  }</span>
+<span id="cb13-62"><a href="a-simple-goal-programming-model.html#cb13-62" tabindex="-1"></a>  </span>
+<span id="cb13-63"><a href="a-simple-goal-programming-model.html#cb13-63" tabindex="-1"></a>  <span class="co"># Constraint 3</span></span>
+<span id="cb13-64"><a href="a-simple-goal-programming-model.html#cb13-64" tabindex="-1"></a>  <span class="cf">if</span> (x[<span class="dv">3</span>] <span class="sc">&gt;</span> <span class="dv">80</span>) {</span>
+<span id="cb13-65"><a href="a-simple-goal-programming-model.html#cb13-65" tabindex="-1"></a>    penalty <span class="ot">&lt;-</span> penalty <span class="sc">+</span></span>
+<span id="cb13-66"><a href="a-simple-goal-programming-model.html#cb13-66" tabindex="-1"></a>      <span class="dv">1000</span> <span class="sc">*</span> (x[<span class="dv">3</span>] <span class="sc">-</span> <span class="dv">80</span>)</span>
+<span id="cb13-67"><a href="a-simple-goal-programming-model.html#cb13-67" tabindex="-1"></a>  }</span>
+<span id="cb13-68"><a href="a-simple-goal-programming-model.html#cb13-68" tabindex="-1"></a>  </span>
+<span id="cb13-69"><a href="a-simple-goal-programming-model.html#cb13-69" tabindex="-1"></a>  <span class="do">##########################################################</span></span>
+<span id="cb13-70"><a href="a-simple-goal-programming-model.html#cb13-70" tabindex="-1"></a>  <span class="co"># OBJECTIVE + PENALTIES</span></span>
+<span id="cb13-71"><a href="a-simple-goal-programming-model.html#cb13-71" tabindex="-1"></a>  <span class="do">##########################################################</span></span>
+<span id="cb13-72"><a href="a-simple-goal-programming-model.html#cb13-72" tabindex="-1"></a>  </span>
+<span id="cb13-73"><a href="a-simple-goal-programming-model.html#cb13-73" tabindex="-1"></a>  z <span class="ot">&lt;-</span> z <span class="sc">+</span> penalty</span>
+<span id="cb13-74"><a href="a-simple-goal-programming-model.html#cb13-74" tabindex="-1"></a>  </span>
+<span id="cb13-75"><a href="a-simple-goal-programming-model.html#cb13-75" tabindex="-1"></a>  <span class="fu">return</span>(z)</span>
+<span id="cb13-76"><a href="a-simple-goal-programming-model.html#cb13-76" tabindex="-1"></a>}</span></code></pre></div>
+</div>
+</div>
+<div id="the-sann-optimization" class="section level2 hasAnchor" number="9.2">
+<h2><span class="header-section-number">9.2</span> The SANN Optimization<a href="a-simple-goal-programming-model.html#the-sann-optimization" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>This code uses <strong>simulated annealing</strong> to search for a harvest allocation that minimizes the <code>goal_function</code>
+while balancing multiple management objectives and discouraging constraint violations. The <code>optim()</code> function is called
+with the <code>"SANN"</code> method, starting from an initial solution of 50 ha in each management unit (<code>par = c(50, 50, 50)</code>) and
+running for up to 50,000 iterations with an initial temperature of 50.</p>
+<p>The <strong>temperature (<code>temp</code>)</strong> parameter in simulated annealing controls how willing the algorithm is to accept <strong>worse solutions</strong>
+during the search. At the beginning of the optimization, a higher temperature makes the algorithm more likely to accept moves
+that increase the objective function (i.e., produce temporarily worse solutions). This helps the search escape local optima
+and explore a wider range of possible solutions. As the optimization progresses, the temperature is gradually reduced according to
+the simulated annealing schedule (internal to the optim function), making the algorithm increasingly selective and more likely to accept only improvements or very small deteriorations. In this code, <code>temp = 50</code> specifies the <strong>initial temperature</strong>, providing a balance between exploration and exploitation during the early stages of the search. If the initial temperature is set too low, the algorithm may become trapped in a local optimum, whereas a very high temperature can result in excessive random exploration and slower convergence to a good solution.</p>
+<p>Its important to note that the algorithm will always run until it reaches <code>maxit</code> iterations (unless an error or user interruption occurs). It does not have a convergence criterion (A convergence criterion is a predefined rule that determines when an optimization algorithm should stop because further iterations are no longer producing meaningful improvements in the objective function or solution.
+) or early stopping rule based on reaching a minimum objective value. The trace perimeter is set to true to display the objective value and iteration interval.</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="a-simple-goal-programming-model.html#cb14-1" tabindex="-1"></a></span>
+<span id="cb14-2"><a href="a-simple-goal-programming-model.html#cb14-2" tabindex="-1"></a></span>
+<span id="cb14-3"><a href="a-simple-goal-programming-model.html#cb14-3" tabindex="-1"></a>result <span class="ot">&lt;-</span> <span class="fu">optim</span>( <span class="co">#base R</span></span>
+<span id="cb14-4"><a href="a-simple-goal-programming-model.html#cb14-4" tabindex="-1"></a>  <span class="at">par =</span> <span class="fu">c</span>(<span class="dv">50</span>, <span class="dv">50</span>, <span class="dv">50</span>),   <span class="co"># Initial solution of 50 ha for each unit</span></span>
+<span id="cb14-5"><a href="a-simple-goal-programming-model.html#cb14-5" tabindex="-1"></a>  <span class="at">fn =</span> goal_function, <span class="co">#load the objective function</span></span>
+<span id="cb14-6"><a href="a-simple-goal-programming-model.html#cb14-6" tabindex="-1"></a>  <span class="at">method =</span> <span class="st">&quot;SANN&quot;</span>, <span class="co">#use the simulated annealing method</span></span>
+<span id="cb14-7"><a href="a-simple-goal-programming-model.html#cb14-7" tabindex="-1"></a>  <span class="at">control =</span> <span class="fu">list</span>(</span>
+<span id="cb14-8"><a href="a-simple-goal-programming-model.html#cb14-8" tabindex="-1"></a>    <span class="at">maxit =</span> <span class="dv">50000</span>, <span class="co">#interations</span></span>
+<span id="cb14-9"><a href="a-simple-goal-programming-model.html#cb14-9" tabindex="-1"></a>    <span class="at">temp =</span> <span class="dv">50</span>, <span class="co">#set initail tempture to 50, decrementing cooling schedule internal to the function</span></span>
+<span id="cb14-10"><a href="a-simple-goal-programming-model.html#cb14-10" tabindex="-1"></a>    <span class="at">trace =</span> <span class="cn">TRUE</span> <span class="co"># report objective value</span></span>
+<span id="cb14-11"><a href="a-simple-goal-programming-model.html#cb14-11" tabindex="-1"></a>  )</span>
+<span id="cb14-12"><a href="a-simple-goal-programming-model.html#cb14-12" tabindex="-1"></a>)</span>
+<span id="cb14-13"><a href="a-simple-goal-programming-model.html#cb14-13" tabindex="-1"></a><span class="do">## sann objective function values</span></span>
+<span id="cb14-14"><a href="a-simple-goal-programming-model.html#cb14-14" tabindex="-1"></a><span class="do">## initial       value 0.966667</span></span>
+<span id="cb14-15"><a href="a-simple-goal-programming-model.html#cb14-15" tabindex="-1"></a><span class="do">## iter     1000 value 0.822967</span></span>
+<span id="cb14-16"><a href="a-simple-goal-programming-model.html#cb14-16" tabindex="-1"></a><span class="do">## iter     2000 value 0.822967</span></span>
+<span id="cb14-17"><a href="a-simple-goal-programming-model.html#cb14-17" tabindex="-1"></a><span class="do">## iter     3000 value 0.822967</span></span>
+<span id="cb14-18"><a href="a-simple-goal-programming-model.html#cb14-18" tabindex="-1"></a><span class="do">## iter     4000 value 0.751262</span></span>
+<span id="cb14-19"><a href="a-simple-goal-programming-model.html#cb14-19" tabindex="-1"></a><span class="do">## iter     5000 value 0.691897</span></span>
+<span id="cb14-20"><a href="a-simple-goal-programming-model.html#cb14-20" tabindex="-1"></a><span class="do">## iter     6000 value 0.691897</span></span>
+<span id="cb14-21"><a href="a-simple-goal-programming-model.html#cb14-21" tabindex="-1"></a><span class="do">## iter     7000 value 0.691897</span></span>
+<span id="cb14-22"><a href="a-simple-goal-programming-model.html#cb14-22" tabindex="-1"></a><span class="do">## iter     8000 value 0.691897</span></span>
+<span id="cb14-23"><a href="a-simple-goal-programming-model.html#cb14-23" tabindex="-1"></a><span class="do">## iter     9000 value 0.691897</span></span>
+<span id="cb14-24"><a href="a-simple-goal-programming-model.html#cb14-24" tabindex="-1"></a><span class="do">## iter    10000 value 0.691897</span></span>
+<span id="cb14-25"><a href="a-simple-goal-programming-model.html#cb14-25" tabindex="-1"></a><span class="do">## iter    11000 value 0.691897</span></span>
+<span id="cb14-26"><a href="a-simple-goal-programming-model.html#cb14-26" tabindex="-1"></a><span class="do">## iter    12000 value 0.691897</span></span>
+<span id="cb14-27"><a href="a-simple-goal-programming-model.html#cb14-27" tabindex="-1"></a><span class="do">## iter    13000 value 0.691897</span></span>
+<span id="cb14-28"><a href="a-simple-goal-programming-model.html#cb14-28" tabindex="-1"></a><span class="do">## iter    14000 value 0.544625</span></span>
+<span id="cb14-29"><a href="a-simple-goal-programming-model.html#cb14-29" tabindex="-1"></a><span class="do">## iter    15000 value 0.544625</span></span>
+<span id="cb14-30"><a href="a-simple-goal-programming-model.html#cb14-30" tabindex="-1"></a><span class="do">## iter    16000 value 0.544625</span></span>
+<span id="cb14-31"><a href="a-simple-goal-programming-model.html#cb14-31" tabindex="-1"></a><span class="do">## iter    17000 value 0.544625</span></span>
+<span id="cb14-32"><a href="a-simple-goal-programming-model.html#cb14-32" tabindex="-1"></a><span class="do">## iter    18000 value 0.544625</span></span>
+<span id="cb14-33"><a href="a-simple-goal-programming-model.html#cb14-33" tabindex="-1"></a><span class="do">## iter    19000 value 0.544625</span></span>
+<span id="cb14-34"><a href="a-simple-goal-programming-model.html#cb14-34" tabindex="-1"></a><span class="do">## iter    20000 value 0.544625</span></span>
+<span id="cb14-35"><a href="a-simple-goal-programming-model.html#cb14-35" tabindex="-1"></a><span class="do">## iter    21000 value 0.544625</span></span>
+<span id="cb14-36"><a href="a-simple-goal-programming-model.html#cb14-36" tabindex="-1"></a><span class="do">## iter    22000 value 0.544625</span></span>
+<span id="cb14-37"><a href="a-simple-goal-programming-model.html#cb14-37" tabindex="-1"></a><span class="do">## iter    23000 value 0.544625</span></span>
+<span id="cb14-38"><a href="a-simple-goal-programming-model.html#cb14-38" tabindex="-1"></a><span class="do">## iter    24000 value 0.544625</span></span>
+<span id="cb14-39"><a href="a-simple-goal-programming-model.html#cb14-39" tabindex="-1"></a><span class="do">## iter    25000 value 0.544625</span></span>
+<span id="cb14-40"><a href="a-simple-goal-programming-model.html#cb14-40" tabindex="-1"></a><span class="do">## iter    26000 value 0.544625</span></span>
+<span id="cb14-41"><a href="a-simple-goal-programming-model.html#cb14-41" tabindex="-1"></a><span class="do">## iter    27000 value 0.544625</span></span>
+<span id="cb14-42"><a href="a-simple-goal-programming-model.html#cb14-42" tabindex="-1"></a><span class="do">## iter    28000 value 0.544625</span></span>
+<span id="cb14-43"><a href="a-simple-goal-programming-model.html#cb14-43" tabindex="-1"></a><span class="do">## iter    29000 value 0.544625</span></span>
+<span id="cb14-44"><a href="a-simple-goal-programming-model.html#cb14-44" tabindex="-1"></a><span class="do">## iter    30000 value 0.544625</span></span>
+<span id="cb14-45"><a href="a-simple-goal-programming-model.html#cb14-45" tabindex="-1"></a><span class="do">## iter    31000 value 0.544625</span></span>
+<span id="cb14-46"><a href="a-simple-goal-programming-model.html#cb14-46" tabindex="-1"></a><span class="do">## iter    32000 value 0.544625</span></span>
+<span id="cb14-47"><a href="a-simple-goal-programming-model.html#cb14-47" tabindex="-1"></a><span class="do">## iter    33000 value 0.544625</span></span>
+<span id="cb14-48"><a href="a-simple-goal-programming-model.html#cb14-48" tabindex="-1"></a><span class="do">## iter    34000 value 0.544625</span></span>
+<span id="cb14-49"><a href="a-simple-goal-programming-model.html#cb14-49" tabindex="-1"></a><span class="do">## iter    35000 value 0.544625</span></span>
+<span id="cb14-50"><a href="a-simple-goal-programming-model.html#cb14-50" tabindex="-1"></a><span class="do">## iter    36000 value 0.544625</span></span>
+<span id="cb14-51"><a href="a-simple-goal-programming-model.html#cb14-51" tabindex="-1"></a><span class="do">## iter    37000 value 0.544625</span></span>
+<span id="cb14-52"><a href="a-simple-goal-programming-model.html#cb14-52" tabindex="-1"></a><span class="do">## iter    38000 value 0.544625</span></span>
+<span id="cb14-53"><a href="a-simple-goal-programming-model.html#cb14-53" tabindex="-1"></a><span class="do">## iter    39000 value 0.269334</span></span>
+<span id="cb14-54"><a href="a-simple-goal-programming-model.html#cb14-54" tabindex="-1"></a><span class="do">## iter    40000 value 0.225869</span></span>
+<span id="cb14-55"><a href="a-simple-goal-programming-model.html#cb14-55" tabindex="-1"></a><span class="do">## iter    41000 value 0.225869</span></span>
+<span id="cb14-56"><a href="a-simple-goal-programming-model.html#cb14-56" tabindex="-1"></a><span class="do">## iter    42000 value 0.212307</span></span>
+<span id="cb14-57"><a href="a-simple-goal-programming-model.html#cb14-57" tabindex="-1"></a><span class="do">## iter    43000 value 0.212307</span></span>
+<span id="cb14-58"><a href="a-simple-goal-programming-model.html#cb14-58" tabindex="-1"></a><span class="do">## iter    44000 value 0.212307</span></span>
+<span id="cb14-59"><a href="a-simple-goal-programming-model.html#cb14-59" tabindex="-1"></a><span class="do">## iter    45000 value 0.212307</span></span>
+<span id="cb14-60"><a href="a-simple-goal-programming-model.html#cb14-60" tabindex="-1"></a><span class="do">## iter    46000 value 0.158525</span></span>
+<span id="cb14-61"><a href="a-simple-goal-programming-model.html#cb14-61" tabindex="-1"></a><span class="do">## iter    47000 value 0.148288</span></span>
+<span id="cb14-62"><a href="a-simple-goal-programming-model.html#cb14-62" tabindex="-1"></a><span class="do">## iter    48000 value 0.148288</span></span>
+<span id="cb14-63"><a href="a-simple-goal-programming-model.html#cb14-63" tabindex="-1"></a><span class="do">## iter    49000 value 0.148288</span></span>
+<span id="cb14-64"><a href="a-simple-goal-programming-model.html#cb14-64" tabindex="-1"></a><span class="do">## iter    49999 value 0.148288</span></span>
+<span id="cb14-65"><a href="a-simple-goal-programming-model.html#cb14-65" tabindex="-1"></a><span class="do">## final         value 0.148288</span></span>
+<span id="cb14-66"><a href="a-simple-goal-programming-model.html#cb14-66" tabindex="-1"></a><span class="do">## sann stopped after 49999 iterations</span></span>
+<span id="cb14-67"><a href="a-simple-goal-programming-model.html#cb14-67" tabindex="-1"></a></span>
+<span id="cb14-68"><a href="a-simple-goal-programming-model.html#cb14-68" tabindex="-1"></a></span>
+<span id="cb14-69"><a href="a-simple-goal-programming-model.html#cb14-69" tabindex="-1"></a><span class="do">############################################################</span></span>
+<span id="cb14-70"><a href="a-simple-goal-programming-model.html#cb14-70" tabindex="-1"></a><span class="co"># EXTRACT BEST SOLUTION FOUND</span></span>
+<span id="cb14-71"><a href="a-simple-goal-programming-model.html#cb14-71" tabindex="-1"></a><span class="do">############################################################</span></span>
+<span id="cb14-72"><a href="a-simple-goal-programming-model.html#cb14-72" tabindex="-1"></a><span class="co">#After the optimization is complete, the best solution found is extracted from `result$par` and used to calculate the final performance measures for timber harvest, revenue, and habitat. The code then computes the normalized deviations of these outcomes from their target values, allowing the user to assess how closely each objective was achieved. </span></span>
+<span id="cb14-73"><a href="a-simple-goal-programming-model.html#cb14-73" tabindex="-1"></a></span>
+<span id="cb14-74"><a href="a-simple-goal-programming-model.html#cb14-74" tabindex="-1"></a>x <span class="ot">&lt;-</span> result<span class="sc">$</span>par</span>
+<span id="cb14-75"><a href="a-simple-goal-programming-model.html#cb14-75" tabindex="-1"></a></span>
+<span id="cb14-76"><a href="a-simple-goal-programming-model.html#cb14-76" tabindex="-1"></a></span>
+<span id="cb14-77"><a href="a-simple-goal-programming-model.html#cb14-77" tabindex="-1"></a><span class="do">############################################################</span></span>
+<span id="cb14-78"><a href="a-simple-goal-programming-model.html#cb14-78" tabindex="-1"></a><span class="co"># CALCULATE FINAL PERFORMANCE</span></span>
+<span id="cb14-79"><a href="a-simple-goal-programming-model.html#cb14-79" tabindex="-1"></a><span class="do">############################################################</span></span>
+<span id="cb14-80"><a href="a-simple-goal-programming-model.html#cb14-80" tabindex="-1"></a></span>
+<span id="cb14-81"><a href="a-simple-goal-programming-model.html#cb14-81" tabindex="-1"></a>harvest <span class="ot">&lt;-</span> <span class="fu">sum</span>(timber.coef <span class="sc">*</span> x)</span>
+<span id="cb14-82"><a href="a-simple-goal-programming-model.html#cb14-82" tabindex="-1"></a></span>
+<span id="cb14-83"><a href="a-simple-goal-programming-model.html#cb14-83" tabindex="-1"></a>revenue <span class="ot">&lt;-</span> <span class="fu">sum</span>(revenue.coef <span class="sc">*</span> x)</span>
+<span id="cb14-84"><a href="a-simple-goal-programming-model.html#cb14-84" tabindex="-1"></a></span>
+<span id="cb14-85"><a href="a-simple-goal-programming-model.html#cb14-85" tabindex="-1"></a>habitat <span class="ot">&lt;-</span> <span class="fu">sum</span>(habitat.coef <span class="sc">*</span> x)</span>
+<span id="cb14-86"><a href="a-simple-goal-programming-model.html#cb14-86" tabindex="-1"></a></span>
+<span id="cb14-87"><a href="a-simple-goal-programming-model.html#cb14-87" tabindex="-1"></a></span>
+<span id="cb14-88"><a href="a-simple-goal-programming-model.html#cb14-88" tabindex="-1"></a><span class="do">############################################################</span></span>
+<span id="cb14-89"><a href="a-simple-goal-programming-model.html#cb14-89" tabindex="-1"></a><span class="co"># CALCULATE FINAL DEVIATIONS</span></span>
+<span id="cb14-90"><a href="a-simple-goal-programming-model.html#cb14-90" tabindex="-1"></a><span class="do">#############################################################</span></span>
+<span id="cb14-91"><a href="a-simple-goal-programming-model.html#cb14-91" tabindex="-1"></a></span>
+<span id="cb14-92"><a href="a-simple-goal-programming-model.html#cb14-92" tabindex="-1"></a>d.harvest <span class="ot">&lt;-</span> <span class="fu">abs</span>(harvest <span class="sc">-</span> target.harvest) <span class="sc">/</span></span>
+<span id="cb14-93"><a href="a-simple-goal-programming-model.html#cb14-93" tabindex="-1"></a>  target.harvest</span>
+<span id="cb14-94"><a href="a-simple-goal-programming-model.html#cb14-94" tabindex="-1"></a></span>
+<span id="cb14-95"><a href="a-simple-goal-programming-model.html#cb14-95" tabindex="-1"></a>d.revenue <span class="ot">&lt;-</span> <span class="fu">abs</span>(revenue <span class="sc">-</span> target.revenue) <span class="sc">/</span></span>
+<span id="cb14-96"><a href="a-simple-goal-programming-model.html#cb14-96" tabindex="-1"></a>  target.revenue</span>
+<span id="cb14-97"><a href="a-simple-goal-programming-model.html#cb14-97" tabindex="-1"></a></span>
+<span id="cb14-98"><a href="a-simple-goal-programming-model.html#cb14-98" tabindex="-1"></a>d.habitat <span class="ot">&lt;-</span> <span class="fu">abs</span>(habitat <span class="sc">-</span> target.habitat) <span class="sc">/</span></span>
+<span id="cb14-99"><a href="a-simple-goal-programming-model.html#cb14-99" tabindex="-1"></a>  target.habitat</span>
+<span id="cb14-100"><a href="a-simple-goal-programming-model.html#cb14-100" tabindex="-1"></a></span>
+<span id="cb14-101"><a href="a-simple-goal-programming-model.html#cb14-101" tabindex="-1"></a></span>
+<span id="cb14-102"><a href="a-simple-goal-programming-model.html#cb14-102" tabindex="-1"></a><span class="do">############################################################</span></span>
+<span id="cb14-103"><a href="a-simple-goal-programming-model.html#cb14-103" tabindex="-1"></a><span class="co"># CHECK CONSTRAINTS</span></span>
+<span id="cb14-104"><a href="a-simple-goal-programming-model.html#cb14-104" tabindex="-1"></a><span class="do">############################################################</span></span>
+<span id="cb14-105"><a href="a-simple-goal-programming-model.html#cb14-105" tabindex="-1"></a><span class="co">#Finally, it evaluates whether the optimized solution satisfies the three operational constraints by </span></span>
+<span id="cb14-106"><a href="a-simple-goal-programming-model.html#cb14-106" tabindex="-1"></a><span class="co">#checking that the total harvested area does not exceed 200 ha, habitat remains at or above 250 units, and harvest in Unit 3 does </span></span>
+<span id="cb14-107"><a href="a-simple-goal-programming-model.html#cb14-107" tabindex="-1"></a><span class="co">#not exceed 80 ha. These calculations provide a summary of both the quality and feasibility of the optimized solution.</span></span>
+<span id="cb14-108"><a href="a-simple-goal-programming-model.html#cb14-108" tabindex="-1"></a>total.area <span class="ot">&lt;-</span> <span class="fu">sum</span>(x)</span>
+<span id="cb14-109"><a href="a-simple-goal-programming-model.html#cb14-109" tabindex="-1"></a></span>
+<span id="cb14-110"><a href="a-simple-goal-programming-model.html#cb14-110" tabindex="-1"></a>constraint1 <span class="ot">&lt;-</span> total.area <span class="sc">&lt;=</span> <span class="dv">200</span></span>
+<span id="cb14-111"><a href="a-simple-goal-programming-model.html#cb14-111" tabindex="-1"></a>constraint2 <span class="ot">&lt;-</span> habitat <span class="sc">&gt;=</span> <span class="dv">250</span></span>
+<span id="cb14-112"><a href="a-simple-goal-programming-model.html#cb14-112" tabindex="-1"></a>constraint3 <span class="ot">&lt;-</span> x[<span class="dv">3</span>] <span class="sc">&lt;=</span> <span class="dv">80</span></span></code></pre></div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="introduction-2.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="the-results.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>
