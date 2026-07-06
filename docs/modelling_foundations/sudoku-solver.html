@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>4 Sudoku Solver | Modelling Foundations</title>
+  <meta name="description" content="4 Sudoku Solver | Modelling Foundations" />
+  <meta name="generator" content="bookdown 0.40 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="4 Sudoku Solver | Modelling Foundations" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="4 Sudoku Solver | Modelling Foundations" />
+  
+  
+  
+
+<meta name="author" content="Kelly Izzard" />
+
+
+<meta name="date" content="2026-07-04" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="introduction-1.html"/>
+<link rel="next" href="d-plot-of-sudoku-loss-landscape.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<link href="libs/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet" />
+<script src="libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+<script src="libs/plotly-binding-4.10.4/plotly.js"></script>
+<script src="libs/typedarray-0.1/typedarray.min.js"></script>
+<link href="libs/crosstalk-1.2.1/css/crosstalk.min.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.2.1/js/crosstalk.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-2.11.1/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-2.11.1/plotly-latest.min.js"></script>
+
+
+<style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
+<li class="chapter" data-level="2" data-path="simulated-annealing-and-the-sudoku-solver.html"><a href="simulated-annealing-and-the-sudoku-solver.html"><i class="fa fa-check"></i><b>2</b> Simulated Annealing and the Sudoku Solver</a></li>
+<li class="chapter" data-level="3" data-path="introduction-1.html"><a href="introduction-1.html"><i class="fa fa-check"></i><b>3</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="introduction-1.html"><a href="introduction-1.html#simple-model"><i class="fa fa-check"></i><b>3.1</b> Simple Model</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="introduction-1.html"><a href="introduction-1.html#plot-objective-value"><i class="fa fa-check"></i><b>3.1.1</b> Plot objective value</a></li>
+<li class="chapter" data-level="3.1.2" data-path="introduction-1.html"><a href="introduction-1.html#plot-search-trajectory"><i class="fa fa-check"></i><b>3.1.2</b> Plot search trajectory</a></li>
+<li class="chapter" data-level="3.1.3" data-path="introduction-1.html"><a href="introduction-1.html#plot-objective-function-with-optimization-path"><i class="fa fa-check"></i><b>3.1.3</b> Plot objective function with optimization path</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="sudoku-solver.html"><a href="sudoku-solver.html"><i class="fa fa-check"></i><b>4</b> Sudoku Solver</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="sudoku-solver.html"><a href="sudoku-solver.html#simulated-annealing-solver"><i class="fa fa-check"></i><b>4.1</b> Simulated Annealing Solver</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="d-plot-of-sudoku-loss-landscape.html"><a href="d-plot-of-sudoku-loss-landscape.html"><i class="fa fa-check"></i><b>5</b> 3D plot of Sudoku loss landscape</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="d-plot-of-sudoku-loss-landscape.html"><a href="d-plot-of-sudoku-loss-landscape.html#why-use-pca"><i class="fa fa-check"></i><b>5.1</b> Why use PCA</a></li>
+<li class="chapter" data-level="5.2" data-path="d-plot-of-sudoku-loss-landscape.html"><a href="d-plot-of-sudoku-loss-landscape.html#interpretation"><i class="fa fa-check"></i><b>5.2</b> Interpretation</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="constraint-decomposition-and-the-sudoku-solver.html"><a href="constraint-decomposition-and-the-sudoku-solver.html"><i class="fa fa-check"></i><b>6</b> Constraint Decomposition and the Sudoku Solver</a></li>
+<li class="chapter" data-level="7" data-path="simple-goal-programming-with-sann.html"><a href="simple-goal-programming-with-sann.html"><i class="fa fa-check"></i><b>7</b> Simple Goal Programming with SANN</a></li>
+<li class="chapter" data-level="8" data-path="introduction-2.html"><a href="introduction-2.html"><i class="fa fa-check"></i><b>8</b> Introduction</a></li>
+<li class="chapter" data-level="9" data-path="a-simple-goal-programming-model.html"><a href="a-simple-goal-programming-model.html"><i class="fa fa-check"></i><b>9</b> A Simple Goal Programming Model</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="a-simple-goal-programming-model.html"><a href="a-simple-goal-programming-model.html#the-objective-function"><i class="fa fa-check"></i><b>9.1</b> The Objective Function</a>
+<ul>
+<li class="chapter" data-level="9.1.1" data-path="a-simple-goal-programming-model.html"><a href="a-simple-goal-programming-model.html#normalized-deviations-from-the-target"><i class="fa fa-check"></i><b>9.1.1</b> Normalized Deviations from the Target</a></li>
+<li class="chapter" data-level="9.1.2" data-path="a-simple-goal-programming-model.html"><a href="a-simple-goal-programming-model.html#operational-constraints"><i class="fa fa-check"></i><b>9.1.2</b> Operational Constraints</a></li>
+</ul></li>
+<li class="chapter" data-level="9.2" data-path="a-simple-goal-programming-model.html"><a href="a-simple-goal-programming-model.html#the-sann-optimization"><i class="fa fa-check"></i><b>9.2</b> The SANN Optimization</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="the-results.html"><a href="the-results.html"><i class="fa fa-check"></i><b>10</b> The Results</a></li>
+<li class="chapter" data-level="11" data-path="markov-chain-with-goal-programming.html"><a href="markov-chain-with-goal-programming.html"><i class="fa fa-check"></i><b>11</b> Markov Chain with Goal Programming</a></li>
+<li class="chapter" data-level="12" data-path="introduction-3.html"><a href="introduction-3.html"><i class="fa fa-check"></i><b>12</b> Introduction</a></li>
+<li class="chapter" data-level="13" data-path="markov-chain-and-goal-programming.html"><a href="markov-chain-and-goal-programming.html"><i class="fa fa-check"></i><b>13</b> Markov Chain and Goal Programming</a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="markov-chain-and-goal-programming.html"><a href="markov-chain-and-goal-programming.html#the-markov-chain-transition-probability-matrix"><i class="fa fa-check"></i><b>13.1</b> The Markov Chain Transition Probability Matrix</a></li>
+<li class="chapter" data-level="13.2" data-path="markov-chain-and-goal-programming.html"><a href="markov-chain-and-goal-programming.html#markov-habitat-function"><i class="fa fa-check"></i><b>13.2</b> Markov Habitat Function</a></li>
+<li class="chapter" data-level="13.3" data-path="markov-chain-and-goal-programming.html"><a href="markov-chain-and-goal-programming.html#the-objective-function-1"><i class="fa fa-check"></i><b>13.3</b> The Objective Function</a></li>
+<li class="chapter" data-level="13.4" data-path="markov-chain-and-goal-programming.html"><a href="markov-chain-and-goal-programming.html#the-sann-optimization-and-results"><i class="fa fa-check"></i><b>13.4</b> The SANN Optimization and RESULTS</a></li>
+<li class="chapter" data-level="13.5" data-path="markov-chain-and-goal-programming.html"><a href="markov-chain-and-goal-programming.html#results"><i class="fa fa-check"></i><b>13.5</b> Results</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="introduction-4.html"><a href="introduction-4.html"><i class="fa fa-check"></i><b>14</b> Introduction</a></li>
+<li class="chapter" data-level="15" data-path="the-monte-carlo-markov-chain.html"><a href="the-monte-carlo-markov-chain.html"><i class="fa fa-check"></i><b>15</b> The Monte Carlo Markov Chain</a></li>
+<li class="chapter" data-level="16" data-path="mcmc-sampling-loop-joint-bulk-and-tail-model.html"><a href="mcmc-sampling-loop-joint-bulk-and-tail-model.html"><i class="fa fa-check"></i><b>16</b> MCMC Sampling Loop (Joint Bulk and Tail Model)</a></li>
+<li class="chapter" data-level="17" data-path="results-1.html"><a href="results-1.html"><i class="fa fa-check"></i><b>17</b> Results</a></li>
+<li class="chapter" data-level="18" data-path="cellular-automata-and-the-game-of-life.html"><a href="cellular-automata-and-the-game-of-life.html"><i class="fa fa-check"></i><b>18</b> Cellular Automata and the Game of Life</a></li>
+<li class="chapter" data-level="19" data-path="introduction-5.html"><a href="introduction-5.html"><i class="fa fa-check"></i><b>19</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="19.1" data-path="introduction-5.html"><a href="introduction-5.html#wolfram"><i class="fa fa-check"></i><b>19.1</b> Wolfram</a>
+<ul>
+<li class="chapter" data-level="19.1.1" data-path="introduction-5.html"><a href="introduction-5.html#class-iii-rule-30"><i class="fa fa-check"></i><b>19.1.1</b> Class III Rule 30</a></li>
+<li class="chapter" data-level="19.1.2" data-path="introduction-5.html"><a href="introduction-5.html#class-iv-rule-90"><i class="fa fa-check"></i><b>19.1.2</b> Class IV Rule 90</a></li>
+<li class="chapter" data-level="19.1.3" data-path="introduction-5.html"><a href="introduction-5.html#class-iv-rule-125"><i class="fa fa-check"></i><b>19.1.3</b> Class IV Rule 125</a></li>
+</ul></li>
+<li class="chapter" data-level="19.2" data-path="introduction-5.html"><a href="introduction-5.html#the-game-of-life"><i class="fa fa-check"></i><b>19.2</b> The Game of Life</a>
+<ul>
+<li class="chapter" data-level="19.2.1" data-path="introduction-5.html"><a href="introduction-5.html#animate"><i class="fa fa-check"></i><b>19.2.1</b> Animate</a></li>
+</ul></li>
+<li class="chapter" data-level="19.3" data-path="introduction-5.html"><a href="introduction-5.html#population-trend"><i class="fa fa-check"></i><b>19.3</b> Population Trend</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Modelling Foundations</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="sudoku-solver" class="section level1 hasAnchor" number="4">
+<h1><span class="header-section-number">4</span> Sudoku Solver<a href="sudoku-solver.html#sudoku-solver" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>Who doesn’t like Sudoku….but sometime you have to guess and/or cheat.</p>
+<p>The following is based on a python algorithm depicted <a href="https://www.youtube.com/watch?v=FyyVbuLZav8">here</a>.</p>
+<p>The Sudoku solver is a R based simulated annealing algorithm that treats the puzzle as an optimization problem rather than solving it through exhaustive search.</p>
+<p>It begins with a partially filled 9×9 grid where zeros represent empty cells, and it identifies which values are fixed and which can be changed. The solver then constructs an initial candidate solution by randomly filling each 3×3 block so that every block contains the numbers 1 through 9 exactly once. This guarantees that block constraints are always satisfied, leaving only row and column violations to be corrected (see constraint decomposition definition at the bottom). It evaluates the quality of a solution using a cost (error) function that counts duplicate values in
+rows and columns, with the goal of driving this error down to zero.</p>
+<p>To improve the grid, the solver uses <strong>simulated annealing</strong>, a probabilistic optimization technique inspired by physical cooling processes.At each step, it generates a new candidate solution by swapping two non-fixed values within a randomly chosen block, preserving block validity while altering row and column structure. If the swap reduces the number of conflicts, it is accepted; if it increases the error, it may still be accepted with a probability that depends on the current “temperature” parameter.</p>
+<p>This temperature gradually decreases over time, allowing broad exploration early on and more focused, “greedy” improvements later. Through repeated iterations of proposing, evaluating, and conditionally accepting changes, the solver progressively reduces conflicts until it reaches a valid Sudoku solution or stops after a set number of iterations.</p>
+<p>The seed for the Sudoku solver has been set to 999 to yield a solved Sudoku Solution…not all randomized Sudoku boards can be solved within the set iteration limit. To experiment with various Sudoku boards set the seed to NULL: set.seed(999) in the code chunk below.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="sudoku-solver.html#cb6-1" tabindex="-1"></a></span>
+<span id="cb6-2"><a href="sudoku-solver.html#cb6-2" tabindex="-1"></a><span class="co"># ==========================================================</span></span>
+<span id="cb6-3"><a href="sudoku-solver.html#cb6-3" tabindex="-1"></a><span class="co"># 1. INITIAL SUDOKU SETUP</span></span>
+<span id="cb6-4"><a href="sudoku-solver.html#cb6-4" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="sudoku-solver.html#cb6-5" tabindex="-1"></a><span class="co"># The generateFullSudoku function creates a complete, valid Sudoku grid by first building a structured base pattern and then </span></span>
+<span id="cb6-6"><a href="sudoku-solver.html#cb6-6" tabindex="-1"></a><span class="co"># randomizing it by shuffling rows, columns, and the numbers 1–9 while preserving all Sudoku rules. </span></span>
+<span id="cb6-7"><a href="sudoku-solver.html#cb6-7" tabindex="-1"></a><span class="co"># The createPuzzle function takes this full solution and randomly replaces a specified fraction of cells with zeros, </span></span>
+<span id="cb6-8"><a href="sudoku-solver.html#cb6-8" tabindex="-1"></a><span class="co"># creating a partially filled puzzle. Finally, generateSudokuWithZeros combines these steps to produce a new Sudoku puzzle with </span></span>
+<span id="cb6-9"><a href="sudoku-solver.html#cb6-9" tabindex="-1"></a><span class="co"># empty cells each time it is run.</span></span>
+<span id="cb6-10"><a href="sudoku-solver.html#cb6-10" tabindex="-1"></a></span>
+<span id="cb6-11"><a href="sudoku-solver.html#cb6-11" tabindex="-1"></a><span class="co"># ==========================================================</span></span>
+<span id="cb6-12"><a href="sudoku-solver.html#cb6-12" tabindex="-1"></a></span>
+<span id="cb6-13"><a href="sudoku-solver.html#cb6-13" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">999</span>) </span>
+<span id="cb6-14"><a href="sudoku-solver.html#cb6-14" tabindex="-1"></a>generateFullSudoku <span class="ot">&lt;-</span> <span class="cf">function</span>() {</span>
+<span id="cb6-15"><a href="sudoku-solver.html#cb6-15" tabindex="-1"></a>  base <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">0</span>, <span class="dv">9</span>, <span class="dv">9</span>)</span>
+<span id="cb6-16"><a href="sudoku-solver.html#cb6-16" tabindex="-1"></a>  </span>
+<span id="cb6-17"><a href="sudoku-solver.html#cb6-17" tabindex="-1"></a>  <span class="co"># Simple valid base pattern</span></span>
+<span id="cb6-18"><a href="sudoku-solver.html#cb6-18" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">9</span>) {</span>
+<span id="cb6-19"><a href="sudoku-solver.html#cb6-19" tabindex="-1"></a>    <span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">9</span>) {</span>
+<span id="cb6-20"><a href="sudoku-solver.html#cb6-20" tabindex="-1"></a>      base[i,j] <span class="ot">&lt;-</span> ((i<span class="dv">-1</span>)<span class="sc">*</span><span class="dv">3</span> <span class="sc">+</span> <span class="fu">floor</span>((i<span class="dv">-1</span>)<span class="sc">/</span><span class="dv">3</span>) <span class="sc">+</span> j <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">%%</span> <span class="dv">9</span> <span class="sc">+</span> <span class="dv">1</span></span>
+<span id="cb6-21"><a href="sudoku-solver.html#cb6-21" tabindex="-1"></a>    }</span>
+<span id="cb6-22"><a href="sudoku-solver.html#cb6-22" tabindex="-1"></a>  }</span>
+<span id="cb6-23"><a href="sudoku-solver.html#cb6-23" tabindex="-1"></a>  </span>
+<span id="cb6-24"><a href="sudoku-solver.html#cb6-24" tabindex="-1"></a>  <span class="co"># Randomly shuffle rows within blocks</span></span>
+<span id="cb6-25"><a href="sudoku-solver.html#cb6-25" tabindex="-1"></a>  <span class="cf">for</span> (b <span class="cf">in</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">2</span>) {</span>
+<span id="cb6-26"><a href="sudoku-solver.html#cb6-26" tabindex="-1"></a>    rows <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>) <span class="sc">+</span> b<span class="sc">*</span><span class="dv">3</span></span>
+<span id="cb6-27"><a href="sudoku-solver.html#cb6-27" tabindex="-1"></a>    base[(b<span class="sc">*</span><span class="dv">3</span><span class="sc">+</span><span class="dv">1</span>)<span class="sc">:</span>(b<span class="sc">*</span><span class="dv">3</span><span class="sc">+</span><span class="dv">3</span>), ] <span class="ot">&lt;-</span> base[rows, ]</span>
+<span id="cb6-28"><a href="sudoku-solver.html#cb6-28" tabindex="-1"></a>  }</span>
+<span id="cb6-29"><a href="sudoku-solver.html#cb6-29" tabindex="-1"></a>  </span>
+<span id="cb6-30"><a href="sudoku-solver.html#cb6-30" tabindex="-1"></a>  <span class="co"># Randomly shuffle columns within blocks</span></span>
+<span id="cb6-31"><a href="sudoku-solver.html#cb6-31" tabindex="-1"></a>  <span class="cf">for</span> (b <span class="cf">in</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">2</span>) {</span>
+<span id="cb6-32"><a href="sudoku-solver.html#cb6-32" tabindex="-1"></a>    cols <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>) <span class="sc">+</span> b<span class="sc">*</span><span class="dv">3</span></span>
+<span id="cb6-33"><a href="sudoku-solver.html#cb6-33" tabindex="-1"></a>    base[, (b<span class="sc">*</span><span class="dv">3</span><span class="sc">+</span><span class="dv">1</span>)<span class="sc">:</span>(b<span class="sc">*</span><span class="dv">3</span><span class="sc">+</span><span class="dv">3</span>)] <span class="ot">&lt;-</span> base[, cols]</span>
+<span id="cb6-34"><a href="sudoku-solver.html#cb6-34" tabindex="-1"></a>  }</span>
+<span id="cb6-35"><a href="sudoku-solver.html#cb6-35" tabindex="-1"></a>  </span>
+<span id="cb6-36"><a href="sudoku-solver.html#cb6-36" tabindex="-1"></a>  <span class="co"># Shuffle numbers 1–9 globally</span></span>
+<span id="cb6-37"><a href="sudoku-solver.html#cb6-37" tabindex="-1"></a>  perm <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">9</span>)</span>
+<span id="cb6-38"><a href="sudoku-solver.html#cb6-38" tabindex="-1"></a>  base <span class="ot">&lt;-</span> <span class="fu">matrix</span>(perm[base], <span class="dv">9</span>, <span class="dv">9</span>)</span>
+<span id="cb6-39"><a href="sudoku-solver.html#cb6-39" tabindex="-1"></a>  </span>
+<span id="cb6-40"><a href="sudoku-solver.html#cb6-40" tabindex="-1"></a>  <span class="fu">return</span>(base)</span>
+<span id="cb6-41"><a href="sudoku-solver.html#cb6-41" tabindex="-1"></a>}</span>
+<span id="cb6-42"><a href="sudoku-solver.html#cb6-42" tabindex="-1"></a></span>
+<span id="cb6-43"><a href="sudoku-solver.html#cb6-43" tabindex="-1"></a>createPuzzle <span class="ot">&lt;-</span> <span class="cf">function</span>(fullSudoku, <span class="at">emptyFraction =</span> <span class="fl">0.6</span>) {</span>
+<span id="cb6-44"><a href="sudoku-solver.html#cb6-44" tabindex="-1"></a>  puzzle <span class="ot">&lt;-</span> fullSudoku</span>
+<span id="cb6-45"><a href="sudoku-solver.html#cb6-45" tabindex="-1"></a>  </span>
+<span id="cb6-46"><a href="sudoku-solver.html#cb6-46" tabindex="-1"></a>  <span class="co"># Total cells to remove</span></span>
+<span id="cb6-47"><a href="sudoku-solver.html#cb6-47" tabindex="-1"></a>  n_remove <span class="ot">&lt;-</span> <span class="fu">round</span>(<span class="dv">81</span> <span class="sc">*</span> emptyFraction)</span>
+<span id="cb6-48"><a href="sudoku-solver.html#cb6-48" tabindex="-1"></a>  </span>
+<span id="cb6-49"><a href="sudoku-solver.html#cb6-49" tabindex="-1"></a>  <span class="co"># Random positions</span></span>
+<span id="cb6-50"><a href="sudoku-solver.html#cb6-50" tabindex="-1"></a>  positions <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">81</span>, n_remove)</span>
+<span id="cb6-51"><a href="sudoku-solver.html#cb6-51" tabindex="-1"></a>  </span>
+<span id="cb6-52"><a href="sudoku-solver.html#cb6-52" tabindex="-1"></a>  puzzle[positions] <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb6-53"><a href="sudoku-solver.html#cb6-53" tabindex="-1"></a>  </span>
+<span id="cb6-54"><a href="sudoku-solver.html#cb6-54" tabindex="-1"></a>  <span class="fu">return</span>(puzzle)</span>
+<span id="cb6-55"><a href="sudoku-solver.html#cb6-55" tabindex="-1"></a>}</span>
+<span id="cb6-56"><a href="sudoku-solver.html#cb6-56" tabindex="-1"></a></span>
+<span id="cb6-57"><a href="sudoku-solver.html#cb6-57" tabindex="-1"></a></span>
+<span id="cb6-58"><a href="sudoku-solver.html#cb6-58" tabindex="-1"></a>generateSudokuWithZeros <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">emptyFraction =</span> <span class="fl">0.6</span>) {</span>
+<span id="cb6-59"><a href="sudoku-solver.html#cb6-59" tabindex="-1"></a>  full <span class="ot">&lt;-</span> <span class="fu">generateFullSudoku</span>()</span>
+<span id="cb6-60"><a href="sudoku-solver.html#cb6-60" tabindex="-1"></a>  puzzle <span class="ot">&lt;-</span> <span class="fu">createPuzzle</span>(full, emptyFraction)</span>
+<span id="cb6-61"><a href="sudoku-solver.html#cb6-61" tabindex="-1"></a>  <span class="fu">return</span>(puzzle)</span>
+<span id="cb6-62"><a href="sudoku-solver.html#cb6-62" tabindex="-1"></a>}</span>
+<span id="cb6-63"><a href="sudoku-solver.html#cb6-63" tabindex="-1"></a></span>
+<span id="cb6-64"><a href="sudoku-solver.html#cb6-64" tabindex="-1"></a></span>
+<span id="cb6-65"><a href="sudoku-solver.html#cb6-65" tabindex="-1"></a><span class="co"># ==========================================================</span></span>
+<span id="cb6-66"><a href="sudoku-solver.html#cb6-66" tabindex="-1"></a><span class="co"># 2. PRINT FUNCTION (for visualization only)</span></span>
+<span id="cb6-67"><a href="sudoku-solver.html#cb6-67" tabindex="-1"></a><span class="co"># ==========================================================</span></span>
+<span id="cb6-68"><a href="sudoku-solver.html#cb6-68" tabindex="-1"></a>printSudoku <span class="ot">&lt;-</span> <span class="cf">function</span>(sudoku) {</span>
+<span id="cb6-69"><a href="sudoku-solver.html#cb6-69" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">9</span>) {</span>
+<span id="cb6-70"><a href="sudoku-solver.html#cb6-70" tabindex="-1"></a>    <span class="co"># Print horizontal divider between 3x3 blocks</span></span>
+<span id="cb6-71"><a href="sudoku-solver.html#cb6-71" tabindex="-1"></a>    <span class="cf">if</span> (i <span class="sc">%%</span> <span class="dv">3</span> <span class="sc">==</span> <span class="dv">1</span> <span class="sc">&amp;&amp;</span> i <span class="sc">!=</span> <span class="dv">1</span>) <span class="fu">cat</span>(<span class="st">&quot;---------------------</span><span class="sc">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb6-72"><a href="sudoku-solver.html#cb6-72" tabindex="-1"></a>    </span>
+<span id="cb6-73"><a href="sudoku-solver.html#cb6-73" tabindex="-1"></a>    line <span class="ot">&lt;-</span> <span class="st">&quot;&quot;</span></span>
+<span id="cb6-74"><a href="sudoku-solver.html#cb6-74" tabindex="-1"></a>    <span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">9</span>) {</span>
+<span id="cb6-75"><a href="sudoku-solver.html#cb6-75" tabindex="-1"></a>      <span class="co"># Print vertical divider</span></span>
+<span id="cb6-76"><a href="sudoku-solver.html#cb6-76" tabindex="-1"></a>      <span class="cf">if</span> (j <span class="sc">%%</span> <span class="dv">3</span> <span class="sc">==</span> <span class="dv">1</span> <span class="sc">&amp;&amp;</span> j <span class="sc">!=</span> <span class="dv">1</span>) line <span class="ot">&lt;-</span> <span class="fu">paste0</span>(line, <span class="st">&quot;| &quot;</span>)</span>
+<span id="cb6-77"><a href="sudoku-solver.html#cb6-77" tabindex="-1"></a>      line <span class="ot">&lt;-</span> <span class="fu">paste0</span>(line, sudoku[i,j], <span class="st">&quot; &quot;</span>)</span>
+<span id="cb6-78"><a href="sudoku-solver.html#cb6-78" tabindex="-1"></a>    }</span>
+<span id="cb6-79"><a href="sudoku-solver.html#cb6-79" tabindex="-1"></a>    <span class="fu">cat</span>(line, <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb6-80"><a href="sudoku-solver.html#cb6-80" tabindex="-1"></a>  }</span>
+<span id="cb6-81"><a href="sudoku-solver.html#cb6-81" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb6-82"><a href="sudoku-solver.html#cb6-82" tabindex="-1"></a>}</span>
+<span id="cb6-83"><a href="sudoku-solver.html#cb6-83" tabindex="-1"></a></span>
+<span id="cb6-84"><a href="sudoku-solver.html#cb6-84" tabindex="-1"></a></span>
+<span id="cb6-85"><a href="sudoku-solver.html#cb6-85" tabindex="-1"></a><span class="co"># ==========================================================</span></span>
+<span id="cb6-86"><a href="sudoku-solver.html#cb6-86" tabindex="-1"></a><span class="co"># 3. IDENTIFY FIXED (GIVEN) CELLS</span></span>
+<span id="cb6-87"><a href="sudoku-solver.html#cb6-87" tabindex="-1"></a><span class="co"># ==========================================================</span></span>
+<span id="cb6-88"><a href="sudoku-solver.html#cb6-88" tabindex="-1"></a><span class="co"># Converts original puzzle into a mask:</span></span>
+<span id="cb6-89"><a href="sudoku-solver.html#cb6-89" tabindex="-1"></a><span class="co"># 1 = fixed (cannot change)</span></span>
+<span id="cb6-90"><a href="sudoku-solver.html#cb6-90" tabindex="-1"></a><span class="co"># 0 = free (can be modified)</span></span>
+<span id="cb6-91"><a href="sudoku-solver.html#cb6-91" tabindex="-1"></a>fixSudokuValues <span class="ot">&lt;-</span> <span class="cf">function</span>(sudoku) {</span>
+<span id="cb6-92"><a href="sudoku-solver.html#cb6-92" tabindex="-1"></a>  (sudoku <span class="sc">!=</span> <span class="dv">0</span>) <span class="sc">*</span> <span class="dv">1</span></span>
+<span id="cb6-93"><a href="sudoku-solver.html#cb6-93" tabindex="-1"></a>}</span>
+<span id="cb6-94"><a href="sudoku-solver.html#cb6-94" tabindex="-1"></a></span>
+<span id="cb6-95"><a href="sudoku-solver.html#cb6-95" tabindex="-1"></a></span>
+<span id="cb6-96"><a href="sudoku-solver.html#cb6-96" tabindex="-1"></a><span class="co">#=============================================================</span></span>
+<span id="cb6-97"><a href="sudoku-solver.html#cb6-97" tabindex="-1"></a><span class="co"># Initial Sigma</span></span>
+<span id="cb6-98"><a href="sudoku-solver.html#cb6-98" tabindex="-1"></a></span>
+<span id="cb6-99"><a href="sudoku-solver.html#cb6-99" tabindex="-1"></a><span class="co"># The estimateInitialSigma function estimates a suitable starting “temperature” for simulated annealing by sampling </span></span>
+<span id="cb6-100"><a href="sudoku-solver.html#cb6-100" tabindex="-1"></a><span class="co"># how much the Sudoku error changes under random moves. It repeatedly performs random swaps within blocks, records the resulting </span></span>
+<span id="cb6-101"><a href="sudoku-solver.html#cb6-101" tabindex="-1"></a><span class="co"># error values, and collects these into a sample set. Finally, it returns the standard deviation of those errors, which serves as </span></span>
+<span id="cb6-102"><a href="sudoku-solver.html#cb6-102" tabindex="-1"></a><span class="co"># a data-driven measure of how large typical changes are and helps scale the initial acceptance probability appropriately.</span></span>
+<span id="cb6-103"><a href="sudoku-solver.html#cb6-103" tabindex="-1"></a></span>
+<span id="cb6-104"><a href="sudoku-solver.html#cb6-104" tabindex="-1"></a><span class="co">#============================================================</span></span>
+<span id="cb6-105"><a href="sudoku-solver.html#cb6-105" tabindex="-1"></a></span>
+<span id="cb6-106"><a href="sudoku-solver.html#cb6-106" tabindex="-1"></a>estimateInitialSigma <span class="ot">&lt;-</span> <span class="cf">function</span>(sudoku, fixed, blocks) {</span>
+<span id="cb6-107"><a href="sudoku-solver.html#cb6-107" tabindex="-1"></a>  samples <span class="ot">&lt;-</span> <span class="fu">c</span>()</span>
+<span id="cb6-108"><a href="sudoku-solver.html#cb6-108" tabindex="-1"></a>  tmp <span class="ot">&lt;-</span> sudoku</span>
+<span id="cb6-109"><a href="sudoku-solver.html#cb6-109" tabindex="-1"></a>  </span>
+<span id="cb6-110"><a href="sudoku-solver.html#cb6-110" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>) {</span>
+<span id="cb6-111"><a href="sudoku-solver.html#cb6-111" tabindex="-1"></a>    block <span class="ot">&lt;-</span> blocks[[<span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">9</span>,<span class="dv">1</span>)]]</span>
+<span id="cb6-112"><a href="sudoku-solver.html#cb6-112" tabindex="-1"></a>    tmp <span class="ot">&lt;-</span> <span class="fu">swapCells</span>(tmp, fixed, block)</span>
+<span id="cb6-113"><a href="sudoku-solver.html#cb6-113" tabindex="-1"></a>    samples <span class="ot">&lt;-</span> <span class="fu">c</span>(samples, <span class="fu">calcErrors</span>(tmp))</span>
+<span id="cb6-114"><a href="sudoku-solver.html#cb6-114" tabindex="-1"></a>  }</span>
+<span id="cb6-115"><a href="sudoku-solver.html#cb6-115" tabindex="-1"></a>  </span>
+<span id="cb6-116"><a href="sudoku-solver.html#cb6-116" tabindex="-1"></a>  <span class="fu">return</span>(<span class="fu">sd</span>(samples))</span>
+<span id="cb6-117"><a href="sudoku-solver.html#cb6-117" tabindex="-1"></a>}</span>
+<span id="cb6-118"><a href="sudoku-solver.html#cb6-118" tabindex="-1"></a></span>
+<span id="cb6-119"><a href="sudoku-solver.html#cb6-119" tabindex="-1"></a></span>
+<span id="cb6-120"><a href="sudoku-solver.html#cb6-120" tabindex="-1"></a><span class="co"># ==========================================================</span></span>
+<span id="cb6-121"><a href="sudoku-solver.html#cb6-121" tabindex="-1"></a><span class="co"># 4. COST FUNCTION (OBJECTIVE FUNCTION)</span></span>
+<span id="cb6-122"><a href="sudoku-solver.html#cb6-122" tabindex="-1"></a></span>
+<span id="cb6-123"><a href="sudoku-solver.html#cb6-123" tabindex="-1"></a><span class="co"># The following calculates the total number of rule violations in the Sudoku grid by summing </span></span>
+<span id="cb6-124"><a href="sudoku-solver.html#cb6-124" tabindex="-1"></a><span class="co"># how many duplicate values exist across all rows and columns.</span></span>
+<span id="cb6-125"><a href="sudoku-solver.html#cb6-125" tabindex="-1"></a><span class="co"># ==========================================================</span></span>
+<span id="cb6-126"><a href="sudoku-solver.html#cb6-126" tabindex="-1"></a><span class="co"># This measures how &quot;wrong&quot; the Sudoku is.</span></span>
+<span id="cb6-127"><a href="sudoku-solver.html#cb6-127" tabindex="-1"></a><span class="co">#</span></span>
+<span id="cb6-128"><a href="sudoku-solver.html#cb6-128" tabindex="-1"></a><span class="co"># Idea:</span></span>
+<span id="cb6-129"><a href="sudoku-solver.html#cb6-129" tabindex="-1"></a><span class="co"># - Each row and column should contain numbers 1–9 exactly once.</span></span>
+<span id="cb6-130"><a href="sudoku-solver.html#cb6-130" tabindex="-1"></a><span class="co"># - If duplicates exist, we count errors.</span></span>
+<span id="cb6-131"><a href="sudoku-solver.html#cb6-131" tabindex="-1"></a><span class="co">#</span></span>
+<span id="cb6-132"><a href="sudoku-solver.html#cb6-132" tabindex="-1"></a><span class="co"># Lower cost = better solution</span></span>
+<span id="cb6-133"><a href="sudoku-solver.html#cb6-133" tabindex="-1"></a><span class="co"># Perfect solution = cost = 0</span></span>
+<span id="cb6-134"><a href="sudoku-solver.html#cb6-134" tabindex="-1"></a></span>
+<span id="cb6-135"><a href="sudoku-solver.html#cb6-135" tabindex="-1"></a>calcErrors <span class="ot">&lt;-</span> <span class="cf">function</span>(sudoku) {</span>
+<span id="cb6-136"><a href="sudoku-solver.html#cb6-136" tabindex="-1"></a>  errors <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb6-137"><a href="sudoku-solver.html#cb6-137" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">9</span>) {</span>
+<span id="cb6-138"><a href="sudoku-solver.html#cb6-138" tabindex="-1"></a>    <span class="co"># Count duplicates in row i and column i</span></span>
+<span id="cb6-139"><a href="sudoku-solver.html#cb6-139" tabindex="-1"></a>    errors <span class="ot">&lt;-</span> errors <span class="sc">+</span></span>
+<span id="cb6-140"><a href="sudoku-solver.html#cb6-140" tabindex="-1"></a>      (<span class="dv">9</span> <span class="sc">-</span> <span class="fu">length</span>(<span class="fu">unique</span>(sudoku[i,]))) <span class="sc">+</span>   <span class="co"># row errors</span></span>
+<span id="cb6-141"><a href="sudoku-solver.html#cb6-141" tabindex="-1"></a>      (<span class="dv">9</span> <span class="sc">-</span> <span class="fu">length</span>(<span class="fu">unique</span>(sudoku[,i])))     <span class="co"># column errors</span></span>
+<span id="cb6-142"><a href="sudoku-solver.html#cb6-142" tabindex="-1"></a>  }</span>
+<span id="cb6-143"><a href="sudoku-solver.html#cb6-143" tabindex="-1"></a>  <span class="fu">return</span>(errors)</span>
+<span id="cb6-144"><a href="sudoku-solver.html#cb6-144" tabindex="-1"></a>}</span>
+<span id="cb6-145"><a href="sudoku-solver.html#cb6-145" tabindex="-1"></a></span>
+<span id="cb6-146"><a href="sudoku-solver.html#cb6-146" tabindex="-1"></a></span>
+<span id="cb6-147"><a href="sudoku-solver.html#cb6-147" tabindex="-1"></a><span class="co"># ==========================================================</span></span>
+<span id="cb6-148"><a href="sudoku-solver.html#cb6-148" tabindex="-1"></a><span class="co"># 5. DEFINE 3x3 BLOCKS</span></span>
+<span id="cb6-149"><a href="sudoku-solver.html#cb6-149" tabindex="-1"></a></span>
+<span id="cb6-150"><a href="sudoku-solver.html#cb6-150" tabindex="-1"></a><span class="co"># The getBlocks function constructs and returns a list of all nine 3×3 subgrids (blocks) in the Sudoku by generating </span></span>
+<span id="cb6-151"><a href="sudoku-solver.html#cb6-151" tabindex="-1"></a><span class="co"># the row–column coordinate pairs for each block. Each element of the list represents one block and contains the indices </span></span>
+<span id="cb6-152"><a href="sudoku-solver.html#cb6-152" tabindex="-1"></a><span class="co"># of the cells belonging to that block, making it easy to access and manipulate them. This is important because the solver relies </span></span>
+<span id="cb6-153"><a href="sudoku-solver.html#cb6-153" tabindex="-1"></a><span class="co"># on operating within these blocks—such as swapping values—while preserving block validity, which simplifies the problem by ensuring </span></span>
+<span id="cb6-154"><a href="sudoku-solver.html#cb6-154" tabindex="-1"></a><span class="co"># that only row and column conflicts need to be optimized.</span></span>
+<span id="cb6-155"><a href="sudoku-solver.html#cb6-155" tabindex="-1"></a></span>
+<span id="cb6-156"><a href="sudoku-solver.html#cb6-156" tabindex="-1"></a><span class="co"># ==========================================================</span></span>
+<span id="cb6-157"><a href="sudoku-solver.html#cb6-157" tabindex="-1"></a><span class="co"># Returns list of 9 blocks, each containing coordinates</span></span>
+<span id="cb6-158"><a href="sudoku-solver.html#cb6-158" tabindex="-1"></a></span>
+<span id="cb6-159"><a href="sudoku-solver.html#cb6-159" tabindex="-1"></a>getBlocks <span class="ot">&lt;-</span> <span class="cf">function</span>() {</span>
+<span id="cb6-160"><a href="sudoku-solver.html#cb6-160" tabindex="-1"></a>  blocks <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
+<span id="cb6-161"><a href="sudoku-solver.html#cb6-161" tabindex="-1"></a>  idx <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb6-162"><a href="sudoku-solver.html#cb6-162" tabindex="-1"></a>  <span class="cf">for</span> (br <span class="cf">in</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">2</span>) {</span>
+<span id="cb6-163"><a href="sudoku-solver.html#cb6-163" tabindex="-1"></a>    <span class="cf">for</span> (bc <span class="cf">in</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">2</span>) {</span>
+<span id="cb6-164"><a href="sudoku-solver.html#cb6-164" tabindex="-1"></a>      cells <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(</span>
+<span id="cb6-165"><a href="sudoku-solver.html#cb6-165" tabindex="-1"></a>        (<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>) <span class="sc">+</span> br<span class="sc">*</span><span class="dv">3</span>,</span>
+<span id="cb6-166"><a href="sudoku-solver.html#cb6-166" tabindex="-1"></a>        (<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>) <span class="sc">+</span> bc<span class="sc">*</span><span class="dv">3</span></span>
+<span id="cb6-167"><a href="sudoku-solver.html#cb6-167" tabindex="-1"></a>      )</span>
+<span id="cb6-168"><a href="sudoku-solver.html#cb6-168" tabindex="-1"></a>      blocks[[idx]] <span class="ot">&lt;-</span> <span class="fu">as.matrix</span>(cells)</span>
+<span id="cb6-169"><a href="sudoku-solver.html#cb6-169" tabindex="-1"></a>      idx <span class="ot">&lt;-</span> idx <span class="sc">+</span> <span class="dv">1</span></span>
+<span id="cb6-170"><a href="sudoku-solver.html#cb6-170" tabindex="-1"></a>    }</span>
+<span id="cb6-171"><a href="sudoku-solver.html#cb6-171" tabindex="-1"></a>  }</span>
+<span id="cb6-172"><a href="sudoku-solver.html#cb6-172" tabindex="-1"></a>  <span class="fu">return</span>(blocks)</span>
+<span id="cb6-173"><a href="sudoku-solver.html#cb6-173" tabindex="-1"></a>}</span>
+<span id="cb6-174"><a href="sudoku-solver.html#cb6-174" tabindex="-1"></a></span>
+<span id="cb6-175"><a href="sudoku-solver.html#cb6-175" tabindex="-1"></a></span>
+<span id="cb6-176"><a href="sudoku-solver.html#cb6-176" tabindex="-1"></a><span class="co"># ==========================================================</span></span>
+<span id="cb6-177"><a href="sudoku-solver.html#cb6-177" tabindex="-1"></a><span class="co"># 6. INITIAL RANDOM SOLUTION</span></span>
+<span id="cb6-178"><a href="sudoku-solver.html#cb6-178" tabindex="-1"></a><span class="co"># ==========================================================</span></span>
+<span id="cb6-179"><a href="sudoku-solver.html#cb6-179" tabindex="-1"></a><span class="co"># Fill each 3x3 block with missing numbers randomly</span></span>
+<span id="cb6-180"><a href="sudoku-solver.html#cb6-180" tabindex="-1"></a><span class="co">#</span></span>
+<span id="cb6-181"><a href="sudoku-solver.html#cb6-181" tabindex="-1"></a><span class="co"># IMPORTANT DESIGN CHOICE:</span></span>
+<span id="cb6-182"><a href="sudoku-solver.html#cb6-182" tabindex="-1"></a><span class="co"># - Each 3x3 block is always VALID (contains numbers 1–9)</span></span>
+<span id="cb6-183"><a href="sudoku-solver.html#cb6-183" tabindex="-1"></a><span class="co"># - Only rows and columns may contain conflicts</span></span>
+<span id="cb6-184"><a href="sudoku-solver.html#cb6-184" tabindex="-1"></a></span>
+<span id="cb6-185"><a href="sudoku-solver.html#cb6-185" tabindex="-1"></a>fillBlocks <span class="ot">&lt;-</span> <span class="cf">function</span>(sudoku, blocks) {</span>
+<span id="cb6-186"><a href="sudoku-solver.html#cb6-186" tabindex="-1"></a>  <span class="cf">for</span> (block <span class="cf">in</span> blocks) {</span>
+<span id="cb6-187"><a href="sudoku-solver.html#cb6-187" tabindex="-1"></a>    values <span class="ot">&lt;-</span> sudoku[block]</span>
+<span id="cb6-188"><a href="sudoku-solver.html#cb6-188" tabindex="-1"></a>    </span>
+<span id="cb6-189"><a href="sudoku-solver.html#cb6-189" tabindex="-1"></a>    <span class="co"># Find numbers missing in this block</span></span>
+<span id="cb6-190"><a href="sudoku-solver.html#cb6-190" tabindex="-1"></a>    missing <span class="ot">&lt;-</span> <span class="fu">setdiff</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">9</span>, values)</span>
+<span id="cb6-191"><a href="sudoku-solver.html#cb6-191" tabindex="-1"></a>    </span>
+<span id="cb6-192"><a href="sudoku-solver.html#cb6-192" tabindex="-1"></a>    <span class="co"># Fill empty cells randomly with missing numbers</span></span>
+<span id="cb6-193"><a href="sudoku-solver.html#cb6-193" tabindex="-1"></a>    zeros <span class="ot">&lt;-</span> <span class="fu">which</span>(values <span class="sc">==</span> <span class="dv">0</span>)</span>
+<span id="cb6-194"><a href="sudoku-solver.html#cb6-194" tabindex="-1"></a>    values[zeros] <span class="ot">&lt;-</span> <span class="fu">sample</span>(missing)</span>
+<span id="cb6-195"><a href="sudoku-solver.html#cb6-195" tabindex="-1"></a>    </span>
+<span id="cb6-196"><a href="sudoku-solver.html#cb6-196" tabindex="-1"></a>    sudoku[block] <span class="ot">&lt;-</span> values</span>
+<span id="cb6-197"><a href="sudoku-solver.html#cb6-197" tabindex="-1"></a>  }</span>
+<span id="cb6-198"><a href="sudoku-solver.html#cb6-198" tabindex="-1"></a>  <span class="fu">return</span>(sudoku)</span>
+<span id="cb6-199"><a href="sudoku-solver.html#cb6-199" tabindex="-1"></a>}</span>
+<span id="cb6-200"><a href="sudoku-solver.html#cb6-200" tabindex="-1"></a></span>
+<span id="cb6-201"><a href="sudoku-solver.html#cb6-201" tabindex="-1"></a><span class="co"># ==========================================================</span></span>
+<span id="cb6-202"><a href="sudoku-solver.html#cb6-202" tabindex="-1"></a><span class="co"># 7. GENERATE A NEIGHBOR (STATE TRANSITION)</span></span>
+<span id="cb6-203"><a href="sudoku-solver.html#cb6-203" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb6-204"><a href="sudoku-solver.html#cb6-204" tabindex="-1"></a><span class="co"># The swapCells function repeatedly selects two random cells within a given 3×3 block and swaps their values, but </span></span>
+<span id="cb6-205"><a href="sudoku-solver.html#cb6-205" tabindex="-1"></a><span class="co"># only if both cells are not fixed (i.e., not part of the original puzzle). This ensures that the original clues remain </span></span>
+<span id="cb6-206"><a href="sudoku-solver.html#cb6-206" tabindex="-1"></a><span class="co"># unchanged while still allowing the solver to modify the grid. It is important because it generates new candidate solutions for </span></span>
+<span id="cb6-207"><a href="sudoku-solver.html#cb6-207" tabindex="-1"></a><span class="co"># the simulated annealing process while preserving block validity.</span></span>
+<span id="cb6-208"><a href="sudoku-solver.html#cb6-208" tabindex="-1"></a></span>
+<span id="cb6-209"><a href="sudoku-solver.html#cb6-209" tabindex="-1"></a><span class="co"># ==========================================================</span></span>
+<span id="cb6-210"><a href="sudoku-solver.html#cb6-210" tabindex="-1"></a><span class="co"># We create a &quot;new candidate solution&quot; by:</span></span>
+<span id="cb6-211"><a href="sudoku-solver.html#cb6-211" tabindex="-1"></a><span class="co"># - Picking a random 3x3 block</span></span>
+<span id="cb6-212"><a href="sudoku-solver.html#cb6-212" tabindex="-1"></a><span class="co"># - Swapping two NON-FIXED cells inside it</span></span>
+<span id="cb6-213"><a href="sudoku-solver.html#cb6-213" tabindex="-1"></a><span class="co">#</span></span>
+<span id="cb6-214"><a href="sudoku-solver.html#cb6-214" tabindex="-1"></a><span class="co"># This ensures:</span></span>
+<span id="cb6-215"><a href="sudoku-solver.html#cb6-215" tabindex="-1"></a><span class="co"># - Block remains valid</span></span>
+<span id="cb6-216"><a href="sudoku-solver.html#cb6-216" tabindex="-1"></a><span class="co"># - Only row/column structure changes</span></span>
+<span id="cb6-217"><a href="sudoku-solver.html#cb6-217" tabindex="-1"></a></span>
+<span id="cb6-218"><a href="sudoku-solver.html#cb6-218" tabindex="-1"></a>swapCells <span class="ot">&lt;-</span> <span class="cf">function</span>(sudoku, fixed, block) {</span>
+<span id="cb6-219"><a href="sudoku-solver.html#cb6-219" tabindex="-1"></a>  <span class="cf">repeat</span> {</span>
+<span id="cb6-220"><a href="sudoku-solver.html#cb6-220" tabindex="-1"></a>    idx <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(block), <span class="dv">2</span>)</span>
+<span id="cb6-221"><a href="sudoku-solver.html#cb6-221" tabindex="-1"></a>    c1 <span class="ot">&lt;-</span> block[idx[<span class="dv">1</span>],]</span>
+<span id="cb6-222"><a href="sudoku-solver.html#cb6-222" tabindex="-1"></a>    c2 <span class="ot">&lt;-</span> block[idx[<span class="dv">2</span>],]</span>
+<span id="cb6-223"><a href="sudoku-solver.html#cb6-223" tabindex="-1"></a>    </span>
+<span id="cb6-224"><a href="sudoku-solver.html#cb6-224" tabindex="-1"></a>    <span class="co"># Only swap if both are NOT fixed</span></span>
+<span id="cb6-225"><a href="sudoku-solver.html#cb6-225" tabindex="-1"></a>    <span class="cf">if</span> (fixed[c1[<span class="dv">1</span>],c1[<span class="dv">2</span>]] <span class="sc">==</span> <span class="dv">0</span> <span class="sc">&amp;&amp;</span></span>
+<span id="cb6-226"><a href="sudoku-solver.html#cb6-226" tabindex="-1"></a>        fixed[c2[<span class="dv">1</span>],c2[<span class="dv">2</span>]] <span class="sc">==</span> <span class="dv">0</span>) {</span>
+<span id="cb6-227"><a href="sudoku-solver.html#cb6-227" tabindex="-1"></a>      </span>
+<span id="cb6-228"><a href="sudoku-solver.html#cb6-228" tabindex="-1"></a>      <span class="co"># Swap values</span></span>
+<span id="cb6-229"><a href="sudoku-solver.html#cb6-229" tabindex="-1"></a>      temp <span class="ot">&lt;-</span> sudoku[c1[<span class="dv">1</span>],c1[<span class="dv">2</span>]]</span>
+<span id="cb6-230"><a href="sudoku-solver.html#cb6-230" tabindex="-1"></a>      sudoku[c1[<span class="dv">1</span>],c1[<span class="dv">2</span>]] <span class="ot">&lt;-</span> sudoku[c2[<span class="dv">1</span>],c2[<span class="dv">2</span>]]</span>
+<span id="cb6-231"><a href="sudoku-solver.html#cb6-231" tabindex="-1"></a>      sudoku[c2[<span class="dv">1</span>],c2[<span class="dv">2</span>]] <span class="ot">&lt;-</span> temp</span>
+<span id="cb6-232"><a href="sudoku-solver.html#cb6-232" tabindex="-1"></a>      </span>
+<span id="cb6-233"><a href="sudoku-solver.html#cb6-233" tabindex="-1"></a>      <span class="fu">return</span>(sudoku)</span>
+<span id="cb6-234"><a href="sudoku-solver.html#cb6-234" tabindex="-1"></a>    }</span>
+<span id="cb6-235"><a href="sudoku-solver.html#cb6-235" tabindex="-1"></a>  }</span>
+<span id="cb6-236"><a href="sudoku-solver.html#cb6-236" tabindex="-1"></a>}</span></code></pre></div>
+<div id="simulated-annealing-solver" class="section level2 hasAnchor" number="4.1">
+<h2><span class="header-section-number">4.1</span> Simulated Annealing Solver<a href="sudoku-solver.html#simulated-annealing-solver" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The solveSudoku function applies a simulated annealing optimization process to solve a Sudoku puzzle by iteratively reducing conflicts in rows and columns while preserving valid 3×3 blocks (Constraint Decomposition). It begins by identifying fixed cells, generating an initial valid state by randomly filling each block, and estimating an initial temperature (sigma) that controls how freely the algorithm explores different configurations. During each iteration, it proposes a new candidate solution by swapping two non-fixed cells within a random block, evaluates whether the change improves the error (number of conflicts), and accepts it either if it is better or with a probability that allows occasional acceptance of worse solutions to escape local minima. As the algorithm progresses, the temperature gradually decreases (cooling), making the search increasingly focused and less random, while continuously tracking the best solution found. The process continues until either a conflict-free Sudoku (error = 0) is reached or a maximum number of iterations is exceeded, at which point the best available solution is returned.</p>
+<p><strong>The Sudoku Solver result is embedded in the bottom of the executed code chunk</strong></p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="sudoku-solver.html#cb7-1" tabindex="-1"></a>solveSudoku <span class="ot">&lt;-</span> <span class="cf">function</span>(sudoku) {</span>
+<span id="cb7-2"><a href="sudoku-solver.html#cb7-2" tabindex="-1"></a>  </span>
+<span id="cb7-3"><a href="sudoku-solver.html#cb7-3" tabindex="-1"></a>  <span class="co"># Identify fixed cells</span></span>
+<span id="cb7-4"><a href="sudoku-solver.html#cb7-4" tabindex="-1"></a>  fixed <span class="ot">&lt;-</span> <span class="fu">fixSudokuValues</span>(sudoku)</span>
+<span id="cb7-5"><a href="sudoku-solver.html#cb7-5" tabindex="-1"></a>  </span>
+<span id="cb7-6"><a href="sudoku-solver.html#cb7-6" tabindex="-1"></a>  <span class="co"># Get block definitions</span></span>
+<span id="cb7-7"><a href="sudoku-solver.html#cb7-7" tabindex="-1"></a>  blocks <span class="ot">&lt;-</span> <span class="fu">getBlocks</span>()</span>
+<span id="cb7-8"><a href="sudoku-solver.html#cb7-8" tabindex="-1"></a>  </span>
+<span id="cb7-9"><a href="sudoku-solver.html#cb7-9" tabindex="-1"></a>  <span class="co"># Create INITIAL VALID STATE</span></span>
+<span id="cb7-10"><a href="sudoku-solver.html#cb7-10" tabindex="-1"></a>  sudoku <span class="ot">&lt;-</span> <span class="fu">fillBlocks</span>(sudoku, blocks)</span>
+<span id="cb7-11"><a href="sudoku-solver.html#cb7-11" tabindex="-1"></a>  </span>
+<span id="cb7-12"><a href="sudoku-solver.html#cb7-12" tabindex="-1"></a>  <span class="co">#================================================================================================================</span></span>
+<span id="cb7-13"><a href="sudoku-solver.html#cb7-13" tabindex="-1"></a></span>
+<span id="cb7-14"><a href="sudoku-solver.html#cb7-14" tabindex="-1"></a>  <span class="co"># SIMULATED ANNEALING PARAMETERS</span></span>
+<span id="cb7-15"><a href="sudoku-solver.html#cb7-15" tabindex="-1"></a></span>
+<span id="cb7-16"><a href="sudoku-solver.html#cb7-16" tabindex="-1"></a></span>
+<span id="cb7-17"><a href="sudoku-solver.html#cb7-17" tabindex="-1"></a>  <span class="co"># The line sigma &lt;- estimateInitialSigma(sudoku, fixed, blocks) computes a data-driven starting temperature for </span></span>
+<span id="cb7-18"><a href="sudoku-solver.html#cb7-18" tabindex="-1"></a>  <span class="co"># the simulated annealing process by estimating how much the error typically changes under random swaps. This is </span></span>
+<span id="cb7-19"><a href="sudoku-solver.html#cb7-19" tabindex="-1"></a>  <span class="co"># important because it scales the acceptance probability so that early in the search the algorithm neither accepts too </span></span>
+<span id="cb7-20"><a href="sudoku-solver.html#cb7-20" tabindex="-1"></a>  <span class="co"># many bad moves (too random) nor rejects them all (gets stuck). By setting sigma based on the actual problem landscape, </span></span>
+<span id="cb7-21"><a href="sudoku-solver.html#cb7-21" tabindex="-1"></a>  <span class="co"># it improves the solver’s balance between exploration and convergence, making the optimization more stable and effective.</span></span>
+<span id="cb7-22"><a href="sudoku-solver.html#cb7-22" tabindex="-1"></a>  <span class="co">#========================================================================================================================</span></span>
+<span id="cb7-23"><a href="sudoku-solver.html#cb7-23" tabindex="-1"></a>  <span class="co">#sigma &lt;- 2            # &quot;temperature&quot; (controls randomness)</span></span>
+<span id="cb7-24"><a href="sudoku-solver.html#cb7-24" tabindex="-1"></a>  </span>
+<span id="cb7-25"><a href="sudoku-solver.html#cb7-25" tabindex="-1"></a>  sigma <span class="ot">&lt;-</span> <span class="fu">estimateInitialSigma</span>(sudoku, fixed, blocks)</span>
+<span id="cb7-26"><a href="sudoku-solver.html#cb7-26" tabindex="-1"></a></span>
+<span id="cb7-27"><a href="sudoku-solver.html#cb7-27" tabindex="-1"></a>  cooling <span class="ot">&lt;-</span> <span class="fl">0.995</span>      <span class="co"># how fast temperature decreases</span></span>
+<span id="cb7-28"><a href="sudoku-solver.html#cb7-28" tabindex="-1"></a>  maxIter <span class="ot">&lt;-</span> <span class="dv">100000</span>      <span class="co"># maximum attempts</span></span>
+<span id="cb7-29"><a href="sudoku-solver.html#cb7-29" tabindex="-1"></a>  </span>
+<span id="cb7-30"><a href="sudoku-solver.html#cb7-30" tabindex="-1"></a>  <span class="co"># Track best solution seen so far</span></span>
+<span id="cb7-31"><a href="sudoku-solver.html#cb7-31" tabindex="-1"></a>  best <span class="ot">&lt;-</span> sudoku</span>
+<span id="cb7-32"><a href="sudoku-solver.html#cb7-32" tabindex="-1"></a>  bestScore <span class="ot">&lt;-</span> <span class="fu">calcErrors</span>(sudoku)</span>
+<span id="cb7-33"><a href="sudoku-solver.html#cb7-33" tabindex="-1"></a>  </span>
+<span id="cb7-34"><a href="sudoku-solver.html#cb7-34" tabindex="-1"></a>  <span class="co"># -----------------------------</span></span>
+<span id="cb7-35"><a href="sudoku-solver.html#cb7-35" tabindex="-1"></a>  <span class="co"># MAIN OPTIMIZATION LOOP</span></span>
+<span id="cb7-36"><a href="sudoku-solver.html#cb7-36" tabindex="-1"></a>  <span class="co"># -----------------------------</span></span>
+<span id="cb7-37"><a href="sudoku-solver.html#cb7-37" tabindex="-1"></a>  <span class="cf">for</span> (iter <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>maxIter) {</span>
+<span id="cb7-38"><a href="sudoku-solver.html#cb7-38" tabindex="-1"></a>    </span>
+<span id="cb7-39"><a href="sudoku-solver.html#cb7-39" tabindex="-1"></a>    <span class="co"># Step 1: Generate candidate solution</span></span>
+<span id="cb7-40"><a href="sudoku-solver.html#cb7-40" tabindex="-1"></a>    block <span class="ot">&lt;-</span> blocks[[<span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">9</span>,<span class="dv">1</span>)]]</span>
+<span id="cb7-41"><a href="sudoku-solver.html#cb7-41" tabindex="-1"></a>    newSudoku <span class="ot">&lt;-</span> <span class="fu">swapCells</span>(sudoku, fixed, block)</span>
+<span id="cb7-42"><a href="sudoku-solver.html#cb7-42" tabindex="-1"></a>    </span>
+<span id="cb7-43"><a href="sudoku-solver.html#cb7-43" tabindex="-1"></a>    <span class="co"># Step 2: Evaluate current vs new state</span></span>
+<span id="cb7-44"><a href="sudoku-solver.html#cb7-44" tabindex="-1"></a>    currentCost <span class="ot">&lt;-</span> <span class="fu">calcErrors</span>(sudoku)</span>
+<span id="cb7-45"><a href="sudoku-solver.html#cb7-45" tabindex="-1"></a>    newCost <span class="ot">&lt;-</span> <span class="fu">calcErrors</span>(newSudoku)</span>
+<span id="cb7-46"><a href="sudoku-solver.html#cb7-46" tabindex="-1"></a>    </span>
+<span id="cb7-47"><a href="sudoku-solver.html#cb7-47" tabindex="-1"></a>    <span class="co"># Difference in cost</span></span>
+<span id="cb7-48"><a href="sudoku-solver.html#cb7-48" tabindex="-1"></a>    delta <span class="ot">&lt;-</span> newCost <span class="sc">-</span> currentCost</span>
+<span id="cb7-49"><a href="sudoku-solver.html#cb7-49" tabindex="-1"></a>    </span>
+<span id="cb7-50"><a href="sudoku-solver.html#cb7-50" tabindex="-1"></a>    <span class="co"># -----------------------------------------------------</span></span>
+<span id="cb7-51"><a href="sudoku-solver.html#cb7-51" tabindex="-1"></a>    <span class="co"># Step 3: Acceptance rule (CORE of Simulated Annealing)</span></span>
+<span id="cb7-52"><a href="sudoku-solver.html#cb7-52" tabindex="-1"></a>    <span class="co"># -----------------------------------------------------</span></span>
+<span id="cb7-53"><a href="sudoku-solver.html#cb7-53" tabindex="-1"></a>    <span class="co">#</span></span>
+<span id="cb7-54"><a href="sudoku-solver.html#cb7-54" tabindex="-1"></a>    <span class="co"># Case 1: If new solution is BETTER (delta &lt;= 0)</span></span>
+<span id="cb7-55"><a href="sudoku-solver.html#cb7-55" tabindex="-1"></a>    <span class="co">#         -&gt; always accept</span></span>
+<span id="cb7-56"><a href="sudoku-solver.html#cb7-56" tabindex="-1"></a>    <span class="co">#</span></span>
+<span id="cb7-57"><a href="sudoku-solver.html#cb7-57" tabindex="-1"></a>    <span class="co"># Case 2: If WORSE (delta &gt; 0)</span></span>
+<span id="cb7-58"><a href="sudoku-solver.html#cb7-58" tabindex="-1"></a>    <span class="co">#         -&gt; accept with probability:</span></span>
+<span id="cb7-59"><a href="sudoku-solver.html#cb7-59" tabindex="-1"></a>    <span class="co">#</span></span>
+<span id="cb7-60"><a href="sudoku-solver.html#cb7-60" tabindex="-1"></a>    <span class="co">#            exp(-delta / temperature)</span></span>
+<span id="cb7-61"><a href="sudoku-solver.html#cb7-61" tabindex="-1"></a>    <span class="co">#</span></span>
+<span id="cb7-62"><a href="sudoku-solver.html#cb7-62" tabindex="-1"></a>    <span class="co"># This allows the algorithm to:</span></span>
+<span id="cb7-63"><a href="sudoku-solver.html#cb7-63" tabindex="-1"></a>    <span class="co"># - Escape local minima</span></span>
+<span id="cb7-64"><a href="sudoku-solver.html#cb7-64" tabindex="-1"></a>    <span class="co"># - Explore wider solution space early on</span></span>
+<span id="cb7-65"><a href="sudoku-solver.html#cb7-65" tabindex="-1"></a>    <span class="co">#</span></span>
+<span id="cb7-66"><a href="sudoku-solver.html#cb7-66" tabindex="-1"></a>    <span class="cf">if</span> (delta <span class="sc">&lt;=</span> <span class="dv">0</span> <span class="sc">||</span> <span class="fu">runif</span>(<span class="dv">1</span>) <span class="sc">&lt;</span> <span class="fu">exp</span>(<span class="sc">-</span>delta<span class="sc">/</span>sigma)) {</span>
+<span id="cb7-67"><a href="sudoku-solver.html#cb7-67" tabindex="-1"></a>      sudoku <span class="ot">&lt;-</span> newSudoku</span>
+<span id="cb7-68"><a href="sudoku-solver.html#cb7-68" tabindex="-1"></a>    }</span>
+<span id="cb7-69"><a href="sudoku-solver.html#cb7-69" tabindex="-1"></a>    </span>
+<span id="cb7-70"><a href="sudoku-solver.html#cb7-70" tabindex="-1"></a>    <span class="co"># Step 4: Track best solution found</span></span>
+<span id="cb7-71"><a href="sudoku-solver.html#cb7-71" tabindex="-1"></a>    currentCost <span class="ot">&lt;-</span> <span class="fu">calcErrors</span>(sudoku)</span>
+<span id="cb7-72"><a href="sudoku-solver.html#cb7-72" tabindex="-1"></a>    <span class="cf">if</span> (currentCost <span class="sc">&lt;</span> bestScore) {</span>
+<span id="cb7-73"><a href="sudoku-solver.html#cb7-73" tabindex="-1"></a>      best <span class="ot">&lt;-</span> sudoku</span>
+<span id="cb7-74"><a href="sudoku-solver.html#cb7-74" tabindex="-1"></a>      bestScore <span class="ot">&lt;-</span> currentCost</span>
+<span id="cb7-75"><a href="sudoku-solver.html#cb7-75" tabindex="-1"></a>    }</span>
+<span id="cb7-76"><a href="sudoku-solver.html#cb7-76" tabindex="-1"></a>    </span>
+<span id="cb7-77"><a href="sudoku-solver.html#cb7-77" tabindex="-1"></a>    <span class="co"># Step 5: COOLING (reduce randomness over time)</span></span>
+<span id="cb7-78"><a href="sudoku-solver.html#cb7-78" tabindex="-1"></a>    <span class="co">#</span></span>
+<span id="cb7-79"><a href="sudoku-solver.html#cb7-79" tabindex="-1"></a>    <span class="co"># Early: high temperature → more random exploration</span></span>
+<span id="cb7-80"><a href="sudoku-solver.html#cb7-80" tabindex="-1"></a>    <span class="co"># Late:  low temperature → greedy refinement</span></span>
+<span id="cb7-81"><a href="sudoku-solver.html#cb7-81" tabindex="-1"></a>    sigma <span class="ot">&lt;-</span> sigma <span class="sc">*</span> cooling</span>
+<span id="cb7-82"><a href="sudoku-solver.html#cb7-82" tabindex="-1"></a>    </span>
+<span id="cb7-83"><a href="sudoku-solver.html#cb7-83" tabindex="-1"></a>    <span class="co"># Step 6: Stop if solved</span></span>
+<span id="cb7-84"><a href="sudoku-solver.html#cb7-84" tabindex="-1"></a>    <span class="cf">if</span> (bestScore <span class="sc">==</span> <span class="dv">0</span>) {</span>
+<span id="cb7-85"><a href="sudoku-solver.html#cb7-85" tabindex="-1"></a>      <span class="fu">cat</span>(<span class="st">&quot;Solved at iteration:&quot;</span>, iter, <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb7-86"><a href="sudoku-solver.html#cb7-86" tabindex="-1"></a>      <span class="fu">return</span>(best)</span>
+<span id="cb7-87"><a href="sudoku-solver.html#cb7-87" tabindex="-1"></a>    }</span>
+<span id="cb7-88"><a href="sudoku-solver.html#cb7-88" tabindex="-1"></a>  }</span>
+<span id="cb7-89"><a href="sudoku-solver.html#cb7-89" tabindex="-1"></a>  </span>
+<span id="cb7-90"><a href="sudoku-solver.html#cb7-90" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">&quot;Stopped without perfect solution.</span><span class="sc">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb7-91"><a href="sudoku-solver.html#cb7-91" tabindex="-1"></a>  <span class="fu">return</span>(best)</span>
+<span id="cb7-92"><a href="sudoku-solver.html#cb7-92" tabindex="-1"></a>}</span>
+<span id="cb7-93"><a href="sudoku-solver.html#cb7-93" tabindex="-1"></a></span>
+<span id="cb7-94"><a href="sudoku-solver.html#cb7-94" tabindex="-1"></a></span>
+<span id="cb7-95"><a href="sudoku-solver.html#cb7-95" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;Initial Sudoku:</span><span class="sc">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb7-96"><a href="sudoku-solver.html#cb7-96" tabindex="-1"></a><span class="do">## Initial Sudoku:</span></span>
+<span id="cb7-97"><a href="sudoku-solver.html#cb7-97" tabindex="-1"></a>startingSudoku <span class="ot">&lt;-</span> <span class="fu">generateSudokuWithZeros</span>()</span>
+<span id="cb7-98"><a href="sudoku-solver.html#cb7-98" tabindex="-1"></a><span class="co">#init1 &lt;- generateInitialState(startingSudoku)</span></span>
+<span id="cb7-99"><a href="sudoku-solver.html#cb7-99" tabindex="-1"></a></span>
+<span id="cb7-100"><a href="sudoku-solver.html#cb7-100" tabindex="-1"></a><span class="fu">printSudoku</span>(startingSudoku)</span>
+<span id="cb7-101"><a href="sudoku-solver.html#cb7-101" tabindex="-1"></a><span class="do">## 0 8 0 | 5 0 1 | 9 0 0  </span></span>
+<span id="cb7-102"><a href="sudoku-solver.html#cb7-102" tabindex="-1"></a><span class="do">## 0 3 0 | 0 8 0 | 0 5 0  </span></span>
+<span id="cb7-103"><a href="sudoku-solver.html#cb7-103" tabindex="-1"></a><span class="do">## 1 0 5 | 0 0 9 | 0 7 0  </span></span>
+<span id="cb7-104"><a href="sudoku-solver.html#cb7-104" tabindex="-1"></a><span class="do">## ---------------------</span></span>
+<span id="cb7-105"><a href="sudoku-solver.html#cb7-105" tabindex="-1"></a><span class="do">## 0 0 2 | 0 0 5 | 0 0 0  </span></span>
+<span id="cb7-106"><a href="sudoku-solver.html#cb7-106" tabindex="-1"></a><span class="do">## 5 1 0 | 8 0 0 | 0 0 0  </span></span>
+<span id="cb7-107"><a href="sudoku-solver.html#cb7-107" tabindex="-1"></a><span class="do">## 0 0 8 | 0 6 0 | 5 0 1  </span></span>
+<span id="cb7-108"><a href="sudoku-solver.html#cb7-108" tabindex="-1"></a><span class="do">## ---------------------</span></span>
+<span id="cb7-109"><a href="sudoku-solver.html#cb7-109" tabindex="-1"></a><span class="do">## 3 0 0 | 0 4 8 | 2 0 0  </span></span>
+<span id="cb7-110"><a href="sudoku-solver.html#cb7-110" tabindex="-1"></a><span class="do">## 8 0 6 | 1 0 0 | 3 9 0  </span></span>
+<span id="cb7-111"><a href="sudoku-solver.html#cb7-111" tabindex="-1"></a><span class="do">## 0 7 0 | 9 0 0 | 8 0 0</span></span>
+<span id="cb7-112"><a href="sudoku-solver.html#cb7-112" tabindex="-1"></a></span>
+<span id="cb7-113"><a href="sudoku-solver.html#cb7-113" tabindex="-1"></a>solution <span class="ot">&lt;-</span> <span class="fu">solveSudoku</span>(startingSudoku)</span>
+<span id="cb7-114"><a href="sudoku-solver.html#cb7-114" tabindex="-1"></a><span class="do">## Solved at iteration: 715</span></span>
+<span id="cb7-115"><a href="sudoku-solver.html#cb7-115" tabindex="-1"></a></span>
+<span id="cb7-116"><a href="sudoku-solver.html#cb7-116" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;Final Sudoku:</span><span class="sc">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb7-117"><a href="sudoku-solver.html#cb7-117" tabindex="-1"></a><span class="do">## Final Sudoku:</span></span>
+<span id="cb7-118"><a href="sudoku-solver.html#cb7-118" tabindex="-1"></a><span class="fu">printSudoku</span>(solution)</span>
+<span id="cb7-119"><a href="sudoku-solver.html#cb7-119" tabindex="-1"></a><span class="do">## 6 8 7 | 5 2 1 | 9 4 3  </span></span>
+<span id="cb7-120"><a href="sudoku-solver.html#cb7-120" tabindex="-1"></a><span class="do">## 9 3 4 | 7 8 6 | 1 5 2  </span></span>
+<span id="cb7-121"><a href="sudoku-solver.html#cb7-121" tabindex="-1"></a><span class="do">## 1 2 5 | 4 3 9 | 6 7 8  </span></span>
+<span id="cb7-122"><a href="sudoku-solver.html#cb7-122" tabindex="-1"></a><span class="do">## ---------------------</span></span>
+<span id="cb7-123"><a href="sudoku-solver.html#cb7-123" tabindex="-1"></a><span class="do">## 7 6 2 | 3 1 5 | 4 8 9  </span></span>
+<span id="cb7-124"><a href="sudoku-solver.html#cb7-124" tabindex="-1"></a><span class="do">## 5 1 3 | 8 9 4 | 7 2 6  </span></span>
+<span id="cb7-125"><a href="sudoku-solver.html#cb7-125" tabindex="-1"></a><span class="do">## 4 9 8 | 2 6 7 | 5 3 1  </span></span>
+<span id="cb7-126"><a href="sudoku-solver.html#cb7-126" tabindex="-1"></a><span class="do">## ---------------------</span></span>
+<span id="cb7-127"><a href="sudoku-solver.html#cb7-127" tabindex="-1"></a><span class="do">## 3 5 9 | 6 4 8 | 2 1 7  </span></span>
+<span id="cb7-128"><a href="sudoku-solver.html#cb7-128" tabindex="-1"></a><span class="do">## 8 4 6 | 1 7 2 | 3 9 5  </span></span>
+<span id="cb7-129"><a href="sudoku-solver.html#cb7-129" tabindex="-1"></a><span class="do">## 2 7 1 | 9 5 3 | 8 6 4</span></span>
+<span id="cb7-130"><a href="sudoku-solver.html#cb7-130" tabindex="-1"></a></span>
+<span id="cb7-131"><a href="sudoku-solver.html#cb7-131" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;Final error:&quot;</span>, <span class="fu">calcErrors</span>(solution), <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb7-132"><a href="sudoku-solver.html#cb7-132" tabindex="-1"></a><span class="do">## Final error: 0</span></span></code></pre></div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="introduction-1.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="d-plot-of-sudoku-loss-landscape.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

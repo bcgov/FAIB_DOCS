@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>3 Introduction | Modelling Foundations</title>
+  <meta name="description" content="3 Introduction | Modelling Foundations" />
+  <meta name="generator" content="bookdown 0.40 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="3 Introduction | Modelling Foundations" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="3 Introduction | Modelling Foundations" />
+  
+  
+  
+
+<meta name="author" content="Kelly Izzard" />
+
+
+<meta name="date" content="2026-07-04" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="simulated-annealing-and-the-sudoku-solver.html"/>
+<link rel="next" href="sudoku-solver.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<link href="libs/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet" />
+<script src="libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+<script src="libs/plotly-binding-4.10.4/plotly.js"></script>
+<script src="libs/typedarray-0.1/typedarray.min.js"></script>
+<link href="libs/crosstalk-1.2.1/css/crosstalk.min.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.2.1/js/crosstalk.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-2.11.1/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-2.11.1/plotly-latest.min.js"></script>
+
+
+<style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
+<li class="chapter" data-level="2" data-path="simulated-annealing-and-the-sudoku-solver.html"><a href="simulated-annealing-and-the-sudoku-solver.html"><i class="fa fa-check"></i><b>2</b> Simulated Annealing and the Sudoku Solver</a></li>
+<li class="chapter" data-level="3" data-path="introduction-1.html"><a href="introduction-1.html"><i class="fa fa-check"></i><b>3</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="introduction-1.html"><a href="introduction-1.html#simple-model"><i class="fa fa-check"></i><b>3.1</b> Simple Model</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="introduction-1.html"><a href="introduction-1.html#plot-objective-value"><i class="fa fa-check"></i><b>3.1.1</b> Plot objective value</a></li>
+<li class="chapter" data-level="3.1.2" data-path="introduction-1.html"><a href="introduction-1.html#plot-search-trajectory"><i class="fa fa-check"></i><b>3.1.2</b> Plot search trajectory</a></li>
+<li class="chapter" data-level="3.1.3" data-path="introduction-1.html"><a href="introduction-1.html#plot-objective-function-with-optimization-path"><i class="fa fa-check"></i><b>3.1.3</b> Plot objective function with optimization path</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="sudoku-solver.html"><a href="sudoku-solver.html"><i class="fa fa-check"></i><b>4</b> Sudoku Solver</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="sudoku-solver.html"><a href="sudoku-solver.html#simulated-annealing-solver"><i class="fa fa-check"></i><b>4.1</b> Simulated Annealing Solver</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="d-plot-of-sudoku-loss-landscape.html"><a href="d-plot-of-sudoku-loss-landscape.html"><i class="fa fa-check"></i><b>5</b> 3D plot of Sudoku loss landscape</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="d-plot-of-sudoku-loss-landscape.html"><a href="d-plot-of-sudoku-loss-landscape.html#why-use-pca"><i class="fa fa-check"></i><b>5.1</b> Why use PCA</a></li>
+<li class="chapter" data-level="5.2" data-path="d-plot-of-sudoku-loss-landscape.html"><a href="d-plot-of-sudoku-loss-landscape.html#interpretation"><i class="fa fa-check"></i><b>5.2</b> Interpretation</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="constraint-decomposition-and-the-sudoku-solver.html"><a href="constraint-decomposition-and-the-sudoku-solver.html"><i class="fa fa-check"></i><b>6</b> Constraint Decomposition and the Sudoku Solver</a></li>
+<li class="chapter" data-level="7" data-path="simple-goal-programming-with-sann.html"><a href="simple-goal-programming-with-sann.html"><i class="fa fa-check"></i><b>7</b> Simple Goal Programming with SANN</a></li>
+<li class="chapter" data-level="8" data-path="introduction-2.html"><a href="introduction-2.html"><i class="fa fa-check"></i><b>8</b> Introduction</a></li>
+<li class="chapter" data-level="9" data-path="a-simple-goal-programming-model.html"><a href="a-simple-goal-programming-model.html"><i class="fa fa-check"></i><b>9</b> A Simple Goal Programming Model</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="a-simple-goal-programming-model.html"><a href="a-simple-goal-programming-model.html#the-objective-function"><i class="fa fa-check"></i><b>9.1</b> The Objective Function</a>
+<ul>
+<li class="chapter" data-level="9.1.1" data-path="a-simple-goal-programming-model.html"><a href="a-simple-goal-programming-model.html#normalized-deviations-from-the-target"><i class="fa fa-check"></i><b>9.1.1</b> Normalized Deviations from the Target</a></li>
+<li class="chapter" data-level="9.1.2" data-path="a-simple-goal-programming-model.html"><a href="a-simple-goal-programming-model.html#operational-constraints"><i class="fa fa-check"></i><b>9.1.2</b> Operational Constraints</a></li>
+</ul></li>
+<li class="chapter" data-level="9.2" data-path="a-simple-goal-programming-model.html"><a href="a-simple-goal-programming-model.html#the-sann-optimization"><i class="fa fa-check"></i><b>9.2</b> The SANN Optimization</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="the-results.html"><a href="the-results.html"><i class="fa fa-check"></i><b>10</b> The Results</a></li>
+<li class="chapter" data-level="11" data-path="markov-chain-with-goal-programming.html"><a href="markov-chain-with-goal-programming.html"><i class="fa fa-check"></i><b>11</b> Markov Chain with Goal Programming</a></li>
+<li class="chapter" data-level="12" data-path="introduction-3.html"><a href="introduction-3.html"><i class="fa fa-check"></i><b>12</b> Introduction</a></li>
+<li class="chapter" data-level="13" data-path="markov-chain-and-goal-programming.html"><a href="markov-chain-and-goal-programming.html"><i class="fa fa-check"></i><b>13</b> Markov Chain and Goal Programming</a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="markov-chain-and-goal-programming.html"><a href="markov-chain-and-goal-programming.html#the-markov-chain-transition-probability-matrix"><i class="fa fa-check"></i><b>13.1</b> The Markov Chain Transition Probability Matrix</a></li>
+<li class="chapter" data-level="13.2" data-path="markov-chain-and-goal-programming.html"><a href="markov-chain-and-goal-programming.html#markov-habitat-function"><i class="fa fa-check"></i><b>13.2</b> Markov Habitat Function</a></li>
+<li class="chapter" data-level="13.3" data-path="markov-chain-and-goal-programming.html"><a href="markov-chain-and-goal-programming.html#the-objective-function-1"><i class="fa fa-check"></i><b>13.3</b> The Objective Function</a></li>
+<li class="chapter" data-level="13.4" data-path="markov-chain-and-goal-programming.html"><a href="markov-chain-and-goal-programming.html#the-sann-optimization-and-results"><i class="fa fa-check"></i><b>13.4</b> The SANN Optimization and RESULTS</a></li>
+<li class="chapter" data-level="13.5" data-path="markov-chain-and-goal-programming.html"><a href="markov-chain-and-goal-programming.html#results"><i class="fa fa-check"></i><b>13.5</b> Results</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="introduction-4.html"><a href="introduction-4.html"><i class="fa fa-check"></i><b>14</b> Introduction</a></li>
+<li class="chapter" data-level="15" data-path="the-monte-carlo-markov-chain.html"><a href="the-monte-carlo-markov-chain.html"><i class="fa fa-check"></i><b>15</b> The Monte Carlo Markov Chain</a></li>
+<li class="chapter" data-level="16" data-path="mcmc-sampling-loop-joint-bulk-and-tail-model.html"><a href="mcmc-sampling-loop-joint-bulk-and-tail-model.html"><i class="fa fa-check"></i><b>16</b> MCMC Sampling Loop (Joint Bulk and Tail Model)</a></li>
+<li class="chapter" data-level="17" data-path="results-1.html"><a href="results-1.html"><i class="fa fa-check"></i><b>17</b> Results</a></li>
+<li class="chapter" data-level="18" data-path="cellular-automata-and-the-game-of-life.html"><a href="cellular-automata-and-the-game-of-life.html"><i class="fa fa-check"></i><b>18</b> Cellular Automata and the Game of Life</a></li>
+<li class="chapter" data-level="19" data-path="introduction-5.html"><a href="introduction-5.html"><i class="fa fa-check"></i><b>19</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="19.1" data-path="introduction-5.html"><a href="introduction-5.html#wolfram"><i class="fa fa-check"></i><b>19.1</b> Wolfram</a>
+<ul>
+<li class="chapter" data-level="19.1.1" data-path="introduction-5.html"><a href="introduction-5.html#class-iii-rule-30"><i class="fa fa-check"></i><b>19.1.1</b> Class III Rule 30</a></li>
+<li class="chapter" data-level="19.1.2" data-path="introduction-5.html"><a href="introduction-5.html#class-iv-rule-90"><i class="fa fa-check"></i><b>19.1.2</b> Class IV Rule 90</a></li>
+<li class="chapter" data-level="19.1.3" data-path="introduction-5.html"><a href="introduction-5.html#class-iv-rule-125"><i class="fa fa-check"></i><b>19.1.3</b> Class IV Rule 125</a></li>
+</ul></li>
+<li class="chapter" data-level="19.2" data-path="introduction-5.html"><a href="introduction-5.html#the-game-of-life"><i class="fa fa-check"></i><b>19.2</b> The Game of Life</a>
+<ul>
+<li class="chapter" data-level="19.2.1" data-path="introduction-5.html"><a href="introduction-5.html#animate"><i class="fa fa-check"></i><b>19.2.1</b> Animate</a></li>
+</ul></li>
+<li class="chapter" data-level="19.3" data-path="introduction-5.html"><a href="introduction-5.html#population-trend"><i class="fa fa-check"></i><b>19.3</b> Population Trend</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Modelling Foundations</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="introduction-1" class="section level1 hasAnchor" number="3">
+<h1><span class="header-section-number">3</span> Introduction<a href="introduction-1.html#introduction-1" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p><strong>Why Simulated Annealing?</strong>: the goal programming in <strong>Patchworks</strong> is based on
+Simulated Annealing</p>
+<p><strong>Simulated annealing</strong> is a stochastic optimization algorithm inspired by
+the physical process of annealing in metallurgy, where a material is
+heated and then slowly cooled to reduce defects and reach a stable,
+low-energy state. The algorithm searches for an optimal solution by
+repeatedly generating small random changes to the current solution and
+evaluating whether they improve an objective function. Better solutions
+are always accepted, while worse solutions may also be accepted with a
+probability that depends on the increase in the objective function and
+the <strong>current temperature</strong> (the control parameter that determines how willing the
+algorithm is to accept solutions that are worse than the current solution).</p>
+<p>This probabilistic acceptance allows the algorithm to escape <strong>local optima</strong>
+(A local optimum is a solution that is better than all nearby alternatives but
+is not necessarily the best solution among all possible solutions in the entire search space) and explore a wider region of the search space during the early stages of the optimization. As the
+temperature gradually decreases according to a <strong>cooling schedule</strong>(the predefined rule that
+determines how the temperature is gradually reduced during simulated annealing,
+controlling the transition from broad exploration of the search space to focused
+refinement of promising solutions), the likelihood of accepting worse solutions diminishes,
+causing the search to become increasingly focused on refining the best solutions found.
+This balance between exploration and exploitation makes simulated annealing an effective technique for solving complex optimization problems with many local optima <strong>(like in a forest estate model)</strong>.</p>
+<p>A good explainer is found
+<a href="https://www.youtube.com/watch?v=M0ZifrXkbjs">here</a></p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="introduction-1.html#cb1-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="introduction-1.html#cb1-2" tabindex="-1"></a><span class="fu">library</span>(matrixStats)</span>
+<span id="cb1-3"><a href="introduction-1.html#cb1-3" tabindex="-1"></a><span class="fu">library</span>(knitr)</span>
+<span id="cb1-4"><a href="introduction-1.html#cb1-4" tabindex="-1"></a><span class="fu">library</span>(kableExtra)</span>
+<span id="cb1-5"><a href="introduction-1.html#cb1-5" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="introduction-1.html#cb1-6" tabindex="-1"></a><span class="fu">rm</span>(<span class="at">list =</span> <span class="fu">ls</span>())</span>
+<span id="cb1-7"><a href="introduction-1.html#cb1-7" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="introduction-1.html#cb1-8" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="introduction-1.html#cb1-9" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="introduction-1.html#cb1-10" tabindex="-1"></a>knitr<span class="sc">::</span>opts_chunk<span class="sc">$</span><span class="fu">set</span>(</span>
+<span id="cb1-11"><a href="introduction-1.html#cb1-11" tabindex="-1"></a>  <span class="at">echo =</span> <span class="cn">TRUE</span>,               <span class="co">#Show code in the output</span></span>
+<span id="cb1-12"><a href="introduction-1.html#cb1-12" tabindex="-1"></a>  <span class="co">#fig.width = 4,             #Set the width of the figures (in inches)</span></span>
+<span id="cb1-13"><a href="introduction-1.html#cb1-13" tabindex="-1"></a>  <span class="co">#fig.height = 4,            #Set the height of the figures (in inches)</span></span>
+<span id="cb1-14"><a href="introduction-1.html#cb1-14" tabindex="-1"></a>  <span class="at">collapse =</span> <span class="cn">TRUE</span>,           <span class="co">#Collapsing code and output</span></span>
+<span id="cb1-15"><a href="introduction-1.html#cb1-15" tabindex="-1"></a>  <span class="co">#out.width = &#39;250px&#39;,       #Standardize output image width</span></span>
+<span id="cb1-16"><a href="introduction-1.html#cb1-16" tabindex="-1"></a>  <span class="co">#out.height = &#39;250px&#39;,      #Standardize output image height</span></span>
+<span id="cb1-17"><a href="introduction-1.html#cb1-17" tabindex="-1"></a>  <span class="at">message =</span> <span class="cn">FALSE</span>,           <span class="co">#Hide messages</span></span>
+<span id="cb1-18"><a href="introduction-1.html#cb1-18" tabindex="-1"></a>  <span class="at">warning =</span> <span class="cn">FALSE</span>            <span class="co">#Hide warnings</span></span>
+<span id="cb1-19"><a href="introduction-1.html#cb1-19" tabindex="-1"></a>)</span>
+<span id="cb1-20"><a href="introduction-1.html#cb1-20" tabindex="-1"></a></span>
+<span id="cb1-21"><a href="introduction-1.html#cb1-21" tabindex="-1"></a></span>
+<span id="cb1-22"><a href="introduction-1.html#cb1-22" tabindex="-1"></a></span>
+<span id="cb1-23"><a href="introduction-1.html#cb1-23" tabindex="-1"></a>knitr<span class="sc">::</span>opts_chunk<span class="sc">$</span><span class="fu">set</span>(</span>
+<span id="cb1-24"><a href="introduction-1.html#cb1-24" tabindex="-1"></a>  <span class="at">fig.width =</span> <span class="dv">12</span>,</span>
+<span id="cb1-25"><a href="introduction-1.html#cb1-25" tabindex="-1"></a>  <span class="at">fig.height =</span> <span class="dv">10</span>,</span>
+<span id="cb1-26"><a href="introduction-1.html#cb1-26" tabindex="-1"></a>  <span class="at">out.width =</span> <span class="st">&quot;80%&quot;</span></span>
+<span id="cb1-27"><a href="introduction-1.html#cb1-27" tabindex="-1"></a>)</span></code></pre></div>
+<div id="simple-model" class="section level2 hasAnchor" number="3.1">
+<h2><span class="header-section-number">3.1</span> Simple Model<a href="introduction-1.html#simple-model" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The following simple simulated annealing model begins by defining an
+objective function, f(x) = x^2 + 10(x), which the algorithm
+attempts to minimize. A random starting value of (x) is selected within
+a specified range, and its corresponding objective function value is
+calculated. During each iteration, a candidate solution is generated by
+adding a small random deviation to the current value of (x). The
+candidate is then evaluated using the objective function and compared
+with the current solution. If the candidate produces a lower objective
+function value, it is always accepted. If it is worse, it may still be
+accepted with a probability determined by the Metropolis acceptance
+<a href="https://www.youtube.com/watch?v=M0ZifrXkbjs">criterion</a>, <strong>(P = e^{-Delta/T})</strong>, where (Delta) is the increase in the objective function and (T) is the current temperature. This
+probabilistic acceptance of inferior solutions allows the algorithm to
+escape local minima and continue exploring the search.</p>
+<p>As the optimization progresses, the temperature is gradually reduced
+using a cooling schedule, causing the algorithm to become increasingly
+selective (read “greedy”) about accepting worse solutions. Early in the
+search, the high temperature encourages exploration by allowing
+occasional uphill moves, whereas later iterations behave more like a
+greedy optimization algorithm, accepting primarily improving solutions.
+Throughout the optimization, the algorithm records the current solution,
+objective function value, temperature, and whether each proposed move
+was accepted. These data are then used to visualize the optimization
+process, including the change in objective function over time, the
+trajectory of the search variable, and the path taken across the
+objective function landscape. Although this example optimizes a single
+variable, it illustrates the same principles used in more complex
+applications, such as Sudoku solving below, where the search space
+consists of many decision variables and the objective is to minimize the
+number of constraint violations.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="introduction-1.html#cb2-1" tabindex="-1"></a><span class="co">#-------------------------------------------------------</span></span>
+<span id="cb2-2"><a href="introduction-1.html#cb2-2" tabindex="-1"></a><span class="co"># Simulated Annealing Example</span></span>
+<span id="cb2-3"><a href="introduction-1.html#cb2-3" tabindex="-1"></a><span class="co"># Objective: Minimize f(x) = x^2 + 10*sin(x)</span></span>
+<span id="cb2-4"><a href="introduction-1.html#cb2-4" tabindex="-1"></a><span class="co">#-------------------------------------------------------</span></span>
+<span id="cb2-5"><a href="introduction-1.html#cb2-5" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="introduction-1.html#cb2-6" tabindex="-1"></a><span class="co"># Objective function</span></span>
+<span id="cb2-7"><a href="introduction-1.html#cb2-7" tabindex="-1"></a>objective <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
+<span id="cb2-8"><a href="introduction-1.html#cb2-8" tabindex="-1"></a>  x<span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> <span class="dv">10</span> <span class="sc">*</span> <span class="fu">sin</span>(x)</span>
+<span id="cb2-9"><a href="introduction-1.html#cb2-9" tabindex="-1"></a>}</span>
+<span id="cb2-10"><a href="introduction-1.html#cb2-10" tabindex="-1"></a></span>
+<span id="cb2-11"><a href="introduction-1.html#cb2-11" tabindex="-1"></a></span>
+<span id="cb2-12"><a href="introduction-1.html#cb2-12" tabindex="-1"></a><span class="co">#-----------------------------</span></span>
+<span id="cb2-13"><a href="introduction-1.html#cb2-13" tabindex="-1"></a><span class="co"># Initialize algorithm</span></span>
+<span id="cb2-14"><a href="introduction-1.html#cb2-14" tabindex="-1"></a><span class="co">#-----------------------------</span></span>
+<span id="cb2-15"><a href="introduction-1.html#cb2-15" tabindex="-1"></a>current_x <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="dv">1</span>, <span class="sc">-</span><span class="dv">10</span>, <span class="dv">10</span>)</span>
+<span id="cb2-16"><a href="introduction-1.html#cb2-16" tabindex="-1"></a>current_cost <span class="ot">&lt;-</span> <span class="fu">objective</span>(current_x)</span>
+<span id="cb2-17"><a href="introduction-1.html#cb2-17" tabindex="-1"></a></span>
+<span id="cb2-18"><a href="introduction-1.html#cb2-18" tabindex="-1"></a>temperature <span class="ot">&lt;-</span> <span class="dv">10</span></span>
+<span id="cb2-19"><a href="introduction-1.html#cb2-19" tabindex="-1"></a>cooling_rate <span class="ot">&lt;-</span> <span class="fl">0.99</span></span>
+<span id="cb2-20"><a href="introduction-1.html#cb2-20" tabindex="-1"></a>iterations <span class="ot">&lt;-</span> <span class="dv">1000</span></span>
+<span id="cb2-21"><a href="introduction-1.html#cb2-21" tabindex="-1"></a></span>
+<span id="cb2-22"><a href="introduction-1.html#cb2-22" tabindex="-1"></a><span class="co"># Store results</span></span>
+<span id="cb2-23"><a href="introduction-1.html#cb2-23" tabindex="-1"></a>results <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb2-24"><a href="introduction-1.html#cb2-24" tabindex="-1"></a>  <span class="at">iteration =</span> <span class="dv">1</span>,</span>
+<span id="cb2-25"><a href="introduction-1.html#cb2-25" tabindex="-1"></a>  <span class="at">x =</span> current_x,</span>
+<span id="cb2-26"><a href="introduction-1.html#cb2-26" tabindex="-1"></a>  <span class="at">cost =</span> current_cost,</span>
+<span id="cb2-27"><a href="introduction-1.html#cb2-27" tabindex="-1"></a>  <span class="at">temperature =</span> temperature,</span>
+<span id="cb2-28"><a href="introduction-1.html#cb2-28" tabindex="-1"></a>  <span class="at">accepted =</span> <span class="cn">TRUE</span></span>
+<span id="cb2-29"><a href="introduction-1.html#cb2-29" tabindex="-1"></a>)</span>
+<span id="cb2-30"><a href="introduction-1.html#cb2-30" tabindex="-1"></a></span>
+<span id="cb2-31"><a href="introduction-1.html#cb2-31" tabindex="-1"></a><span class="co">#-----------------------------</span></span>
+<span id="cb2-32"><a href="introduction-1.html#cb2-32" tabindex="-1"></a><span class="co"># Simulated Annealing</span></span>
+<span id="cb2-33"><a href="introduction-1.html#cb2-33" tabindex="-1"></a><span class="co">#-----------------------------</span></span>
+<span id="cb2-34"><a href="introduction-1.html#cb2-34" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">2</span><span class="sc">:</span>iterations) {</span>
+<span id="cb2-35"><a href="introduction-1.html#cb2-35" tabindex="-1"></a>  </span>
+<span id="cb2-36"><a href="introduction-1.html#cb2-36" tabindex="-1"></a>  <span class="co"># Generate a nearby candidate solution</span></span>
+<span id="cb2-37"><a href="introduction-1.html#cb2-37" tabindex="-1"></a>  candidate_x <span class="ot">&lt;-</span> current_x <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="dv">1</span>, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>)</span>
+<span id="cb2-38"><a href="introduction-1.html#cb2-38" tabindex="-1"></a>  candidate_cost <span class="ot">&lt;-</span> <span class="fu">objective</span>(candidate_x)</span>
+<span id="cb2-39"><a href="introduction-1.html#cb2-39" tabindex="-1"></a>  </span>
+<span id="cb2-40"><a href="introduction-1.html#cb2-40" tabindex="-1"></a>  <span class="co"># Difference in objective value</span></span>
+<span id="cb2-41"><a href="introduction-1.html#cb2-41" tabindex="-1"></a>  delta <span class="ot">&lt;-</span> candidate_cost <span class="sc">-</span> current_cost</span>
+<span id="cb2-42"><a href="introduction-1.html#cb2-42" tabindex="-1"></a>  </span>
+<span id="cb2-43"><a href="introduction-1.html#cb2-43" tabindex="-1"></a>  accept <span class="ot">&lt;-</span> <span class="cn">FALSE</span></span>
+<span id="cb2-44"><a href="introduction-1.html#cb2-44" tabindex="-1"></a>  </span>
+<span id="cb2-45"><a href="introduction-1.html#cb2-45" tabindex="-1"></a>  <span class="co"># Accept better solutions</span></span>
+<span id="cb2-46"><a href="introduction-1.html#cb2-46" tabindex="-1"></a>  <span class="cf">if</span> (delta <span class="sc">&lt;=</span> <span class="dv">0</span>) {</span>
+<span id="cb2-47"><a href="introduction-1.html#cb2-47" tabindex="-1"></a>    </span>
+<span id="cb2-48"><a href="introduction-1.html#cb2-48" tabindex="-1"></a>    accept <span class="ot">&lt;-</span> <span class="cn">TRUE</span></span>
+<span id="cb2-49"><a href="introduction-1.html#cb2-49" tabindex="-1"></a>    </span>
+<span id="cb2-50"><a href="introduction-1.html#cb2-50" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
+<span id="cb2-51"><a href="introduction-1.html#cb2-51" tabindex="-1"></a>    </span>
+<span id="cb2-52"><a href="introduction-1.html#cb2-52" tabindex="-1"></a>    <span class="co"># Accept worse solutions with probability</span></span>
+<span id="cb2-53"><a href="introduction-1.html#cb2-53" tabindex="-1"></a>    probability <span class="ot">&lt;-</span> <span class="fu">exp</span>(<span class="sc">-</span>delta <span class="sc">/</span> temperature)</span>
+<span id="cb2-54"><a href="introduction-1.html#cb2-54" tabindex="-1"></a>    </span>
+<span id="cb2-55"><a href="introduction-1.html#cb2-55" tabindex="-1"></a>    <span class="cf">if</span> (<span class="fu">runif</span>(<span class="dv">1</span>) <span class="sc">&lt;</span> probability) {</span>
+<span id="cb2-56"><a href="introduction-1.html#cb2-56" tabindex="-1"></a>      accept <span class="ot">&lt;-</span> <span class="cn">TRUE</span></span>
+<span id="cb2-57"><a href="introduction-1.html#cb2-57" tabindex="-1"></a>    }</span>
+<span id="cb2-58"><a href="introduction-1.html#cb2-58" tabindex="-1"></a>  }</span>
+<span id="cb2-59"><a href="introduction-1.html#cb2-59" tabindex="-1"></a>  </span>
+<span id="cb2-60"><a href="introduction-1.html#cb2-60" tabindex="-1"></a>  <span class="co"># Update current solution if accepted</span></span>
+<span id="cb2-61"><a href="introduction-1.html#cb2-61" tabindex="-1"></a>  <span class="cf">if</span> (accept) {</span>
+<span id="cb2-62"><a href="introduction-1.html#cb2-62" tabindex="-1"></a>    current_x <span class="ot">&lt;-</span> candidate_x</span>
+<span id="cb2-63"><a href="introduction-1.html#cb2-63" tabindex="-1"></a>    current_cost <span class="ot">&lt;-</span> candidate_cost</span>
+<span id="cb2-64"><a href="introduction-1.html#cb2-64" tabindex="-1"></a>  }</span>
+<span id="cb2-65"><a href="introduction-1.html#cb2-65" tabindex="-1"></a>  </span>
+<span id="cb2-66"><a href="introduction-1.html#cb2-66" tabindex="-1"></a>  <span class="co"># Reduce temperature</span></span>
+<span id="cb2-67"><a href="introduction-1.html#cb2-67" tabindex="-1"></a>  temperature <span class="ot">&lt;-</span> temperature <span class="sc">*</span> cooling_rate</span>
+<span id="cb2-68"><a href="introduction-1.html#cb2-68" tabindex="-1"></a>  </span>
+<span id="cb2-69"><a href="introduction-1.html#cb2-69" tabindex="-1"></a>  <span class="co"># Save iteration</span></span>
+<span id="cb2-70"><a href="introduction-1.html#cb2-70" tabindex="-1"></a>  results <span class="ot">&lt;-</span> <span class="fu">add_row</span>(</span>
+<span id="cb2-71"><a href="introduction-1.html#cb2-71" tabindex="-1"></a>    results,</span>
+<span id="cb2-72"><a href="introduction-1.html#cb2-72" tabindex="-1"></a>    <span class="at">iteration =</span> i,</span>
+<span id="cb2-73"><a href="introduction-1.html#cb2-73" tabindex="-1"></a>    <span class="at">x =</span> current_x,</span>
+<span id="cb2-74"><a href="introduction-1.html#cb2-74" tabindex="-1"></a>    <span class="at">cost =</span> current_cost,</span>
+<span id="cb2-75"><a href="introduction-1.html#cb2-75" tabindex="-1"></a>    <span class="at">temperature =</span> temperature,</span>
+<span id="cb2-76"><a href="introduction-1.html#cb2-76" tabindex="-1"></a>    <span class="at">accepted =</span> accept</span>
+<span id="cb2-77"><a href="introduction-1.html#cb2-77" tabindex="-1"></a>  )</span>
+<span id="cb2-78"><a href="introduction-1.html#cb2-78" tabindex="-1"></a>}</span>
+<span id="cb2-79"><a href="introduction-1.html#cb2-79" tabindex="-1"></a></span>
+<span id="cb2-80"><a href="introduction-1.html#cb2-80" tabindex="-1"></a><span class="co">#-----------------------------</span></span>
+<span id="cb2-81"><a href="introduction-1.html#cb2-81" tabindex="-1"></a><span class="co"># Best solution found</span></span>
+<span id="cb2-82"><a href="introduction-1.html#cb2-82" tabindex="-1"></a><span class="co">#-----------------------------</span></span>
+<span id="cb2-83"><a href="introduction-1.html#cb2-83" tabindex="-1"></a>best <span class="ot">&lt;-</span> results <span class="sc">%&gt;%</span></span>
+<span id="cb2-84"><a href="introduction-1.html#cb2-84" tabindex="-1"></a>  <span class="fu">filter</span>(cost <span class="sc">==</span> <span class="fu">min</span>(cost))</span>
+<span id="cb2-85"><a href="introduction-1.html#cb2-85" tabindex="-1"></a></span>
+<span id="cb2-86"><a href="introduction-1.html#cb2-86" tabindex="-1"></a><span class="fu">print</span>(best)</span>
+<span id="cb2-87"><a href="introduction-1.html#cb2-87" tabindex="-1"></a><span class="do">## # A tibble: 3 × 5</span></span>
+<span id="cb2-88"><a href="introduction-1.html#cb2-88" tabindex="-1"></a><span class="do">##   iteration     x  cost temperature accepted</span></span>
+<span id="cb2-89"><a href="introduction-1.html#cb2-89" tabindex="-1"></a><span class="do">##       &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;       &lt;dbl&gt; &lt;lgl&gt;   </span></span>
+<span id="cb2-90"><a href="introduction-1.html#cb2-90" tabindex="-1"></a><span class="do">## 1       243 -1.30 -7.95       0.878 TRUE    </span></span>
+<span id="cb2-91"><a href="introduction-1.html#cb2-91" tabindex="-1"></a><span class="do">## 2       244 -1.30 -7.95       0.870 FALSE   </span></span>
+<span id="cb2-92"><a href="introduction-1.html#cb2-92" tabindex="-1"></a><span class="do">## 3       245 -1.30 -7.95       0.861 FALSE</span></span></code></pre></div>
+<div id="plot-objective-value" class="section level3 hasAnchor" number="3.1.1">
+<h3><span class="header-section-number">3.1.1</span> Plot objective value<a href="introduction-1.html#plot-objective-value" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The objective value plot depicts how the value of the function being
+minimized changes over the course of the simulated annealing process.
+The horizontal axis represents iteration number, while the vertical axis
+shows the current objective (or cost) value at each step. Each point
+reflects the quality of the solution at that iteration, allowing the
+progression of the algorithm to be tracked numerically over time. Early
+in the search, the objective value typically fluctuates as the algorithm
+explores the solution space and occasionally accepts worse solutions. As
+the temperature decreases, the objective values generally trend downward
+and stabilize, indicating that the algorithm is converging toward a
+low-cost (near-optimal) solution.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="introduction-1.html#cb3-1" tabindex="-1"></a></span>
+<span id="cb3-2"><a href="introduction-1.html#cb3-2" tabindex="-1"></a><span class="co">#-----------------------------</span></span>
+<span id="cb3-3"><a href="introduction-1.html#cb3-3" tabindex="-1"></a><span class="fu">ggplot</span>(results, <span class="fu">aes</span>(iteration, cost)) <span class="sc">+</span></span>
+<span id="cb3-4"><a href="introduction-1.html#cb3-4" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb3-5"><a href="introduction-1.html#cb3-5" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb3-6"><a href="introduction-1.html#cb3-6" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Simulated Annealing&quot;</span>,</span>
+<span id="cb3-7"><a href="introduction-1.html#cb3-7" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">&quot;Objective Function Over Time&quot;</span>,</span>
+<span id="cb3-8"><a href="introduction-1.html#cb3-8" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;Iteration&quot;</span>,</span>
+<span id="cb3-9"><a href="introduction-1.html#cb3-9" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;Objective Function&quot;</span></span>
+<span id="cb3-10"><a href="introduction-1.html#cb3-10" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb3-11"><a href="introduction-1.html#cb3-11" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code></pre></div>
+<p><img src="Modelling_Foundations_files/figure-html/objective_value_sa-1.png" width="80%" /></p>
+</div>
+<div id="plot-search-trajectory" class="section level3 hasAnchor" number="3.1.2">
+<h3><span class="header-section-number">3.1.2</span> Plot search trajectory<a href="introduction-1.html#plot-search-trajectory" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The search trajectory plot depicts how the value of the decision
+variable ((x)) changes over successive iterations of the simulated
+annealing algorithm. The horizontal axis represents the iteration
+number, while the vertical axis shows the current value of (x) at each
+accepted step in the optimization. Rather than illustrating the quality
+of the solution directly, the plot shows how the algorithm navigates the
+search space over time. During the early iterations, larger fluctuations
+in (x) are typically observed as the high temperature encourages
+exploration by allowing occasional acceptance of worse solutions. As the
+temperature decreases, these fluctuations become smaller and the
+trajectory begins to stabilize, indicating that the algorithm is
+transitioning from broad exploration to local refinement. Ultimately,
+the plot demonstrates the convergence behavior of simulated annealing as
+it progressively settles near the value of (x) that minimizes the
+objective function.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="introduction-1.html#cb4-1" tabindex="-1"></a><span class="co">#-----------------------------</span></span>
+<span id="cb4-2"><a href="introduction-1.html#cb4-2" tabindex="-1"></a><span class="fu">ggplot</span>(results, <span class="fu">aes</span>(iteration, x)) <span class="sc">+</span></span>
+<span id="cb4-3"><a href="introduction-1.html#cb4-3" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb4-4"><a href="introduction-1.html#cb4-4" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb4-5"><a href="introduction-1.html#cb4-5" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Search Trajectory&quot;</span>,</span>
+<span id="cb4-6"><a href="introduction-1.html#cb4-6" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;Iteration&quot;</span>,</span>
+<span id="cb4-7"><a href="introduction-1.html#cb4-7" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;x&quot;</span></span>
+<span id="cb4-8"><a href="introduction-1.html#cb4-8" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb4-9"><a href="introduction-1.html#cb4-9" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code></pre></div>
+<p><img src="Modelling_Foundations_files/figure-html/search_traj_sa-1.png" width="80%" /></p>
+</div>
+<div id="plot-objective-function-with-optimization-path" class="section level3 hasAnchor" number="3.1.3">
+<h3><span class="header-section-number">3.1.3</span> Plot objective function with optimization path<a href="introduction-1.html#plot-objective-function-with-optimization-path" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The optimization path chart depicts the sequence of solutions explored
+by the simulated annealing algorithm as it searches for the minimum of
+the objective function. The solid curve represents the objective
+function, (f(x)=x^2+10(x)), while each red point corresponds to a
+solution accepted by the algorithm during an iteration. The horizontal
+position of a point indicates the value of the decision variable (x),
+and the vertical position representsthe corresponding objective function
+value. Reading the points in chronological order reveals the trajectory
+taken throughthe search space, illustrating how the algorithm moves
+between candidate solutions rather than progressing directly toward the
+optimum. The distribution of points demonstrates the balance between
+exploration and exploitation that characterizes simulated annealing.
+During the early stages of the optimization, the point may appear widely
+scattered, reflecting the high temperature that allows the algorithm to
+accept occasional worse solutions and explore different regions of the
+objective function. As the temperature decreases, the accepted points
+become increasingly concentrated around the global minimum, indicating
+that the algorithm is becoming more selective and focusing on refining
+the best solution found. The chart therefore provides a visual
+representation of how simulated annealing initially performs a broad
+search of the solution landscape before gradually converging toward an
+optimal solution.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="introduction-1.html#cb5-1" tabindex="-1"></a><span class="co">#-----------------------------</span></span>
+<span id="cb5-2"><a href="introduction-1.html#cb5-2" tabindex="-1"></a>curve_data <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb5-3"><a href="introduction-1.html#cb5-3" tabindex="-1"></a>  <span class="at">x =</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">10</span>, <span class="dv">10</span>, <span class="at">length.out =</span> <span class="dv">500</span>)</span>
+<span id="cb5-4"><a href="introduction-1.html#cb5-4" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb5-5"><a href="introduction-1.html#cb5-5" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">cost =</span> <span class="fu">objective</span>(x))</span>
+<span id="cb5-6"><a href="introduction-1.html#cb5-6" tabindex="-1"></a></span>
+<span id="cb5-7"><a href="introduction-1.html#cb5-7" tabindex="-1"></a><span class="fu">ggplot</span>(curve_data, <span class="fu">aes</span>(x, cost)) <span class="sc">+</span></span>
+<span id="cb5-8"><a href="introduction-1.html#cb5-8" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb5-9"><a href="introduction-1.html#cb5-9" tabindex="-1"></a>  <span class="fu">geom_point</span>(</span>
+<span id="cb5-10"><a href="introduction-1.html#cb5-10" tabindex="-1"></a>    <span class="at">data =</span> results,</span>
+<span id="cb5-11"><a href="introduction-1.html#cb5-11" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> cost),</span>
+<span id="cb5-12"><a href="introduction-1.html#cb5-12" tabindex="-1"></a>    <span class="at">colour =</span> <span class="st">&quot;red&quot;</span>,</span>
+<span id="cb5-13"><a href="introduction-1.html#cb5-13" tabindex="-1"></a>    <span class="at">alpha =</span> <span class="fl">0.4</span></span>
+<span id="cb5-14"><a href="introduction-1.html#cb5-14" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb5-15"><a href="introduction-1.html#cb5-15" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb5-16"><a href="introduction-1.html#cb5-16" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Optimization Path&quot;</span>,</span>
+<span id="cb5-17"><a href="introduction-1.html#cb5-17" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;x&quot;</span>,</span>
+<span id="cb5-18"><a href="introduction-1.html#cb5-18" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;Objective Function&quot;</span></span>
+<span id="cb5-19"><a href="introduction-1.html#cb5-19" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb5-20"><a href="introduction-1.html#cb5-20" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code></pre></div>
+<p><img src="Modelling_Foundations_files/figure-html/objective_function_sa-1.png" width="80%" /></p>
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="simulated-annealing-and-the-sudoku-solver.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="sudoku-solver.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>
