@@ -23,7 +23,7 @@
 <meta name="author" content="Kelly Izzard" />
 
 
-<meta name="date" content="2026-07-06" />
+<meta name="date" content="2026-07-07" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -31,7 +31,7 @@
   
   
 <link rel="prev" href="cellular-automata-and-the-game-of-life.html"/>
-<link rel="next" href="summary.html"/>
+
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -240,8 +240,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="7.3" data-path="neutral-landscape-models.html"><a href="neutral-landscape-models.html#nlm-results"><i class="fa fa-check"></i><b>7.3</b> NLM RESULTS</a></li>
 <li class="chapter" data-level="7.4" data-path="neutral-landscape-models.html"><a href="neutral-landscape-models.html#introducing-spatial-autocorrolation"><i class="fa fa-check"></i><b>7.4</b> Introducing Spatial Autocorrolation</a></li>
 <li class="chapter" data-level="7.5" data-path="neutral-landscape-models.html"><a href="neutral-landscape-models.html#cluster-results"><i class="fa fa-check"></i><b>7.5</b> CLUSTER RESULTS</a></li>
+<li class="chapter" data-level="7.6" data-path="neutral-landscape-models.html"><a href="neutral-landscape-models.html#summary"><i class="fa fa-check"></i><b>7.6</b> Summary</a></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="summary.html"><a href="summary.html"><i class="fa fa-check"></i><b>8</b> Summary</a></li>
 </ul>
 
       </nav>
@@ -1863,14 +1863,20 @@ Figure 7.1: Fragmentation metrics across a forest-cover gradient generated using
 <p>Clumpiness (CLUMPY) provides even stronger evidence of the influence of spatial structure. Random landscapes consistently produced CLUMPY values near zero, indicating little tendency for forest cells to occur adjacent to one another beyond what would be expected by chance. In contrast, clustered landscapes maintained CLUMPY values between approximately 0.73 and 0.81 across all cover levels, demonstrating a strong degree of aggregation. These high values indicate that forest cells were preferentially grouped together, promoting connectivity and reducing isolation among habitat patches. Such patterns are ecologically important because they increase movement opportunities for organisms and help maintain larger areas of core habitat.</p>
 <p>The largest patch index (LPI) and number of patches (NP) further illustrate how fragmentation dynamics differ between random and autocorrelated landscapes. In both landscape types, LPI increased as forest cover increased, reflecting the growth of dominant habitat patches. However, clustered landscapes maintained relatively large and coherent habitat blocks even at lower levels of forest cover. While NP was not always dramatically lower in clustered landscapes, the combination of lower ED and higher CLUMPY indicates that patch arrangement, rather than patch count alone, is driving the observed differences in fragmentation. Overall, these results demonstrate that habitat amount alone is insufficient to describe landscape fragmentation. Spatial autocorrelation fundamentally alters the arrangement, connectivity, and persistence of habitat, highlighting the importance of considering both habitat quantity and spatial configuration when evaluating landscape structure.</p>
 </div>
+<div id="summary" class="section level2 hasAnchor" number="7.6">
+<h2><span class="header-section-number">7.6</span> Summary<a href="neutral-landscape-models.html#summary" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>This experiment used neutral landscape models (NLMs) to investigate how forest cover and spatial pattern influence landscape fragmentation. A series of 100 × 100 cell landscapes were generated across a gradient of forest cover ranging from 10% to 90%. Initially, landscapes were created using a random neutral model in which each cell was assigned independently, producing patterns with no spatial structure. Fragmentation was quantified using four commonly applied landscape metrics: Number of Patches (NP), Largest Patch Index (LPI), Edge Density (ED), and Clumpiness (CLUMPY). Results showed the characteristic fragmentation threshold observed in neutral landscapes, with patch numbers and edge density peaking at intermediate levels of forest cover and large, connected habitat patches emerging as cover increased.</p>
+<p>The experiment was then extended by introducing spatial autocorrelation using the midpoint displacement algorithm (nlm_mpd). This approach generated clustered habitat patterns that more closely resemble natural forest landscapes while maintaining the same range of forest cover levels. Comparing random and spatially autocorrelated landscapes demonstrated that habitat configuration strongly influences fragmentation dynamics independently of habitat abundance. Clustered landscapes consistently exhibited lower edge densities and substantially higher clumpiness values, indicating larger and more contiguous habitat patches with greater spatial connectivity. These findings highlight the importance of considering both habitat amount and spatial arrangement when evaluating landscape fragmentation, as landscapes containing identical amounts of habitat can differ dramatically in their ecological structure and connectivity depending on the degree of spatial autocorrelation.</p>
+
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="cellular-automata-and-the-game-of-life.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="summary.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="cellular-automata-and-the-game-of-life.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
