@@ -1,0 +1,1641 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>8 Simulation and Spreading | Modelling Foundations</title>
+  <meta name="description" content="8 Simulation and Spreading | Modelling Foundations" />
+  <meta name="generator" content="bookdown 0.40 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="8 Simulation and Spreading | Modelling Foundations" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="8 Simulation and Spreading | Modelling Foundations" />
+  
+  
+  
+
+<meta name="author" content="Kelly Izzard" />
+
+
+<meta name="date" content="2026-07-07" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="neutral-landscape-models.html"/>
+
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<link href="libs/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet" />
+<script src="libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+<script src="libs/plotly-binding-4.10.4/plotly.js"></script>
+<script src="libs/typedarray-0.1/typedarray.min.js"></script>
+<link href="libs/crosstalk-1.2.1/css/crosstalk.min.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.2.1/js/crosstalk.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-2.11.1/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-2.11.1/plotly-latest.min.js"></script>
+
+
+<style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#models-and-modellers"><i class="fa fa-check"></i><b>1.1</b> Models and Modellers</a>
+<ul>
+<li class="chapter" data-level="1.1.1" data-path="index.html"><a href="index.html#what-is-a-model"><i class="fa fa-check"></i><b>1.1.1</b> What is a Model</a></li>
+<li class="chapter" data-level="1.1.2" data-path="index.html"><a href="index.html#classification-of-models"><i class="fa fa-check"></i><b>1.1.2</b> Classification of Models</a></li>
+<li class="chapter" data-level="1.1.3" data-path="index.html"><a href="index.html#building-a-model-defining-the-problem-and-its-considerations"><i class="fa fa-check"></i><b>1.1.3</b> Building a Model (Defining the Problem and it’s Considerations)</a></li>
+<li class="chapter" data-level="1.1.4" data-path="index.html"><a href="index.html#the-modellers-creed"><i class="fa fa-check"></i><b>1.1.4</b> The Modeller’s creed</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="simulated-annealing-and-the-sudoku-solver.html"><a href="simulated-annealing-and-the-sudoku-solver.html"><i class="fa fa-check"></i><b>2</b> Simulated Annealing and the Sudoku Solver</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="simulated-annealing-and-the-sudoku-solver.html"><a href="simulated-annealing-and-the-sudoku-solver.html#introduction-1"><i class="fa fa-check"></i><b>2.1</b> Introduction</a></li>
+<li class="chapter" data-level="2.2" data-path="simulated-annealing-and-the-sudoku-solver.html"><a href="simulated-annealing-and-the-sudoku-solver.html#simple-model"><i class="fa fa-check"></i><b>2.2</b> Simple Model</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="simulated-annealing-and-the-sudoku-solver.html"><a href="simulated-annealing-and-the-sudoku-solver.html#plot-objective-value"><i class="fa fa-check"></i><b>2.2.1</b> Plot objective value</a></li>
+<li class="chapter" data-level="2.2.2" data-path="simulated-annealing-and-the-sudoku-solver.html"><a href="simulated-annealing-and-the-sudoku-solver.html#plot-search-trajectory"><i class="fa fa-check"></i><b>2.2.2</b> Plot search trajectory</a></li>
+<li class="chapter" data-level="2.2.3" data-path="simulated-annealing-and-the-sudoku-solver.html"><a href="simulated-annealing-and-the-sudoku-solver.html#plot-objective-function-with-optimization-path"><i class="fa fa-check"></i><b>2.2.3</b> Plot objective function with optimization path</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="simulated-annealing-and-the-sudoku-solver.html"><a href="simulated-annealing-and-the-sudoku-solver.html#sudoku-solver"><i class="fa fa-check"></i><b>2.3</b> Sudoku Solver</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="simulated-annealing-and-the-sudoku-solver.html"><a href="simulated-annealing-and-the-sudoku-solver.html#code-notes"><i class="fa fa-check"></i><b>2.3.1</b> Code Notes:</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="simulated-annealing-and-the-sudoku-solver.html"><a href="simulated-annealing-and-the-sudoku-solver.html#simulated-annealing-solver"><i class="fa fa-check"></i><b>2.4</b> Simulated Annealing Solver</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="simulated-annealing-and-the-sudoku-solver.html"><a href="simulated-annealing-and-the-sudoku-solver.html#code-notes-1"><i class="fa fa-check"></i><b>2.4.1</b> Code Notes:</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="simulated-annealing-and-the-sudoku-solver.html"><a href="simulated-annealing-and-the-sudoku-solver.html#d-plot-of-sudoku-loss-landscape"><i class="fa fa-check"></i><b>2.5</b> 3D plot of Sudoku loss landscape</a>
+<ul>
+<li class="chapter" data-level="2.5.1" data-path="simulated-annealing-and-the-sudoku-solver.html"><a href="simulated-annealing-and-the-sudoku-solver.html#why-use-pca"><i class="fa fa-check"></i><b>2.5.1</b> Why use PCA</a></li>
+<li class="chapter" data-level="2.5.2" data-path="simulated-annealing-and-the-sudoku-solver.html"><a href="simulated-annealing-and-the-sudoku-solver.html#interpretation"><i class="fa fa-check"></i><b>2.5.2</b> Interpretation</a></li>
+<li class="chapter" data-level="2.5.3" data-path="simulated-annealing-and-the-sudoku-solver.html"><a href="simulated-annealing-and-the-sudoku-solver.html#constraint-decomposition-and-the-sudoku-solver"><i class="fa fa-check"></i><b>2.5.3</b> Constraint Decomposition and the Sudoku Solver</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="simple-goal-programming-with-sann.html"><a href="simple-goal-programming-with-sann.html"><i class="fa fa-check"></i><b>3</b> Simple Goal Programming with SANN</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="simple-goal-programming-with-sann.html"><a href="simple-goal-programming-with-sann.html#introduction-2"><i class="fa fa-check"></i><b>3.1</b> Introduction</a></li>
+<li class="chapter" data-level="3.2" data-path="simple-goal-programming-with-sann.html"><a href="simple-goal-programming-with-sann.html#a-simple-goal-programming-model"><i class="fa fa-check"></i><b>3.2</b> A Simple Goal Programming Model</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="simple-goal-programming-with-sann.html"><a href="simple-goal-programming-with-sann.html#the-objective-function"><i class="fa fa-check"></i><b>3.2.1</b> The Objective Function</a></li>
+<li class="chapter" data-level="3.2.2" data-path="simple-goal-programming-with-sann.html"><a href="simple-goal-programming-with-sann.html#code-notes-2"><i class="fa fa-check"></i><b>3.2.2</b> Code Notes:</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="simple-goal-programming-with-sann.html"><a href="simple-goal-programming-with-sann.html#the-sann-optimization"><i class="fa fa-check"></i><b>3.3</b> The SANN Optimization</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="simple-goal-programming-with-sann.html"><a href="simple-goal-programming-with-sann.html#code-notes-3"><i class="fa fa-check"></i><b>3.3.1</b> Code Notes:</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="simple-goal-programming-with-sann.html"><a href="simple-goal-programming-with-sann.html#the-results"><i class="fa fa-check"></i><b>3.4</b> The Results</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="markov-chain-with-goal-programming.html"><a href="markov-chain-with-goal-programming.html"><i class="fa fa-check"></i><b>4</b> Markov Chain with Goal Programming</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="markov-chain-with-goal-programming.html"><a href="markov-chain-with-goal-programming.html#introduction-3"><i class="fa fa-check"></i><b>4.1</b> Introduction</a></li>
+<li class="chapter" data-level="4.2" data-path="markov-chain-with-goal-programming.html"><a href="markov-chain-with-goal-programming.html#markov-chain-and-goal-programming"><i class="fa fa-check"></i><b>4.2</b> Markov Chain and Goal Programming</a></li>
+<li class="chapter" data-level="4.3" data-path="markov-chain-with-goal-programming.html"><a href="markov-chain-with-goal-programming.html#the-markov-chain-transition-probability-matrix"><i class="fa fa-check"></i><b>4.3</b> The Markov Chain Transition Probability Matrix</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="markov-chain-with-goal-programming.html"><a href="markov-chain-with-goal-programming.html#code-notes-4"><i class="fa fa-check"></i><b>4.3.1</b> Code Notes:</a></li>
+<li class="chapter" data-level="4.3.2" data-path="markov-chain-with-goal-programming.html"><a href="markov-chain-with-goal-programming.html#markov-habitat-function"><i class="fa fa-check"></i><b>4.3.2</b> Markov Habitat Function</a></li>
+<li class="chapter" data-level="4.3.3" data-path="markov-chain-with-goal-programming.html"><a href="markov-chain-with-goal-programming.html#the-objective-function-1"><i class="fa fa-check"></i><b>4.3.3</b> The Objective Function</a></li>
+<li class="chapter" data-level="4.3.4" data-path="markov-chain-with-goal-programming.html"><a href="markov-chain-with-goal-programming.html#the-sann-optimization-and-results"><i class="fa fa-check"></i><b>4.3.4</b> The SANN Optimization and RESULTS</a></li>
+<li class="chapter" data-level="4.3.5" data-path="markov-chain-with-goal-programming.html"><a href="markov-chain-with-goal-programming.html#results"><i class="fa fa-check"></i><b>4.3.5</b> Results</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="monte-carlo-markov-chain.html"><a href="monte-carlo-markov-chain.html"><i class="fa fa-check"></i><b>5</b> Monte Carlo Markov Chain</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="monte-carlo-markov-chain.html"><a href="monte-carlo-markov-chain.html#introduction-4"><i class="fa fa-check"></i><b>5.1</b> Introduction</a></li>
+<li class="chapter" data-level="5.2" data-path="monte-carlo-markov-chain.html"><a href="monte-carlo-markov-chain.html#the-monte-carlo-markov-chain"><i class="fa fa-check"></i><b>5.2</b> The Monte Carlo Markov Chain</a></li>
+<li class="chapter" data-level="5.3" data-path="monte-carlo-markov-chain.html"><a href="monte-carlo-markov-chain.html#mcmc-sampling-loop-joint-bulk-and-tail-model"><i class="fa fa-check"></i><b>5.3</b> MCMC Sampling Loop (Joint Bulk and Tail Model)</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="monte-carlo-markov-chain.html"><a href="monte-carlo-markov-chain.html#code-notes-6"><i class="fa fa-check"></i><b>5.3.1</b> Code Notes:</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="monte-carlo-markov-chain.html"><a href="monte-carlo-markov-chain.html#results-1"><i class="fa fa-check"></i><b>5.4</b> Results</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="cellular-automata-and-the-game-of-life.html"><a href="cellular-automata-and-the-game-of-life.html"><i class="fa fa-check"></i><b>6</b> Cellular Automata and the Game of Life</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="cellular-automata-and-the-game-of-life.html"><a href="cellular-automata-and-the-game-of-life.html#introduction-5"><i class="fa fa-check"></i><b>6.1</b> Introduction</a></li>
+<li class="chapter" data-level="6.2" data-path="cellular-automata-and-the-game-of-life.html"><a href="cellular-automata-and-the-game-of-life.html#wolfram"><i class="fa fa-check"></i><b>6.2</b> Wolfram</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="cellular-automata-and-the-game-of-life.html"><a href="cellular-automata-and-the-game-of-life.html#codes-notes"><i class="fa fa-check"></i><b>6.2.1</b> Codes Notes</a></li>
+<li class="chapter" data-level="6.2.2" data-path="cellular-automata-and-the-game-of-life.html"><a href="cellular-automata-and-the-game-of-life.html#class-iii-rule-30"><i class="fa fa-check"></i><b>6.2.2</b> Class III Rule 30</a></li>
+<li class="chapter" data-level="6.2.3" data-path="cellular-automata-and-the-game-of-life.html"><a href="cellular-automata-and-the-game-of-life.html#class-iv-rule-90"><i class="fa fa-check"></i><b>6.2.3</b> Class IV Rule 90</a></li>
+<li class="chapter" data-level="6.2.4" data-path="cellular-automata-and-the-game-of-life.html"><a href="cellular-automata-and-the-game-of-life.html#class-iv-rule-125"><i class="fa fa-check"></i><b>6.2.4</b> Class IV Rule 125</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="cellular-automata-and-the-game-of-life.html"><a href="cellular-automata-and-the-game-of-life.html#the-game-of-life"><i class="fa fa-check"></i><b>6.3</b> The Game of Life</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="cellular-automata-and-the-game-of-life.html"><a href="cellular-automata-and-the-game-of-life.html#code-notes-7"><i class="fa fa-check"></i><b>6.3.1</b> Code Notes</a></li>
+<li class="chapter" data-level="6.3.2" data-path="cellular-automata-and-the-game-of-life.html"><a href="cellular-automata-and-the-game-of-life.html#animate"><i class="fa fa-check"></i><b>6.3.2</b> Animate</a></li>
+<li class="chapter" data-level="6.3.3" data-path="cellular-automata-and-the-game-of-life.html"><a href="cellular-automata-and-the-game-of-life.html#population-trend"><i class="fa fa-check"></i><b>6.3.3</b> Population Trend</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="neutral-landscape-models.html"><a href="neutral-landscape-models.html"><i class="fa fa-check"></i><b>7</b> Neutral Landscape Models</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="neutral-landscape-models.html"><a href="neutral-landscape-models.html#introduction-6"><i class="fa fa-check"></i><b>7.1</b> Introduction</a></li>
+<li class="chapter" data-level="7.2" data-path="neutral-landscape-models.html"><a href="neutral-landscape-models.html#testing-fragmentation-and-connectivity"><i class="fa fa-check"></i><b>7.2</b> Testing fragmentation and connectivity</a></li>
+<li class="chapter" data-level="7.3" data-path="neutral-landscape-models.html"><a href="neutral-landscape-models.html#nlm-results"><i class="fa fa-check"></i><b>7.3</b> NLM RESULTS</a></li>
+<li class="chapter" data-level="7.4" data-path="neutral-landscape-models.html"><a href="neutral-landscape-models.html#introducing-spatial-autocorrolation"><i class="fa fa-check"></i><b>7.4</b> Introducing Spatial Autocorrolation</a></li>
+<li class="chapter" data-level="7.5" data-path="neutral-landscape-models.html"><a href="neutral-landscape-models.html#cluster-results"><i class="fa fa-check"></i><b>7.5</b> CLUSTER RESULTS</a></li>
+<li class="chapter" data-level="7.6" data-path="neutral-landscape-models.html"><a href="neutral-landscape-models.html#summary"><i class="fa fa-check"></i><b>7.6</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="simulation-and-spreading.html"><a href="simulation-and-spreading.html"><i class="fa fa-check"></i><b>8</b> Simulation and Spreading</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="simulation-and-spreading.html"><a href="simulation-and-spreading.html#introduction-7"><i class="fa fa-check"></i><b>8.1</b> Introduction</a></li>
+<li class="chapter" data-level="8.2" data-path="simulation-and-spreading.html"><a href="simulation-and-spreading.html#spreading"><i class="fa fa-check"></i><b>8.2</b> Spreading</a>
+<ul>
+<li class="chapter" data-level="8.2.1" data-path="simulation-and-spreading.html"><a href="simulation-and-spreading.html#simulated-landscapes"><i class="fa fa-check"></i><b>8.2.1</b> Simulated Landscapes</a></li>
+<li class="chapter" data-level="8.2.2" data-path="simulation-and-spreading.html"><a href="simulation-and-spreading.html#spreading-with-a-graph"><i class="fa fa-check"></i><b>8.2.2</b> Spreading with a graph</a></li>
+<li class="chapter" data-level="8.2.3" data-path="simulation-and-spreading.html"><a href="simulation-and-spreading.html#contagion"><i class="fa fa-check"></i><b>8.2.3</b> Contagion</a></li>
+<li class="chapter" data-level="8.2.4" data-path="simulation-and-spreading.html"><a href="simulation-and-spreading.html#monte-carlo-simulation"><i class="fa fa-check"></i><b>8.2.4</b> Monte Carlo Simulation</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="simulation-and-spreading.html"><a href="simulation-and-spreading.html#results-2"><i class="fa fa-check"></i><b>8.3</b> RESULTS</a></li>
+<li class="chapter" data-level="8.4" data-path="simulation-and-spreading.html"><a href="simulation-and-spreading.html#summary-1"><i class="fa fa-check"></i><b>8.4</b> Summary</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Modelling Foundations</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="simulation-and-spreading" class="section level1 hasAnchor" number="8">
+<h1><span class="header-section-number">8</span> Simulation and Spreading<a href="simulation-and-spreading.html#simulation-and-spreading" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="introduction-7" class="section level2 hasAnchor" number="8.1">
+<h2><span class="header-section-number">8.1</span> Introduction<a href="simulation-and-spreading.html#introduction-7" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Simulation modelling is a powerful tool in landscape analysis because it allows researchers to investigate ecological processes under controlled and repeatable conditions that would be difficult, costly, or impossible to observe directly in real landscapes. By generating artificial landscapes with known properties, researchers can isolate the effects of habitat amount, spatial arrangement, and connectivity on ecological processes such as species movement, disturbance propagation, gene flow, or disease transmission. Neutral Landscape Models (NLMs) are particularly useful because they create landscapes according to specified statistical rules rather than observed ecological patterns, allowing hypotheses about landscape structure and function to be examined without the confounding influences present in real-world systems.</p>
+<p>This script uses simulation to examine how differences in landscape structure influence connectivity and the spread of a contagion process. The model is designed to identify critical connectivity thresholds predicted by percolation theory, where small increases in habitat cover cause isolated habitat patches to become linked into large connected networks, resulting in a rapid increase in the potential for landscape-scale contagion. This provides a rigorous framework for understanding how landscape pattern influences ecological processes and for exploring the consequences of habitat fragmentation and connectivity in complex spatial systems.</p>
+</div>
+<div id="spreading" class="section level2 hasAnchor" number="8.2">
+<h2><span class="header-section-number">8.2</span> Spreading<a href="simulation-and-spreading.html#spreading" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>This simulation is based on the principle that landscape pattern influences ecological connectivity, and that connectivity influences the ability of a process to spread across a landscape. Two neutral landscape models are generated: a completely random landscape and a spatially autocorrelated (clustered) landscape. Each landscape is converted into a binary raster in which cells are classified as either forest habitat or non-forest habitat according to a specified level of forest cover. By varying forest cover from 10% to 90%, the simulation examines how changes in habitat amount affect the formation of connected habitat networks.</p>
+<p>Forest habitat is represented as a graph (network), where each forest cell is treated as a node and adjacent forest cells are connected by edges. This graph-based representation allows the landscape to be analysed using connectivity theory. Metrics such as the number of connected components, the size of the largest connected component, mean node degree, edge density, and clustering coefficient describe the structure of the habitat network. Of particular importance is the proportion of habitat contained within the largest connected component, which represents the amount of habitat that is accessible through continuous forest connections.</p>
+<p><img src="random_contagion2.gif" width="49%" /><img src="clustered_contagion2.gif" width="49%" /></p>
+<p>A <strong>contagion</strong> is any process that spreads from one location to another through a connected system. Although the term originates from epidemiology, in landscape ecology it can represent the spread of wildfire, pests, pathogens, invasive species, disturbances, information, or organisms moving through habitat. In this simulation, contagion begins in a randomly selected forest cell and spreads to neighbouring forest cells with a specified transmission probability. Because transmission can only occur through existing graph connections, the spread is constrained by the structure and connectivity of the landscape. Highly fragmented landscapes tend to limit contagion because movement is restricted to small, isolated habitat patches, whereas highly connected landscapes provide pathways that allow the contagion to propagate across much larger areas.</p>
+<p>The simulation adopts a Monte Carlo framework in which hundreds of replicate landscapes are generated for every combination of landscape type and forest cover. Connectivity metrics and contagion outcomes are recorded and analysed statistically. A key objective is to identify patterns predicted by <strong>percolation theory</strong>, which examines how large-scale connectivity emerges as the proportion of occupied habitat increases. Percolation theory predicts that a critical threshold exists where a small increase in habitat cover causes many isolated patches to become connected into a large, landscape-spanning network known as a giant connected component. At this threshold, connectivity increases rapidly and contagion spread can shift from being highly localized to spreading across much of the landscape. Identifying this transition provides insight into how habitat amount, fragmentation, and connectivity jointly influence ecological processes at landscape scales.</p>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="simulation-and-spreading.html#cb33-1" tabindex="-1"></a></span>
+<span id="cb33-2"><a href="simulation-and-spreading.html#cb33-2" tabindex="-1"></a><span class="fu">library</span>(NLMR)</span>
+<span id="cb33-3"><a href="simulation-and-spreading.html#cb33-3" tabindex="-1"></a><span class="fu">library</span>(raster)</span>
+<span id="cb33-4"><a href="simulation-and-spreading.html#cb33-4" tabindex="-1"></a><span class="fu">library</span>(igraph)</span>
+<span id="cb33-5"><a href="simulation-and-spreading.html#cb33-5" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb33-6"><a href="simulation-and-spreading.html#cb33-6" tabindex="-1"></a></span>
+<span id="cb33-7"><a href="simulation-and-spreading.html#cb33-7" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="cn">NULL</span>)</span>
+<span id="cb33-8"><a href="simulation-and-spreading.html#cb33-8" tabindex="-1"></a>a<span class="ot">&lt;-</span><span class="fu">Sys.time</span>()</span>
+<span id="cb33-9"><a href="simulation-and-spreading.html#cb33-9" tabindex="-1"></a><span class="co">#------------------------------------------------------------------------------</span></span>
+<span id="cb33-10"><a href="simulation-and-spreading.html#cb33-10" tabindex="-1"></a><span class="co"># USER SETTINGS</span></span>
+<span id="cb33-11"><a href="simulation-and-spreading.html#cb33-11" tabindex="-1"></a><span class="co">#------------------------------------------------------------------------------</span></span>
+<span id="cb33-12"><a href="simulation-and-spreading.html#cb33-12" tabindex="-1"></a></span>
+<span id="cb33-13"><a href="simulation-and-spreading.html#cb33-13" tabindex="-1"></a>n_sims <span class="ot">&lt;-</span> <span class="dv">100</span></span>
+<span id="cb33-14"><a href="simulation-and-spreading.html#cb33-14" tabindex="-1"></a></span>
+<span id="cb33-15"><a href="simulation-and-spreading.html#cb33-15" tabindex="-1"></a>forest_cover_seq <span class="ot">&lt;-</span> <span class="fu">seq</span>(</span>
+<span id="cb33-16"><a href="simulation-and-spreading.html#cb33-16" tabindex="-1"></a>  <span class="fl">0.10</span>,</span>
+<span id="cb33-17"><a href="simulation-and-spreading.html#cb33-17" tabindex="-1"></a>  <span class="fl">0.90</span>,</span>
+<span id="cb33-18"><a href="simulation-and-spreading.html#cb33-18" tabindex="-1"></a>  <span class="at">by =</span> <span class="fl">0.05</span></span>
+<span id="cb33-19"><a href="simulation-and-spreading.html#cb33-19" tabindex="-1"></a>)</span>
+<span id="cb33-20"><a href="simulation-and-spreading.html#cb33-20" tabindex="-1"></a></span>
+<span id="cb33-21"><a href="simulation-and-spreading.html#cb33-21" tabindex="-1"></a>landscape_types <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb33-22"><a href="simulation-and-spreading.html#cb33-22" tabindex="-1"></a>  <span class="st">&quot;random&quot;</span>,</span>
+<span id="cb33-23"><a href="simulation-and-spreading.html#cb33-23" tabindex="-1"></a>  <span class="st">&quot;clustered&quot;</span></span>
+<span id="cb33-24"><a href="simulation-and-spreading.html#cb33-24" tabindex="-1"></a>)</span>
+<span id="cb33-25"><a href="simulation-and-spreading.html#cb33-25" tabindex="-1"></a></span>
+<span id="cb33-26"><a href="simulation-and-spreading.html#cb33-26" tabindex="-1"></a>nrow <span class="ot">&lt;-</span> <span class="dv">50</span></span>
+<span id="cb33-27"><a href="simulation-and-spreading.html#cb33-27" tabindex="-1"></a>ncol <span class="ot">&lt;-</span> <span class="dv">50</span></span>
+<span id="cb33-28"><a href="simulation-and-spreading.html#cb33-28" tabindex="-1"></a></span>
+<span id="cb33-29"><a href="simulation-and-spreading.html#cb33-29" tabindex="-1"></a>p_transmit <span class="ot">&lt;-</span> <span class="fl">0.35</span></span>
+<span id="cb33-30"><a href="simulation-and-spreading.html#cb33-30" tabindex="-1"></a></span>
+<span id="cb33-31"><a href="simulation-and-spreading.html#cb33-31" tabindex="-1"></a>max_steps <span class="ot">&lt;-</span> <span class="dv">50</span></span>
+<span id="cb33-32"><a href="simulation-and-spreading.html#cb33-32" tabindex="-1"></a></span>
+<span id="cb33-33"><a href="simulation-and-spreading.html#cb33-33" tabindex="-1"></a>infectious_period <span class="ot">&lt;-</span> <span class="dv">3</span></span></code></pre></div>
+<div id="simulated-landscapes" class="section level3 hasAnchor" number="8.2.1">
+<h3><span class="header-section-number">8.2.1</span> Simulated Landscapes<a href="simulation-and-spreading.html#simulated-landscapes" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The <code>create_landscape()</code> function generates a binary forest landscape using a specified Neutral Landscape Model (NLM). The user can choose either a <strong>random landscape</strong> (<code>nlm_random</code>) or a <strong>spatially autocorrelated, clustered landscape</strong> (<code>nlm_mpd</code>) and define the desired forest cover and landscape dimensions (<code>nrow</code> and <code>ncol</code>). The selected NLM first produces a continuous raster surface containing values distributed according to the chosen landscape-generation process. A threshold value is then calculated using the specified forest-cover proportion (<code>cover</code>), corresponding to the selected quantile of the raster values. All cells with values less than or equal to this threshold are classified as forest habitat (<code>1</code>), while all remaining cells are classified as non-forest habitat (<code>0</code>). The resulting output is a binary raster representing a landscape with a prescribed percentage of forest cover but differing spatial patterns depending on whether a random or clustered landscape model was selected. This binary forest map serves as the foundation for subsequent connectivity analysis and contagion simulations.</p>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="simulation-and-spreading.html#cb34-1" tabindex="-1"></a><span class="co">#------------------------------------------------------------------------------</span></span>
+<span id="cb34-2"><a href="simulation-and-spreading.html#cb34-2" tabindex="-1"></a><span class="co"># LANDSCAPE GENERATION</span></span>
+<span id="cb34-3"><a href="simulation-and-spreading.html#cb34-3" tabindex="-1"></a><span class="co">#------------------------------------------------------------------------------</span></span>
+<span id="cb34-4"><a href="simulation-and-spreading.html#cb34-4" tabindex="-1"></a></span>
+<span id="cb34-5"><a href="simulation-and-spreading.html#cb34-5" tabindex="-1"></a>create_landscape <span class="ot">&lt;-</span> <span class="cf">function</span>(</span>
+<span id="cb34-6"><a href="simulation-and-spreading.html#cb34-6" tabindex="-1"></a>    model,</span>
+<span id="cb34-7"><a href="simulation-and-spreading.html#cb34-7" tabindex="-1"></a>    cover,</span>
+<span id="cb34-8"><a href="simulation-and-spreading.html#cb34-8" tabindex="-1"></a>    nrow,</span>
+<span id="cb34-9"><a href="simulation-and-spreading.html#cb34-9" tabindex="-1"></a>    ncol){</span>
+<span id="cb34-10"><a href="simulation-and-spreading.html#cb34-10" tabindex="-1"></a>  </span>
+<span id="cb34-11"><a href="simulation-and-spreading.html#cb34-11" tabindex="-1"></a>  <span class="cf">if</span>(model <span class="sc">==</span> <span class="st">&quot;random&quot;</span>){</span>
+<span id="cb34-12"><a href="simulation-and-spreading.html#cb34-12" tabindex="-1"></a>    </span>
+<span id="cb34-13"><a href="simulation-and-spreading.html#cb34-13" tabindex="-1"></a>    nlm <span class="ot">&lt;-</span> <span class="fu">nlm_random</span>(</span>
+<span id="cb34-14"><a href="simulation-and-spreading.html#cb34-14" tabindex="-1"></a>      <span class="at">nrow =</span> nrow,</span>
+<span id="cb34-15"><a href="simulation-and-spreading.html#cb34-15" tabindex="-1"></a>      <span class="at">ncol =</span> ncol</span>
+<span id="cb34-16"><a href="simulation-and-spreading.html#cb34-16" tabindex="-1"></a>    )</span>
+<span id="cb34-17"><a href="simulation-and-spreading.html#cb34-17" tabindex="-1"></a>    </span>
+<span id="cb34-18"><a href="simulation-and-spreading.html#cb34-18" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
+<span id="cb34-19"><a href="simulation-and-spreading.html#cb34-19" tabindex="-1"></a>    </span>
+<span id="cb34-20"><a href="simulation-and-spreading.html#cb34-20" tabindex="-1"></a>    nlm <span class="ot">&lt;-</span> <span class="fu">nlm_mpd</span>(</span>
+<span id="cb34-21"><a href="simulation-and-spreading.html#cb34-21" tabindex="-1"></a>      <span class="at">nrow =</span> nrow,</span>
+<span id="cb34-22"><a href="simulation-and-spreading.html#cb34-22" tabindex="-1"></a>      <span class="at">ncol =</span> ncol,</span>
+<span id="cb34-23"><a href="simulation-and-spreading.html#cb34-23" tabindex="-1"></a>      <span class="at">roughness =</span> <span class="fl">0.8</span></span>
+<span id="cb34-24"><a href="simulation-and-spreading.html#cb34-24" tabindex="-1"></a>    )</span>
+<span id="cb34-25"><a href="simulation-and-spreading.html#cb34-25" tabindex="-1"></a>    </span>
+<span id="cb34-26"><a href="simulation-and-spreading.html#cb34-26" tabindex="-1"></a>  }</span>
+<span id="cb34-27"><a href="simulation-and-spreading.html#cb34-27" tabindex="-1"></a>  </span>
+<span id="cb34-28"><a href="simulation-and-spreading.html#cb34-28" tabindex="-1"></a>  threshold <span class="ot">&lt;-</span> <span class="fu">quantile</span>(</span>
+<span id="cb34-29"><a href="simulation-and-spreading.html#cb34-29" tabindex="-1"></a>    <span class="fu">values</span>(nlm),</span>
+<span id="cb34-30"><a href="simulation-and-spreading.html#cb34-30" tabindex="-1"></a>    <span class="at">probs =</span> cover,</span>
+<span id="cb34-31"><a href="simulation-and-spreading.html#cb34-31" tabindex="-1"></a>    <span class="at">na.rm =</span> <span class="cn">TRUE</span></span>
+<span id="cb34-32"><a href="simulation-and-spreading.html#cb34-32" tabindex="-1"></a>  )</span>
+<span id="cb34-33"><a href="simulation-and-spreading.html#cb34-33" tabindex="-1"></a>  </span>
+<span id="cb34-34"><a href="simulation-and-spreading.html#cb34-34" tabindex="-1"></a>  forest <span class="ot">&lt;-</span> nlm</span>
+<span id="cb34-35"><a href="simulation-and-spreading.html#cb34-35" tabindex="-1"></a>  </span>
+<span id="cb34-36"><a href="simulation-and-spreading.html#cb34-36" tabindex="-1"></a>  forest[] <span class="ot">&lt;-</span> <span class="fu">as.integer</span>(</span>
+<span id="cb34-37"><a href="simulation-and-spreading.html#cb34-37" tabindex="-1"></a>    <span class="fu">values</span>(nlm) <span class="sc">&lt;=</span> threshold</span>
+<span id="cb34-38"><a href="simulation-and-spreading.html#cb34-38" tabindex="-1"></a>  )</span>
+<span id="cb34-39"><a href="simulation-and-spreading.html#cb34-39" tabindex="-1"></a>  </span>
+<span id="cb34-40"><a href="simulation-and-spreading.html#cb34-40" tabindex="-1"></a>  forest</span>
+<span id="cb34-41"><a href="simulation-and-spreading.html#cb34-41" tabindex="-1"></a>  </span>
+<span id="cb34-42"><a href="simulation-and-spreading.html#cb34-42" tabindex="-1"></a>}</span></code></pre></div>
+</div>
+<div id="spreading-with-a-graph" class="section level3 hasAnchor" number="8.2.2">
+<h3><span class="header-section-number">8.2.2</span> Spreading with a graph<a href="simulation-and-spreading.html#spreading-with-a-graph" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The <code>build_graph()</code> function converts the binary forest landscape into a graph (network) representation that can be analyzed using graph theory. First, all forest cells are identified by selecting raster cells with a value of <code>1</code>, representing habitat. The function then uses the <code>adjacent()</code> routine to determine which forest cells are connected through a four-neighbour rule (north, south, east, and west). These adjacency relationships are filtered so that only connections between forest cells are retained, excluding any links that would involve non-forest habitat. In ecological terms, this step transforms the raster landscape into a network where each forest cell becomes a potential habitat node and neighboring forest cells become connected through edges, thereby representing the structural connectivity of the landscape.</p>
+<p>The adjacency information is then used to construct an undirected graph using <code>graph_from_edgelist()</code>, where movement or contagion can occur in both directions between connected habitat cells. The function also includes safeguards for highly fragmented landscapes. If no adjacent habitat cells exist, an empty graph is created containing only isolated habitat nodes. Similarly, any forest cells that do not appear in the adjacency list are added as isolated vertices to ensure that every habitat cell is represented in the final network. The resulting graph therefore provides a complete representation of the habitat configuration, including both connected habitat patches and isolated cells. This graph serves as the foundation for subsequent connectivity analyses, such as calculating connected components and giant component size, as well as for simulating contagion spread through the landscape.</p>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="simulation-and-spreading.html#cb35-1" tabindex="-1"></a><span class="co">#------------------------------------------------------------------------------</span></span>
+<span id="cb35-2"><a href="simulation-and-spreading.html#cb35-2" tabindex="-1"></a><span class="co"># BUILD GRAPH</span></span>
+<span id="cb35-3"><a href="simulation-and-spreading.html#cb35-3" tabindex="-1"></a><span class="co">#------------------------------------------------------------------------------</span></span>
+<span id="cb35-4"><a href="simulation-and-spreading.html#cb35-4" tabindex="-1"></a></span>
+<span id="cb35-5"><a href="simulation-and-spreading.html#cb35-5" tabindex="-1"></a>build_graph <span class="ot">&lt;-</span> <span class="cf">function</span>(forest){</span>
+<span id="cb35-6"><a href="simulation-and-spreading.html#cb35-6" tabindex="-1"></a>  </span>
+<span id="cb35-7"><a href="simulation-and-spreading.html#cb35-7" tabindex="-1"></a>  forest_cells <span class="ot">&lt;-</span> <span class="fu">which</span>(</span>
+<span id="cb35-8"><a href="simulation-and-spreading.html#cb35-8" tabindex="-1"></a>    <span class="fu">values</span>(forest) <span class="sc">==</span> <span class="dv">1</span></span>
+<span id="cb35-9"><a href="simulation-and-spreading.html#cb35-9" tabindex="-1"></a>  )</span>
+<span id="cb35-10"><a href="simulation-and-spreading.html#cb35-10" tabindex="-1"></a>  </span>
+<span id="cb35-11"><a href="simulation-and-spreading.html#cb35-11" tabindex="-1"></a>  adj <span class="ot">&lt;-</span> <span class="fu">adjacent</span>(</span>
+<span id="cb35-12"><a href="simulation-and-spreading.html#cb35-12" tabindex="-1"></a>    forest,</span>
+<span id="cb35-13"><a href="simulation-and-spreading.html#cb35-13" tabindex="-1"></a>    <span class="at">cells =</span> forest_cells,</span>
+<span id="cb35-14"><a href="simulation-and-spreading.html#cb35-14" tabindex="-1"></a>    <span class="at">directions =</span> <span class="dv">4</span>,</span>
+<span id="cb35-15"><a href="simulation-and-spreading.html#cb35-15" tabindex="-1"></a>    <span class="at">pairs =</span> <span class="cn">TRUE</span></span>
+<span id="cb35-16"><a href="simulation-and-spreading.html#cb35-16" tabindex="-1"></a>  )</span>
+<span id="cb35-17"><a href="simulation-and-spreading.html#cb35-17" tabindex="-1"></a>  </span>
+<span id="cb35-18"><a href="simulation-and-spreading.html#cb35-18" tabindex="-1"></a>  adj <span class="ot">&lt;-</span> adj[</span>
+<span id="cb35-19"><a href="simulation-and-spreading.html#cb35-19" tabindex="-1"></a>    adj[,<span class="dv">1</span>] <span class="sc">%in%</span> forest_cells <span class="sc">&amp;</span></span>
+<span id="cb35-20"><a href="simulation-and-spreading.html#cb35-20" tabindex="-1"></a>      adj[,<span class="dv">2</span>] <span class="sc">%in%</span> forest_cells,</span>
+<span id="cb35-21"><a href="simulation-and-spreading.html#cb35-21" tabindex="-1"></a>  ]</span>
+<span id="cb35-22"><a href="simulation-and-spreading.html#cb35-22" tabindex="-1"></a>  </span>
+<span id="cb35-23"><a href="simulation-and-spreading.html#cb35-23" tabindex="-1"></a>  <span class="cf">if</span>(<span class="fu">nrow</span>(adj) <span class="sc">==</span> <span class="dv">0</span>){</span>
+<span id="cb35-24"><a href="simulation-and-spreading.html#cb35-24" tabindex="-1"></a>    </span>
+<span id="cb35-25"><a href="simulation-and-spreading.html#cb35-25" tabindex="-1"></a>    g <span class="ot">&lt;-</span> <span class="fu">make_empty_graph</span>(</span>
+<span id="cb35-26"><a href="simulation-and-spreading.html#cb35-26" tabindex="-1"></a>      <span class="at">n =</span> <span class="fu">length</span>(forest_cells),</span>
+<span id="cb35-27"><a href="simulation-and-spreading.html#cb35-27" tabindex="-1"></a>      <span class="at">directed =</span> <span class="cn">FALSE</span></span>
+<span id="cb35-28"><a href="simulation-and-spreading.html#cb35-28" tabindex="-1"></a>    )</span>
+<span id="cb35-29"><a href="simulation-and-spreading.html#cb35-29" tabindex="-1"></a>    </span>
+<span id="cb35-30"><a href="simulation-and-spreading.html#cb35-30" tabindex="-1"></a>    <span class="fu">V</span>(g)<span class="sc">$</span>name <span class="ot">&lt;-</span> <span class="fu">as.character</span>(</span>
+<span id="cb35-31"><a href="simulation-and-spreading.html#cb35-31" tabindex="-1"></a>      forest_cells</span>
+<span id="cb35-32"><a href="simulation-and-spreading.html#cb35-32" tabindex="-1"></a>    )</span>
+<span id="cb35-33"><a href="simulation-and-spreading.html#cb35-33" tabindex="-1"></a>    </span>
+<span id="cb35-34"><a href="simulation-and-spreading.html#cb35-34" tabindex="-1"></a>    <span class="fu">return</span>(g)</span>
+<span id="cb35-35"><a href="simulation-and-spreading.html#cb35-35" tabindex="-1"></a>    </span>
+<span id="cb35-36"><a href="simulation-and-spreading.html#cb35-36" tabindex="-1"></a>  }</span>
+<span id="cb35-37"><a href="simulation-and-spreading.html#cb35-37" tabindex="-1"></a>  </span>
+<span id="cb35-38"><a href="simulation-and-spreading.html#cb35-38" tabindex="-1"></a>  g <span class="ot">&lt;-</span> <span class="fu">graph_from_edgelist</span>(</span>
+<span id="cb35-39"><a href="simulation-and-spreading.html#cb35-39" tabindex="-1"></a>    <span class="fu">matrix</span>(</span>
+<span id="cb35-40"><a href="simulation-and-spreading.html#cb35-40" tabindex="-1"></a>      <span class="fu">as.character</span>(<span class="fu">as.matrix</span>(adj)),</span>
+<span id="cb35-41"><a href="simulation-and-spreading.html#cb35-41" tabindex="-1"></a>      <span class="at">ncol =</span> <span class="dv">2</span></span>
+<span id="cb35-42"><a href="simulation-and-spreading.html#cb35-42" tabindex="-1"></a>    ),</span>
+<span id="cb35-43"><a href="simulation-and-spreading.html#cb35-43" tabindex="-1"></a>    <span class="at">directed =</span> <span class="cn">FALSE</span></span>
+<span id="cb35-44"><a href="simulation-and-spreading.html#cb35-44" tabindex="-1"></a>  )</span>
+<span id="cb35-45"><a href="simulation-and-spreading.html#cb35-45" tabindex="-1"></a>  </span>
+<span id="cb35-46"><a href="simulation-and-spreading.html#cb35-46" tabindex="-1"></a>  missing_cells <span class="ot">&lt;-</span> <span class="fu">setdiff</span>(</span>
+<span id="cb35-47"><a href="simulation-and-spreading.html#cb35-47" tabindex="-1"></a>    <span class="fu">as.character</span>(forest_cells),</span>
+<span id="cb35-48"><a href="simulation-and-spreading.html#cb35-48" tabindex="-1"></a>    <span class="fu">V</span>(g)<span class="sc">$</span>name</span>
+<span id="cb35-49"><a href="simulation-and-spreading.html#cb35-49" tabindex="-1"></a>  )</span>
+<span id="cb35-50"><a href="simulation-and-spreading.html#cb35-50" tabindex="-1"></a>  </span>
+<span id="cb35-51"><a href="simulation-and-spreading.html#cb35-51" tabindex="-1"></a>  <span class="cf">if</span>(<span class="fu">length</span>(missing_cells) <span class="sc">&gt;</span> <span class="dv">0</span>){</span>
+<span id="cb35-52"><a href="simulation-and-spreading.html#cb35-52" tabindex="-1"></a>    </span>
+<span id="cb35-53"><a href="simulation-and-spreading.html#cb35-53" tabindex="-1"></a>    g <span class="ot">&lt;-</span> <span class="fu">add_vertices</span>(</span>
+<span id="cb35-54"><a href="simulation-and-spreading.html#cb35-54" tabindex="-1"></a>      g,</span>
+<span id="cb35-55"><a href="simulation-and-spreading.html#cb35-55" tabindex="-1"></a>      <span class="at">nv =</span> <span class="fu">length</span>(missing_cells),</span>
+<span id="cb35-56"><a href="simulation-and-spreading.html#cb35-56" tabindex="-1"></a>      <span class="at">name =</span> missing_cells</span>
+<span id="cb35-57"><a href="simulation-and-spreading.html#cb35-57" tabindex="-1"></a>    )</span>
+<span id="cb35-58"><a href="simulation-and-spreading.html#cb35-58" tabindex="-1"></a>    </span>
+<span id="cb35-59"><a href="simulation-and-spreading.html#cb35-59" tabindex="-1"></a>  }</span>
+<span id="cb35-60"><a href="simulation-and-spreading.html#cb35-60" tabindex="-1"></a>  </span>
+<span id="cb35-61"><a href="simulation-and-spreading.html#cb35-61" tabindex="-1"></a>  g</span>
+<span id="cb35-62"><a href="simulation-and-spreading.html#cb35-62" tabindex="-1"></a>  </span>
+<span id="cb35-63"><a href="simulation-and-spreading.html#cb35-63" tabindex="-1"></a>}</span>
+<span id="cb35-64"><a href="simulation-and-spreading.html#cb35-64" tabindex="-1"></a></span>
+<span id="cb35-65"><a href="simulation-and-spreading.html#cb35-65" tabindex="-1"></a><span class="co">#------------------------------------------------------------------------------</span></span>
+<span id="cb35-66"><a href="simulation-and-spreading.html#cb35-66" tabindex="-1"></a><span class="co"># CONNECTIVITY METRICS</span></span>
+<span id="cb35-67"><a href="simulation-and-spreading.html#cb35-67" tabindex="-1"></a><span class="co">#------------------------------------------------------------------------------</span></span>
+<span id="cb35-68"><a href="simulation-and-spreading.html#cb35-68" tabindex="-1"></a></span>
+<span id="cb35-69"><a href="simulation-and-spreading.html#cb35-69" tabindex="-1"></a>calculate_metrics <span class="ot">&lt;-</span> <span class="cf">function</span>(</span>
+<span id="cb35-70"><a href="simulation-and-spreading.html#cb35-70" tabindex="-1"></a>    g,</span>
+<span id="cb35-71"><a href="simulation-and-spreading.html#cb35-71" tabindex="-1"></a>    total_forest){</span>
+<span id="cb35-72"><a href="simulation-and-spreading.html#cb35-72" tabindex="-1"></a>  </span>
+<span id="cb35-73"><a href="simulation-and-spreading.html#cb35-73" tabindex="-1"></a>  comp <span class="ot">&lt;-</span> <span class="fu">components</span>(g)</span>
+<span id="cb35-74"><a href="simulation-and-spreading.html#cb35-74" tabindex="-1"></a>  </span>
+<span id="cb35-75"><a href="simulation-and-spreading.html#cb35-75" tabindex="-1"></a>  <span class="fu">list</span>(</span>
+<span id="cb35-76"><a href="simulation-and-spreading.html#cb35-76" tabindex="-1"></a>    </span>
+<span id="cb35-77"><a href="simulation-and-spreading.html#cb35-77" tabindex="-1"></a>    <span class="at">components =</span></span>
+<span id="cb35-78"><a href="simulation-and-spreading.html#cb35-78" tabindex="-1"></a>      comp<span class="sc">$</span>no,</span>
+<span id="cb35-79"><a href="simulation-and-spreading.html#cb35-79" tabindex="-1"></a>    </span>
+<span id="cb35-80"><a href="simulation-and-spreading.html#cb35-80" tabindex="-1"></a>    <span class="at">largest_component =</span></span>
+<span id="cb35-81"><a href="simulation-and-spreading.html#cb35-81" tabindex="-1"></a>      <span class="fu">max</span>(comp<span class="sc">$</span>csize),</span>
+<span id="cb35-82"><a href="simulation-and-spreading.html#cb35-82" tabindex="-1"></a>    </span>
+<span id="cb35-83"><a href="simulation-and-spreading.html#cb35-83" tabindex="-1"></a>    <span class="at">giant_component_prop =</span></span>
+<span id="cb35-84"><a href="simulation-and-spreading.html#cb35-84" tabindex="-1"></a>      <span class="fu">max</span>(comp<span class="sc">$</span>csize) <span class="sc">/</span></span>
+<span id="cb35-85"><a href="simulation-and-spreading.html#cb35-85" tabindex="-1"></a>      total_forest,</span>
+<span id="cb35-86"><a href="simulation-and-spreading.html#cb35-86" tabindex="-1"></a>    </span>
+<span id="cb35-87"><a href="simulation-and-spreading.html#cb35-87" tabindex="-1"></a>    <span class="at">mean_degree =</span></span>
+<span id="cb35-88"><a href="simulation-and-spreading.html#cb35-88" tabindex="-1"></a>      <span class="fu">mean</span>(<span class="fu">degree</span>(g)),</span>
+<span id="cb35-89"><a href="simulation-and-spreading.html#cb35-89" tabindex="-1"></a>    </span>
+<span id="cb35-90"><a href="simulation-and-spreading.html#cb35-90" tabindex="-1"></a>    <span class="at">edge_density =</span></span>
+<span id="cb35-91"><a href="simulation-and-spreading.html#cb35-91" tabindex="-1"></a>      <span class="fu">edge_density</span>(g),</span>
+<span id="cb35-92"><a href="simulation-and-spreading.html#cb35-92" tabindex="-1"></a>    </span>
+<span id="cb35-93"><a href="simulation-and-spreading.html#cb35-93" tabindex="-1"></a>    <span class="at">comp =</span></span>
+<span id="cb35-94"><a href="simulation-and-spreading.html#cb35-94" tabindex="-1"></a>      comp</span>
+<span id="cb35-95"><a href="simulation-and-spreading.html#cb35-95" tabindex="-1"></a>    </span>
+<span id="cb35-96"><a href="simulation-and-spreading.html#cb35-96" tabindex="-1"></a>  )</span>
+<span id="cb35-97"><a href="simulation-and-spreading.html#cb35-97" tabindex="-1"></a>  </span>
+<span id="cb35-98"><a href="simulation-and-spreading.html#cb35-98" tabindex="-1"></a>}</span></code></pre></div>
+</div>
+<div id="contagion" class="section level3 hasAnchor" number="8.2.3">
+<h3><span class="header-section-number">8.2.3</span> Contagion<a href="simulation-and-spreading.html#contagion" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The <code>simulate_contagion()</code> function models the spread of a contagion through a habitat network represented as a graph. The simulation begins by randomly selecting a forest cell (graph node) as the initial infection source. The function identifies the connected component containing this starting node and records the size of that component, providing a measure of the total habitat that is potentially accessible to the contagion. The starting node is added to the set of infected cells and is also placed in an active infectious pool. Each active node is assigned an age that tracks how long it remains capable of transmitting the contagion. The model therefore represents a susceptible–infectious–removed process, in which infected nodes can spread the contagion for a limited period before becoming inactive.</p>
+<p>At each simulation step, every active infectious node attempts to transmit the contagion to its susceptible neighbouring nodes. Transmission occurs probabilistically according to the user-defined transmission probability (<code>p_transmit</code>). Newly infected cells are added to the infected population and become part of the active infectious pool with an initial age of zero. At the end of each timestep, the age of all active infectious nodes is increased, and nodes that exceed the specified infectious period are removed from the active pool and can no longer spread infection. The simulation continues until either the maximum number of timesteps is reached or there are no remaining active infectious nodes, indicating that the outbreak has died out. The function returns three outputs: the total number of infected cells, the number of timesteps over which the outbreak persisted, and the size of the connected habitat component in which the contagion originated. These outputs are subsequently used to quantify outbreak magnitude, outbreak duration, and the influence of habitat connectivity on contagion spread.</p>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="simulation-and-spreading.html#cb36-1" tabindex="-1"></a><span class="co">#------------------------------------------------------------------------------</span></span>
+<span id="cb36-2"><a href="simulation-and-spreading.html#cb36-2" tabindex="-1"></a><span class="co"># CONTAGION MODEL</span></span>
+<span id="cb36-3"><a href="simulation-and-spreading.html#cb36-3" tabindex="-1"></a><span class="co">#</span></span>
+<span id="cb36-4"><a href="simulation-and-spreading.html#cb36-4" tabindex="-1"></a><span class="co"># Frontier + Infectious Period</span></span>
+<span id="cb36-5"><a href="simulation-and-spreading.html#cb36-5" tabindex="-1"></a><span class="co">#------------------------------------------------------------------------------</span></span>
+<span id="cb36-6"><a href="simulation-and-spreading.html#cb36-6" tabindex="-1"></a></span>
+<span id="cb36-7"><a href="simulation-and-spreading.html#cb36-7" tabindex="-1"></a>simulate_contagion <span class="ot">&lt;-</span> <span class="cf">function</span>(</span>
+<span id="cb36-8"><a href="simulation-and-spreading.html#cb36-8" tabindex="-1"></a>    g,</span>
+<span id="cb36-9"><a href="simulation-and-spreading.html#cb36-9" tabindex="-1"></a>    comp,</span>
+<span id="cb36-10"><a href="simulation-and-spreading.html#cb36-10" tabindex="-1"></a>    <span class="at">p_transmit =</span> <span class="fl">0.35</span>,</span>
+<span id="cb36-11"><a href="simulation-and-spreading.html#cb36-11" tabindex="-1"></a>    <span class="at">max_steps =</span> <span class="dv">50</span>,</span>
+<span id="cb36-12"><a href="simulation-and-spreading.html#cb36-12" tabindex="-1"></a>    <span class="at">infectious_period =</span> <span class="dv">3</span>){</span>
+<span id="cb36-13"><a href="simulation-and-spreading.html#cb36-13" tabindex="-1"></a>  </span>
+<span id="cb36-14"><a href="simulation-and-spreading.html#cb36-14" tabindex="-1"></a>  start_node <span class="ot">&lt;-</span> <span class="fu">sample</span>(</span>
+<span id="cb36-15"><a href="simulation-and-spreading.html#cb36-15" tabindex="-1"></a>    <span class="fu">V</span>(g)<span class="sc">$</span>name,</span>
+<span id="cb36-16"><a href="simulation-and-spreading.html#cb36-16" tabindex="-1"></a>    <span class="dv">1</span></span>
+<span id="cb36-17"><a href="simulation-and-spreading.html#cb36-17" tabindex="-1"></a>  )</span>
+<span id="cb36-18"><a href="simulation-and-spreading.html#cb36-18" tabindex="-1"></a>  </span>
+<span id="cb36-19"><a href="simulation-and-spreading.html#cb36-19" tabindex="-1"></a>  start_component <span class="ot">&lt;-</span> comp<span class="sc">$</span>membership[</span>
+<span id="cb36-20"><a href="simulation-and-spreading.html#cb36-20" tabindex="-1"></a>    <span class="fu">match</span>(</span>
+<span id="cb36-21"><a href="simulation-and-spreading.html#cb36-21" tabindex="-1"></a>      start_node,</span>
+<span id="cb36-22"><a href="simulation-and-spreading.html#cb36-22" tabindex="-1"></a>      <span class="fu">V</span>(g)<span class="sc">$</span>name</span>
+<span id="cb36-23"><a href="simulation-and-spreading.html#cb36-23" tabindex="-1"></a>    )</span>
+<span id="cb36-24"><a href="simulation-and-spreading.html#cb36-24" tabindex="-1"></a>  ]</span>
+<span id="cb36-25"><a href="simulation-and-spreading.html#cb36-25" tabindex="-1"></a>  </span>
+<span id="cb36-26"><a href="simulation-and-spreading.html#cb36-26" tabindex="-1"></a>  start_component_size <span class="ot">&lt;-</span> comp<span class="sc">$</span>csize[</span>
+<span id="cb36-27"><a href="simulation-and-spreading.html#cb36-27" tabindex="-1"></a>    start_component</span>
+<span id="cb36-28"><a href="simulation-and-spreading.html#cb36-28" tabindex="-1"></a>  ]</span>
+<span id="cb36-29"><a href="simulation-and-spreading.html#cb36-29" tabindex="-1"></a>  </span>
+<span id="cb36-30"><a href="simulation-and-spreading.html#cb36-30" tabindex="-1"></a>  infected <span class="ot">&lt;-</span> start_node</span>
+<span id="cb36-31"><a href="simulation-and-spreading.html#cb36-31" tabindex="-1"></a>  </span>
+<span id="cb36-32"><a href="simulation-and-spreading.html#cb36-32" tabindex="-1"></a>  active <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb36-33"><a href="simulation-and-spreading.html#cb36-33" tabindex="-1"></a>    <span class="at">node =</span> start_node,</span>
+<span id="cb36-34"><a href="simulation-and-spreading.html#cb36-34" tabindex="-1"></a>    <span class="at">age =</span> <span class="dv">0</span>,</span>
+<span id="cb36-35"><a href="simulation-and-spreading.html#cb36-35" tabindex="-1"></a>    <span class="at">stringsAsFactors =</span> <span class="cn">FALSE</span></span>
+<span id="cb36-36"><a href="simulation-and-spreading.html#cb36-36" tabindex="-1"></a>  )</span>
+<span id="cb36-37"><a href="simulation-and-spreading.html#cb36-37" tabindex="-1"></a>  </span>
+<span id="cb36-38"><a href="simulation-and-spreading.html#cb36-38" tabindex="-1"></a>  <span class="cf">for</span>(step <span class="cf">in</span> <span class="fu">seq_len</span>(max_steps)){</span>
+<span id="cb36-39"><a href="simulation-and-spreading.html#cb36-39" tabindex="-1"></a>    </span>
+<span id="cb36-40"><a href="simulation-and-spreading.html#cb36-40" tabindex="-1"></a>    new_nodes <span class="ot">&lt;-</span> <span class="fu">character</span>(<span class="dv">0</span>)</span>
+<span id="cb36-41"><a href="simulation-and-spreading.html#cb36-41" tabindex="-1"></a>    </span>
+<span id="cb36-42"><a href="simulation-and-spreading.html#cb36-42" tabindex="-1"></a>    <span class="co">#------------------------------------------------</span></span>
+<span id="cb36-43"><a href="simulation-and-spreading.html#cb36-43" tabindex="-1"></a>    <span class="co"># Active infectious nodes attempt transmission</span></span>
+<span id="cb36-44"><a href="simulation-and-spreading.html#cb36-44" tabindex="-1"></a>    <span class="co">#------------------------------------------------</span></span>
+<span id="cb36-45"><a href="simulation-and-spreading.html#cb36-45" tabindex="-1"></a>    </span>
+<span id="cb36-46"><a href="simulation-and-spreading.html#cb36-46" tabindex="-1"></a>    <span class="cf">for</span>(i <span class="cf">in</span> <span class="fu">seq_len</span>(<span class="fu">nrow</span>(active))){</span>
+<span id="cb36-47"><a href="simulation-and-spreading.html#cb36-47" tabindex="-1"></a>      </span>
+<span id="cb36-48"><a href="simulation-and-spreading.html#cb36-48" tabindex="-1"></a>      node <span class="ot">&lt;-</span> active<span class="sc">$</span>node[i]</span>
+<span id="cb36-49"><a href="simulation-and-spreading.html#cb36-49" tabindex="-1"></a>      </span>
+<span id="cb36-50"><a href="simulation-and-spreading.html#cb36-50" tabindex="-1"></a>      nbrs <span class="ot">&lt;-</span> <span class="fu">neighbors</span>(</span>
+<span id="cb36-51"><a href="simulation-and-spreading.html#cb36-51" tabindex="-1"></a>        g,</span>
+<span id="cb36-52"><a href="simulation-and-spreading.html#cb36-52" tabindex="-1"></a>        node</span>
+<span id="cb36-53"><a href="simulation-and-spreading.html#cb36-53" tabindex="-1"></a>      )</span>
+<span id="cb36-54"><a href="simulation-and-spreading.html#cb36-54" tabindex="-1"></a>      </span>
+<span id="cb36-55"><a href="simulation-and-spreading.html#cb36-55" tabindex="-1"></a>      nbr_names <span class="ot">&lt;-</span> <span class="fu">V</span>(g)<span class="sc">$</span>name[</span>
+<span id="cb36-56"><a href="simulation-and-spreading.html#cb36-56" tabindex="-1"></a>        <span class="fu">as.numeric</span>(nbrs)</span>
+<span id="cb36-57"><a href="simulation-and-spreading.html#cb36-57" tabindex="-1"></a>      ]</span>
+<span id="cb36-58"><a href="simulation-and-spreading.html#cb36-58" tabindex="-1"></a>      </span>
+<span id="cb36-59"><a href="simulation-and-spreading.html#cb36-59" tabindex="-1"></a>      susceptible <span class="ot">&lt;-</span> <span class="fu">setdiff</span>(</span>
+<span id="cb36-60"><a href="simulation-and-spreading.html#cb36-60" tabindex="-1"></a>        nbr_names,</span>
+<span id="cb36-61"><a href="simulation-and-spreading.html#cb36-61" tabindex="-1"></a>        infected</span>
+<span id="cb36-62"><a href="simulation-and-spreading.html#cb36-62" tabindex="-1"></a>      )</span>
+<span id="cb36-63"><a href="simulation-and-spreading.html#cb36-63" tabindex="-1"></a>      </span>
+<span id="cb36-64"><a href="simulation-and-spreading.html#cb36-64" tabindex="-1"></a>      <span class="cf">if</span>(<span class="fu">length</span>(susceptible) <span class="sc">&gt;</span> <span class="dv">0</span>){</span>
+<span id="cb36-65"><a href="simulation-and-spreading.html#cb36-65" tabindex="-1"></a>        </span>
+<span id="cb36-66"><a href="simulation-and-spreading.html#cb36-66" tabindex="-1"></a>        transmission <span class="ot">&lt;-</span> <span class="fu">runif</span>(</span>
+<span id="cb36-67"><a href="simulation-and-spreading.html#cb36-67" tabindex="-1"></a>          <span class="fu">length</span>(susceptible)</span>
+<span id="cb36-68"><a href="simulation-and-spreading.html#cb36-68" tabindex="-1"></a>        ) <span class="sc">&lt;</span> p_transmit</span>
+<span id="cb36-69"><a href="simulation-and-spreading.html#cb36-69" tabindex="-1"></a>        </span>
+<span id="cb36-70"><a href="simulation-and-spreading.html#cb36-70" tabindex="-1"></a>        newly_infected <span class="ot">&lt;-</span> susceptible[</span>
+<span id="cb36-71"><a href="simulation-and-spreading.html#cb36-71" tabindex="-1"></a>          transmission</span>
+<span id="cb36-72"><a href="simulation-and-spreading.html#cb36-72" tabindex="-1"></a>        ]</span>
+<span id="cb36-73"><a href="simulation-and-spreading.html#cb36-73" tabindex="-1"></a>        </span>
+<span id="cb36-74"><a href="simulation-and-spreading.html#cb36-74" tabindex="-1"></a>        new_nodes <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb36-75"><a href="simulation-and-spreading.html#cb36-75" tabindex="-1"></a>          new_nodes,</span>
+<span id="cb36-76"><a href="simulation-and-spreading.html#cb36-76" tabindex="-1"></a>          newly_infected</span>
+<span id="cb36-77"><a href="simulation-and-spreading.html#cb36-77" tabindex="-1"></a>        )</span>
+<span id="cb36-78"><a href="simulation-and-spreading.html#cb36-78" tabindex="-1"></a>        </span>
+<span id="cb36-79"><a href="simulation-and-spreading.html#cb36-79" tabindex="-1"></a>      }</span>
+<span id="cb36-80"><a href="simulation-and-spreading.html#cb36-80" tabindex="-1"></a>      </span>
+<span id="cb36-81"><a href="simulation-and-spreading.html#cb36-81" tabindex="-1"></a>    }</span>
+<span id="cb36-82"><a href="simulation-and-spreading.html#cb36-82" tabindex="-1"></a>    </span>
+<span id="cb36-83"><a href="simulation-and-spreading.html#cb36-83" tabindex="-1"></a>    new_nodes <span class="ot">&lt;-</span> <span class="fu">unique</span>(new_nodes)</span>
+<span id="cb36-84"><a href="simulation-and-spreading.html#cb36-84" tabindex="-1"></a>    </span>
+<span id="cb36-85"><a href="simulation-and-spreading.html#cb36-85" tabindex="-1"></a>    infected <span class="ot">&lt;-</span> <span class="fu">unique</span>(</span>
+<span id="cb36-86"><a href="simulation-and-spreading.html#cb36-86" tabindex="-1"></a>      <span class="fu">c</span>(</span>
+<span id="cb36-87"><a href="simulation-and-spreading.html#cb36-87" tabindex="-1"></a>        infected,</span>
+<span id="cb36-88"><a href="simulation-and-spreading.html#cb36-88" tabindex="-1"></a>        new_nodes</span>
+<span id="cb36-89"><a href="simulation-and-spreading.html#cb36-89" tabindex="-1"></a>      )</span>
+<span id="cb36-90"><a href="simulation-and-spreading.html#cb36-90" tabindex="-1"></a>    )</span>
+<span id="cb36-91"><a href="simulation-and-spreading.html#cb36-91" tabindex="-1"></a>    </span>
+<span id="cb36-92"><a href="simulation-and-spreading.html#cb36-92" tabindex="-1"></a>    <span class="co">#------------------------------------------------</span></span>
+<span id="cb36-93"><a href="simulation-and-spreading.html#cb36-93" tabindex="-1"></a>    <span class="co"># Update infectious ages</span></span>
+<span id="cb36-94"><a href="simulation-and-spreading.html#cb36-94" tabindex="-1"></a>    <span class="co">#------------------------------------------------</span></span>
+<span id="cb36-95"><a href="simulation-and-spreading.html#cb36-95" tabindex="-1"></a>    </span>
+<span id="cb36-96"><a href="simulation-and-spreading.html#cb36-96" tabindex="-1"></a>    active<span class="sc">$</span>age <span class="ot">&lt;-</span> active<span class="sc">$</span>age <span class="sc">+</span> <span class="dv">1</span></span>
+<span id="cb36-97"><a href="simulation-and-spreading.html#cb36-97" tabindex="-1"></a>    </span>
+<span id="cb36-98"><a href="simulation-and-spreading.html#cb36-98" tabindex="-1"></a>    active <span class="ot">&lt;-</span> active[</span>
+<span id="cb36-99"><a href="simulation-and-spreading.html#cb36-99" tabindex="-1"></a>      active<span class="sc">$</span>age <span class="sc">&lt;</span></span>
+<span id="cb36-100"><a href="simulation-and-spreading.html#cb36-100" tabindex="-1"></a>        infectious_period,</span>
+<span id="cb36-101"><a href="simulation-and-spreading.html#cb36-101" tabindex="-1"></a>      ,</span>
+<span id="cb36-102"><a href="simulation-and-spreading.html#cb36-102" tabindex="-1"></a>      drop <span class="ot">=</span> <span class="cn">FALSE</span></span>
+<span id="cb36-103"><a href="simulation-and-spreading.html#cb36-103" tabindex="-1"></a>    ]</span>
+<span id="cb36-104"><a href="simulation-and-spreading.html#cb36-104" tabindex="-1"></a>    </span>
+<span id="cb36-105"><a href="simulation-and-spreading.html#cb36-105" tabindex="-1"></a>    <span class="co">#------------------------------------------------</span></span>
+<span id="cb36-106"><a href="simulation-and-spreading.html#cb36-106" tabindex="-1"></a>    <span class="co"># Add new infections to active set</span></span>
+<span id="cb36-107"><a href="simulation-and-spreading.html#cb36-107" tabindex="-1"></a>    <span class="co">#------------------------------------------------</span></span>
+<span id="cb36-108"><a href="simulation-and-spreading.html#cb36-108" tabindex="-1"></a>    </span>
+<span id="cb36-109"><a href="simulation-and-spreading.html#cb36-109" tabindex="-1"></a>    <span class="cf">if</span>(<span class="fu">length</span>(new_nodes) <span class="sc">&gt;</span> <span class="dv">0</span>){</span>
+<span id="cb36-110"><a href="simulation-and-spreading.html#cb36-110" tabindex="-1"></a>      </span>
+<span id="cb36-111"><a href="simulation-and-spreading.html#cb36-111" tabindex="-1"></a>      active <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(</span>
+<span id="cb36-112"><a href="simulation-and-spreading.html#cb36-112" tabindex="-1"></a>        active,</span>
+<span id="cb36-113"><a href="simulation-and-spreading.html#cb36-113" tabindex="-1"></a>        <span class="fu">data.frame</span>(</span>
+<span id="cb36-114"><a href="simulation-and-spreading.html#cb36-114" tabindex="-1"></a>          <span class="at">node =</span> new_nodes,</span>
+<span id="cb36-115"><a href="simulation-and-spreading.html#cb36-115" tabindex="-1"></a>          <span class="at">age =</span> <span class="dv">0</span></span>
+<span id="cb36-116"><a href="simulation-and-spreading.html#cb36-116" tabindex="-1"></a>        )</span>
+<span id="cb36-117"><a href="simulation-and-spreading.html#cb36-117" tabindex="-1"></a>      )</span>
+<span id="cb36-118"><a href="simulation-and-spreading.html#cb36-118" tabindex="-1"></a>      </span>
+<span id="cb36-119"><a href="simulation-and-spreading.html#cb36-119" tabindex="-1"></a>    }</span>
+<span id="cb36-120"><a href="simulation-and-spreading.html#cb36-120" tabindex="-1"></a>    </span>
+<span id="cb36-121"><a href="simulation-and-spreading.html#cb36-121" tabindex="-1"></a>    <span class="co">#------------------------------------------------</span></span>
+<span id="cb36-122"><a href="simulation-and-spreading.html#cb36-122" tabindex="-1"></a>    <span class="co"># Stop if outbreak dies</span></span>
+<span id="cb36-123"><a href="simulation-and-spreading.html#cb36-123" tabindex="-1"></a>    <span class="co">#------------------------------------------------</span></span>
+<span id="cb36-124"><a href="simulation-and-spreading.html#cb36-124" tabindex="-1"></a>    </span>
+<span id="cb36-125"><a href="simulation-and-spreading.html#cb36-125" tabindex="-1"></a>    <span class="cf">if</span>(<span class="fu">nrow</span>(active) <span class="sc">==</span> <span class="dv">0</span>){</span>
+<span id="cb36-126"><a href="simulation-and-spreading.html#cb36-126" tabindex="-1"></a>      </span>
+<span id="cb36-127"><a href="simulation-and-spreading.html#cb36-127" tabindex="-1"></a>      <span class="cf">break</span></span>
+<span id="cb36-128"><a href="simulation-and-spreading.html#cb36-128" tabindex="-1"></a>      </span>
+<span id="cb36-129"><a href="simulation-and-spreading.html#cb36-129" tabindex="-1"></a>    }</span>
+<span id="cb36-130"><a href="simulation-and-spreading.html#cb36-130" tabindex="-1"></a>    </span>
+<span id="cb36-131"><a href="simulation-and-spreading.html#cb36-131" tabindex="-1"></a>  }</span>
+<span id="cb36-132"><a href="simulation-and-spreading.html#cb36-132" tabindex="-1"></a>  </span>
+<span id="cb36-133"><a href="simulation-and-spreading.html#cb36-133" tabindex="-1"></a>  <span class="fu">list</span>(</span>
+<span id="cb36-134"><a href="simulation-and-spreading.html#cb36-134" tabindex="-1"></a>    </span>
+<span id="cb36-135"><a href="simulation-and-spreading.html#cb36-135" tabindex="-1"></a>    <span class="at">infected_cells =</span></span>
+<span id="cb36-136"><a href="simulation-and-spreading.html#cb36-136" tabindex="-1"></a>      <span class="fu">length</span>(infected),</span>
+<span id="cb36-137"><a href="simulation-and-spreading.html#cb36-137" tabindex="-1"></a>    </span>
+<span id="cb36-138"><a href="simulation-and-spreading.html#cb36-138" tabindex="-1"></a>    <span class="at">outbreak_steps =</span></span>
+<span id="cb36-139"><a href="simulation-and-spreading.html#cb36-139" tabindex="-1"></a>      step,</span>
+<span id="cb36-140"><a href="simulation-and-spreading.html#cb36-140" tabindex="-1"></a>    </span>
+<span id="cb36-141"><a href="simulation-and-spreading.html#cb36-141" tabindex="-1"></a>    <span class="at">start_component_size =</span></span>
+<span id="cb36-142"><a href="simulation-and-spreading.html#cb36-142" tabindex="-1"></a>      start_component_size</span>
+<span id="cb36-143"><a href="simulation-and-spreading.html#cb36-143" tabindex="-1"></a>    </span>
+<span id="cb36-144"><a href="simulation-and-spreading.html#cb36-144" tabindex="-1"></a>  )</span>
+<span id="cb36-145"><a href="simulation-and-spreading.html#cb36-145" tabindex="-1"></a>  </span>
+<span id="cb36-146"><a href="simulation-and-spreading.html#cb36-146" tabindex="-1"></a>}</span></code></pre></div>
+</div>
+<div id="monte-carlo-simulation" class="section level3 hasAnchor" number="8.2.4">
+<h3><span class="header-section-number">8.2.4</span> Monte Carlo Simulation<a href="simulation-and-spreading.html#monte-carlo-simulation" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The Monte Carlo simulation loop forms the core experimental framework of the model by repeatedly generating landscapes, calculating connectivity metrics, and simulating contagion spread across a wide range of landscape conditions. The experiment systematically evaluates every combination of landscape type (random and clustered) and forest-cover level (10–90%), and then performs a specified number of independent simulation replicates (n_sims) for each combination. For each replicate, a binary forest landscape is generated, converted into a habitat graph, and analyzed to quantify structural connectivity characteristics such as the number of connected components, the size of the largest connected component, the proportion of habitat contained within the giant component, mean node degree, and edge density. A contagion process is then initiated on the habitat network, and the resulting outbreak statistics—including the number of infected cells, outbreak duration, and size of the starting habitat component—are recorded. The results from each simulation are stored in a data frame along with derived measures describing the proportion of total habitat infected and the proportion of the starting connected component infected. By repeating this process thousands of times across a gradient of habitat cover and alternative landscape structures, the Monte Carlo framework captures the inherent variability of both landscape generation and contagion dynamics, producing a robust dataset that can be used to examine how habitat amount, connectivity, percolation, and contagion spread are related.</p>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="simulation-and-spreading.html#cb37-1" tabindex="-1"></a><span class="co">#------------------------------------------------------------------------------</span></span>
+<span id="cb37-2"><a href="simulation-and-spreading.html#cb37-2" tabindex="-1"></a><span class="co"># MONTE CARLO</span></span>
+<span id="cb37-3"><a href="simulation-and-spreading.html#cb37-3" tabindex="-1"></a><span class="co">#------------------------------------------------------------------------------</span></span>
+<span id="cb37-4"><a href="simulation-and-spreading.html#cb37-4" tabindex="-1"></a></span>
+<span id="cb37-5"><a href="simulation-and-spreading.html#cb37-5" tabindex="-1"></a>results <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
+<span id="cb37-6"><a href="simulation-and-spreading.html#cb37-6" tabindex="-1"></a></span>
+<span id="cb37-7"><a href="simulation-and-spreading.html#cb37-7" tabindex="-1"></a>counter <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb37-8"><a href="simulation-and-spreading.html#cb37-8" tabindex="-1"></a></span>
+<span id="cb37-9"><a href="simulation-and-spreading.html#cb37-9" tabindex="-1"></a><span class="cf">for</span>(type <span class="cf">in</span> landscape_types){</span>
+<span id="cb37-10"><a href="simulation-and-spreading.html#cb37-10" tabindex="-1"></a>  </span>
+<span id="cb37-11"><a href="simulation-and-spreading.html#cb37-11" tabindex="-1"></a>  <span class="co"># cat(</span></span>
+<span id="cb37-12"><a href="simulation-and-spreading.html#cb37-12" tabindex="-1"></a>  <span class="co">#   &quot;\n====================================\n&quot;</span></span>
+<span id="cb37-13"><a href="simulation-and-spreading.html#cb37-13" tabindex="-1"></a>  <span class="co"># )</span></span>
+<span id="cb37-14"><a href="simulation-and-spreading.html#cb37-14" tabindex="-1"></a>  <span class="co"># </span></span>
+<span id="cb37-15"><a href="simulation-and-spreading.html#cb37-15" tabindex="-1"></a>  <span class="co"># cat(</span></span>
+<span id="cb37-16"><a href="simulation-and-spreading.html#cb37-16" tabindex="-1"></a>  <span class="co">#   &quot;Landscape:&quot;,</span></span>
+<span id="cb37-17"><a href="simulation-and-spreading.html#cb37-17" tabindex="-1"></a>  <span class="co">#   type,</span></span>
+<span id="cb37-18"><a href="simulation-and-spreading.html#cb37-18" tabindex="-1"></a>  <span class="co">#   &quot;\n&quot;</span></span>
+<span id="cb37-19"><a href="simulation-and-spreading.html#cb37-19" tabindex="-1"></a>  <span class="co"># )</span></span>
+<span id="cb37-20"><a href="simulation-and-spreading.html#cb37-20" tabindex="-1"></a>  <span class="co"># </span></span>
+<span id="cb37-21"><a href="simulation-and-spreading.html#cb37-21" tabindex="-1"></a>  <span class="co"># cat(</span></span>
+<span id="cb37-22"><a href="simulation-and-spreading.html#cb37-22" tabindex="-1"></a>  <span class="co">#   &quot;====================================\n&quot;</span></span>
+<span id="cb37-23"><a href="simulation-and-spreading.html#cb37-23" tabindex="-1"></a>  <span class="co"># )</span></span>
+<span id="cb37-24"><a href="simulation-and-spreading.html#cb37-24" tabindex="-1"></a>  </span>
+<span id="cb37-25"><a href="simulation-and-spreading.html#cb37-25" tabindex="-1"></a>  <span class="cf">for</span>(cover <span class="cf">in</span> forest_cover_seq){</span>
+<span id="cb37-26"><a href="simulation-and-spreading.html#cb37-26" tabindex="-1"></a>    </span>
+<span id="cb37-27"><a href="simulation-and-spreading.html#cb37-27" tabindex="-1"></a>    <span class="co"># cat(</span></span>
+<span id="cb37-28"><a href="simulation-and-spreading.html#cb37-28" tabindex="-1"></a>    <span class="co">#   &quot;Cover:&quot;,</span></span>
+<span id="cb37-29"><a href="simulation-and-spreading.html#cb37-29" tabindex="-1"></a>    <span class="co">#   cover,</span></span>
+<span id="cb37-30"><a href="simulation-and-spreading.html#cb37-30" tabindex="-1"></a>    <span class="co">#   &quot;\n&quot;</span></span>
+<span id="cb37-31"><a href="simulation-and-spreading.html#cb37-31" tabindex="-1"></a>    <span class="co"># )</span></span>
+<span id="cb37-32"><a href="simulation-and-spreading.html#cb37-32" tabindex="-1"></a>    </span>
+<span id="cb37-33"><a href="simulation-and-spreading.html#cb37-33" tabindex="-1"></a>    <span class="cf">for</span>(sim <span class="cf">in</span> <span class="fu">seq_len</span>(n_sims)){</span>
+<span id="cb37-34"><a href="simulation-and-spreading.html#cb37-34" tabindex="-1"></a>      </span>
+<span id="cb37-35"><a href="simulation-and-spreading.html#cb37-35" tabindex="-1"></a>      forest <span class="ot">&lt;-</span> <span class="fu">create_landscape</span>(</span>
+<span id="cb37-36"><a href="simulation-and-spreading.html#cb37-36" tabindex="-1"></a>        <span class="at">model =</span> type,</span>
+<span id="cb37-37"><a href="simulation-and-spreading.html#cb37-37" tabindex="-1"></a>        <span class="at">cover =</span> cover,</span>
+<span id="cb37-38"><a href="simulation-and-spreading.html#cb37-38" tabindex="-1"></a>        <span class="at">nrow =</span> nrow,</span>
+<span id="cb37-39"><a href="simulation-and-spreading.html#cb37-39" tabindex="-1"></a>        <span class="at">ncol =</span> ncol</span>
+<span id="cb37-40"><a href="simulation-and-spreading.html#cb37-40" tabindex="-1"></a>      )</span>
+<span id="cb37-41"><a href="simulation-and-spreading.html#cb37-41" tabindex="-1"></a>      </span>
+<span id="cb37-42"><a href="simulation-and-spreading.html#cb37-42" tabindex="-1"></a>      total_forest <span class="ot">&lt;-</span> <span class="fu">sum</span>(</span>
+<span id="cb37-43"><a href="simulation-and-spreading.html#cb37-43" tabindex="-1"></a>        <span class="fu">values</span>(forest) <span class="sc">==</span> <span class="dv">1</span>,</span>
+<span id="cb37-44"><a href="simulation-and-spreading.html#cb37-44" tabindex="-1"></a>        <span class="at">na.rm =</span> <span class="cn">TRUE</span></span>
+<span id="cb37-45"><a href="simulation-and-spreading.html#cb37-45" tabindex="-1"></a>      )</span>
+<span id="cb37-46"><a href="simulation-and-spreading.html#cb37-46" tabindex="-1"></a>      </span>
+<span id="cb37-47"><a href="simulation-and-spreading.html#cb37-47" tabindex="-1"></a>      g <span class="ot">&lt;-</span> <span class="fu">build_graph</span>(</span>
+<span id="cb37-48"><a href="simulation-and-spreading.html#cb37-48" tabindex="-1"></a>        forest</span>
+<span id="cb37-49"><a href="simulation-and-spreading.html#cb37-49" tabindex="-1"></a>      )</span>
+<span id="cb37-50"><a href="simulation-and-spreading.html#cb37-50" tabindex="-1"></a>      </span>
+<span id="cb37-51"><a href="simulation-and-spreading.html#cb37-51" tabindex="-1"></a>      metrics <span class="ot">&lt;-</span> <span class="fu">calculate_metrics</span>(</span>
+<span id="cb37-52"><a href="simulation-and-spreading.html#cb37-52" tabindex="-1"></a>        g,</span>
+<span id="cb37-53"><a href="simulation-and-spreading.html#cb37-53" tabindex="-1"></a>        total_forest</span>
+<span id="cb37-54"><a href="simulation-and-spreading.html#cb37-54" tabindex="-1"></a>      )</span>
+<span id="cb37-55"><a href="simulation-and-spreading.html#cb37-55" tabindex="-1"></a>      </span>
+<span id="cb37-56"><a href="simulation-and-spreading.html#cb37-56" tabindex="-1"></a>      outbreak <span class="ot">&lt;-</span> <span class="fu">simulate_contagion</span>(</span>
+<span id="cb37-57"><a href="simulation-and-spreading.html#cb37-57" tabindex="-1"></a>        <span class="at">g =</span> g,</span>
+<span id="cb37-58"><a href="simulation-and-spreading.html#cb37-58" tabindex="-1"></a>        <span class="at">comp =</span> metrics<span class="sc">$</span>comp,</span>
+<span id="cb37-59"><a href="simulation-and-spreading.html#cb37-59" tabindex="-1"></a>        <span class="at">p_transmit =</span> p_transmit,</span>
+<span id="cb37-60"><a href="simulation-and-spreading.html#cb37-60" tabindex="-1"></a>        <span class="at">max_steps =</span> max_steps,</span>
+<span id="cb37-61"><a href="simulation-and-spreading.html#cb37-61" tabindex="-1"></a>        <span class="at">infectious_period =</span></span>
+<span id="cb37-62"><a href="simulation-and-spreading.html#cb37-62" tabindex="-1"></a>          infectious_period</span>
+<span id="cb37-63"><a href="simulation-and-spreading.html#cb37-63" tabindex="-1"></a>      )</span>
+<span id="cb37-64"><a href="simulation-and-spreading.html#cb37-64" tabindex="-1"></a>      </span>
+<span id="cb37-65"><a href="simulation-and-spreading.html#cb37-65" tabindex="-1"></a>      results[[counter]] <span class="ot">&lt;-</span></span>
+<span id="cb37-66"><a href="simulation-and-spreading.html#cb37-66" tabindex="-1"></a>        <span class="fu">data.frame</span>(</span>
+<span id="cb37-67"><a href="simulation-and-spreading.html#cb37-67" tabindex="-1"></a>          </span>
+<span id="cb37-68"><a href="simulation-and-spreading.html#cb37-68" tabindex="-1"></a>          <span class="at">landscape_type =</span> type,</span>
+<span id="cb37-69"><a href="simulation-and-spreading.html#cb37-69" tabindex="-1"></a>          </span>
+<span id="cb37-70"><a href="simulation-and-spreading.html#cb37-70" tabindex="-1"></a>          <span class="at">forest_cover =</span> cover,</span>
+<span id="cb37-71"><a href="simulation-and-spreading.html#cb37-71" tabindex="-1"></a>          </span>
+<span id="cb37-72"><a href="simulation-and-spreading.html#cb37-72" tabindex="-1"></a>          <span class="at">simulation =</span> sim,</span>
+<span id="cb37-73"><a href="simulation-and-spreading.html#cb37-73" tabindex="-1"></a>          </span>
+<span id="cb37-74"><a href="simulation-and-spreading.html#cb37-74" tabindex="-1"></a>          <span class="at">components =</span></span>
+<span id="cb37-75"><a href="simulation-and-spreading.html#cb37-75" tabindex="-1"></a>            metrics<span class="sc">$</span>components,</span>
+<span id="cb37-76"><a href="simulation-and-spreading.html#cb37-76" tabindex="-1"></a>          </span>
+<span id="cb37-77"><a href="simulation-and-spreading.html#cb37-77" tabindex="-1"></a>          <span class="at">largest_component =</span></span>
+<span id="cb37-78"><a href="simulation-and-spreading.html#cb37-78" tabindex="-1"></a>            metrics<span class="sc">$</span>largest_component,</span>
+<span id="cb37-79"><a href="simulation-and-spreading.html#cb37-79" tabindex="-1"></a>          </span>
+<span id="cb37-80"><a href="simulation-and-spreading.html#cb37-80" tabindex="-1"></a>          <span class="at">giant_component_prop =</span></span>
+<span id="cb37-81"><a href="simulation-and-spreading.html#cb37-81" tabindex="-1"></a>            metrics<span class="sc">$</span>giant_component_prop,</span>
+<span id="cb37-82"><a href="simulation-and-spreading.html#cb37-82" tabindex="-1"></a>          </span>
+<span id="cb37-83"><a href="simulation-and-spreading.html#cb37-83" tabindex="-1"></a>          <span class="at">mean_degree =</span></span>
+<span id="cb37-84"><a href="simulation-and-spreading.html#cb37-84" tabindex="-1"></a>            metrics<span class="sc">$</span>mean_degree,</span>
+<span id="cb37-85"><a href="simulation-and-spreading.html#cb37-85" tabindex="-1"></a>          </span>
+<span id="cb37-86"><a href="simulation-and-spreading.html#cb37-86" tabindex="-1"></a>          <span class="at">edge_density =</span></span>
+<span id="cb37-87"><a href="simulation-and-spreading.html#cb37-87" tabindex="-1"></a>            metrics<span class="sc">$</span>edge_density,</span>
+<span id="cb37-88"><a href="simulation-and-spreading.html#cb37-88" tabindex="-1"></a>          </span>
+<span id="cb37-89"><a href="simulation-and-spreading.html#cb37-89" tabindex="-1"></a>          <span class="at">infected_cells =</span></span>
+<span id="cb37-90"><a href="simulation-and-spreading.html#cb37-90" tabindex="-1"></a>            outbreak<span class="sc">$</span>infected_cells,</span>
+<span id="cb37-91"><a href="simulation-and-spreading.html#cb37-91" tabindex="-1"></a>          </span>
+<span id="cb37-92"><a href="simulation-and-spreading.html#cb37-92" tabindex="-1"></a>          <span class="at">outbreak_steps =</span></span>
+<span id="cb37-93"><a href="simulation-and-spreading.html#cb37-93" tabindex="-1"></a>            outbreak<span class="sc">$</span>outbreak_steps,</span>
+<span id="cb37-94"><a href="simulation-and-spreading.html#cb37-94" tabindex="-1"></a>          </span>
+<span id="cb37-95"><a href="simulation-and-spreading.html#cb37-95" tabindex="-1"></a>          <span class="at">start_component_size =</span></span>
+<span id="cb37-96"><a href="simulation-and-spreading.html#cb37-96" tabindex="-1"></a>            outbreak<span class="sc">$</span>start_component_size,</span>
+<span id="cb37-97"><a href="simulation-and-spreading.html#cb37-97" tabindex="-1"></a>          </span>
+<span id="cb37-98"><a href="simulation-and-spreading.html#cb37-98" tabindex="-1"></a>          <span class="at">spread_total_habitat =</span></span>
+<span id="cb37-99"><a href="simulation-and-spreading.html#cb37-99" tabindex="-1"></a>            outbreak<span class="sc">$</span>infected_cells <span class="sc">/</span></span>
+<span id="cb37-100"><a href="simulation-and-spreading.html#cb37-100" tabindex="-1"></a>            total_forest,</span>
+<span id="cb37-101"><a href="simulation-and-spreading.html#cb37-101" tabindex="-1"></a>          </span>
+<span id="cb37-102"><a href="simulation-and-spreading.html#cb37-102" tabindex="-1"></a>          <span class="at">spread_start_component =</span></span>
+<span id="cb37-103"><a href="simulation-and-spreading.html#cb37-103" tabindex="-1"></a>            outbreak<span class="sc">$</span>infected_cells <span class="sc">/</span></span>
+<span id="cb37-104"><a href="simulation-and-spreading.html#cb37-104" tabindex="-1"></a>            outbreak<span class="sc">$</span>start_component_size</span>
+<span id="cb37-105"><a href="simulation-and-spreading.html#cb37-105" tabindex="-1"></a>          </span>
+<span id="cb37-106"><a href="simulation-and-spreading.html#cb37-106" tabindex="-1"></a>        )</span>
+<span id="cb37-107"><a href="simulation-and-spreading.html#cb37-107" tabindex="-1"></a>      </span>
+<span id="cb37-108"><a href="simulation-and-spreading.html#cb37-108" tabindex="-1"></a>      counter <span class="ot">&lt;-</span> counter <span class="sc">+</span> <span class="dv">1</span></span>
+<span id="cb37-109"><a href="simulation-and-spreading.html#cb37-109" tabindex="-1"></a>      </span>
+<span id="cb37-110"><a href="simulation-and-spreading.html#cb37-110" tabindex="-1"></a>    }</span>
+<span id="cb37-111"><a href="simulation-and-spreading.html#cb37-111" tabindex="-1"></a>    </span>
+<span id="cb37-112"><a href="simulation-and-spreading.html#cb37-112" tabindex="-1"></a>  }</span>
+<span id="cb37-113"><a href="simulation-and-spreading.html#cb37-113" tabindex="-1"></a>  </span>
+<span id="cb37-114"><a href="simulation-and-spreading.html#cb37-114" tabindex="-1"></a>}</span>
+<span id="cb37-115"><a href="simulation-and-spreading.html#cb37-115" tabindex="-1"></a></span>
+<span id="cb37-116"><a href="simulation-and-spreading.html#cb37-116" tabindex="-1"></a><span class="co">#------------------------------------------------------------------------------</span></span>
+<span id="cb37-117"><a href="simulation-and-spreading.html#cb37-117" tabindex="-1"></a><span class="co"># SAVE RESULTS</span></span>
+<span id="cb37-118"><a href="simulation-and-spreading.html#cb37-118" tabindex="-1"></a><span class="co">#------------------------------------------------------------------------------</span></span>
+<span id="cb37-119"><a href="simulation-and-spreading.html#cb37-119" tabindex="-1"></a></span>
+<span id="cb37-120"><a href="simulation-and-spreading.html#cb37-120" tabindex="-1"></a>results_df <span class="ot">&lt;-</span></span>
+<span id="cb37-121"><a href="simulation-and-spreading.html#cb37-121" tabindex="-1"></a>  <span class="fu">bind_rows</span>(results)</span>
+<span id="cb37-122"><a href="simulation-and-spreading.html#cb37-122" tabindex="-1"></a></span>
+<span id="cb37-123"><a href="simulation-and-spreading.html#cb37-123" tabindex="-1"></a><span class="co"># write.csv(</span></span>
+<span id="cb37-124"><a href="simulation-and-spreading.html#cb37-124" tabindex="-1"></a><span class="co">#   results_df,</span></span>
+<span id="cb37-125"><a href="simulation-and-spreading.html#cb37-125" tabindex="-1"></a><span class="co">#   &quot;contagion_results.csv&quot;,</span></span>
+<span id="cb37-126"><a href="simulation-and-spreading.html#cb37-126" tabindex="-1"></a><span class="co">#   row.names = FALSE</span></span>
+<span id="cb37-127"><a href="simulation-and-spreading.html#cb37-127" tabindex="-1"></a><span class="co"># )</span></span>
+<span id="cb37-128"><a href="simulation-and-spreading.html#cb37-128" tabindex="-1"></a></span>
+<span id="cb37-129"><a href="simulation-and-spreading.html#cb37-129" tabindex="-1"></a><span class="co">#------------------------------------------------------------------------------</span></span>
+<span id="cb37-130"><a href="simulation-and-spreading.html#cb37-130" tabindex="-1"></a><span class="co"># SUMMARY</span></span>
+<span id="cb37-131"><a href="simulation-and-spreading.html#cb37-131" tabindex="-1"></a><span class="co">#------------------------------------------------------------------------------</span></span>
+<span id="cb37-132"><a href="simulation-and-spreading.html#cb37-132" tabindex="-1"></a></span>
+<span id="cb37-133"><a href="simulation-and-spreading.html#cb37-133" tabindex="-1"></a>summary_df <span class="ot">&lt;-</span></span>
+<span id="cb37-134"><a href="simulation-and-spreading.html#cb37-134" tabindex="-1"></a>  results_df <span class="sc">%&gt;%</span></span>
+<span id="cb37-135"><a href="simulation-and-spreading.html#cb37-135" tabindex="-1"></a>  <span class="fu">group_by</span>(</span>
+<span id="cb37-136"><a href="simulation-and-spreading.html#cb37-136" tabindex="-1"></a>    landscape_type,</span>
+<span id="cb37-137"><a href="simulation-and-spreading.html#cb37-137" tabindex="-1"></a>    forest_cover</span>
+<span id="cb37-138"><a href="simulation-and-spreading.html#cb37-138" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb37-139"><a href="simulation-and-spreading.html#cb37-139" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb37-140"><a href="simulation-and-spreading.html#cb37-140" tabindex="-1"></a>    </span>
+<span id="cb37-141"><a href="simulation-and-spreading.html#cb37-141" tabindex="-1"></a>    <span class="at">mean_giant_component =</span></span>
+<span id="cb37-142"><a href="simulation-and-spreading.html#cb37-142" tabindex="-1"></a>      <span class="fu">mean</span>(</span>
+<span id="cb37-143"><a href="simulation-and-spreading.html#cb37-143" tabindex="-1"></a>        giant_component_prop</span>
+<span id="cb37-144"><a href="simulation-and-spreading.html#cb37-144" tabindex="-1"></a>      ),</span>
+<span id="cb37-145"><a href="simulation-and-spreading.html#cb37-145" tabindex="-1"></a>    </span>
+<span id="cb37-146"><a href="simulation-and-spreading.html#cb37-146" tabindex="-1"></a>    <span class="at">mean_outbreak_size =</span></span>
+<span id="cb37-147"><a href="simulation-and-spreading.html#cb37-147" tabindex="-1"></a>      <span class="fu">mean</span>(</span>
+<span id="cb37-148"><a href="simulation-and-spreading.html#cb37-148" tabindex="-1"></a>        infected_cells</span>
+<span id="cb37-149"><a href="simulation-and-spreading.html#cb37-149" tabindex="-1"></a>      ),</span>
+<span id="cb37-150"><a href="simulation-and-spreading.html#cb37-150" tabindex="-1"></a>    </span>
+<span id="cb37-151"><a href="simulation-and-spreading.html#cb37-151" tabindex="-1"></a>    <span class="at">mean_spread_component =</span></span>
+<span id="cb37-152"><a href="simulation-and-spreading.html#cb37-152" tabindex="-1"></a>      <span class="fu">mean</span>(</span>
+<span id="cb37-153"><a href="simulation-and-spreading.html#cb37-153" tabindex="-1"></a>        spread_start_component</span>
+<span id="cb37-154"><a href="simulation-and-spreading.html#cb37-154" tabindex="-1"></a>      ),</span>
+<span id="cb37-155"><a href="simulation-and-spreading.html#cb37-155" tabindex="-1"></a>    </span>
+<span id="cb37-156"><a href="simulation-and-spreading.html#cb37-156" tabindex="-1"></a>    <span class="at">.groups =</span> <span class="st">&quot;drop&quot;</span></span>
+<span id="cb37-157"><a href="simulation-and-spreading.html#cb37-157" tabindex="-1"></a>    </span>
+<span id="cb37-158"><a href="simulation-and-spreading.html#cb37-158" tabindex="-1"></a>  )</span>
+<span id="cb37-159"><a href="simulation-and-spreading.html#cb37-159" tabindex="-1"></a></span>
+<span id="cb37-160"><a href="simulation-and-spreading.html#cb37-160" tabindex="-1"></a><span class="co">#------------------------------------------------------------------------------</span></span>
+<span id="cb37-161"><a href="simulation-and-spreading.html#cb37-161" tabindex="-1"></a><span class="co"># PERCOLATION CURVE</span></span>
+<span id="cb37-162"><a href="simulation-and-spreading.html#cb37-162" tabindex="-1"></a><span class="co">#------------------------------------------------------------------------------</span></span>
+<span id="cb37-163"><a href="simulation-and-spreading.html#cb37-163" tabindex="-1"></a></span>
+<span id="cb37-164"><a href="simulation-and-spreading.html#cb37-164" tabindex="-1"></a>p1<span class="ot">&lt;-</span><span class="fu">ggplot</span>(</span>
+<span id="cb37-165"><a href="simulation-and-spreading.html#cb37-165" tabindex="-1"></a>  summary_df,</span>
+<span id="cb37-166"><a href="simulation-and-spreading.html#cb37-166" tabindex="-1"></a>  <span class="fu">aes</span>(</span>
+<span id="cb37-167"><a href="simulation-and-spreading.html#cb37-167" tabindex="-1"></a>    forest_cover,</span>
+<span id="cb37-168"><a href="simulation-and-spreading.html#cb37-168" tabindex="-1"></a>    mean_giant_component,</span>
+<span id="cb37-169"><a href="simulation-and-spreading.html#cb37-169" tabindex="-1"></a>    <span class="at">colour =</span> landscape_type</span>
+<span id="cb37-170"><a href="simulation-and-spreading.html#cb37-170" tabindex="-1"></a>  )</span>
+<span id="cb37-171"><a href="simulation-and-spreading.html#cb37-171" tabindex="-1"></a>) <span class="sc">+</span></span>
+<span id="cb37-172"><a href="simulation-and-spreading.html#cb37-172" tabindex="-1"></a>  <span class="fu">geom_line</span>(</span>
+<span id="cb37-173"><a href="simulation-and-spreading.html#cb37-173" tabindex="-1"></a>    <span class="at">linewidth =</span> <span class="fl">1.2</span></span>
+<span id="cb37-174"><a href="simulation-and-spreading.html#cb37-174" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb37-175"><a href="simulation-and-spreading.html#cb37-175" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb37-176"><a href="simulation-and-spreading.html#cb37-176" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb37-177"><a href="simulation-and-spreading.html#cb37-177" tabindex="-1"></a>    <span class="at">title =</span></span>
+<span id="cb37-178"><a href="simulation-and-spreading.html#cb37-178" tabindex="-1"></a>      <span class="st">&quot;Percolation Curve&quot;</span>,</span>
+<span id="cb37-179"><a href="simulation-and-spreading.html#cb37-179" tabindex="-1"></a>    <span class="at">x =</span></span>
+<span id="cb37-180"><a href="simulation-and-spreading.html#cb37-180" tabindex="-1"></a>      <span class="st">&quot;Forest Cover&quot;</span>,</span>
+<span id="cb37-181"><a href="simulation-and-spreading.html#cb37-181" tabindex="-1"></a>    <span class="at">y =</span></span>
+<span id="cb37-182"><a href="simulation-and-spreading.html#cb37-182" tabindex="-1"></a>      <span class="st">&quot;Giant Component Proportion&quot;</span></span>
+<span id="cb37-183"><a href="simulation-and-spreading.html#cb37-183" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb37-184"><a href="simulation-and-spreading.html#cb37-184" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span>
+<span id="cb37-185"><a href="simulation-and-spreading.html#cb37-185" tabindex="-1"></a></span>
+<span id="cb37-186"><a href="simulation-and-spreading.html#cb37-186" tabindex="-1"></a></span>
+<span id="cb37-187"><a href="simulation-and-spreading.html#cb37-187" tabindex="-1"></a><span class="co">#------------------------------------------------------------------------------</span></span>
+<span id="cb37-188"><a href="simulation-and-spreading.html#cb37-188" tabindex="-1"></a><span class="co"># OUTBREAK SIZE CURVE</span></span>
+<span id="cb37-189"><a href="simulation-and-spreading.html#cb37-189" tabindex="-1"></a><span class="co">#------------------------------------------------------------------------------</span></span>
+<span id="cb37-190"><a href="simulation-and-spreading.html#cb37-190" tabindex="-1"></a></span>
+<span id="cb37-191"><a href="simulation-and-spreading.html#cb37-191" tabindex="-1"></a>p2<span class="ot">&lt;-</span><span class="fu">ggplot</span>(</span>
+<span id="cb37-192"><a href="simulation-and-spreading.html#cb37-192" tabindex="-1"></a>  summary_df,</span>
+<span id="cb37-193"><a href="simulation-and-spreading.html#cb37-193" tabindex="-1"></a>  <span class="fu">aes</span>(</span>
+<span id="cb37-194"><a href="simulation-and-spreading.html#cb37-194" tabindex="-1"></a>    forest_cover,</span>
+<span id="cb37-195"><a href="simulation-and-spreading.html#cb37-195" tabindex="-1"></a>    mean_outbreak_size,</span>
+<span id="cb37-196"><a href="simulation-and-spreading.html#cb37-196" tabindex="-1"></a>    <span class="at">colour =</span> landscape_type</span>
+<span id="cb37-197"><a href="simulation-and-spreading.html#cb37-197" tabindex="-1"></a>  )</span>
+<span id="cb37-198"><a href="simulation-and-spreading.html#cb37-198" tabindex="-1"></a>) <span class="sc">+</span></span>
+<span id="cb37-199"><a href="simulation-and-spreading.html#cb37-199" tabindex="-1"></a>  <span class="fu">geom_line</span>(</span>
+<span id="cb37-200"><a href="simulation-and-spreading.html#cb37-200" tabindex="-1"></a>    <span class="at">linewidth =</span> <span class="fl">1.2</span></span>
+<span id="cb37-201"><a href="simulation-and-spreading.html#cb37-201" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb37-202"><a href="simulation-and-spreading.html#cb37-202" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb37-203"><a href="simulation-and-spreading.html#cb37-203" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb37-204"><a href="simulation-and-spreading.html#cb37-204" tabindex="-1"></a>    <span class="at">title =</span></span>
+<span id="cb37-205"><a href="simulation-and-spreading.html#cb37-205" tabindex="-1"></a>      <span class="st">&quot;Forest Cover vs Outbreak Size&quot;</span>,</span>
+<span id="cb37-206"><a href="simulation-and-spreading.html#cb37-206" tabindex="-1"></a>    <span class="at">x =</span></span>
+<span id="cb37-207"><a href="simulation-and-spreading.html#cb37-207" tabindex="-1"></a>      <span class="st">&quot;Forest Cover&quot;</span>,</span>
+<span id="cb37-208"><a href="simulation-and-spreading.html#cb37-208" tabindex="-1"></a>    <span class="at">y =</span></span>
+<span id="cb37-209"><a href="simulation-and-spreading.html#cb37-209" tabindex="-1"></a>      <span class="st">&quot;Mean Infected Cells&quot;</span></span>
+<span id="cb37-210"><a href="simulation-and-spreading.html#cb37-210" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb37-211"><a href="simulation-and-spreading.html#cb37-211" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span>
+<span id="cb37-212"><a href="simulation-and-spreading.html#cb37-212" tabindex="-1"></a></span>
+<span id="cb37-213"><a href="simulation-and-spreading.html#cb37-213" tabindex="-1"></a><span class="co">#------------------------------------------------------------------------------</span></span>
+<span id="cb37-214"><a href="simulation-and-spreading.html#cb37-214" tabindex="-1"></a><span class="co"># CONNECTIVITY VS OUTBREAK SIZE</span></span>
+<span id="cb37-215"><a href="simulation-and-spreading.html#cb37-215" tabindex="-1"></a><span class="co">#------------------------------------------------------------------------------</span></span>
+<span id="cb37-216"><a href="simulation-and-spreading.html#cb37-216" tabindex="-1"></a></span>
+<span id="cb37-217"><a href="simulation-and-spreading.html#cb37-217" tabindex="-1"></a>p3<span class="ot">&lt;-</span><span class="fu">ggplot</span>(</span>
+<span id="cb37-218"><a href="simulation-and-spreading.html#cb37-218" tabindex="-1"></a>  results_df,</span>
+<span id="cb37-219"><a href="simulation-and-spreading.html#cb37-219" tabindex="-1"></a>  <span class="fu">aes</span>(</span>
+<span id="cb37-220"><a href="simulation-and-spreading.html#cb37-220" tabindex="-1"></a>    giant_component_prop,</span>
+<span id="cb37-221"><a href="simulation-and-spreading.html#cb37-221" tabindex="-1"></a>    infected_cells,</span>
+<span id="cb37-222"><a href="simulation-and-spreading.html#cb37-222" tabindex="-1"></a>    <span class="at">colour =</span> landscape_type</span>
+<span id="cb37-223"><a href="simulation-and-spreading.html#cb37-223" tabindex="-1"></a>  )</span>
+<span id="cb37-224"><a href="simulation-and-spreading.html#cb37-224" tabindex="-1"></a>) <span class="sc">+</span></span>
+<span id="cb37-225"><a href="simulation-and-spreading.html#cb37-225" tabindex="-1"></a>  <span class="fu">geom_point</span>(</span>
+<span id="cb37-226"><a href="simulation-and-spreading.html#cb37-226" tabindex="-1"></a>    <span class="at">alpha =</span> <span class="fl">0.3</span></span>
+<span id="cb37-227"><a href="simulation-and-spreading.html#cb37-227" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb37-228"><a href="simulation-and-spreading.html#cb37-228" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(</span>
+<span id="cb37-229"><a href="simulation-and-spreading.html#cb37-229" tabindex="-1"></a>    <span class="at">method =</span> <span class="st">&quot;loess&quot;</span>,</span>
+<span id="cb37-230"><a href="simulation-and-spreading.html#cb37-230" tabindex="-1"></a>    <span class="at">se =</span> <span class="cn">TRUE</span></span>
+<span id="cb37-231"><a href="simulation-and-spreading.html#cb37-231" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb37-232"><a href="simulation-and-spreading.html#cb37-232" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb37-233"><a href="simulation-and-spreading.html#cb37-233" tabindex="-1"></a>    <span class="at">title =</span></span>
+<span id="cb37-234"><a href="simulation-and-spreading.html#cb37-234" tabindex="-1"></a>      <span class="st">&quot;Connectivity vs Outbreak Size&quot;</span>,</span>
+<span id="cb37-235"><a href="simulation-and-spreading.html#cb37-235" tabindex="-1"></a>    <span class="at">x =</span></span>
+<span id="cb37-236"><a href="simulation-and-spreading.html#cb37-236" tabindex="-1"></a>      <span class="st">&quot;Giant Component Proportion&quot;</span>,</span>
+<span id="cb37-237"><a href="simulation-and-spreading.html#cb37-237" tabindex="-1"></a>    <span class="at">y =</span></span>
+<span id="cb37-238"><a href="simulation-and-spreading.html#cb37-238" tabindex="-1"></a>      <span class="st">&quot;Infected Cells&quot;</span></span>
+<span id="cb37-239"><a href="simulation-and-spreading.html#cb37-239" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb37-240"><a href="simulation-and-spreading.html#cb37-240" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div>
+</div>
+</div>
+<div id="results-2" class="section level2 hasAnchor" number="8.3">
+<h2><span class="header-section-number">8.3</span> RESULTS<a href="simulation-and-spreading.html#results-2" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="kmqhsypvgm" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#kmqhsypvgm table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#kmqhsypvgm thead, #kmqhsypvgm tbody, #kmqhsypvgm tfoot, #kmqhsypvgm tr, #kmqhsypvgm td, #kmqhsypvgm th {
+  border-style: none;
+}
+
+#kmqhsypvgm p {
+  margin: 0;
+  padding: 0;
+}
+
+#kmqhsypvgm .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#kmqhsypvgm .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#kmqhsypvgm .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#kmqhsypvgm .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#kmqhsypvgm .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#kmqhsypvgm .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#kmqhsypvgm .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#kmqhsypvgm .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#kmqhsypvgm .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#kmqhsypvgm .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#kmqhsypvgm .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#kmqhsypvgm .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#kmqhsypvgm .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#kmqhsypvgm .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#kmqhsypvgm .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#kmqhsypvgm .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#kmqhsypvgm .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#kmqhsypvgm .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#kmqhsypvgm .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#kmqhsypvgm .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#kmqhsypvgm .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#kmqhsypvgm .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#kmqhsypvgm .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#kmqhsypvgm .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#kmqhsypvgm .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#kmqhsypvgm .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#kmqhsypvgm .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#kmqhsypvgm .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#kmqhsypvgm .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#kmqhsypvgm .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#kmqhsypvgm .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#kmqhsypvgm .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#kmqhsypvgm .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#kmqhsypvgm .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#kmqhsypvgm .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#kmqhsypvgm .gt_left {
+  text-align: left;
+}
+
+#kmqhsypvgm .gt_center {
+  text-align: center;
+}
+
+#kmqhsypvgm .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#kmqhsypvgm .gt_font_normal {
+  font-weight: normal;
+}
+
+#kmqhsypvgm .gt_font_bold {
+  font-weight: bold;
+}
+
+#kmqhsypvgm .gt_font_italic {
+  font-style: italic;
+}
+
+#kmqhsypvgm .gt_super {
+  font-size: 65%;
+}
+
+#kmqhsypvgm .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#kmqhsypvgm .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#kmqhsypvgm .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#kmqhsypvgm .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#kmqhsypvgm .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#kmqhsypvgm .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#kmqhsypvgm .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#kmqhsypvgm .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#kmqhsypvgm div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+</style>
+<table class="gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+  <thead>
+    <tr class="gt_heading">
+      <td colspan="4" class="gt_heading gt_title gt_font_normal" style><span class='gt_from_md'><strong>Connectivity and Contagion Summary</strong></span></td>
+    </tr>
+    <tr class="gt_heading">
+      <td colspan="4" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style>Monte Carlo Simulation Results</td>
+    </tr>
+    <tr class="gt_col_headings">
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="Forest-Cover">Forest Cover</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="Giant-Component">Giant Component</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="Mean-Outbreak-Size">Mean Outbreak Size</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="mean_spread_component">mean_spread_component</th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr class="gt_group_heading_row">
+      <th colspan="4" class="gt_group_heading" scope="colgroup" id="clustered">clustered</th>
+    </tr>
+    <tr class="gt_row_group_first"><td headers="clustered  Forest Cover" class="gt_row gt_center">0.10</td>
+<td headers="clustered  Giant Component" class="gt_row gt_center">0.37</td>
+<td headers="clustered  Mean Outbreak Size" class="gt_row gt_center">29.9</td>
+<td headers="clustered  mean_spread_component" class="gt_row gt_center">0.65388794</td></tr>
+    <tr><td headers="clustered  Forest Cover" class="gt_row gt_center">0.15</td>
+<td headers="clustered  Giant Component" class="gt_row gt_center">0.39</td>
+<td headers="clustered  Mean Outbreak Size" class="gt_row gt_center">53.9</td>
+<td headers="clustered  mean_spread_component" class="gt_row gt_center">0.58895763</td></tr>
+    <tr><td headers="clustered  Forest Cover" class="gt_row gt_center">0.20</td>
+<td headers="clustered  Giant Component" class="gt_row gt_center">0.45</td>
+<td headers="clustered  Mean Outbreak Size" class="gt_row gt_center">65.7</td>
+<td headers="clustered  mean_spread_component" class="gt_row gt_center">0.61344379</td></tr>
+    <tr><td headers="clustered  Forest Cover" class="gt_row gt_center">0.25</td>
+<td headers="clustered  Giant Component" class="gt_row gt_center">0.54</td>
+<td headers="clustered  Mean Outbreak Size" class="gt_row gt_center">116.4</td>
+<td headers="clustered  mean_spread_component" class="gt_row gt_center">0.59876272</td></tr>
+    <tr><td headers="clustered  Forest Cover" class="gt_row gt_center">0.30</td>
+<td headers="clustered  Giant Component" class="gt_row gt_center">0.53</td>
+<td headers="clustered  Mean Outbreak Size" class="gt_row gt_center">136.5</td>
+<td headers="clustered  mean_spread_component" class="gt_row gt_center">0.57150533</td></tr>
+    <tr><td headers="clustered  Forest Cover" class="gt_row gt_center">0.35</td>
+<td headers="clustered  Giant Component" class="gt_row gt_center">0.59</td>
+<td headers="clustered  Mean Outbreak Size" class="gt_row gt_center">173.2</td>
+<td headers="clustered  mean_spread_component" class="gt_row gt_center">0.54647309</td></tr>
+    <tr><td headers="clustered  Forest Cover" class="gt_row gt_center">0.40</td>
+<td headers="clustered  Giant Component" class="gt_row gt_center">0.63</td>
+<td headers="clustered  Mean Outbreak Size" class="gt_row gt_center">189.5</td>
+<td headers="clustered  mean_spread_component" class="gt_row gt_center">0.52615016</td></tr>
+    <tr><td headers="clustered  Forest Cover" class="gt_row gt_center">0.45</td>
+<td headers="clustered  Giant Component" class="gt_row gt_center">0.66</td>
+<td headers="clustered  Mean Outbreak Size" class="gt_row gt_center">200.2</td>
+<td headers="clustered  mean_spread_component" class="gt_row gt_center">0.49469457</td></tr>
+    <tr><td headers="clustered  Forest Cover" class="gt_row gt_center">0.50</td>
+<td headers="clustered  Giant Component" class="gt_row gt_center">0.70</td>
+<td headers="clustered  Mean Outbreak Size" class="gt_row gt_center">243.1</td>
+<td headers="clustered  mean_spread_component" class="gt_row gt_center">0.42657596</td></tr>
+    <tr><td headers="clustered  Forest Cover" class="gt_row gt_center">0.55</td>
+<td headers="clustered  Giant Component" class="gt_row gt_center">0.76</td>
+<td headers="clustered  Mean Outbreak Size" class="gt_row gt_center">388.6</td>
+<td headers="clustered  mean_spread_component" class="gt_row gt_center">0.52111643</td></tr>
+    <tr><td headers="clustered  Forest Cover" class="gt_row gt_center">0.60</td>
+<td headers="clustered  Giant Component" class="gt_row gt_center">0.83</td>
+<td headers="clustered  Mean Outbreak Size" class="gt_row gt_center">393.7</td>
+<td headers="clustered  mean_spread_component" class="gt_row gt_center">0.46842176</td></tr>
+    <tr><td headers="clustered  Forest Cover" class="gt_row gt_center">0.65</td>
+<td headers="clustered  Giant Component" class="gt_row gt_center">0.85</td>
+<td headers="clustered  Mean Outbreak Size" class="gt_row gt_center">487.0</td>
+<td headers="clustered  mean_spread_component" class="gt_row gt_center">0.44706743</td></tr>
+    <tr><td headers="clustered  Forest Cover" class="gt_row gt_center">0.70</td>
+<td headers="clustered  Giant Component" class="gt_row gt_center">0.91</td>
+<td headers="clustered  Mean Outbreak Size" class="gt_row gt_center">521.7</td>
+<td headers="clustered  mean_spread_component" class="gt_row gt_center">0.40308083</td></tr>
+    <tr><td headers="clustered  Forest Cover" class="gt_row gt_center">0.75</td>
+<td headers="clustered  Giant Component" class="gt_row gt_center">0.96</td>
+<td headers="clustered  Mean Outbreak Size" class="gt_row gt_center">570.0</td>
+<td headers="clustered  mean_spread_component" class="gt_row gt_center">0.36288544</td></tr>
+    <tr><td headers="clustered  Forest Cover" class="gt_row gt_center">0.80</td>
+<td headers="clustered  Giant Component" class="gt_row gt_center">0.97</td>
+<td headers="clustered  Mean Outbreak Size" class="gt_row gt_center">641.0</td>
+<td headers="clustered  mean_spread_component" class="gt_row gt_center">0.36371783</td></tr>
+    <tr><td headers="clustered  Forest Cover" class="gt_row gt_center">0.85</td>
+<td headers="clustered  Giant Component" class="gt_row gt_center">0.98</td>
+<td headers="clustered  Mean Outbreak Size" class="gt_row gt_center">689.6</td>
+<td headers="clustered  mean_spread_component" class="gt_row gt_center">0.37079552</td></tr>
+    <tr><td headers="clustered  Forest Cover" class="gt_row gt_center">0.90</td>
+<td headers="clustered  Giant Component" class="gt_row gt_center">0.99</td>
+<td headers="clustered  Mean Outbreak Size" class="gt_row gt_center">839.9</td>
+<td headers="clustered  mean_spread_component" class="gt_row gt_center">0.40686268</td></tr>
+    <tr class="gt_group_heading_row">
+      <th colspan="4" class="gt_group_heading" scope="colgroup" id="random">random</th>
+    </tr>
+    <tr class="gt_row_group_first"><td headers="random  Forest Cover" class="gt_row gt_center">0.10</td>
+<td headers="random  Giant Component" class="gt_row gt_center">0.02</td>
+<td headers="random  Mean Outbreak Size" class="gt_row gt_center">1.3</td>
+<td headers="random  mean_spread_component" class="gt_row gt_center">0.93283333</td></tr>
+    <tr><td headers="random  Forest Cover" class="gt_row gt_center">0.15</td>
+<td headers="random  Giant Component" class="gt_row gt_center">0.02</td>
+<td headers="random  Mean Outbreak Size" class="gt_row gt_center">1.5</td>
+<td headers="random  mean_spread_component" class="gt_row gt_center">0.88521795</td></tr>
+    <tr><td headers="random  Forest Cover" class="gt_row gt_center">0.20</td>
+<td headers="random  Giant Component" class="gt_row gt_center">0.02</td>
+<td headers="random  Mean Outbreak Size" class="gt_row gt_center">2.0</td>
+<td headers="random  mean_spread_component" class="gt_row gt_center">0.85549206</td></tr>
+    <tr><td headers="random  Forest Cover" class="gt_row gt_center">0.25</td>
+<td headers="random  Giant Component" class="gt_row gt_center">0.02</td>
+<td headers="random  Mean Outbreak Size" class="gt_row gt_center">2.7</td>
+<td headers="random  mean_spread_component" class="gt_row gt_center">0.82750706</td></tr>
+    <tr><td headers="random  Forest Cover" class="gt_row gt_center">0.30</td>
+<td headers="random  Giant Component" class="gt_row gt_center">0.02</td>
+<td headers="random  Mean Outbreak Size" class="gt_row gt_center">3.0</td>
+<td headers="random  mean_spread_component" class="gt_row gt_center">0.74682716</td></tr>
+    <tr><td headers="random  Forest Cover" class="gt_row gt_center">0.35</td>
+<td headers="random  Giant Component" class="gt_row gt_center">0.03</td>
+<td headers="random  Mean Outbreak Size" class="gt_row gt_center">3.5</td>
+<td headers="random  mean_spread_component" class="gt_row gt_center">0.69414728</td></tr>
+    <tr><td headers="random  Forest Cover" class="gt_row gt_center">0.40</td>
+<td headers="random  Giant Component" class="gt_row gt_center">0.04</td>
+<td headers="random  Mean Outbreak Size" class="gt_row gt_center">4.3</td>
+<td headers="random  mean_spread_component" class="gt_row gt_center">0.61745172</td></tr>
+    <tr><td headers="random  Forest Cover" class="gt_row gt_center">0.45</td>
+<td headers="random  Giant Component" class="gt_row gt_center">0.06</td>
+<td headers="random  Mean Outbreak Size" class="gt_row gt_center">6.1</td>
+<td headers="random  mean_spread_component" class="gt_row gt_center">0.50960930</td></tr>
+    <tr><td headers="random  Forest Cover" class="gt_row gt_center">0.50</td>
+<td headers="random  Giant Component" class="gt_row gt_center">0.11</td>
+<td headers="random  Mean Outbreak Size" class="gt_row gt_center">9.5</td>
+<td headers="random  mean_spread_component" class="gt_row gt_center">0.47093280</td></tr>
+    <tr><td headers="random  Forest Cover" class="gt_row gt_center">0.55</td>
+<td headers="random  Giant Component" class="gt_row gt_center">0.23</td>
+<td headers="random  Mean Outbreak Size" class="gt_row gt_center">13.8</td>
+<td headers="random  mean_spread_component" class="gt_row gt_center">0.32508020</td></tr>
+    <tr><td headers="random  Forest Cover" class="gt_row gt_center">0.60</td>
+<td headers="random  Giant Component" class="gt_row gt_center">0.55</td>
+<td headers="random  Mean Outbreak Size" class="gt_row gt_center">22.1</td>
+<td headers="random  mean_spread_component" class="gt_row gt_center">0.17559518</td></tr>
+    <tr><td headers="random  Forest Cover" class="gt_row gt_center">0.65</td>
+<td headers="random  Giant Component" class="gt_row gt_center">0.88</td>
+<td headers="random  Mean Outbreak Size" class="gt_row gt_center">48.4</td>
+<td headers="random  mean_spread_component" class="gt_row gt_center">0.08775378</td></tr>
+    <tr><td headers="random  Forest Cover" class="gt_row gt_center">0.70</td>
+<td headers="random  Giant Component" class="gt_row gt_center">0.97</td>
+<td headers="random  Mean Outbreak Size" class="gt_row gt_center">90.4</td>
+<td headers="random  mean_spread_component" class="gt_row gt_center">0.06593351</td></tr>
+    <tr><td headers="random  Forest Cover" class="gt_row gt_center">0.75</td>
+<td headers="random  Giant Component" class="gt_row gt_center">0.99</td>
+<td headers="random  Mean Outbreak Size" class="gt_row gt_center">185.0</td>
+<td headers="random  mean_spread_component" class="gt_row gt_center">0.09992307</td></tr>
+    <tr><td headers="random  Forest Cover" class="gt_row gt_center">0.80</td>
+<td headers="random  Giant Component" class="gt_row gt_center">1.00</td>
+<td headers="random  Mean Outbreak Size" class="gt_row gt_center">350.5</td>
+<td headers="random  mean_spread_component" class="gt_row gt_center">0.18416924</td></tr>
+    <tr><td headers="random  Forest Cover" class="gt_row gt_center">0.85</td>
+<td headers="random  Giant Component" class="gt_row gt_center">1.00</td>
+<td headers="random  Mean Outbreak Size" class="gt_row gt_center">518.4</td>
+<td headers="random  mean_spread_component" class="gt_row gt_center">0.24422495</td></tr>
+    <tr><td headers="random  Forest Cover" class="gt_row gt_center">0.90</td>
+<td headers="random  Giant Component" class="gt_row gt_center">1.00</td>
+<td headers="random  Mean Outbreak Size" class="gt_row gt_center">812.7</td>
+<td headers="random  mean_spread_component" class="gt_row gt_center">0.36127822</td></tr>
+  </tbody>
+  
+</table>
+</div>
+<p>The Connectivity and Contagion Summary table illustrates how increasing forest cover influences both habitat connectivity and the potential for contagion spread across the landscape. The <strong>mean giant component proportion</strong> represents the proportion of all habitat cells contained within the largest connected habitat network and serves as a measure of landscape-scale connectivity. Values near zero indicate highly fragmented habitat, whereas values approaching one indicate that most habitat belongs to a single connected network. The <strong>mean outbreak size</strong> represents the average number of habitat cells infected during the contagion simulations and provides a measure of the magnitude of contagion spread. As forest cover increased, both metrics generally increased, indicating that larger amounts of habitat promoted the development of connected habitat networks capable of sustaining larger outbreaks. Clustered landscapes consistently exhibited higher giant component proportions and larger outbreak sizes than random landscapes at equivalent forest cover levels, demonstrating that habitat configuration strongly influences connectivity. In random landscapes, outbreak sizes remained relatively small until forest cover reached approximately 55–65%, where a rapid increase in the giant component proportion was accompanied by a substantial increase in contagion spread. This pattern is characteristic of a <strong>percolation threshold</strong>, where previously isolated habitat patches become linked into a landscape-spanning network, allowing contagion to move across much larger portions of the landscape. Overall, the table suggests that forest cover is the primary driver of outbreak potential, while connectivity—as measured by the giant component proportion—acts as the mechanism through which increasing habitat availability facilitates large-scale contagion spread.The simulation results demonstrate a strong relationship between landscape structure, habitat connectivity, and contagion spread.</p>
+<p><img src="Modelling_Foundations_files/figure-html/plots_ss-1.png" width="80%" /></p>
+<p>The contagion simulations closely mirrored these connectivity patterns. In clustered landscapes, outbreaks were able to spread through large portions of the habitat network at much lower forest cover levels because extensive connected pathways already existed. Random landscapes, by comparison, supported only very small outbreaks until habitat cover approached the percolation threshold. Once this threshold was crossed and a large connected habitat network formed, outbreak size increased rapidly. This correspondence between the connectivity and outbreak curves strongly suggests that the emergence of large connected habitat networks is a prerequisite for landscape-scale contagion spread.</p>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="simulation-and-spreading.html#cb38-1" tabindex="-1"></a></span>
+<span id="cb38-2"><a href="simulation-and-spreading.html#cb38-2" tabindex="-1"></a>m1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(</span>
+<span id="cb38-3"><a href="simulation-and-spreading.html#cb38-3" tabindex="-1"></a>  infected_cells <span class="sc">~</span></span>
+<span id="cb38-4"><a href="simulation-and-spreading.html#cb38-4" tabindex="-1"></a>    forest_cover <span class="sc">+</span></span>
+<span id="cb38-5"><a href="simulation-and-spreading.html#cb38-5" tabindex="-1"></a>    landscape_type,</span>
+<span id="cb38-6"><a href="simulation-and-spreading.html#cb38-6" tabindex="-1"></a>  <span class="at">data =</span> results_df</span>
+<span id="cb38-7"><a href="simulation-and-spreading.html#cb38-7" tabindex="-1"></a>)</span>
+<span id="cb38-8"><a href="simulation-and-spreading.html#cb38-8" tabindex="-1"></a></span>
+<span id="cb38-9"><a href="simulation-and-spreading.html#cb38-9" tabindex="-1"></a>m2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(</span>
+<span id="cb38-10"><a href="simulation-and-spreading.html#cb38-10" tabindex="-1"></a>  infected_cells <span class="sc">~</span></span>
+<span id="cb38-11"><a href="simulation-and-spreading.html#cb38-11" tabindex="-1"></a>    giant_component_prop <span class="sc">+</span></span>
+<span id="cb38-12"><a href="simulation-and-spreading.html#cb38-12" tabindex="-1"></a>    landscape_type,</span>
+<span id="cb38-13"><a href="simulation-and-spreading.html#cb38-13" tabindex="-1"></a>  <span class="at">data =</span> results_df</span>
+<span id="cb38-14"><a href="simulation-and-spreading.html#cb38-14" tabindex="-1"></a>)</span>
+<span id="cb38-15"><a href="simulation-and-spreading.html#cb38-15" tabindex="-1"></a></span>
+<span id="cb38-16"><a href="simulation-and-spreading.html#cb38-16" tabindex="-1"></a>m3 <span class="ot">&lt;-</span> <span class="fu">lm</span>(</span>
+<span id="cb38-17"><a href="simulation-and-spreading.html#cb38-17" tabindex="-1"></a>  infected_cells <span class="sc">~</span></span>
+<span id="cb38-18"><a href="simulation-and-spreading.html#cb38-18" tabindex="-1"></a>    forest_cover <span class="sc">+</span></span>
+<span id="cb38-19"><a href="simulation-and-spreading.html#cb38-19" tabindex="-1"></a>    giant_component_prop <span class="sc">+</span></span>
+<span id="cb38-20"><a href="simulation-and-spreading.html#cb38-20" tabindex="-1"></a>    landscape_type,</span>
+<span id="cb38-21"><a href="simulation-and-spreading.html#cb38-21" tabindex="-1"></a>  <span class="at">data =</span> results_df</span>
+<span id="cb38-22"><a href="simulation-and-spreading.html#cb38-22" tabindex="-1"></a>)</span>
+<span id="cb38-23"><a href="simulation-and-spreading.html#cb38-23" tabindex="-1"></a></span>
+<span id="cb38-24"><a href="simulation-and-spreading.html#cb38-24" tabindex="-1"></a><span class="fu">summary</span>(m1)</span>
+<span id="cb38-25"><a href="simulation-and-spreading.html#cb38-25" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb38-26"><a href="simulation-and-spreading.html#cb38-26" tabindex="-1"></a><span class="do">## Call:</span></span>
+<span id="cb38-27"><a href="simulation-and-spreading.html#cb38-27" tabindex="-1"></a><span class="do">## lm(formula = infected_cells ~ forest_cover + landscape_type, </span></span>
+<span id="cb38-28"><a href="simulation-and-spreading.html#cb38-28" tabindex="-1"></a><span class="do">##     data = results_df)</span></span>
+<span id="cb38-29"><a href="simulation-and-spreading.html#cb38-29" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb38-30"><a href="simulation-and-spreading.html#cb38-30" tabindex="-1"></a><span class="do">## Residuals:</span></span>
+<span id="cb38-31"><a href="simulation-and-spreading.html#cb38-31" tabindex="-1"></a><span class="do">##     Min      1Q  Median      3Q     Max </span></span>
+<span id="cb38-32"><a href="simulation-and-spreading.html#cb38-32" tabindex="-1"></a><span class="do">## -662.79 -147.95   -9.49  126.30  941.79 </span></span>
+<span id="cb38-33"><a href="simulation-and-spreading.html#cb38-33" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb38-34"><a href="simulation-and-spreading.html#cb38-34" tabindex="-1"></a><span class="do">## Coefficients:</span></span>
+<span id="cb38-35"><a href="simulation-and-spreading.html#cb38-35" tabindex="-1"></a><span class="do">##                      Estimate Std. Error t value Pr(&gt;|t|)    </span></span>
+<span id="cb38-36"><a href="simulation-and-spreading.html#cb38-36" tabindex="-1"></a><span class="do">## (Intercept)           -71.299      9.711  -7.342 2.62e-13 ***</span></span>
+<span id="cb38-37"><a href="simulation-and-spreading.html#cb38-37" tabindex="-1"></a><span class="do">## forest_cover          817.876     15.965  51.231  &lt; 2e-16 ***</span></span>
+<span id="cb38-38"><a href="simulation-and-spreading.html#cb38-38" tabindex="-1"></a><span class="do">## landscape_typerandom -215.581      7.821 -27.564  &lt; 2e-16 ***</span></span>
+<span id="cb38-39"><a href="simulation-and-spreading.html#cb38-39" tabindex="-1"></a><span class="do">## ---</span></span>
+<span id="cb38-40"><a href="simulation-and-spreading.html#cb38-40" tabindex="-1"></a><span class="do">## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span></span>
+<span id="cb38-41"><a href="simulation-and-spreading.html#cb38-41" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb38-42"><a href="simulation-and-spreading.html#cb38-42" tabindex="-1"></a><span class="do">## Residual standard error: 228 on 3397 degrees of freedom</span></span>
+<span id="cb38-43"><a href="simulation-and-spreading.html#cb38-43" tabindex="-1"></a><span class="do">## Multiple R-squared:  0.4991, Adjusted R-squared:  0.4988 </span></span>
+<span id="cb38-44"><a href="simulation-and-spreading.html#cb38-44" tabindex="-1"></a><span class="do">## F-statistic:  1692 on 2 and 3397 DF,  p-value: &lt; 2.2e-16</span></span>
+<span id="cb38-45"><a href="simulation-and-spreading.html#cb38-45" tabindex="-1"></a><span class="fu">summary</span>(m2)</span>
+<span id="cb38-46"><a href="simulation-and-spreading.html#cb38-46" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb38-47"><a href="simulation-and-spreading.html#cb38-47" tabindex="-1"></a><span class="do">## Call:</span></span>
+<span id="cb38-48"><a href="simulation-and-spreading.html#cb38-48" tabindex="-1"></a><span class="do">## lm(formula = infected_cells ~ giant_component_prop + landscape_type, </span></span>
+<span id="cb38-49"><a href="simulation-and-spreading.html#cb38-49" tabindex="-1"></a><span class="do">##     data = results_df)</span></span>
+<span id="cb38-50"><a href="simulation-and-spreading.html#cb38-50" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb38-51"><a href="simulation-and-spreading.html#cb38-51" tabindex="-1"></a><span class="do">## Residuals:</span></span>
+<span id="cb38-52"><a href="simulation-and-spreading.html#cb38-52" tabindex="-1"></a><span class="do">##     Min      1Q  Median      3Q     Max </span></span>
+<span id="cb38-53"><a href="simulation-and-spreading.html#cb38-53" tabindex="-1"></a><span class="do">## -471.60 -165.51   29.47   69.68  994.92 </span></span>
+<span id="cb38-54"><a href="simulation-and-spreading.html#cb38-54" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb38-55"><a href="simulation-and-spreading.html#cb38-55" tabindex="-1"></a><span class="do">## Coefficients:</span></span>
+<span id="cb38-56"><a href="simulation-and-spreading.html#cb38-56" tabindex="-1"></a><span class="do">##                      Estimate Std. Error t value Pr(&gt;|t|)    </span></span>
+<span id="cb38-57"><a href="simulation-and-spreading.html#cb38-57" tabindex="-1"></a><span class="do">## (Intercept)            -5.614     10.505  -0.534    0.593    </span></span>
+<span id="cb38-58"><a href="simulation-and-spreading.html#cb38-58" tabindex="-1"></a><span class="do">## giant_component_prop  481.472     12.027  40.032  &lt; 2e-16 ***</span></span>
+<span id="cb38-59"><a href="simulation-and-spreading.html#cb38-59" tabindex="-1"></a><span class="do">## landscape_typerandom  -69.556      9.326  -7.458 1.11e-13 ***</span></span>
+<span id="cb38-60"><a href="simulation-and-spreading.html#cb38-60" tabindex="-1"></a><span class="do">## ---</span></span>
+<span id="cb38-61"><a href="simulation-and-spreading.html#cb38-61" tabindex="-1"></a><span class="do">## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span></span>
+<span id="cb38-62"><a href="simulation-and-spreading.html#cb38-62" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb38-63"><a href="simulation-and-spreading.html#cb38-63" tabindex="-1"></a><span class="do">## Residual standard error: 250.2 on 3397 degrees of freedom</span></span>
+<span id="cb38-64"><a href="simulation-and-spreading.html#cb38-64" tabindex="-1"></a><span class="do">## Multiple R-squared:  0.3967, Adjusted R-squared:  0.3963 </span></span>
+<span id="cb38-65"><a href="simulation-and-spreading.html#cb38-65" tabindex="-1"></a><span class="do">## F-statistic:  1117 on 2 and 3397 DF,  p-value: &lt; 2.2e-16</span></span>
+<span id="cb38-66"><a href="simulation-and-spreading.html#cb38-66" tabindex="-1"></a><span class="fu">summary</span>(m3)</span>
+<span id="cb38-67"><a href="simulation-and-spreading.html#cb38-67" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb38-68"><a href="simulation-and-spreading.html#cb38-68" tabindex="-1"></a><span class="do">## Call:</span></span>
+<span id="cb38-69"><a href="simulation-and-spreading.html#cb38-69" tabindex="-1"></a><span class="do">## lm(formula = infected_cells ~ forest_cover + giant_component_prop + </span></span>
+<span id="cb38-70"><a href="simulation-and-spreading.html#cb38-70" tabindex="-1"></a><span class="do">##     landscape_type, data = results_df)</span></span>
+<span id="cb38-71"><a href="simulation-and-spreading.html#cb38-71" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb38-72"><a href="simulation-and-spreading.html#cb38-72" tabindex="-1"></a><span class="do">## Residuals:</span></span>
+<span id="cb38-73"><a href="simulation-and-spreading.html#cb38-73" tabindex="-1"></a><span class="do">##     Min      1Q  Median      3Q     Max </span></span>
+<span id="cb38-74"><a href="simulation-and-spreading.html#cb38-74" tabindex="-1"></a><span class="do">## -655.23 -146.66  -12.75  126.11  938.69 </span></span>
+<span id="cb38-75"><a href="simulation-and-spreading.html#cb38-75" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb38-76"><a href="simulation-and-spreading.html#cb38-76" tabindex="-1"></a><span class="do">## Coefficients:</span></span>
+<span id="cb38-77"><a href="simulation-and-spreading.html#cb38-77" tabindex="-1"></a><span class="do">##                      Estimate Std. Error t value Pr(&gt;|t|)    </span></span>
+<span id="cb38-78"><a href="simulation-and-spreading.html#cb38-78" tabindex="-1"></a><span class="do">## (Intercept)           -74.401      9.919  -7.501 8.04e-14 ***</span></span>
+<span id="cb38-79"><a href="simulation-and-spreading.html#cb38-79" tabindex="-1"></a><span class="do">## forest_cover          779.874     29.539  26.402  &lt; 2e-16 ***</span></span>
+<span id="cb38-80"><a href="simulation-and-spreading.html#cb38-80" tabindex="-1"></a><span class="do">## giant_component_prop   31.003     20.277   1.529    0.126    </span></span>
+<span id="cb38-81"><a href="simulation-and-spreading.html#cb38-81" tabindex="-1"></a><span class="do">## landscape_typerandom -206.178      9.948 -20.725  &lt; 2e-16 ***</span></span>
+<span id="cb38-82"><a href="simulation-and-spreading.html#cb38-82" tabindex="-1"></a><span class="do">## ---</span></span>
+<span id="cb38-83"><a href="simulation-and-spreading.html#cb38-83" tabindex="-1"></a><span class="do">## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span></span>
+<span id="cb38-84"><a href="simulation-and-spreading.html#cb38-84" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb38-85"><a href="simulation-and-spreading.html#cb38-85" tabindex="-1"></a><span class="do">## Residual standard error: 228 on 3396 degrees of freedom</span></span>
+<span id="cb38-86"><a href="simulation-and-spreading.html#cb38-86" tabindex="-1"></a><span class="do">## Multiple R-squared:  0.4994, Adjusted R-squared:  0.499 </span></span>
+<span id="cb38-87"><a href="simulation-and-spreading.html#cb38-87" tabindex="-1"></a><span class="do">## F-statistic:  1129 on 3 and 3396 DF,  p-value: &lt; 2.2e-16</span></span></code></pre></div>
+<p>Statistical modelling further supported these patterns. Forest cover was the strongest predictor of outbreak size, explaining a substantial proportion of the variation in the number of infected cells. Giant component proportion was also strongly related to outbreak size when examined independently, indicating that landscapes containing larger connected habitat networks tended to support larger outbreaks. However, when both forest cover and connectivity were included in the same model, the effect of giant component size became much weaker. This occurred because forest cover and connectivity were themselves highly correlated, indicating that increasing habitat amount simultaneously increases landscape connectivity and the potential for contagion spread.</p>
+<p>Taken together, the results suggest that habitat amount acts as the primary driver of contagion dynamics, while connectivity serves as the mechanism through which habitat amount influences outbreak size. Clustered landscapes consistently produced larger and earlier outbreaks because habitat cells were organized into connected networks at lower levels of forest cover. Random landscapes required substantially greater habitat cover before a giant connected component emerged and contagion could spread extensively. Overall, the study provides strong evidence that percolation processes govern the transition from localized outbreaks in fragmented landscapes to landscape-scale contagion in highly connected systems, highlighting the critical role of habitat configuration and connectivity in determining ecological spread processes.</p>
+</div>
+<div id="summary-1" class="section level2 hasAnchor" number="8.4">
+<h2><span class="header-section-number">8.4</span> Summary<a href="simulation-and-spreading.html#summary-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>This experiment used a Monte Carlo simulation framework to investigate how habitat amount and landscape configuration influence connectivity and contagion spread across neutral landscapes. Random and clustered forest landscapes were generated across a habitat-cover gradient ranging from 10% to 90%, converted into habitat networks using graph theory, and analyzed to quantify structural connectivity, including the formation of giant connected components. A probabilistic contagion model was then applied to each network, allowing infections to spread through connected habitat cells while accounting for a finite infectious period. The results revealed that clustered landscapes maintained large connected habitat networks at much lower levels of forest cover, whereas random landscapes remained highly fragmented until a pronounced percolation threshold emerged between approximately 55% and 65% forest cover. Once this threshold was crossed, connectivity increased rapidly and was accompanied by a dramatic increase in outbreak size. Statistical analyses identified forest cover as the strongest predictor of contagion spread, while connectivity acted as the mechanism linking habitat amount to outbreak dynamics. Overall, the results support percolation theory predictions by demonstrating that increases in habitat cover can trigger a transition from fragmented landscapes supporting only localized outbreaks to highly connected landscapes capable of sustaining large-scale contagion events, with clustered landscapes consistently exhibiting greater connectivity and larger outbreaks than random landscapes at equivalent habitat-cover levels.</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="neutral-landscape-models.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

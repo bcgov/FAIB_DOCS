@@ -242,6 +242,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="7.5" data-path="neutral-landscape-models.html"><a href="neutral-landscape-models.html#cluster-results"><i class="fa fa-check"></i><b>7.5</b> CLUSTER RESULTS</a></li>
 <li class="chapter" data-level="7.6" data-path="neutral-landscape-models.html"><a href="neutral-landscape-models.html#summary"><i class="fa fa-check"></i><b>7.6</b> Summary</a></li>
 </ul></li>
+<li class="chapter" data-level="8" data-path="simulation-and-spreading.html"><a href="simulation-and-spreading.html"><i class="fa fa-check"></i><b>8</b> Simulation and Spreading</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="simulation-and-spreading.html"><a href="simulation-and-spreading.html#introduction-7"><i class="fa fa-check"></i><b>8.1</b> Introduction</a></li>
+<li class="chapter" data-level="8.2" data-path="simulation-and-spreading.html"><a href="simulation-and-spreading.html#spreading"><i class="fa fa-check"></i><b>8.2</b> Spreading</a>
+<ul>
+<li class="chapter" data-level="8.2.1" data-path="simulation-and-spreading.html"><a href="simulation-and-spreading.html#simulated-landscapes"><i class="fa fa-check"></i><b>8.2.1</b> Simulated Landscapes</a></li>
+<li class="chapter" data-level="8.2.2" data-path="simulation-and-spreading.html"><a href="simulation-and-spreading.html#spreading-with-a-graph"><i class="fa fa-check"></i><b>8.2.2</b> Spreading with a graph</a></li>
+<li class="chapter" data-level="8.2.3" data-path="simulation-and-spreading.html"><a href="simulation-and-spreading.html#contagion"><i class="fa fa-check"></i><b>8.2.3</b> Contagion</a></li>
+<li class="chapter" data-level="8.2.4" data-path="simulation-and-spreading.html"><a href="simulation-and-spreading.html#monte-carlo-simulation"><i class="fa fa-check"></i><b>8.2.4</b> Monte Carlo Simulation</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="simulation-and-spreading.html"><a href="simulation-and-spreading.html#results-2"><i class="fa fa-check"></i><b>8.3</b> RESULTS</a></li>
+<li class="chapter" data-level="8.4" data-path="simulation-and-spreading.html"><a href="simulation-and-spreading.html#summary-1"><i class="fa fa-check"></i><b>8.4</b> Summary</a></li>
+</ul></li>
 </ul>
 
       </nav>
@@ -322,8 +335,8 @@ dynamically updated measure of ecological sustainability that responds to change
 <p>For example, a high-quality habitat area may have a strong probability of remaining in a high-quality condition, but a smaller probability of degrading to moderate or poor habitat. The probabilities in each row sum to one, ensuring that all possible future states are accounted for. As harvest pressure increases, selected transition probabilities are adjusted to reflect a greater likelihood of habitat degradation, thereby incorporating the habitat consequences of forest management activities. The resulting modified matrix is used to estimate the long-run or steady-state distribution of habitat conditions across the landscape, providing a dynamic measure of habitat sustainability that can be incorporated into the optimization process.</p>
 <div id="code-notes-4" class="section level3 hasAnchor" number="4.3.1">
 <h3><span class="header-section-number">4.3.1</span> Code Notes:<a href="markov-chain-with-goal-programming.html#code-notes-4" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div id="habitat-coefficients" class="section level4 hasAnchor" number="4.3.1.1">
-<h4><span class="header-section-number">4.3.1.1</span> Habitat CoEfficients<a href="markov-chain-with-goal-programming.html#habitat-coefficients" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div id="habitat-co-efficients" class="section level4 hasAnchor" number="4.3.1.1">
+<h4><span class="header-section-number">4.3.1.1</span> Habitat Co-efficients<a href="markov-chain-with-goal-programming.html#habitat-co-efficients" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>The habitat.coef (habitat.coef &lt;- c(1, 2, 4)) defines a vector of habitat coefficients used to weight the contribution of each forest unit or state in calculating total habitat value. The numbers 1, 2, 4 assign increasing ecological importance to the
 three units or forest conditions, meaning unit 3 contributes the most to habitat, unit 2 contributes moderately,
 and unit 1 contributes the least. In this model, these coefficients are used to compute a weighted habitat index
@@ -627,7 +640,7 @@ indicating that the economic objectives are achievable under the current harvest
 habitat component introduces a dynamic quality constraint that reduces long-term habitat availability under sustained
 harvest pressure. As a result, habitat targets are not fully satisfied, highlighting a trade-off between economic optimisation and the maintenance of habitat quality.</p>
 <p>The solution represents a <a href="https://www.youtube.com/watch?v=kVAmUjK8E04">Pareto-efficient compromise</a>
-where economic goals are fully met at the expense of moderate habitat quality deviation.A <strong>Pareto-efficient compromise</strong> is a solution to a multi-objective problem where you cannot improve one objective (like harvest, or revenue) without making at least one other
+where economic goals are fully met at the expense of moderate habitat quality deviation. A <strong>Pareto-efficient compromise</strong> is a solution to a multi-objective problem where you cannot improve one objective (like harvest, or revenue) without making at least one other
 objective (like habitat or sustainability) worse.</p>
 <p>In other words, it represents a <strong>“best possible trade-off”</strong> between competing goals: the solution is efficient
 because no objective can be improved independently, but it is still a compromise because not all goals are fully

@@ -19,6 +19,7 @@ define-3x3-blocks
 generate-a-neighbor-state-transition
 simulated-annealing-solver
 code-notes-1
+simulated-annealing-parameters
 d-plot-of-sudoku-loss-landscape
 why-use-pca
 interpretation
@@ -40,7 +41,7 @@ introduction-3
 markov-chain-and-goal-programming
 the-markov-chain-transition-probability-matrix
 code-notes-4
-habitat-coefficients
+habitat-co-efficients
 markov-habitat-function
 the-objective-function-1
 the-sann-optimization-and-results
@@ -87,3 +88,12 @@ nlm-results
 introducing-spatial-autocorrolation
 cluster-results
 summary
+simulation-and-spreading
+introduction-7
+spreading
+simulated-landscapes
+spreading-with-a-graph
+contagion
+monte-carlo-simulation
+results-2
+summary-1
