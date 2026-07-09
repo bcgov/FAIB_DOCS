@@ -31,7 +31,7 @@
   
   
 <link rel="prev" href="neutral-landscape-models.html"/>
-
+<link rel="next" href="introduction-8.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -254,6 +254,25 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="8.3" data-path="simulation-and-spreading.html"><a href="simulation-and-spreading.html#results-2"><i class="fa fa-check"></i><b>8.3</b> RESULTS</a></li>
 <li class="chapter" data-level="8.4" data-path="simulation-and-spreading.html"><a href="simulation-and-spreading.html#summary-1"><i class="fa fa-check"></i><b>8.4</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="introduction-8.html"><a href="introduction-8.html"><i class="fa fa-check"></i><b>9</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="introduction-8.html"><a href="introduction-8.html#spreading-and-the-wildfire-behaviour-framework"><i class="fa fa-check"></i><b>9.1</b> Spreading and the Wildfire Behaviour Framework</a></li>
+<li class="chapter" data-level="9.2" data-path="introduction-8.html"><a href="introduction-8.html#framework-parameters-and-functions"><i class="fa fa-check"></i><b>9.2</b> Framework Parameters and Functions</a>
+<ul>
+<li class="chapter" data-level="9.2.1" data-path="introduction-8.html"><a href="introduction-8.html#user-parameters"><i class="fa fa-check"></i><b>9.2.1</b> User Parameters</a></li>
+<li class="chapter" data-level="9.2.2" data-path="introduction-8.html"><a href="introduction-8.html#wind-module"><i class="fa fa-check"></i><b>9.2.2</b> Wind Module</a></li>
+<li class="chapter" data-level="9.2.3" data-path="introduction-8.html"><a href="introduction-8.html#fuel-landscape"><i class="fa fa-check"></i><b>9.2.3</b> Fuel Landscape</a></li>
+<li class="chapter" data-level="9.2.4" data-path="introduction-8.html"><a href="introduction-8.html#flammability"><i class="fa fa-check"></i><b>9.2.4</b> Flammability</a></li>
+<li class="chapter" data-level="9.2.5" data-path="introduction-8.html"><a href="introduction-8.html#moisture"><i class="fa fa-check"></i><b>9.2.5</b> Moisture</a></li>
+<li class="chapter" data-level="9.2.6" data-path="introduction-8.html"><a href="introduction-8.html#resistance-is-futile"><i class="fa fa-check"></i><b>9.2.6</b> Resistance (is futile)</a></li>
+<li class="chapter" data-level="9.2.7" data-path="introduction-8.html"><a href="introduction-8.html#ignition"><i class="fa fa-check"></i><b>9.2.7</b> Ignition</a></li>
+<li class="chapter" data-level="9.2.8" data-path="introduction-8.html"><a href="introduction-8.html#surfaces"><i class="fa fa-check"></i><b>9.2.8</b> Surfaces</a></li>
+</ul></li>
+<li class="chapter" data-level="9.3" data-path="introduction-8.html"><a href="introduction-8.html#the-dijkstra-algorithm"><i class="fa fa-check"></i><b>9.3</b> The Dijkstra Algorithm</a></li>
+<li class="chapter" data-level="9.4" data-path="introduction-8.html"><a href="introduction-8.html#metrics"><i class="fa fa-check"></i><b>9.4</b> Metrics</a></li>
+<li class="chapter" data-level="9.5" data-path="introduction-8.html"><a href="introduction-8.html#results-3"><i class="fa fa-check"></i><b>9.5</b> Results</a></li>
+<li class="chapter" data-level="9.6" data-path="introduction-8.html"><a href="introduction-8.html#summary-2"><i class="fa fa-check"></i><b>9.6</b> Summary</a></li>
 </ul></li>
 </ul>
 
@@ -866,23 +885,23 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="results-2" class="section level2 hasAnchor" number="8.3">
 <h2><span class="header-section-number">8.3</span> RESULTS<a href="simulation-and-spreading.html#results-2" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div id="lreixufdwh" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#lreixufdwh table {
+<div id="edhcsrirgt" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#edhcsrirgt table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#lreixufdwh thead, #lreixufdwh tbody, #lreixufdwh tfoot, #lreixufdwh tr, #lreixufdwh td, #lreixufdwh th {
+#edhcsrirgt thead, #edhcsrirgt tbody, #edhcsrirgt tfoot, #edhcsrirgt tr, #edhcsrirgt td, #edhcsrirgt th {
   border-style: none;
 }
 
-#lreixufdwh p {
+#edhcsrirgt p {
   margin: 0;
   padding: 0;
 }
 
-#lreixufdwh .gt_table {
+#edhcsrirgt .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -908,12 +927,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-left-color: #D3D3D3;
 }
 
-#lreixufdwh .gt_caption {
+#edhcsrirgt .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#lreixufdwh .gt_title {
+#edhcsrirgt .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -925,7 +944,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-bottom-width: 0;
 }
 
-#lreixufdwh .gt_subtitle {
+#edhcsrirgt .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -937,7 +956,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-top-width: 0;
 }
 
-#lreixufdwh .gt_heading {
+#edhcsrirgt .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -949,13 +968,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-right-color: #D3D3D3;
 }
 
-#lreixufdwh .gt_bottom_border {
+#edhcsrirgt .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#lreixufdwh .gt_col_headings {
+#edhcsrirgt .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -970,7 +989,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-right-color: #D3D3D3;
 }
 
-#lreixufdwh .gt_col_heading {
+#edhcsrirgt .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -990,7 +1009,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   overflow-x: hidden;
 }
 
-#lreixufdwh .gt_column_spanner_outer {
+#edhcsrirgt .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1002,15 +1021,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   padding-right: 4px;
 }
 
-#lreixufdwh .gt_column_spanner_outer:first-child {
+#edhcsrirgt .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#lreixufdwh .gt_column_spanner_outer:last-child {
+#edhcsrirgt .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#lreixufdwh .gt_column_spanner {
+#edhcsrirgt .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1022,11 +1041,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   width: 100%;
 }
 
-#lreixufdwh .gt_spanner_row {
+#edhcsrirgt .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#lreixufdwh .gt_group_heading {
+#edhcsrirgt .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1052,7 +1071,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   text-align: left;
 }
 
-#lreixufdwh .gt_empty_group_heading {
+#edhcsrirgt .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1067,15 +1086,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   vertical-align: middle;
 }
 
-#lreixufdwh .gt_from_md > :first-child {
+#edhcsrirgt .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#lreixufdwh .gt_from_md > :last-child {
+#edhcsrirgt .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#lreixufdwh .gt_row {
+#edhcsrirgt .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1094,7 +1113,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   overflow-x: hidden;
 }
 
-#lreixufdwh .gt_stub {
+#edhcsrirgt .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1107,7 +1126,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   padding-right: 5px;
 }
 
-#lreixufdwh .gt_stub_row_group {
+#edhcsrirgt .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1121,15 +1140,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   vertical-align: top;
 }
 
-#lreixufdwh .gt_row_group_first td {
+#edhcsrirgt .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#lreixufdwh .gt_row_group_first th {
+#edhcsrirgt .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#lreixufdwh .gt_summary_row {
+#edhcsrirgt .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1139,16 +1158,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   padding-right: 5px;
 }
 
-#lreixufdwh .gt_first_summary_row {
+#edhcsrirgt .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#lreixufdwh .gt_first_summary_row.thick {
+#edhcsrirgt .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#lreixufdwh .gt_last_summary_row {
+#edhcsrirgt .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1158,7 +1177,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-bottom-color: #D3D3D3;
 }
 
-#lreixufdwh .gt_grand_summary_row {
+#edhcsrirgt .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1168,7 +1187,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   padding-right: 5px;
 }
 
-#lreixufdwh .gt_first_grand_summary_row {
+#edhcsrirgt .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1178,7 +1197,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-top-color: #D3D3D3;
 }
 
-#lreixufdwh .gt_last_grand_summary_row_top {
+#edhcsrirgt .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1188,11 +1207,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-bottom-color: #D3D3D3;
 }
 
-#lreixufdwh .gt_striped {
+#edhcsrirgt .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#lreixufdwh .gt_table_body {
+#edhcsrirgt .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1201,7 +1220,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-bottom-color: #D3D3D3;
 }
 
-#lreixufdwh .gt_footnotes {
+#edhcsrirgt .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1215,7 +1234,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-right-color: #D3D3D3;
 }
 
-#lreixufdwh .gt_footnote {
+#edhcsrirgt .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1224,7 +1243,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   padding-right: 5px;
 }
 
-#lreixufdwh .gt_sourcenotes {
+#edhcsrirgt .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1238,7 +1257,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-right-color: #D3D3D3;
 }
 
-#lreixufdwh .gt_sourcenote {
+#edhcsrirgt .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1246,72 +1265,72 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   padding-right: 5px;
 }
 
-#lreixufdwh .gt_left {
+#edhcsrirgt .gt_left {
   text-align: left;
 }
 
-#lreixufdwh .gt_center {
+#edhcsrirgt .gt_center {
   text-align: center;
 }
 
-#lreixufdwh .gt_right {
+#edhcsrirgt .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#lreixufdwh .gt_font_normal {
+#edhcsrirgt .gt_font_normal {
   font-weight: normal;
 }
 
-#lreixufdwh .gt_font_bold {
+#edhcsrirgt .gt_font_bold {
   font-weight: bold;
 }
 
-#lreixufdwh .gt_font_italic {
+#edhcsrirgt .gt_font_italic {
   font-style: italic;
 }
 
-#lreixufdwh .gt_super {
+#edhcsrirgt .gt_super {
   font-size: 65%;
 }
 
-#lreixufdwh .gt_footnote_marks {
+#edhcsrirgt .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#lreixufdwh .gt_asterisk {
+#edhcsrirgt .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#lreixufdwh .gt_indent_1 {
+#edhcsrirgt .gt_indent_1 {
   text-indent: 5px;
 }
 
-#lreixufdwh .gt_indent_2 {
+#edhcsrirgt .gt_indent_2 {
   text-indent: 10px;
 }
 
-#lreixufdwh .gt_indent_3 {
+#edhcsrirgt .gt_indent_3 {
   text-indent: 15px;
 }
 
-#lreixufdwh .gt_indent_4 {
+#edhcsrirgt .gt_indent_4 {
   text-indent: 20px;
 }
 
-#lreixufdwh .gt_indent_5 {
+#edhcsrirgt .gt_indent_5 {
   text-indent: 25px;
 }
 
-#lreixufdwh .katex-display {
+#edhcsrirgt .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#lreixufdwh div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#edhcsrirgt div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -1335,144 +1354,144 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <th colspan="4" class="gt_group_heading" scope="colgroup" id="clustered">clustered</th>
     </tr>
     <tr class="gt_row_group_first"><td headers="clustered  Forest Cover" class="gt_row gt_center">0.10</td>
-<td headers="clustered  Giant Component" class="gt_row gt_center">0.45</td>
-<td headers="clustered  Mean Outbreak Size" class="gt_row gt_center">42.2</td>
-<td headers="clustered  mean_spread_component" class="gt_row gt_center">0.66443352</td></tr>
+<td headers="clustered  Giant Component" class="gt_row gt_center">0.39</td>
+<td headers="clustered  Mean Outbreak Size" class="gt_row gt_center">27.8</td>
+<td headers="clustered  mean_spread_component" class="gt_row gt_center">0.63919797</td></tr>
     <tr><td headers="clustered  Forest Cover" class="gt_row gt_center">0.15</td>
 <td headers="clustered  Giant Component" class="gt_row gt_center">0.43</td>
-<td headers="clustered  Mean Outbreak Size" class="gt_row gt_center">53.6</td>
-<td headers="clustered  mean_spread_component" class="gt_row gt_center">0.60335245</td></tr>
+<td headers="clustered  Mean Outbreak Size" class="gt_row gt_center">46.1</td>
+<td headers="clustered  mean_spread_component" class="gt_row gt_center">0.57719676</td></tr>
     <tr><td headers="clustered  Forest Cover" class="gt_row gt_center">0.20</td>
-<td headers="clustered  Giant Component" class="gt_row gt_center">0.43</td>
-<td headers="clustered  Mean Outbreak Size" class="gt_row gt_center">69.5</td>
-<td headers="clustered  mean_spread_component" class="gt_row gt_center">0.60722342</td></tr>
+<td headers="clustered  Giant Component" class="gt_row gt_center">0.46</td>
+<td headers="clustered  Mean Outbreak Size" class="gt_row gt_center">83.8</td>
+<td headers="clustered  mean_spread_component" class="gt_row gt_center">0.61661887</td></tr>
     <tr><td headers="clustered  Forest Cover" class="gt_row gt_center">0.25</td>
 <td headers="clustered  Giant Component" class="gt_row gt_center">0.48</td>
-<td headers="clustered  Mean Outbreak Size" class="gt_row gt_center">104.2</td>
-<td headers="clustered  mean_spread_component" class="gt_row gt_center">0.68962971</td></tr>
+<td headers="clustered  Mean Outbreak Size" class="gt_row gt_center">103.8</td>
+<td headers="clustered  mean_spread_component" class="gt_row gt_center">0.61006938</td></tr>
     <tr><td headers="clustered  Forest Cover" class="gt_row gt_center">0.30</td>
-<td headers="clustered  Giant Component" class="gt_row gt_center">0.53</td>
-<td headers="clustered  Mean Outbreak Size" class="gt_row gt_center">148.8</td>
-<td headers="clustered  mean_spread_component" class="gt_row gt_center">0.60363600</td></tr>
+<td headers="clustered  Giant Component" class="gt_row gt_center">0.54</td>
+<td headers="clustered  Mean Outbreak Size" class="gt_row gt_center">155.3</td>
+<td headers="clustered  mean_spread_component" class="gt_row gt_center">0.62126048</td></tr>
     <tr><td headers="clustered  Forest Cover" class="gt_row gt_center">0.35</td>
-<td headers="clustered  Giant Component" class="gt_row gt_center">0.57</td>
-<td headers="clustered  Mean Outbreak Size" class="gt_row gt_center">142.9</td>
-<td headers="clustered  mean_spread_component" class="gt_row gt_center">0.49774922</td></tr>
+<td headers="clustered  Giant Component" class="gt_row gt_center">0.60</td>
+<td headers="clustered  Mean Outbreak Size" class="gt_row gt_center">167.6</td>
+<td headers="clustered  mean_spread_component" class="gt_row gt_center">0.54278163</td></tr>
     <tr><td headers="clustered  Forest Cover" class="gt_row gt_center">0.40</td>
-<td headers="clustered  Giant Component" class="gt_row gt_center">0.63</td>
-<td headers="clustered  Mean Outbreak Size" class="gt_row gt_center">207.9</td>
-<td headers="clustered  mean_spread_component" class="gt_row gt_center">0.48280104</td></tr>
+<td headers="clustered  Giant Component" class="gt_row gt_center">0.59</td>
+<td headers="clustered  Mean Outbreak Size" class="gt_row gt_center">230.5</td>
+<td headers="clustered  mean_spread_component" class="gt_row gt_center">0.53068646</td></tr>
     <tr><td headers="clustered  Forest Cover" class="gt_row gt_center">0.45</td>
-<td headers="clustered  Giant Component" class="gt_row gt_center">0.69</td>
-<td headers="clustered  Mean Outbreak Size" class="gt_row gt_center">263.7</td>
-<td headers="clustered  mean_spread_component" class="gt_row gt_center">0.54454483</td></tr>
+<td headers="clustered  Giant Component" class="gt_row gt_center">0.63</td>
+<td headers="clustered  Mean Outbreak Size" class="gt_row gt_center">238.4</td>
+<td headers="clustered  mean_spread_component" class="gt_row gt_center">0.53159364</td></tr>
     <tr><td headers="clustered  Forest Cover" class="gt_row gt_center">0.50</td>
-<td headers="clustered  Giant Component" class="gt_row gt_center">0.69</td>
-<td headers="clustered  Mean Outbreak Size" class="gt_row gt_center">282.0</td>
-<td headers="clustered  mean_spread_component" class="gt_row gt_center">0.55407099</td></tr>
+<td headers="clustered  Giant Component" class="gt_row gt_center">0.70</td>
+<td headers="clustered  Mean Outbreak Size" class="gt_row gt_center">305.9</td>
+<td headers="clustered  mean_spread_component" class="gt_row gt_center">0.44488838</td></tr>
     <tr><td headers="clustered  Forest Cover" class="gt_row gt_center">0.55</td>
-<td headers="clustered  Giant Component" class="gt_row gt_center">0.76</td>
-<td headers="clustered  Mean Outbreak Size" class="gt_row gt_center">366.5</td>
-<td headers="clustered  mean_spread_component" class="gt_row gt_center">0.42958903</td></tr>
+<td headers="clustered  Giant Component" class="gt_row gt_center">0.77</td>
+<td headers="clustered  Mean Outbreak Size" class="gt_row gt_center">345.4</td>
+<td headers="clustered  mean_spread_component" class="gt_row gt_center">0.46750318</td></tr>
     <tr><td headers="clustered  Forest Cover" class="gt_row gt_center">0.60</td>
 <td headers="clustered  Giant Component" class="gt_row gt_center">0.81</td>
-<td headers="clustered  Mean Outbreak Size" class="gt_row gt_center">428.8</td>
-<td headers="clustered  mean_spread_component" class="gt_row gt_center">0.47604299</td></tr>
+<td headers="clustered  Mean Outbreak Size" class="gt_row gt_center">407.0</td>
+<td headers="clustered  mean_spread_component" class="gt_row gt_center">0.46209425</td></tr>
     <tr><td headers="clustered  Forest Cover" class="gt_row gt_center">0.65</td>
-<td headers="clustered  Giant Component" class="gt_row gt_center">0.86</td>
-<td headers="clustered  Mean Outbreak Size" class="gt_row gt_center">550.7</td>
-<td headers="clustered  mean_spread_component" class="gt_row gt_center">0.46879798</td></tr>
+<td headers="clustered  Giant Component" class="gt_row gt_center">0.88</td>
+<td headers="clustered  Mean Outbreak Size" class="gt_row gt_center">470.9</td>
+<td headers="clustered  mean_spread_component" class="gt_row gt_center">0.38665125</td></tr>
     <tr><td headers="clustered  Forest Cover" class="gt_row gt_center">0.70</td>
-<td headers="clustered  Giant Component" class="gt_row gt_center">0.91</td>
-<td headers="clustered  Mean Outbreak Size" class="gt_row gt_center">516.6</td>
-<td headers="clustered  mean_spread_component" class="gt_row gt_center">0.38463754</td></tr>
+<td headers="clustered  Giant Component" class="gt_row gt_center">0.92</td>
+<td headers="clustered  Mean Outbreak Size" class="gt_row gt_center">505.2</td>
+<td headers="clustered  mean_spread_component" class="gt_row gt_center">0.38651675</td></tr>
     <tr><td headers="clustered  Forest Cover" class="gt_row gt_center">0.75</td>
 <td headers="clustered  Giant Component" class="gt_row gt_center">0.94</td>
-<td headers="clustered  Mean Outbreak Size" class="gt_row gt_center">578.5</td>
-<td headers="clustered  mean_spread_component" class="gt_row gt_center">0.36224942</td></tr>
+<td headers="clustered  Mean Outbreak Size" class="gt_row gt_center">619.9</td>
+<td headers="clustered  mean_spread_component" class="gt_row gt_center">0.39828023</td></tr>
     <tr><td headers="clustered  Forest Cover" class="gt_row gt_center">0.80</td>
-<td headers="clustered  Giant Component" class="gt_row gt_center">0.97</td>
-<td headers="clustered  Mean Outbreak Size" class="gt_row gt_center">657.8</td>
-<td headers="clustered  mean_spread_component" class="gt_row gt_center">0.38193064</td></tr>
+<td headers="clustered  Giant Component" class="gt_row gt_center">0.96</td>
+<td headers="clustered  Mean Outbreak Size" class="gt_row gt_center">701.6</td>
+<td headers="clustered  mean_spread_component" class="gt_row gt_center">0.42268362</td></tr>
     <tr><td headers="clustered  Forest Cover" class="gt_row gt_center">0.85</td>
 <td headers="clustered  Giant Component" class="gt_row gt_center">0.98</td>
-<td headers="clustered  Mean Outbreak Size" class="gt_row gt_center">831.7</td>
-<td headers="clustered  mean_spread_component" class="gt_row gt_center">0.44518121</td></tr>
+<td headers="clustered  Mean Outbreak Size" class="gt_row gt_center">803.6</td>
+<td headers="clustered  mean_spread_component" class="gt_row gt_center">0.40782720</td></tr>
     <tr><td headers="clustered  Forest Cover" class="gt_row gt_center">0.90</td>
 <td headers="clustered  Giant Component" class="gt_row gt_center">0.99</td>
-<td headers="clustered  Mean Outbreak Size" class="gt_row gt_center">808.3</td>
-<td headers="clustered  mean_spread_component" class="gt_row gt_center">0.38300894</td></tr>
+<td headers="clustered  Mean Outbreak Size" class="gt_row gt_center">827.9</td>
+<td headers="clustered  mean_spread_component" class="gt_row gt_center">0.39873796</td></tr>
     <tr class="gt_group_heading_row">
       <th colspan="4" class="gt_group_heading" scope="colgroup" id="random">random</th>
     </tr>
     <tr class="gt_row_group_first"><td headers="random  Forest Cover" class="gt_row gt_center">0.10</td>
 <td headers="random  Giant Component" class="gt_row gt_center">0.02</td>
-<td headers="random  Mean Outbreak Size" class="gt_row gt_center">1.2</td>
-<td headers="random  mean_spread_component" class="gt_row gt_center">0.95000000</td></tr>
+<td headers="random  Mean Outbreak Size" class="gt_row gt_center">1.4</td>
+<td headers="random  mean_spread_component" class="gt_row gt_center">0.92483333</td></tr>
     <tr><td headers="random  Forest Cover" class="gt_row gt_center">0.15</td>
 <td headers="random  Giant Component" class="gt_row gt_center">0.02</td>
-<td headers="random  Mean Outbreak Size" class="gt_row gt_center">1.6</td>
-<td headers="random  mean_spread_component" class="gt_row gt_center">0.89227778</td></tr>
+<td headers="random  Mean Outbreak Size" class="gt_row gt_center">1.5</td>
+<td headers="random  mean_spread_component" class="gt_row gt_center">0.86395238</td></tr>
     <tr><td headers="random  Forest Cover" class="gt_row gt_center">0.20</td>
 <td headers="random  Giant Component" class="gt_row gt_center">0.02</td>
 <td headers="random  Mean Outbreak Size" class="gt_row gt_center">2.0</td>
-<td headers="random  mean_spread_component" class="gt_row gt_center">0.87500000</td></tr>
+<td headers="random  mean_spread_component" class="gt_row gt_center">0.83359524</td></tr>
     <tr><td headers="random  Forest Cover" class="gt_row gt_center">0.25</td>
 <td headers="random  Giant Component" class="gt_row gt_center">0.02</td>
-<td headers="random  Mean Outbreak Size" class="gt_row gt_center">2.6</td>
-<td headers="random  mean_spread_component" class="gt_row gt_center">0.82741370</td></tr>
+<td headers="random  Mean Outbreak Size" class="gt_row gt_center">2.2</td>
+<td headers="random  mean_spread_component" class="gt_row gt_center">0.83179870</td></tr>
     <tr><td headers="random  Forest Cover" class="gt_row gt_center">0.30</td>
-<td headers="random  Giant Component" class="gt_row gt_center">0.02</td>
-<td headers="random  Mean Outbreak Size" class="gt_row gt_center">3.0</td>
-<td headers="random  mean_spread_component" class="gt_row gt_center">0.83404287</td></tr>
+<td headers="random  Giant Component" class="gt_row gt_center">0.03</td>
+<td headers="random  Mean Outbreak Size" class="gt_row gt_center">2.6</td>
+<td headers="random  mean_spread_component" class="gt_row gt_center">0.76002237</td></tr>
     <tr><td headers="random  Forest Cover" class="gt_row gt_center">0.35</td>
 <td headers="random  Giant Component" class="gt_row gt_center">0.03</td>
-<td headers="random  Mean Outbreak Size" class="gt_row gt_center">2.9</td>
-<td headers="random  mean_spread_component" class="gt_row gt_center">0.73023858</td></tr>
+<td headers="random  Mean Outbreak Size" class="gt_row gt_center">3.9</td>
+<td headers="random  mean_spread_component" class="gt_row gt_center">0.70884642</td></tr>
     <tr><td headers="random  Forest Cover" class="gt_row gt_center">0.40</td>
 <td headers="random  Giant Component" class="gt_row gt_center">0.04</td>
-<td headers="random  Mean Outbreak Size" class="gt_row gt_center">4.7</td>
-<td headers="random  mean_spread_component" class="gt_row gt_center">0.61948478</td></tr>
+<td headers="random  Mean Outbreak Size" class="gt_row gt_center">5.7</td>
+<td headers="random  mean_spread_component" class="gt_row gt_center">0.57302426</td></tr>
     <tr><td headers="random  Forest Cover" class="gt_row gt_center">0.45</td>
 <td headers="random  Giant Component" class="gt_row gt_center">0.06</td>
-<td headers="random  Mean Outbreak Size" class="gt_row gt_center">6.4</td>
-<td headers="random  mean_spread_component" class="gt_row gt_center">0.52929385</td></tr>
+<td headers="random  Mean Outbreak Size" class="gt_row gt_center">7.2</td>
+<td headers="random  mean_spread_component" class="gt_row gt_center">0.58453246</td></tr>
     <tr><td headers="random  Forest Cover" class="gt_row gt_center">0.50</td>
 <td headers="random  Giant Component" class="gt_row gt_center">0.11</td>
-<td headers="random  Mean Outbreak Size" class="gt_row gt_center">9.2</td>
-<td headers="random  mean_spread_component" class="gt_row gt_center">0.42686369</td></tr>
+<td headers="random  Mean Outbreak Size" class="gt_row gt_center">9.5</td>
+<td headers="random  mean_spread_component" class="gt_row gt_center">0.45663190</td></tr>
     <tr><td headers="random  Forest Cover" class="gt_row gt_center">0.55</td>
-<td headers="random  Giant Component" class="gt_row gt_center">0.23</td>
-<td headers="random  Mean Outbreak Size" class="gt_row gt_center">18.6</td>
-<td headers="random  mean_spread_component" class="gt_row gt_center">0.32266425</td></tr>
+<td headers="random  Giant Component" class="gt_row gt_center">0.25</td>
+<td headers="random  Mean Outbreak Size" class="gt_row gt_center">15.0</td>
+<td headers="random  mean_spread_component" class="gt_row gt_center">0.29017778</td></tr>
     <tr><td headers="random  Forest Cover" class="gt_row gt_center">0.60</td>
 <td headers="random  Giant Component" class="gt_row gt_center">0.58</td>
-<td headers="random  Mean Outbreak Size" class="gt_row gt_center">27.3</td>
-<td headers="random  mean_spread_component" class="gt_row gt_center">0.15548702</td></tr>
+<td headers="random  Mean Outbreak Size" class="gt_row gt_center">22.1</td>
+<td headers="random  mean_spread_component" class="gt_row gt_center">0.23023372</td></tr>
     <tr><td headers="random  Forest Cover" class="gt_row gt_center">0.65</td>
-<td headers="random  Giant Component" class="gt_row gt_center">0.89</td>
-<td headers="random  Mean Outbreak Size" class="gt_row gt_center">37.1</td>
-<td headers="random  mean_spread_component" class="gt_row gt_center">0.09452912</td></tr>
+<td headers="random  Giant Component" class="gt_row gt_center">0.88</td>
+<td headers="random  Mean Outbreak Size" class="gt_row gt_center">51.8</td>
+<td headers="random  mean_spread_component" class="gt_row gt_center">0.07446599</td></tr>
     <tr><td headers="random  Forest Cover" class="gt_row gt_center">0.70</td>
 <td headers="random  Giant Component" class="gt_row gt_center">0.97</td>
-<td headers="random  Mean Outbreak Size" class="gt_row gt_center">76.9</td>
-<td headers="random  mean_spread_component" class="gt_row gt_center">0.07707333</td></tr>
+<td headers="random  Mean Outbreak Size" class="gt_row gt_center">89.2</td>
+<td headers="random  mean_spread_component" class="gt_row gt_center">0.08881099</td></tr>
     <tr><td headers="random  Forest Cover" class="gt_row gt_center">0.75</td>
 <td headers="random  Giant Component" class="gt_row gt_center">0.99</td>
-<td headers="random  Mean Outbreak Size" class="gt_row gt_center">206.7</td>
-<td headers="random  mean_spread_component" class="gt_row gt_center">0.11142519</td></tr>
+<td headers="random  Mean Outbreak Size" class="gt_row gt_center">158.4</td>
+<td headers="random  mean_spread_component" class="gt_row gt_center">0.11203894</td></tr>
     <tr><td headers="random  Forest Cover" class="gt_row gt_center">0.80</td>
 <td headers="random  Giant Component" class="gt_row gt_center">1.00</td>
-<td headers="random  Mean Outbreak Size" class="gt_row gt_center">298.6</td>
-<td headers="random  mean_spread_component" class="gt_row gt_center">0.15994445</td></tr>
+<td headers="random  Mean Outbreak Size" class="gt_row gt_center">333.6</td>
+<td headers="random  mean_spread_component" class="gt_row gt_center">0.16755513</td></tr>
     <tr><td headers="random  Forest Cover" class="gt_row gt_center">0.85</td>
 <td headers="random  Giant Component" class="gt_row gt_center">1.00</td>
-<td headers="random  Mean Outbreak Size" class="gt_row gt_center">554.5</td>
-<td headers="random  mean_spread_component" class="gt_row gt_center">0.26128858</td></tr>
+<td headers="random  Mean Outbreak Size" class="gt_row gt_center">565.5</td>
+<td headers="random  mean_spread_component" class="gt_row gt_center">0.26640439</td></tr>
     <tr><td headers="random  Forest Cover" class="gt_row gt_center">0.90</td>
 <td headers="random  Giant Component" class="gt_row gt_center">1.00</td>
-<td headers="random  Mean Outbreak Size" class="gt_row gt_center">755.8</td>
-<td headers="random  mean_spread_component" class="gt_row gt_center">0.33599845</td></tr>
+<td headers="random  Mean Outbreak Size" class="gt_row gt_center">799.4</td>
+<td headers="random  mean_spread_component" class="gt_row gt_center">0.35538224</td></tr>
   </tbody>
   
 </table>
@@ -1511,19 +1530,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb38-29"><a href="simulation-and-spreading.html#cb38-29" tabindex="-1"></a><span class="do">## </span></span>
 <span id="cb38-30"><a href="simulation-and-spreading.html#cb38-30" tabindex="-1"></a><span class="do">## Residuals:</span></span>
 <span id="cb38-31"><a href="simulation-and-spreading.html#cb38-31" tabindex="-1"></a><span class="do">##     Min      1Q  Median      3Q     Max </span></span>
-<span id="cb38-32"><a href="simulation-and-spreading.html#cb38-32" tabindex="-1"></a><span class="do">## -687.26 -146.81  -21.57  132.94  903.67 </span></span>
+<span id="cb38-32"><a href="simulation-and-spreading.html#cb38-32" tabindex="-1"></a><span class="do">## -691.53 -149.66  -20.52  133.08 1048.99 </span></span>
 <span id="cb38-33"><a href="simulation-and-spreading.html#cb38-33" tabindex="-1"></a><span class="do">## </span></span>
 <span id="cb38-34"><a href="simulation-and-spreading.html#cb38-34" tabindex="-1"></a><span class="do">## Coefficients:</span></span>
 <span id="cb38-35"><a href="simulation-and-spreading.html#cb38-35" tabindex="-1"></a><span class="do">##                      Estimate Std. Error t value Pr(&gt;|t|)    </span></span>
-<span id="cb38-36"><a href="simulation-and-spreading.html#cb38-36" tabindex="-1"></a><span class="do">## (Intercept)           -59.081      9.693  -6.095 1.22e-09 ***</span></span>
-<span id="cb38-37"><a href="simulation-and-spreading.html#cb38-37" tabindex="-1"></a><span class="do">## forest_cover          830.384     15.935  52.109  &lt; 2e-16 ***</span></span>
-<span id="cb38-38"><a href="simulation-and-spreading.html#cb38-38" tabindex="-1"></a><span class="do">## landscape_typerandom -237.931      7.807 -30.478  &lt; 2e-16 ***</span></span>
+<span id="cb38-36"><a href="simulation-and-spreading.html#cb38-36" tabindex="-1"></a><span class="do">## (Intercept)           -66.155      9.787   -6.76 1.62e-11 ***</span></span>
+<span id="cb38-37"><a href="simulation-and-spreading.html#cb38-37" tabindex="-1"></a><span class="do">## forest_cover          842.980     16.090   52.39  &lt; 2e-16 ***</span></span>
+<span id="cb38-38"><a href="simulation-and-spreading.html#cb38-38" tabindex="-1"></a><span class="do">## landscape_typerandom -233.521      7.882  -29.63  &lt; 2e-16 ***</span></span>
 <span id="cb38-39"><a href="simulation-and-spreading.html#cb38-39" tabindex="-1"></a><span class="do">## ---</span></span>
 <span id="cb38-40"><a href="simulation-and-spreading.html#cb38-40" tabindex="-1"></a><span class="do">## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span></span>
 <span id="cb38-41"><a href="simulation-and-spreading.html#cb38-41" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb38-42"><a href="simulation-and-spreading.html#cb38-42" tabindex="-1"></a><span class="do">## Residual standard error: 227.6 on 3397 degrees of freedom</span></span>
-<span id="cb38-43"><a href="simulation-and-spreading.html#cb38-43" tabindex="-1"></a><span class="do">## Multiple R-squared:  0.5176, Adjusted R-squared:  0.5173 </span></span>
-<span id="cb38-44"><a href="simulation-and-spreading.html#cb38-44" tabindex="-1"></a><span class="do">## F-statistic:  1822 on 2 and 3397 DF,  p-value: &lt; 2.2e-16</span></span>
+<span id="cb38-42"><a href="simulation-and-spreading.html#cb38-42" tabindex="-1"></a><span class="do">## Residual standard error: 229.8 on 3397 degrees of freedom</span></span>
+<span id="cb38-43"><a href="simulation-and-spreading.html#cb38-43" tabindex="-1"></a><span class="do">## Multiple R-squared:  0.5161, Adjusted R-squared:  0.5158 </span></span>
+<span id="cb38-44"><a href="simulation-and-spreading.html#cb38-44" tabindex="-1"></a><span class="do">## F-statistic:  1811 on 2 and 3397 DF,  p-value: &lt; 2.2e-16</span></span>
 <span id="cb38-45"><a href="simulation-and-spreading.html#cb38-45" tabindex="-1"></a><span class="fu">summary</span>(m2)</span>
 <span id="cb38-46"><a href="simulation-and-spreading.html#cb38-46" tabindex="-1"></a><span class="do">## </span></span>
 <span id="cb38-47"><a href="simulation-and-spreading.html#cb38-47" tabindex="-1"></a><span class="do">## Call:</span></span>
@@ -1532,19 +1551,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb38-50"><a href="simulation-and-spreading.html#cb38-50" tabindex="-1"></a><span class="do">## </span></span>
 <span id="cb38-51"><a href="simulation-and-spreading.html#cb38-51" tabindex="-1"></a><span class="do">## Residuals:</span></span>
 <span id="cb38-52"><a href="simulation-and-spreading.html#cb38-52" tabindex="-1"></a><span class="do">##     Min      1Q  Median      3Q     Max </span></span>
-<span id="cb38-53"><a href="simulation-and-spreading.html#cb38-53" tabindex="-1"></a><span class="do">## -491.40 -181.47   34.66   73.58 1051.48 </span></span>
+<span id="cb38-53"><a href="simulation-and-spreading.html#cb38-53" tabindex="-1"></a><span class="do">## -494.05 -175.05   28.05   74.49 1238.14 </span></span>
 <span id="cb38-54"><a href="simulation-and-spreading.html#cb38-54" tabindex="-1"></a><span class="do">## </span></span>
 <span id="cb38-55"><a href="simulation-and-spreading.html#cb38-55" tabindex="-1"></a><span class="do">## Coefficients:</span></span>
 <span id="cb38-56"><a href="simulation-and-spreading.html#cb38-56" tabindex="-1"></a><span class="do">##                      Estimate Std. Error t value Pr(&gt;|t|)    </span></span>
-<span id="cb38-57"><a href="simulation-and-spreading.html#cb38-57" tabindex="-1"></a><span class="do">## (Intercept)            13.757     10.636   1.293    0.196    </span></span>
-<span id="cb38-58"><a href="simulation-and-spreading.html#cb38-58" tabindex="-1"></a><span class="do">## giant_component_prop  479.754     12.176  39.402   &lt;2e-16 ***</span></span>
-<span id="cb38-59"><a href="simulation-and-spreading.html#cb38-59" tabindex="-1"></a><span class="do">## landscape_typerandom  -92.733      9.426  -9.838   &lt;2e-16 ***</span></span>
+<span id="cb38-57"><a href="simulation-and-spreading.html#cb38-57" tabindex="-1"></a><span class="do">## (Intercept)             7.901     10.662   0.741    0.459    </span></span>
+<span id="cb38-58"><a href="simulation-and-spreading.html#cb38-58" tabindex="-1"></a><span class="do">## giant_component_prop  489.412     12.239  39.988   &lt;2e-16 ***</span></span>
+<span id="cb38-59"><a href="simulation-and-spreading.html#cb38-59" tabindex="-1"></a><span class="do">## landscape_typerandom  -88.184      9.465  -9.317   &lt;2e-16 ***</span></span>
 <span id="cb38-60"><a href="simulation-and-spreading.html#cb38-60" tabindex="-1"></a><span class="do">## ---</span></span>
 <span id="cb38-61"><a href="simulation-and-spreading.html#cb38-61" tabindex="-1"></a><span class="do">## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span></span>
 <span id="cb38-62"><a href="simulation-and-spreading.html#cb38-62" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb38-63"><a href="simulation-and-spreading.html#cb38-63" tabindex="-1"></a><span class="do">## Residual standard error: 252.9 on 3397 degrees of freedom</span></span>
-<span id="cb38-64"><a href="simulation-and-spreading.html#cb38-64" tabindex="-1"></a><span class="do">## Multiple R-squared:  0.4042, Adjusted R-squared:  0.4039 </span></span>
-<span id="cb38-65"><a href="simulation-and-spreading.html#cb38-65" tabindex="-1"></a><span class="do">## F-statistic:  1152 on 2 and 3397 DF,  p-value: &lt; 2.2e-16</span></span>
+<span id="cb38-63"><a href="simulation-and-spreading.html#cb38-63" tabindex="-1"></a><span class="do">## Residual standard error: 254.8 on 3397 degrees of freedom</span></span>
+<span id="cb38-64"><a href="simulation-and-spreading.html#cb38-64" tabindex="-1"></a><span class="do">## Multiple R-squared:  0.4051, Adjusted R-squared:  0.4047 </span></span>
+<span id="cb38-65"><a href="simulation-and-spreading.html#cb38-65" tabindex="-1"></a><span class="do">## F-statistic:  1156 on 2 and 3397 DF,  p-value: &lt; 2.2e-16</span></span>
 <span id="cb38-66"><a href="simulation-and-spreading.html#cb38-66" tabindex="-1"></a><span class="fu">summary</span>(m3)</span>
 <span id="cb38-67"><a href="simulation-and-spreading.html#cb38-67" tabindex="-1"></a><span class="do">## </span></span>
 <span id="cb38-68"><a href="simulation-and-spreading.html#cb38-68" tabindex="-1"></a><span class="do">## Call:</span></span>
@@ -1553,20 +1572,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb38-71"><a href="simulation-and-spreading.html#cb38-71" tabindex="-1"></a><span class="do">## </span></span>
 <span id="cb38-72"><a href="simulation-and-spreading.html#cb38-72" tabindex="-1"></a><span class="do">## Residuals:</span></span>
 <span id="cb38-73"><a href="simulation-and-spreading.html#cb38-73" tabindex="-1"></a><span class="do">##     Min      1Q  Median      3Q     Max </span></span>
-<span id="cb38-74"><a href="simulation-and-spreading.html#cb38-74" tabindex="-1"></a><span class="do">## -684.57 -146.24  -21.67  133.31  902.26 </span></span>
+<span id="cb38-74"><a href="simulation-and-spreading.html#cb38-74" tabindex="-1"></a><span class="do">## -688.06 -148.15  -22.09  133.47 1047.31 </span></span>
 <span id="cb38-75"><a href="simulation-and-spreading.html#cb38-75" tabindex="-1"></a><span class="do">## </span></span>
 <span id="cb38-76"><a href="simulation-and-spreading.html#cb38-76" tabindex="-1"></a><span class="do">## Coefficients:</span></span>
 <span id="cb38-77"><a href="simulation-and-spreading.html#cb38-77" tabindex="-1"></a><span class="do">##                      Estimate Std. Error t value Pr(&gt;|t|)    </span></span>
-<span id="cb38-78"><a href="simulation-and-spreading.html#cb38-78" tabindex="-1"></a><span class="do">## (Intercept)           -60.531      9.926  -6.098 1.19e-09 ***</span></span>
-<span id="cb38-79"><a href="simulation-and-spreading.html#cb38-79" tabindex="-1"></a><span class="do">## forest_cover          814.085     28.811  28.256  &lt; 2e-16 ***</span></span>
-<span id="cb38-80"><a href="simulation-and-spreading.html#cb38-80" tabindex="-1"></a><span class="do">## giant_component_prop   13.451     19.809   0.679    0.497    </span></span>
-<span id="cb38-81"><a href="simulation-and-spreading.html#cb38-81" tabindex="-1"></a><span class="do">## landscape_typerandom -233.860      9.844 -23.757  &lt; 2e-16 ***</span></span>
+<span id="cb38-78"><a href="simulation-and-spreading.html#cb38-78" tabindex="-1"></a><span class="do">## (Intercept)           -67.860      9.992  -6.791  1.3e-11 ***</span></span>
+<span id="cb38-79"><a href="simulation-and-spreading.html#cb38-79" tabindex="-1"></a><span class="do">## forest_cover          822.089     29.438  27.926  &lt; 2e-16 ***</span></span>
+<span id="cb38-80"><a href="simulation-and-spreading.html#cb38-80" tabindex="-1"></a><span class="do">## giant_component_prop   17.115     20.196   0.847    0.397    </span></span>
+<span id="cb38-81"><a href="simulation-and-spreading.html#cb38-81" tabindex="-1"></a><span class="do">## landscape_typerandom -228.439      9.905 -23.063  &lt; 2e-16 ***</span></span>
 <span id="cb38-82"><a href="simulation-and-spreading.html#cb38-82" tabindex="-1"></a><span class="do">## ---</span></span>
 <span id="cb38-83"><a href="simulation-and-spreading.html#cb38-83" tabindex="-1"></a><span class="do">## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span></span>
 <span id="cb38-84"><a href="simulation-and-spreading.html#cb38-84" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb38-85"><a href="simulation-and-spreading.html#cb38-85" tabindex="-1"></a><span class="do">## Residual standard error: 227.6 on 3396 degrees of freedom</span></span>
-<span id="cb38-86"><a href="simulation-and-spreading.html#cb38-86" tabindex="-1"></a><span class="do">## Multiple R-squared:  0.5176, Adjusted R-squared:  0.5172 </span></span>
-<span id="cb38-87"><a href="simulation-and-spreading.html#cb38-87" tabindex="-1"></a><span class="do">## F-statistic:  1215 on 3 and 3396 DF,  p-value: &lt; 2.2e-16</span></span></code></pre></div>
+<span id="cb38-85"><a href="simulation-and-spreading.html#cb38-85" tabindex="-1"></a><span class="do">## Residual standard error: 229.8 on 3396 degrees of freedom</span></span>
+<span id="cb38-86"><a href="simulation-and-spreading.html#cb38-86" tabindex="-1"></a><span class="do">## Multiple R-squared:  0.5162, Adjusted R-squared:  0.5158 </span></span>
+<span id="cb38-87"><a href="simulation-and-spreading.html#cb38-87" tabindex="-1"></a><span class="do">## F-statistic:  1208 on 3 and 3396 DF,  p-value: &lt; 2.2e-16</span></span></code></pre></div>
 <p>Statistical modelling further supported these patterns. Forest cover was the strongest predictor of outbreak size, explaining a substantial proportion of the variation in the number of infected cells. Giant component proportion was also strongly related to outbreak size when examined independently, indicating that landscapes containing larger connected habitat networks tended to support larger outbreaks. However, when both forest cover and connectivity were included in the same model, the effect of giant component size became much weaker. This occurred because forest cover and connectivity were themselves highly correlated, indicating that increasing habitat amount simultaneously increases landscape connectivity and the potential for contagion spread.</p>
 <p>Taken together, the results suggest that habitat amount acts as the primary driver of contagion dynamics, while connectivity serves as the mechanism through which habitat amount influences outbreak size. Clustered landscapes consistently produced larger and earlier outbreaks because habitat cells were organized into connected networks at lower levels of forest cover. Random landscapes required substantially greater habitat cover before a giant connected component emerged and contagion could spread extensively. Overall, the study provides strong evidence that percolation processes govern the transition from localized outbreaks in fragmented landscapes to landscape-scale contagion in highly connected systems, highlighting the critical role of habitat configuration and connectivity in determining ecological spread processes.</p>
 </div>
@@ -1581,8 +1600,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           </div>
         </div>
       </div>
-<a href="neutral-landscape-models.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="neutral-landscape-models.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="introduction-8.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
