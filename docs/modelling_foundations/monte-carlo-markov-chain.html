@@ -23,7 +23,7 @@
 <meta name="author" content="Kelly Izzard" />
 
 
-<meta name="date" content="2026-07-09" />
+<meta name="date" content="2026-07-10" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -329,58 +329,60 @@ harvest optimisation.</p>
 <span id="cb17-12"><a href="monte-carlo-markov-chain.html#cb17-12" tabindex="-1"></a></span>
 <span id="cb17-13"><a href="monte-carlo-markov-chain.html#cb17-13" tabindex="-1"></a>fires <span class="ot">&lt;-</span>  <span class="fu">st_read</span>(gdb_path,</span>
 <span id="cb17-14"><a href="monte-carlo-markov-chain.html#cb17-14" tabindex="-1"></a>                  <span class="at">layer =</span> <span class="st">&quot;hist_fires&quot;</span>)</span>
-<span id="cb17-15"><a href="monte-carlo-markov-chain.html#cb17-15" tabindex="-1"></a><span class="do">## Reading layer `hist_fires&#39; from data source `C:\Data\STSM2024v3\STSM2024\Boundary\tsa02\R\data\tsa02_2024.gdb&#39; using driver `OpenFileGDB&#39;</span></span>
-<span id="cb17-16"><a href="monte-carlo-markov-chain.html#cb17-16" tabindex="-1"></a><span class="do">## Simple feature collection with 464 features and 4 fields</span></span>
-<span id="cb17-17"><a href="monte-carlo-markov-chain.html#cb17-17" tabindex="-1"></a><span class="do">## Geometry type: MULTIPOLYGON</span></span>
-<span id="cb17-18"><a href="monte-carlo-markov-chain.html#cb17-18" tabindex="-1"></a><span class="do">## Dimension:     XY</span></span>
-<span id="cb17-19"><a href="monte-carlo-markov-chain.html#cb17-19" tabindex="-1"></a><span class="do">## Bounding box:  xmin: 1488696 ymin: 466375.5 xmax: 1580836 ymax: 573570.4</span></span>
-<span id="cb17-20"><a href="monte-carlo-markov-chain.html#cb17-20" tabindex="-1"></a><span class="do">## Projected CRS: NAD83 / BC Albers</span></span>
-<span id="cb17-21"><a href="monte-carlo-markov-chain.html#cb17-21" tabindex="-1"></a></span>
-<span id="cb17-22"><a href="monte-carlo-markov-chain.html#cb17-22" tabindex="-1"></a>fires<span class="ot">&lt;-</span>fires<span class="sc">%&gt;%</span><span class="fu">mutate</span>(<span class="at">ha =</span> <span class="fu">as.numeric</span>(<span class="fu">st_area</span>(Shape)<span class="sc">*</span> <span class="fl">0.0001</span>))</span>
+<span id="cb17-15"><a href="monte-carlo-markov-chain.html#cb17-15" tabindex="-1"></a><span class="do">## Reading layer `hist_fires&#39; from data source </span></span>
+<span id="cb17-16"><a href="monte-carlo-markov-chain.html#cb17-16" tabindex="-1"></a><span class="do">##   `C:\Data\STSM2024v3\STSM2024\Boundary\tsa02\R\data\tsa02_2024.gdb&#39; </span></span>
+<span id="cb17-17"><a href="monte-carlo-markov-chain.html#cb17-17" tabindex="-1"></a><span class="do">##   using driver `OpenFileGDB&#39;</span></span>
+<span id="cb17-18"><a href="monte-carlo-markov-chain.html#cb17-18" tabindex="-1"></a><span class="do">## Simple feature collection with 464 features and 4 fields</span></span>
+<span id="cb17-19"><a href="monte-carlo-markov-chain.html#cb17-19" tabindex="-1"></a><span class="do">## Geometry type: MULTIPOLYGON</span></span>
+<span id="cb17-20"><a href="monte-carlo-markov-chain.html#cb17-20" tabindex="-1"></a><span class="do">## Dimension:     XY</span></span>
+<span id="cb17-21"><a href="monte-carlo-markov-chain.html#cb17-21" tabindex="-1"></a><span class="do">## Bounding box:  xmin: 1488696 ymin: 466375.5 xmax: 1580836 ymax: 573570.4</span></span>
+<span id="cb17-22"><a href="monte-carlo-markov-chain.html#cb17-22" tabindex="-1"></a><span class="do">## Projected CRS: NAD83 / BC Albers</span></span>
 <span id="cb17-23"><a href="monte-carlo-markov-chain.html#cb17-23" tabindex="-1"></a></span>
-<span id="cb17-24"><a href="monte-carlo-markov-chain.html#cb17-24" tabindex="-1"></a>historic_fire<span class="ot">&lt;-</span><span class="fu">st_drop_geometry</span>(fires)<span class="sc">%&gt;%</span></span>
-<span id="cb17-25"><a href="monte-carlo-markov-chain.html#cb17-25" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(ha)<span class="sc">%&gt;%</span></span>
-<span id="cb17-26"><a href="monte-carlo-markov-chain.html#cb17-26" tabindex="-1"></a>  <span class="fu">pull</span>()</span>
-<span id="cb17-27"><a href="monte-carlo-markov-chain.html#cb17-27" tabindex="-1"></a></span>
-<span id="cb17-28"><a href="monte-carlo-markov-chain.html#cb17-28" tabindex="-1"></a><span class="co"># ----------------------------------------------------------</span></span>
-<span id="cb17-29"><a href="monte-carlo-markov-chain.html#cb17-29" tabindex="-1"></a><span class="co"># 1. DATA PREPARATION</span></span>
+<span id="cb17-24"><a href="monte-carlo-markov-chain.html#cb17-24" tabindex="-1"></a>fires<span class="ot">&lt;-</span>fires<span class="sc">%&gt;%</span><span class="fu">mutate</span>(<span class="at">ha =</span> <span class="fu">as.numeric</span>(<span class="fu">st_area</span>(Shape)<span class="sc">*</span> <span class="fl">0.0001</span>))</span>
+<span id="cb17-25"><a href="monte-carlo-markov-chain.html#cb17-25" tabindex="-1"></a></span>
+<span id="cb17-26"><a href="monte-carlo-markov-chain.html#cb17-26" tabindex="-1"></a>historic_fire<span class="ot">&lt;-</span><span class="fu">st_drop_geometry</span>(fires)<span class="sc">%&gt;%</span></span>
+<span id="cb17-27"><a href="monte-carlo-markov-chain.html#cb17-27" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(ha)<span class="sc">%&gt;%</span></span>
+<span id="cb17-28"><a href="monte-carlo-markov-chain.html#cb17-28" tabindex="-1"></a>  <span class="fu">pull</span>()</span>
+<span id="cb17-29"><a href="monte-carlo-markov-chain.html#cb17-29" tabindex="-1"></a></span>
 <span id="cb17-30"><a href="monte-carlo-markov-chain.html#cb17-30" tabindex="-1"></a><span class="co"># ----------------------------------------------------------</span></span>
-<span id="cb17-31"><a href="monte-carlo-markov-chain.html#cb17-31" tabindex="-1"></a>fire <span class="ot">&lt;-</span> historic_fire                      <span class="co"># observed fire sizes</span></span>
-<span id="cb17-32"><a href="monte-carlo-markov-chain.html#cb17-32" tabindex="-1"></a></span>
-<span id="cb17-33"><a href="monte-carlo-markov-chain.html#cb17-33" tabindex="-1"></a></span>
-<span id="cb17-34"><a href="monte-carlo-markov-chain.html#cb17-34" tabindex="-1"></a><span class="co"># Define threshold separating &quot;normal&quot; vs &quot;extreme&quot; fires</span></span>
-<span id="cb17-35"><a href="monte-carlo-markov-chain.html#cb17-35" tabindex="-1"></a>u <span class="ot">&lt;-</span> <span class="fu">quantile</span>(fire, <span class="fl">0.95</span>)</span>
-<span id="cb17-36"><a href="monte-carlo-markov-chain.html#cb17-36" tabindex="-1"></a></span>
-<span id="cb17-37"><a href="monte-carlo-markov-chain.html#cb17-37" tabindex="-1"></a></span>
-<span id="cb17-38"><a href="monte-carlo-markov-chain.html#cb17-38" tabindex="-1"></a><span class="co"># Bulk (typical fires below threshold)</span></span>
-<span id="cb17-39"><a href="monte-carlo-markov-chain.html#cb17-39" tabindex="-1"></a>bulk <span class="ot">&lt;-</span> fire[fire <span class="sc">&lt;=</span> u]</span>
-<span id="cb17-40"><a href="monte-carlo-markov-chain.html#cb17-40" tabindex="-1"></a></span>
-<span id="cb17-41"><a href="monte-carlo-markov-chain.html#cb17-41" tabindex="-1"></a><span class="co"># Tail (extreme fires above threshold)</span></span>
-<span id="cb17-42"><a href="monte-carlo-markov-chain.html#cb17-42" tabindex="-1"></a>tail <span class="ot">&lt;-</span> fire[fire <span class="sc">&gt;</span> u]</span>
-<span id="cb17-43"><a href="monte-carlo-markov-chain.html#cb17-43" tabindex="-1"></a></span>
-<span id="cb17-44"><a href="monte-carlo-markov-chain.html#cb17-44" tabindex="-1"></a><span class="co"># Log-transform bulk for lognormal modelling</span></span>
-<span id="cb17-45"><a href="monte-carlo-markov-chain.html#cb17-45" tabindex="-1"></a>log_bulk <span class="ot">&lt;-</span> <span class="fu">log</span>(bulk)</span>
-<span id="cb17-46"><a href="monte-carlo-markov-chain.html#cb17-46" tabindex="-1"></a></span>
-<span id="cb17-47"><a href="monte-carlo-markov-chain.html#cb17-47" tabindex="-1"></a><span class="co"># ----------------------------------------------------------</span></span>
-<span id="cb17-48"><a href="monte-carlo-markov-chain.html#cb17-48" tabindex="-1"></a><span class="co"># 2. MCMC SETTINGS</span></span>
+<span id="cb17-31"><a href="monte-carlo-markov-chain.html#cb17-31" tabindex="-1"></a><span class="co"># 1. DATA PREPARATION</span></span>
+<span id="cb17-32"><a href="monte-carlo-markov-chain.html#cb17-32" tabindex="-1"></a><span class="co"># ----------------------------------------------------------</span></span>
+<span id="cb17-33"><a href="monte-carlo-markov-chain.html#cb17-33" tabindex="-1"></a>fire <span class="ot">&lt;-</span> historic_fire                      <span class="co"># observed fire sizes</span></span>
+<span id="cb17-34"><a href="monte-carlo-markov-chain.html#cb17-34" tabindex="-1"></a></span>
+<span id="cb17-35"><a href="monte-carlo-markov-chain.html#cb17-35" tabindex="-1"></a></span>
+<span id="cb17-36"><a href="monte-carlo-markov-chain.html#cb17-36" tabindex="-1"></a><span class="co"># Define threshold separating &quot;normal&quot; vs &quot;extreme&quot; fires</span></span>
+<span id="cb17-37"><a href="monte-carlo-markov-chain.html#cb17-37" tabindex="-1"></a>u <span class="ot">&lt;-</span> <span class="fu">quantile</span>(fire, <span class="fl">0.95</span>)</span>
+<span id="cb17-38"><a href="monte-carlo-markov-chain.html#cb17-38" tabindex="-1"></a></span>
+<span id="cb17-39"><a href="monte-carlo-markov-chain.html#cb17-39" tabindex="-1"></a></span>
+<span id="cb17-40"><a href="monte-carlo-markov-chain.html#cb17-40" tabindex="-1"></a><span class="co"># Bulk (typical fires below threshold)</span></span>
+<span id="cb17-41"><a href="monte-carlo-markov-chain.html#cb17-41" tabindex="-1"></a>bulk <span class="ot">&lt;-</span> fire[fire <span class="sc">&lt;=</span> u]</span>
+<span id="cb17-42"><a href="monte-carlo-markov-chain.html#cb17-42" tabindex="-1"></a></span>
+<span id="cb17-43"><a href="monte-carlo-markov-chain.html#cb17-43" tabindex="-1"></a><span class="co"># Tail (extreme fires above threshold)</span></span>
+<span id="cb17-44"><a href="monte-carlo-markov-chain.html#cb17-44" tabindex="-1"></a>tail <span class="ot">&lt;-</span> fire[fire <span class="sc">&gt;</span> u]</span>
+<span id="cb17-45"><a href="monte-carlo-markov-chain.html#cb17-45" tabindex="-1"></a></span>
+<span id="cb17-46"><a href="monte-carlo-markov-chain.html#cb17-46" tabindex="-1"></a><span class="co"># Log-transform bulk for lognormal modelling</span></span>
+<span id="cb17-47"><a href="monte-carlo-markov-chain.html#cb17-47" tabindex="-1"></a>log_bulk <span class="ot">&lt;-</span> <span class="fu">log</span>(bulk)</span>
+<span id="cb17-48"><a href="monte-carlo-markov-chain.html#cb17-48" tabindex="-1"></a></span>
 <span id="cb17-49"><a href="monte-carlo-markov-chain.html#cb17-49" tabindex="-1"></a><span class="co"># ----------------------------------------------------------</span></span>
-<span id="cb17-50"><a href="monte-carlo-markov-chain.html#cb17-50" tabindex="-1"></a></span>
-<span id="cb17-51"><a href="monte-carlo-markov-chain.html#cb17-51" tabindex="-1"></a>n.iter <span class="ot">&lt;-</span> <span class="dv">20000</span></span>
+<span id="cb17-50"><a href="monte-carlo-markov-chain.html#cb17-50" tabindex="-1"></a><span class="co"># 2. MCMC SETTINGS</span></span>
+<span id="cb17-51"><a href="monte-carlo-markov-chain.html#cb17-51" tabindex="-1"></a><span class="co"># ----------------------------------------------------------</span></span>
 <span id="cb17-52"><a href="monte-carlo-markov-chain.html#cb17-52" tabindex="-1"></a></span>
-<span id="cb17-53"><a href="monte-carlo-markov-chain.html#cb17-53" tabindex="-1"></a><span class="co"># Storage vectors for posterior samples</span></span>
-<span id="cb17-54"><a href="monte-carlo-markov-chain.html#cb17-54" tabindex="-1"></a>mu <span class="ot">&lt;-</span> <span class="fu">numeric</span>(n.iter)        <span class="co"># lognormal mean (bulk process)</span></span>
-<span id="cb17-55"><a href="monte-carlo-markov-chain.html#cb17-55" tabindex="-1"></a>sigma <span class="ot">&lt;-</span> <span class="fu">numeric</span>(n.iter)     <span class="co"># lognormal sd (bulk process)</span></span>
-<span id="cb17-56"><a href="monte-carlo-markov-chain.html#cb17-56" tabindex="-1"></a>alpha <span class="ot">&lt;-</span> <span class="fu">numeric</span>(n.iter)     <span class="co"># Pareto tail index (extreme process)</span></span>
-<span id="cb17-57"><a href="monte-carlo-markov-chain.html#cb17-57" tabindex="-1"></a></span>
-<span id="cb17-58"><a href="monte-carlo-markov-chain.html#cb17-58" tabindex="-1"></a><span class="co"># Initial values based on empirical data</span></span>
-<span id="cb17-59"><a href="monte-carlo-markov-chain.html#cb17-59" tabindex="-1"></a>mu[<span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="fu">mean</span>(log_bulk)</span>
-<span id="cb17-60"><a href="monte-carlo-markov-chain.html#cb17-60" tabindex="-1"></a>sigma[<span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="fu">sd</span>(log_bulk)</span>
-<span id="cb17-61"><a href="monte-carlo-markov-chain.html#cb17-61" tabindex="-1"></a>alpha[<span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="dv">2</span></span>
-<span id="cb17-62"><a href="monte-carlo-markov-chain.html#cb17-62" tabindex="-1"></a></span>
-<span id="cb17-63"><a href="monte-carlo-markov-chain.html#cb17-63" tabindex="-1"></a><span class="co"># Proposal distribution widths (tuning parameters)</span></span>
-<span id="cb17-64"><a href="monte-carlo-markov-chain.html#cb17-64" tabindex="-1"></a>prop.mu <span class="ot">&lt;-</span> <span class="fl">0.05</span></span>
-<span id="cb17-65"><a href="monte-carlo-markov-chain.html#cb17-65" tabindex="-1"></a>prop.sigma <span class="ot">&lt;-</span> <span class="fl">0.05</span></span>
-<span id="cb17-66"><a href="monte-carlo-markov-chain.html#cb17-66" tabindex="-1"></a>prop.alpha <span class="ot">&lt;-</span> <span class="fl">0.2</span></span></code></pre></div>
+<span id="cb17-53"><a href="monte-carlo-markov-chain.html#cb17-53" tabindex="-1"></a>n.iter <span class="ot">&lt;-</span> <span class="dv">20000</span></span>
+<span id="cb17-54"><a href="monte-carlo-markov-chain.html#cb17-54" tabindex="-1"></a></span>
+<span id="cb17-55"><a href="monte-carlo-markov-chain.html#cb17-55" tabindex="-1"></a><span class="co"># Storage vectors for posterior samples</span></span>
+<span id="cb17-56"><a href="monte-carlo-markov-chain.html#cb17-56" tabindex="-1"></a>mu <span class="ot">&lt;-</span> <span class="fu">numeric</span>(n.iter)        <span class="co"># lognormal mean (bulk process)</span></span>
+<span id="cb17-57"><a href="monte-carlo-markov-chain.html#cb17-57" tabindex="-1"></a>sigma <span class="ot">&lt;-</span> <span class="fu">numeric</span>(n.iter)     <span class="co"># lognormal sd (bulk process)</span></span>
+<span id="cb17-58"><a href="monte-carlo-markov-chain.html#cb17-58" tabindex="-1"></a>alpha <span class="ot">&lt;-</span> <span class="fu">numeric</span>(n.iter)     <span class="co"># Pareto tail index (extreme process)</span></span>
+<span id="cb17-59"><a href="monte-carlo-markov-chain.html#cb17-59" tabindex="-1"></a></span>
+<span id="cb17-60"><a href="monte-carlo-markov-chain.html#cb17-60" tabindex="-1"></a><span class="co"># Initial values based on empirical data</span></span>
+<span id="cb17-61"><a href="monte-carlo-markov-chain.html#cb17-61" tabindex="-1"></a>mu[<span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="fu">mean</span>(log_bulk)</span>
+<span id="cb17-62"><a href="monte-carlo-markov-chain.html#cb17-62" tabindex="-1"></a>sigma[<span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="fu">sd</span>(log_bulk)</span>
+<span id="cb17-63"><a href="monte-carlo-markov-chain.html#cb17-63" tabindex="-1"></a>alpha[<span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="dv">2</span></span>
+<span id="cb17-64"><a href="monte-carlo-markov-chain.html#cb17-64" tabindex="-1"></a></span>
+<span id="cb17-65"><a href="monte-carlo-markov-chain.html#cb17-65" tabindex="-1"></a><span class="co"># Proposal distribution widths (tuning parameters)</span></span>
+<span id="cb17-66"><a href="monte-carlo-markov-chain.html#cb17-66" tabindex="-1"></a>prop.mu <span class="ot">&lt;-</span> <span class="fl">0.05</span></span>
+<span id="cb17-67"><a href="monte-carlo-markov-chain.html#cb17-67" tabindex="-1"></a>prop.sigma <span class="ot">&lt;-</span> <span class="fl">0.05</span></span>
+<span id="cb17-68"><a href="monte-carlo-markov-chain.html#cb17-68" tabindex="-1"></a>prop.alpha <span class="ot">&lt;-</span> <span class="fl">0.2</span></span></code></pre></div>
 </div>
 <div id="mcmc-sampling-loop-joint-bulk-and-tail-model" class="section level2 hasAnchor" number="5.3">
 <h2><span class="header-section-number">5.3</span> MCMC Sampling Loop (Joint Bulk and Tail Model)<a href="monte-carlo-markov-chain.html#mcmc-sampling-loop-joint-bulk-and-tail-model" class="anchor-section" aria-label="Anchor link to header"></a></h2>
