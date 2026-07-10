@@ -20,7 +20,7 @@
   
   
 
-<meta name="author" content="Kelly Izzard" />
+<meta name="author" content="Kelly Izzard/Co-pilot/ChatGPT" />
 
 
 <meta name="date" content="2026-07-10" />
@@ -31,7 +31,7 @@
   
   
 
-<link rel="next" href="simulated-annealing-and-the-sudoku-solver.html"/>
+<link rel="next" href="simple-linear-programming.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -155,124 +155,134 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1.1.4" data-path="index.html"><a href="index.html#the-modellers-creed"><i class="fa fa-check"></i><b>1.1.4</b> The Modeller’s creed</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="simulated-annealing-and-the-sudoku-solver.html"><a href="simulated-annealing-and-the-sudoku-solver.html"><i class="fa fa-check"></i><b>2</b> Simulated Annealing and the Sudoku Solver</a>
+<li class="chapter" data-level="2" data-path="simple-linear-programming.html"><a href="simple-linear-programming.html"><i class="fa fa-check"></i><b>2</b> Simple Linear Programming</a>
 <ul>
-<li class="chapter" data-level="2.1" data-path="simulated-annealing-and-the-sudoku-solver.html"><a href="simulated-annealing-and-the-sudoku-solver.html#introduction-1"><i class="fa fa-check"></i><b>2.1</b> Introduction</a></li>
-<li class="chapter" data-level="2.2" data-path="simulated-annealing-and-the-sudoku-solver.html"><a href="simulated-annealing-and-the-sudoku-solver.html#simple-model"><i class="fa fa-check"></i><b>2.2</b> Simple Model</a>
+<li class="chapter" data-level="2.1" data-path="simple-linear-programming.html"><a href="simple-linear-programming.html#introduction-1"><i class="fa fa-check"></i><b>2.1</b> Introduction</a>
 <ul>
-<li class="chapter" data-level="2.2.1" data-path="simulated-annealing-and-the-sudoku-solver.html"><a href="simulated-annealing-and-the-sudoku-solver.html#plot-objective-value"><i class="fa fa-check"></i><b>2.2.1</b> Plot objective value</a></li>
-<li class="chapter" data-level="2.2.2" data-path="simulated-annealing-and-the-sudoku-solver.html"><a href="simulated-annealing-and-the-sudoku-solver.html#plot-search-trajectory"><i class="fa fa-check"></i><b>2.2.2</b> Plot search trajectory</a></li>
-<li class="chapter" data-level="2.2.3" data-path="simulated-annealing-and-the-sudoku-solver.html"><a href="simulated-annealing-and-the-sudoku-solver.html#plot-objective-function-with-optimization-path"><i class="fa fa-check"></i><b>2.2.3</b> Plot objective function with optimization path</a></li>
+<li class="chapter" data-level="2.1.1" data-path="simple-linear-programming.html"><a href="simple-linear-programming.html#the-simplex-method"><i class="fa fa-check"></i><b>2.1.1</b> The Simplex Method</a></li>
+<li class="chapter" data-level="2.1.2" data-path="simple-linear-programming.html"><a href="simple-linear-programming.html#results"><i class="fa fa-check"></i><b>2.1.2</b> Results</a></li>
+<li class="chapter" data-level="2.1.3" data-path="simple-linear-programming.html"><a href="simple-linear-programming.html#the-feasible-solution-space"><i class="fa fa-check"></i><b>2.1.3</b> The Feasible Solution Space</a></li>
 </ul></li>
-<li class="chapter" data-level="2.3" data-path="simulated-annealing-and-the-sudoku-solver.html"><a href="simulated-annealing-and-the-sudoku-solver.html#sudoku-solver"><i class="fa fa-check"></i><b>2.3</b> Sudoku Solver</a>
-<ul>
-<li class="chapter" data-level="2.3.1" data-path="simulated-annealing-and-the-sudoku-solver.html"><a href="simulated-annealing-and-the-sudoku-solver.html#code-notes"><i class="fa fa-check"></i><b>2.3.1</b> Code Notes:</a></li>
+<li class="chapter" data-level="2.2" data-path="simple-linear-programming.html"><a href="simple-linear-programming.html#summary"><i class="fa fa-check"></i><b>2.2</b> Summary</a></li>
 </ul></li>
-<li class="chapter" data-level="2.4" data-path="simulated-annealing-and-the-sudoku-solver.html"><a href="simulated-annealing-and-the-sudoku-solver.html#simulated-annealing-solver"><i class="fa fa-check"></i><b>2.4</b> Simulated Annealing Solver</a>
+<li class="chapter" data-level="3" data-path="simulated-annealing-and-the-sudoku-solver.html"><a href="simulated-annealing-and-the-sudoku-solver.html"><i class="fa fa-check"></i><b>3</b> Simulated Annealing and the Sudoku Solver</a>
 <ul>
-<li class="chapter" data-level="2.4.1" data-path="simulated-annealing-and-the-sudoku-solver.html"><a href="simulated-annealing-and-the-sudoku-solver.html#code-notes-1"><i class="fa fa-check"></i><b>2.4.1</b> Code Notes:</a></li>
+<li class="chapter" data-level="3.1" data-path="simulated-annealing-and-the-sudoku-solver.html"><a href="simulated-annealing-and-the-sudoku-solver.html#introduction-2"><i class="fa fa-check"></i><b>3.1</b> Introduction</a></li>
+<li class="chapter" data-level="3.2" data-path="simulated-annealing-and-the-sudoku-solver.html"><a href="simulated-annealing-and-the-sudoku-solver.html#simple-model"><i class="fa fa-check"></i><b>3.2</b> Simple Model</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="simulated-annealing-and-the-sudoku-solver.html"><a href="simulated-annealing-and-the-sudoku-solver.html#plot-objective-value"><i class="fa fa-check"></i><b>3.2.1</b> Plot objective value</a></li>
+<li class="chapter" data-level="3.2.2" data-path="simulated-annealing-and-the-sudoku-solver.html"><a href="simulated-annealing-and-the-sudoku-solver.html#plot-search-trajectory"><i class="fa fa-check"></i><b>3.2.2</b> Plot search trajectory</a></li>
+<li class="chapter" data-level="3.2.3" data-path="simulated-annealing-and-the-sudoku-solver.html"><a href="simulated-annealing-and-the-sudoku-solver.html#plot-objective-function-with-optimization-path"><i class="fa fa-check"></i><b>3.2.3</b> Plot objective function with optimization path</a></li>
 </ul></li>
-<li class="chapter" data-level="2.5" data-path="simulated-annealing-and-the-sudoku-solver.html"><a href="simulated-annealing-and-the-sudoku-solver.html#d-plot-of-sudoku-loss-landscape"><i class="fa fa-check"></i><b>2.5</b> 3D plot of Sudoku loss landscape</a>
+<li class="chapter" data-level="3.3" data-path="simulated-annealing-and-the-sudoku-solver.html"><a href="simulated-annealing-and-the-sudoku-solver.html#sudoku-solver"><i class="fa fa-check"></i><b>3.3</b> Sudoku Solver</a>
 <ul>
-<li class="chapter" data-level="2.5.1" data-path="simulated-annealing-and-the-sudoku-solver.html"><a href="simulated-annealing-and-the-sudoku-solver.html#why-use-pca"><i class="fa fa-check"></i><b>2.5.1</b> Why use PCA</a></li>
-<li class="chapter" data-level="2.5.2" data-path="simulated-annealing-and-the-sudoku-solver.html"><a href="simulated-annealing-and-the-sudoku-solver.html#interpretation"><i class="fa fa-check"></i><b>2.5.2</b> Interpretation</a></li>
-<li class="chapter" data-level="2.5.3" data-path="simulated-annealing-and-the-sudoku-solver.html"><a href="simulated-annealing-and-the-sudoku-solver.html#constraint-decomposition-and-the-sudoku-solver"><i class="fa fa-check"></i><b>2.5.3</b> Constraint Decomposition and the Sudoku Solver</a></li>
+<li class="chapter" data-level="3.3.1" data-path="simulated-annealing-and-the-sudoku-solver.html"><a href="simulated-annealing-and-the-sudoku-solver.html#code-notes"><i class="fa fa-check"></i><b>3.3.1</b> Code Notes:</a></li>
 </ul></li>
+<li class="chapter" data-level="3.4" data-path="simulated-annealing-and-the-sudoku-solver.html"><a href="simulated-annealing-and-the-sudoku-solver.html#simulated-annealing-solver"><i class="fa fa-check"></i><b>3.4</b> Simulated Annealing Solver</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="simulated-annealing-and-the-sudoku-solver.html"><a href="simulated-annealing-and-the-sudoku-solver.html#code-notes-1"><i class="fa fa-check"></i><b>3.4.1</b> Code Notes:</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="simple-goal-programming-with-sann.html"><a href="simple-goal-programming-with-sann.html"><i class="fa fa-check"></i><b>3</b> Simple Goal Programming with SANN</a>
+<li class="chapter" data-level="3.5" data-path="simulated-annealing-and-the-sudoku-solver.html"><a href="simulated-annealing-and-the-sudoku-solver.html#d-plot-of-sudoku-loss-landscape"><i class="fa fa-check"></i><b>3.5</b> 3D plot of Sudoku loss landscape</a>
 <ul>
-<li class="chapter" data-level="3.1" data-path="simple-goal-programming-with-sann.html"><a href="simple-goal-programming-with-sann.html#introduction-2"><i class="fa fa-check"></i><b>3.1</b> Introduction</a></li>
-<li class="chapter" data-level="3.2" data-path="simple-goal-programming-with-sann.html"><a href="simple-goal-programming-with-sann.html#a-simple-goal-programming-model"><i class="fa fa-check"></i><b>3.2</b> A Simple Goal Programming Model</a>
-<ul>
-<li class="chapter" data-level="3.2.1" data-path="simple-goal-programming-with-sann.html"><a href="simple-goal-programming-with-sann.html#the-objective-function"><i class="fa fa-check"></i><b>3.2.1</b> The Objective Function</a></li>
-<li class="chapter" data-level="3.2.2" data-path="simple-goal-programming-with-sann.html"><a href="simple-goal-programming-with-sann.html#code-notes-2"><i class="fa fa-check"></i><b>3.2.2</b> Code Notes:</a></li>
-</ul></li>
-<li class="chapter" data-level="3.3" data-path="simple-goal-programming-with-sann.html"><a href="simple-goal-programming-with-sann.html#the-sann-optimization"><i class="fa fa-check"></i><b>3.3</b> The SANN Optimization</a>
-<ul>
-<li class="chapter" data-level="3.3.1" data-path="simple-goal-programming-with-sann.html"><a href="simple-goal-programming-with-sann.html#code-notes-3"><i class="fa fa-check"></i><b>3.3.1</b> Code Notes:</a></li>
-</ul></li>
-<li class="chapter" data-level="3.4" data-path="simple-goal-programming-with-sann.html"><a href="simple-goal-programming-with-sann.html#the-results"><i class="fa fa-check"></i><b>3.4</b> The Results</a></li>
-</ul></li>
-<li class="chapter" data-level="4" data-path="markov-chain-with-goal-programming.html"><a href="markov-chain-with-goal-programming.html"><i class="fa fa-check"></i><b>4</b> Markov Chain with Goal Programming</a>
-<ul>
-<li class="chapter" data-level="4.1" data-path="markov-chain-with-goal-programming.html"><a href="markov-chain-with-goal-programming.html#introduction-3"><i class="fa fa-check"></i><b>4.1</b> Introduction</a></li>
-<li class="chapter" data-level="4.2" data-path="markov-chain-with-goal-programming.html"><a href="markov-chain-with-goal-programming.html#markov-chain-and-goal-programming"><i class="fa fa-check"></i><b>4.2</b> Markov Chain and Goal Programming</a></li>
-<li class="chapter" data-level="4.3" data-path="markov-chain-with-goal-programming.html"><a href="markov-chain-with-goal-programming.html#the-markov-chain-transition-probability-matrix"><i class="fa fa-check"></i><b>4.3</b> The Markov Chain Transition Probability Matrix</a>
-<ul>
-<li class="chapter" data-level="4.3.1" data-path="markov-chain-with-goal-programming.html"><a href="markov-chain-with-goal-programming.html#code-notes-4"><i class="fa fa-check"></i><b>4.3.1</b> Code Notes:</a></li>
-<li class="chapter" data-level="4.3.2" data-path="markov-chain-with-goal-programming.html"><a href="markov-chain-with-goal-programming.html#markov-habitat-function"><i class="fa fa-check"></i><b>4.3.2</b> Markov Habitat Function</a></li>
-<li class="chapter" data-level="4.3.3" data-path="markov-chain-with-goal-programming.html"><a href="markov-chain-with-goal-programming.html#the-objective-function-1"><i class="fa fa-check"></i><b>4.3.3</b> The Objective Function</a></li>
-<li class="chapter" data-level="4.3.4" data-path="markov-chain-with-goal-programming.html"><a href="markov-chain-with-goal-programming.html#the-sann-optimization-and-results"><i class="fa fa-check"></i><b>4.3.4</b> The SANN Optimization and RESULTS</a></li>
-<li class="chapter" data-level="4.3.5" data-path="markov-chain-with-goal-programming.html"><a href="markov-chain-with-goal-programming.html#results"><i class="fa fa-check"></i><b>4.3.5</b> Results</a></li>
+<li class="chapter" data-level="3.5.1" data-path="simulated-annealing-and-the-sudoku-solver.html"><a href="simulated-annealing-and-the-sudoku-solver.html#why-use-pca"><i class="fa fa-check"></i><b>3.5.1</b> Why use PCA</a></li>
+<li class="chapter" data-level="3.5.2" data-path="simulated-annealing-and-the-sudoku-solver.html"><a href="simulated-annealing-and-the-sudoku-solver.html#interpretation"><i class="fa fa-check"></i><b>3.5.2</b> Interpretation</a></li>
+<li class="chapter" data-level="3.5.3" data-path="simulated-annealing-and-the-sudoku-solver.html"><a href="simulated-annealing-and-the-sudoku-solver.html#constraint-decomposition-and-the-sudoku-solver"><i class="fa fa-check"></i><b>3.5.3</b> Constraint Decomposition and the Sudoku Solver</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="monte-carlo-markov-chain.html"><a href="monte-carlo-markov-chain.html"><i class="fa fa-check"></i><b>5</b> Monte Carlo Markov Chain</a>
+<li class="chapter" data-level="4" data-path="simple-goal-programming-with-sann.html"><a href="simple-goal-programming-with-sann.html"><i class="fa fa-check"></i><b>4</b> Simple Goal Programming with SANN</a>
 <ul>
-<li class="chapter" data-level="5.1" data-path="monte-carlo-markov-chain.html"><a href="monte-carlo-markov-chain.html#introduction-4"><i class="fa fa-check"></i><b>5.1</b> Introduction</a></li>
-<li class="chapter" data-level="5.2" data-path="monte-carlo-markov-chain.html"><a href="monte-carlo-markov-chain.html#the-monte-carlo-markov-chain"><i class="fa fa-check"></i><b>5.2</b> The Monte Carlo Markov Chain</a></li>
-<li class="chapter" data-level="5.3" data-path="monte-carlo-markov-chain.html"><a href="monte-carlo-markov-chain.html#mcmc-sampling-loop-joint-bulk-and-tail-model"><i class="fa fa-check"></i><b>5.3</b> MCMC Sampling Loop (Joint Bulk and Tail Model)</a>
+<li class="chapter" data-level="4.1" data-path="simple-goal-programming-with-sann.html"><a href="simple-goal-programming-with-sann.html#introduction-3"><i class="fa fa-check"></i><b>4.1</b> Introduction</a></li>
+<li class="chapter" data-level="4.2" data-path="simple-goal-programming-with-sann.html"><a href="simple-goal-programming-with-sann.html#a-simple-goal-programming-model"><i class="fa fa-check"></i><b>4.2</b> A Simple Goal Programming Model</a>
 <ul>
-<li class="chapter" data-level="5.3.1" data-path="monte-carlo-markov-chain.html"><a href="monte-carlo-markov-chain.html#code-notes-6"><i class="fa fa-check"></i><b>5.3.1</b> Code Notes:</a></li>
+<li class="chapter" data-level="4.2.1" data-path="simple-goal-programming-with-sann.html"><a href="simple-goal-programming-with-sann.html#the-objective-function"><i class="fa fa-check"></i><b>4.2.1</b> The Objective Function</a></li>
+<li class="chapter" data-level="4.2.2" data-path="simple-goal-programming-with-sann.html"><a href="simple-goal-programming-with-sann.html#code-notes-2"><i class="fa fa-check"></i><b>4.2.2</b> Code Notes:</a></li>
 </ul></li>
-<li class="chapter" data-level="5.4" data-path="monte-carlo-markov-chain.html"><a href="monte-carlo-markov-chain.html#results-1"><i class="fa fa-check"></i><b>5.4</b> Results</a></li>
-</ul></li>
-<li class="chapter" data-level="6" data-path="cellular-automata-and-the-game-of-life.html"><a href="cellular-automata-and-the-game-of-life.html"><i class="fa fa-check"></i><b>6</b> Cellular Automata and the Game of Life</a>
+<li class="chapter" data-level="4.3" data-path="simple-goal-programming-with-sann.html"><a href="simple-goal-programming-with-sann.html#the-sann-optimization"><i class="fa fa-check"></i><b>4.3</b> The SANN Optimization</a>
 <ul>
-<li class="chapter" data-level="6.1" data-path="cellular-automata-and-the-game-of-life.html"><a href="cellular-automata-and-the-game-of-life.html#introduction-5"><i class="fa fa-check"></i><b>6.1</b> Introduction</a></li>
-<li class="chapter" data-level="6.2" data-path="cellular-automata-and-the-game-of-life.html"><a href="cellular-automata-and-the-game-of-life.html#wolfram"><i class="fa fa-check"></i><b>6.2</b> Wolfram</a>
-<ul>
-<li class="chapter" data-level="6.2.1" data-path="cellular-automata-and-the-game-of-life.html"><a href="cellular-automata-and-the-game-of-life.html#codes-notes"><i class="fa fa-check"></i><b>6.2.1</b> Codes Notes</a></li>
-<li class="chapter" data-level="6.2.2" data-path="cellular-automata-and-the-game-of-life.html"><a href="cellular-automata-and-the-game-of-life.html#class-iii-rule-30"><i class="fa fa-check"></i><b>6.2.2</b> Class III Rule 30</a></li>
-<li class="chapter" data-level="6.2.3" data-path="cellular-automata-and-the-game-of-life.html"><a href="cellular-automata-and-the-game-of-life.html#class-iv-rule-90"><i class="fa fa-check"></i><b>6.2.3</b> Class IV Rule 90</a></li>
-<li class="chapter" data-level="6.2.4" data-path="cellular-automata-and-the-game-of-life.html"><a href="cellular-automata-and-the-game-of-life.html#class-iv-rule-125"><i class="fa fa-check"></i><b>6.2.4</b> Class IV Rule 125</a></li>
+<li class="chapter" data-level="4.3.1" data-path="simple-goal-programming-with-sann.html"><a href="simple-goal-programming-with-sann.html#code-notes-3"><i class="fa fa-check"></i><b>4.3.1</b> Code Notes:</a></li>
 </ul></li>
-<li class="chapter" data-level="6.3" data-path="cellular-automata-and-the-game-of-life.html"><a href="cellular-automata-and-the-game-of-life.html#the-game-of-life"><i class="fa fa-check"></i><b>6.3</b> The Game of Life</a>
+<li class="chapter" data-level="4.4" data-path="simple-goal-programming-with-sann.html"><a href="simple-goal-programming-with-sann.html#the-results"><i class="fa fa-check"></i><b>4.4</b> The Results</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="markov-chain-with-goal-programming.html"><a href="markov-chain-with-goal-programming.html"><i class="fa fa-check"></i><b>5</b> Markov Chain with Goal Programming</a>
 <ul>
-<li class="chapter" data-level="6.3.1" data-path="cellular-automata-and-the-game-of-life.html"><a href="cellular-automata-and-the-game-of-life.html#code-notes-7"><i class="fa fa-check"></i><b>6.3.1</b> Code Notes</a></li>
-<li class="chapter" data-level="6.3.2" data-path="cellular-automata-and-the-game-of-life.html"><a href="cellular-automata-and-the-game-of-life.html#animate"><i class="fa fa-check"></i><b>6.3.2</b> Animate</a></li>
-<li class="chapter" data-level="6.3.3" data-path="cellular-automata-and-the-game-of-life.html"><a href="cellular-automata-and-the-game-of-life.html#population-trend"><i class="fa fa-check"></i><b>6.3.3</b> Population Trend</a></li>
+<li class="chapter" data-level="5.1" data-path="markov-chain-with-goal-programming.html"><a href="markov-chain-with-goal-programming.html#introduction-4"><i class="fa fa-check"></i><b>5.1</b> Introduction</a></li>
+<li class="chapter" data-level="5.2" data-path="markov-chain-with-goal-programming.html"><a href="markov-chain-with-goal-programming.html#markov-chain-and-goal-programming"><i class="fa fa-check"></i><b>5.2</b> Markov Chain and Goal Programming</a></li>
+<li class="chapter" data-level="5.3" data-path="markov-chain-with-goal-programming.html"><a href="markov-chain-with-goal-programming.html#the-markov-chain-transition-probability-matrix"><i class="fa fa-check"></i><b>5.3</b> The Markov Chain Transition Probability Matrix</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="markov-chain-with-goal-programming.html"><a href="markov-chain-with-goal-programming.html#code-notes-4"><i class="fa fa-check"></i><b>5.3.1</b> Code Notes:</a></li>
+<li class="chapter" data-level="5.3.2" data-path="markov-chain-with-goal-programming.html"><a href="markov-chain-with-goal-programming.html#markov-habitat-function"><i class="fa fa-check"></i><b>5.3.2</b> Markov Habitat Function</a></li>
+<li class="chapter" data-level="5.3.3" data-path="markov-chain-with-goal-programming.html"><a href="markov-chain-with-goal-programming.html#the-objective-function-1"><i class="fa fa-check"></i><b>5.3.3</b> The Objective Function</a></li>
+<li class="chapter" data-level="5.3.4" data-path="markov-chain-with-goal-programming.html"><a href="markov-chain-with-goal-programming.html#the-sann-optimization-and-results"><i class="fa fa-check"></i><b>5.3.4</b> The SANN Optimization and RESULTS</a></li>
+<li class="chapter" data-level="5.3.5" data-path="markov-chain-with-goal-programming.html"><a href="markov-chain-with-goal-programming.html#results-1"><i class="fa fa-check"></i><b>5.3.5</b> Results</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="neutral-landscape-models.html"><a href="neutral-landscape-models.html"><i class="fa fa-check"></i><b>7</b> Neutral Landscape Models</a>
+<li class="chapter" data-level="6" data-path="monte-carlo-markov-chain.html"><a href="monte-carlo-markov-chain.html"><i class="fa fa-check"></i><b>6</b> Monte Carlo Markov Chain</a>
 <ul>
-<li class="chapter" data-level="7.1" data-path="neutral-landscape-models.html"><a href="neutral-landscape-models.html#introduction-6"><i class="fa fa-check"></i><b>7.1</b> Introduction</a></li>
-<li class="chapter" data-level="7.2" data-path="neutral-landscape-models.html"><a href="neutral-landscape-models.html#testing-fragmentation-and-connectivity"><i class="fa fa-check"></i><b>7.2</b> Testing fragmentation and connectivity</a></li>
-<li class="chapter" data-level="7.3" data-path="neutral-landscape-models.html"><a href="neutral-landscape-models.html#nlm-results"><i class="fa fa-check"></i><b>7.3</b> NLM RESULTS</a></li>
-<li class="chapter" data-level="7.4" data-path="neutral-landscape-models.html"><a href="neutral-landscape-models.html#introducing-spatial-autocorrolation"><i class="fa fa-check"></i><b>7.4</b> Introducing Spatial Autocorrolation</a></li>
-<li class="chapter" data-level="7.5" data-path="neutral-landscape-models.html"><a href="neutral-landscape-models.html#cluster-results"><i class="fa fa-check"></i><b>7.5</b> CLUSTER RESULTS</a></li>
-<li class="chapter" data-level="7.6" data-path="neutral-landscape-models.html"><a href="neutral-landscape-models.html#summary"><i class="fa fa-check"></i><b>7.6</b> Summary</a></li>
+<li class="chapter" data-level="6.1" data-path="monte-carlo-markov-chain.html"><a href="monte-carlo-markov-chain.html#introduction-5"><i class="fa fa-check"></i><b>6.1</b> Introduction</a></li>
+<li class="chapter" data-level="6.2" data-path="monte-carlo-markov-chain.html"><a href="monte-carlo-markov-chain.html#the-monte-carlo-markov-chain"><i class="fa fa-check"></i><b>6.2</b> The Monte Carlo Markov Chain</a></li>
+<li class="chapter" data-level="6.3" data-path="monte-carlo-markov-chain.html"><a href="monte-carlo-markov-chain.html#mcmc-sampling-loop-joint-bulk-and-tail-model"><i class="fa fa-check"></i><b>6.3</b> MCMC Sampling Loop (Joint Bulk and Tail Model)</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="monte-carlo-markov-chain.html"><a href="monte-carlo-markov-chain.html#code-notes-6"><i class="fa fa-check"></i><b>6.3.1</b> Code Notes:</a></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="simulation-and-spreading.html"><a href="simulation-and-spreading.html"><i class="fa fa-check"></i><b>8</b> Simulation and Spreading</a>
-<ul>
-<li class="chapter" data-level="8.1" data-path="simulation-and-spreading.html"><a href="simulation-and-spreading.html#introduction-7"><i class="fa fa-check"></i><b>8.1</b> Introduction</a></li>
-<li class="chapter" data-level="8.2" data-path="simulation-and-spreading.html"><a href="simulation-and-spreading.html#spreading"><i class="fa fa-check"></i><b>8.2</b> Spreading</a>
-<ul>
-<li class="chapter" data-level="8.2.1" data-path="simulation-and-spreading.html"><a href="simulation-and-spreading.html#simulated-landscapes"><i class="fa fa-check"></i><b>8.2.1</b> Simulated Landscapes</a></li>
-<li class="chapter" data-level="8.2.2" data-path="simulation-and-spreading.html"><a href="simulation-and-spreading.html#spreading-with-a-graph"><i class="fa fa-check"></i><b>8.2.2</b> Spreading with a graph</a></li>
-<li class="chapter" data-level="8.2.3" data-path="simulation-and-spreading.html"><a href="simulation-and-spreading.html#contagion"><i class="fa fa-check"></i><b>8.2.3</b> Contagion</a></li>
-<li class="chapter" data-level="8.2.4" data-path="simulation-and-spreading.html"><a href="simulation-and-spreading.html#monte-carlo-simulation"><i class="fa fa-check"></i><b>8.2.4</b> Monte Carlo Simulation</a></li>
+<li class="chapter" data-level="6.4" data-path="monte-carlo-markov-chain.html"><a href="monte-carlo-markov-chain.html#results-2"><i class="fa fa-check"></i><b>6.4</b> Results</a></li>
 </ul></li>
-<li class="chapter" data-level="8.3" data-path="simulation-and-spreading.html"><a href="simulation-and-spreading.html#results-2"><i class="fa fa-check"></i><b>8.3</b> RESULTS</a></li>
-<li class="chapter" data-level="8.4" data-path="simulation-and-spreading.html"><a href="simulation-and-spreading.html#summary-1"><i class="fa fa-check"></i><b>8.4</b> Summary</a></li>
-</ul></li>
-<li class="chapter" data-level="9" data-path="spreading-and-the-wildfire-behaviour-framework.html"><a href="spreading-and-the-wildfire-behaviour-framework.html"><i class="fa fa-check"></i><b>9</b> Spreading and the Wildfire Behaviour Framework</a>
+<li class="chapter" data-level="7" data-path="cellular-automata-and-the-game-of-life.html"><a href="cellular-automata-and-the-game-of-life.html"><i class="fa fa-check"></i><b>7</b> Cellular Automata and the Game of Life</a>
 <ul>
-<li class="chapter" data-level="9.1" data-path="spreading-and-the-wildfire-behaviour-framework.html"><a href="spreading-and-the-wildfire-behaviour-framework.html#introduction-8"><i class="fa fa-check"></i><b>9.1</b> Introduction</a></li>
-<li class="chapter" data-level="9.2" data-path="spreading-and-the-wildfire-behaviour-framework.html"><a href="spreading-and-the-wildfire-behaviour-framework.html#framework-parameters-and-functions"><i class="fa fa-check"></i><b>9.2</b> Framework Parameters and Functions</a>
+<li class="chapter" data-level="7.1" data-path="cellular-automata-and-the-game-of-life.html"><a href="cellular-automata-and-the-game-of-life.html#introduction-6"><i class="fa fa-check"></i><b>7.1</b> Introduction</a></li>
+<li class="chapter" data-level="7.2" data-path="cellular-automata-and-the-game-of-life.html"><a href="cellular-automata-and-the-game-of-life.html#wolfram"><i class="fa fa-check"></i><b>7.2</b> Wolfram</a>
 <ul>
-<li class="chapter" data-level="9.2.1" data-path="spreading-and-the-wildfire-behaviour-framework.html"><a href="spreading-and-the-wildfire-behaviour-framework.html#user-parameters"><i class="fa fa-check"></i><b>9.2.1</b> User Parameters</a></li>
-<li class="chapter" data-level="9.2.2" data-path="spreading-and-the-wildfire-behaviour-framework.html"><a href="spreading-and-the-wildfire-behaviour-framework.html#wind-module"><i class="fa fa-check"></i><b>9.2.2</b> Wind Module</a></li>
-<li class="chapter" data-level="9.2.3" data-path="spreading-and-the-wildfire-behaviour-framework.html"><a href="spreading-and-the-wildfire-behaviour-framework.html#fuel-landscape"><i class="fa fa-check"></i><b>9.2.3</b> Fuel Landscape</a></li>
-<li class="chapter" data-level="9.2.4" data-path="spreading-and-the-wildfire-behaviour-framework.html"><a href="spreading-and-the-wildfire-behaviour-framework.html#flammability"><i class="fa fa-check"></i><b>9.2.4</b> Flammability</a></li>
-<li class="chapter" data-level="9.2.5" data-path="spreading-and-the-wildfire-behaviour-framework.html"><a href="spreading-and-the-wildfire-behaviour-framework.html#moisture"><i class="fa fa-check"></i><b>9.2.5</b> Moisture</a></li>
-<li class="chapter" data-level="9.2.6" data-path="spreading-and-the-wildfire-behaviour-framework.html"><a href="spreading-and-the-wildfire-behaviour-framework.html#resistance-is-futile"><i class="fa fa-check"></i><b>9.2.6</b> Resistance (is futile)</a></li>
-<li class="chapter" data-level="9.2.7" data-path="spreading-and-the-wildfire-behaviour-framework.html"><a href="spreading-and-the-wildfire-behaviour-framework.html#ignition"><i class="fa fa-check"></i><b>9.2.7</b> Ignition</a></li>
-<li class="chapter" data-level="9.2.8" data-path="spreading-and-the-wildfire-behaviour-framework.html"><a href="spreading-and-the-wildfire-behaviour-framework.html#surfaces"><i class="fa fa-check"></i><b>9.2.8</b> Surfaces</a></li>
+<li class="chapter" data-level="7.2.1" data-path="cellular-automata-and-the-game-of-life.html"><a href="cellular-automata-and-the-game-of-life.html#codes-notes"><i class="fa fa-check"></i><b>7.2.1</b> Codes Notes</a></li>
+<li class="chapter" data-level="7.2.2" data-path="cellular-automata-and-the-game-of-life.html"><a href="cellular-automata-and-the-game-of-life.html#class-iii-rule-30"><i class="fa fa-check"></i><b>7.2.2</b> Class III Rule 30</a></li>
+<li class="chapter" data-level="7.2.3" data-path="cellular-automata-and-the-game-of-life.html"><a href="cellular-automata-and-the-game-of-life.html#class-iv-rule-90"><i class="fa fa-check"></i><b>7.2.3</b> Class IV Rule 90</a></li>
+<li class="chapter" data-level="7.2.4" data-path="cellular-automata-and-the-game-of-life.html"><a href="cellular-automata-and-the-game-of-life.html#class-iv-rule-125"><i class="fa fa-check"></i><b>7.2.4</b> Class IV Rule 125</a></li>
 </ul></li>
-<li class="chapter" data-level="9.3" data-path="spreading-and-the-wildfire-behaviour-framework.html"><a href="spreading-and-the-wildfire-behaviour-framework.html#the-dijkstra-algorithm"><i class="fa fa-check"></i><b>9.3</b> The Dijkstra Algorithm</a></li>
-<li class="chapter" data-level="9.4" data-path="spreading-and-the-wildfire-behaviour-framework.html"><a href="spreading-and-the-wildfire-behaviour-framework.html#metrics"><i class="fa fa-check"></i><b>9.4</b> Metrics</a></li>
-<li class="chapter" data-level="9.5" data-path="spreading-and-the-wildfire-behaviour-framework.html"><a href="spreading-and-the-wildfire-behaviour-framework.html#results-3"><i class="fa fa-check"></i><b>9.5</b> Results</a></li>
-<li class="chapter" data-level="9.6" data-path="spreading-and-the-wildfire-behaviour-framework.html"><a href="spreading-and-the-wildfire-behaviour-framework.html#summary-2"><i class="fa fa-check"></i><b>9.6</b> Summary</a></li>
+<li class="chapter" data-level="7.3" data-path="cellular-automata-and-the-game-of-life.html"><a href="cellular-automata-and-the-game-of-life.html#the-game-of-life"><i class="fa fa-check"></i><b>7.3</b> The Game of Life</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="cellular-automata-and-the-game-of-life.html"><a href="cellular-automata-and-the-game-of-life.html#code-notes-7"><i class="fa fa-check"></i><b>7.3.1</b> Code Notes</a></li>
+<li class="chapter" data-level="7.3.2" data-path="cellular-automata-and-the-game-of-life.html"><a href="cellular-automata-and-the-game-of-life.html#animate"><i class="fa fa-check"></i><b>7.3.2</b> Animate</a></li>
+<li class="chapter" data-level="7.3.3" data-path="cellular-automata-and-the-game-of-life.html"><a href="cellular-automata-and-the-game-of-life.html#population-trend"><i class="fa fa-check"></i><b>7.3.3</b> Population Trend</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="neutral-landscape-models.html"><a href="neutral-landscape-models.html"><i class="fa fa-check"></i><b>8</b> Neutral Landscape Models</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="neutral-landscape-models.html"><a href="neutral-landscape-models.html#introduction-7"><i class="fa fa-check"></i><b>8.1</b> Introduction</a></li>
+<li class="chapter" data-level="8.2" data-path="neutral-landscape-models.html"><a href="neutral-landscape-models.html#testing-fragmentation-and-connectivity"><i class="fa fa-check"></i><b>8.2</b> Testing fragmentation and connectivity</a></li>
+<li class="chapter" data-level="8.3" data-path="neutral-landscape-models.html"><a href="neutral-landscape-models.html#nlm-results"><i class="fa fa-check"></i><b>8.3</b> NLM RESULTS</a></li>
+<li class="chapter" data-level="8.4" data-path="neutral-landscape-models.html"><a href="neutral-landscape-models.html#introducing-spatial-autocorrolation"><i class="fa fa-check"></i><b>8.4</b> Introducing Spatial Autocorrolation</a></li>
+<li class="chapter" data-level="8.5" data-path="neutral-landscape-models.html"><a href="neutral-landscape-models.html#cluster-results"><i class="fa fa-check"></i><b>8.5</b> CLUSTER RESULTS</a></li>
+<li class="chapter" data-level="8.6" data-path="neutral-landscape-models.html"><a href="neutral-landscape-models.html#summary-1"><i class="fa fa-check"></i><b>8.6</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="simulation-and-spreading.html"><a href="simulation-and-spreading.html"><i class="fa fa-check"></i><b>9</b> Simulation and Spreading</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="simulation-and-spreading.html"><a href="simulation-and-spreading.html#introduction-8"><i class="fa fa-check"></i><b>9.1</b> Introduction</a></li>
+<li class="chapter" data-level="9.2" data-path="simulation-and-spreading.html"><a href="simulation-and-spreading.html#spreading"><i class="fa fa-check"></i><b>9.2</b> Spreading</a>
+<ul>
+<li class="chapter" data-level="9.2.1" data-path="simulation-and-spreading.html"><a href="simulation-and-spreading.html#simulated-landscapes"><i class="fa fa-check"></i><b>9.2.1</b> Simulated Landscapes</a></li>
+<li class="chapter" data-level="9.2.2" data-path="simulation-and-spreading.html"><a href="simulation-and-spreading.html#spreading-with-a-graph"><i class="fa fa-check"></i><b>9.2.2</b> Spreading with a graph</a></li>
+<li class="chapter" data-level="9.2.3" data-path="simulation-and-spreading.html"><a href="simulation-and-spreading.html#contagion"><i class="fa fa-check"></i><b>9.2.3</b> Contagion</a></li>
+<li class="chapter" data-level="9.2.4" data-path="simulation-and-spreading.html"><a href="simulation-and-spreading.html#monte-carlo-simulation"><i class="fa fa-check"></i><b>9.2.4</b> Monte Carlo Simulation</a></li>
+</ul></li>
+<li class="chapter" data-level="9.3" data-path="simulation-and-spreading.html"><a href="simulation-and-spreading.html#results-3"><i class="fa fa-check"></i><b>9.3</b> RESULTS</a></li>
+<li class="chapter" data-level="9.4" data-path="simulation-and-spreading.html"><a href="simulation-and-spreading.html#summary-2"><i class="fa fa-check"></i><b>9.4</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="spreading-and-the-wildfire-behaviour-framework.html"><a href="spreading-and-the-wildfire-behaviour-framework.html"><i class="fa fa-check"></i><b>10</b> Spreading and the Wildfire Behaviour Framework</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="spreading-and-the-wildfire-behaviour-framework.html"><a href="spreading-and-the-wildfire-behaviour-framework.html#introduction-9"><i class="fa fa-check"></i><b>10.1</b> Introduction</a></li>
+<li class="chapter" data-level="10.2" data-path="spreading-and-the-wildfire-behaviour-framework.html"><a href="spreading-and-the-wildfire-behaviour-framework.html#framework-parameters-and-functions"><i class="fa fa-check"></i><b>10.2</b> Framework Parameters and Functions</a>
+<ul>
+<li class="chapter" data-level="10.2.1" data-path="spreading-and-the-wildfire-behaviour-framework.html"><a href="spreading-and-the-wildfire-behaviour-framework.html#user-parameters"><i class="fa fa-check"></i><b>10.2.1</b> User Parameters</a></li>
+<li class="chapter" data-level="10.2.2" data-path="spreading-and-the-wildfire-behaviour-framework.html"><a href="spreading-and-the-wildfire-behaviour-framework.html#wind-module"><i class="fa fa-check"></i><b>10.2.2</b> Wind Module</a></li>
+<li class="chapter" data-level="10.2.3" data-path="spreading-and-the-wildfire-behaviour-framework.html"><a href="spreading-and-the-wildfire-behaviour-framework.html#fuel-landscape"><i class="fa fa-check"></i><b>10.2.3</b> Fuel Landscape</a></li>
+<li class="chapter" data-level="10.2.4" data-path="spreading-and-the-wildfire-behaviour-framework.html"><a href="spreading-and-the-wildfire-behaviour-framework.html#flammability"><i class="fa fa-check"></i><b>10.2.4</b> Flammability</a></li>
+<li class="chapter" data-level="10.2.5" data-path="spreading-and-the-wildfire-behaviour-framework.html"><a href="spreading-and-the-wildfire-behaviour-framework.html#moisture"><i class="fa fa-check"></i><b>10.2.5</b> Moisture</a></li>
+<li class="chapter" data-level="10.2.6" data-path="spreading-and-the-wildfire-behaviour-framework.html"><a href="spreading-and-the-wildfire-behaviour-framework.html#resistance-is-futile"><i class="fa fa-check"></i><b>10.2.6</b> Resistance (is futile)</a></li>
+<li class="chapter" data-level="10.2.7" data-path="spreading-and-the-wildfire-behaviour-framework.html"><a href="spreading-and-the-wildfire-behaviour-framework.html#ignition"><i class="fa fa-check"></i><b>10.2.7</b> Ignition</a></li>
+<li class="chapter" data-level="10.2.8" data-path="spreading-and-the-wildfire-behaviour-framework.html"><a href="spreading-and-the-wildfire-behaviour-framework.html#surfaces"><i class="fa fa-check"></i><b>10.2.8</b> Surfaces</a></li>
+</ul></li>
+<li class="chapter" data-level="10.3" data-path="spreading-and-the-wildfire-behaviour-framework.html"><a href="spreading-and-the-wildfire-behaviour-framework.html#the-dijkstra-algorithm"><i class="fa fa-check"></i><b>10.3</b> The Dijkstra Algorithm</a></li>
+<li class="chapter" data-level="10.4" data-path="spreading-and-the-wildfire-behaviour-framework.html"><a href="spreading-and-the-wildfire-behaviour-framework.html#metrics"><i class="fa fa-check"></i><b>10.4</b> Metrics</a></li>
+<li class="chapter" data-level="10.5" data-path="spreading-and-the-wildfire-behaviour-framework.html"><a href="spreading-and-the-wildfire-behaviour-framework.html#results-4"><i class="fa fa-check"></i><b>10.5</b> Results</a></li>
+<li class="chapter" data-level="10.6" data-path="spreading-and-the-wildfire-behaviour-framework.html"><a href="spreading-and-the-wildfire-behaviour-framework.html#summary-3"><i class="fa fa-check"></i><b>10.6</b> Summary</a></li>
 </ul></li>
 </ul>
 
@@ -293,7 +303,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="header">
 <h1 class="title">Modelling Foundations</h1>
-<p class="author"><em>Kelly Izzard</em></p>
+<p class="author"><em>Kelly Izzard/Co-pilot/ChatGPT</em></p>
 <p class="date"><em>2026-07-10</em></p>
 </div>
 <div id="introduction" class="section level1 hasAnchor" number="1">
@@ -348,6 +358,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ol>
 <p>The following provides simplified primers on some common modelling concepts, methods and techniques including:</p>
 <ol style="list-style-type: decimal">
+<li>Simple Linear Programing</li>
 <li>Simulated Annealing</li>
 <li>Goal Programming</li>
 <li>Markov Chains in Goal Programming</li>
@@ -368,7 +379,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
         </div>
       </div>
 
-<a href="simulated-annealing-and-the-sudoku-solver.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="simple-linear-programming.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
