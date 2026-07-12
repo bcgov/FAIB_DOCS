@@ -1,0 +1,1008 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>11 Spatial Data Accuracy and Precision in Strategic Modelling | Modelling Foundations</title>
+  <meta name="description" content="11 Spatial Data Accuracy and Precision in Strategic Modelling | Modelling Foundations" />
+  <meta name="generator" content="bookdown 0.40 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="11 Spatial Data Accuracy and Precision in Strategic Modelling | Modelling Foundations" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="11 Spatial Data Accuracy and Precision in Strategic Modelling | Modelling Foundations" />
+  
+  
+  
+
+<meta name="author" content="A collaboration between Human (Kelly Izzard) and AI" />
+
+
+<meta name="date" content="2026-07-12" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="spreading-and-the-wildfire-behaviour-framework.html"/>
+
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<link href="libs/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet" />
+<script src="libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+<script src="libs/plotly-binding-4.10.4/plotly.js"></script>
+<script src="libs/typedarray-0.1/typedarray.min.js"></script>
+<link href="libs/crosstalk-1.2.1/css/crosstalk.min.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.2.1/js/crosstalk.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-2.11.1/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-2.11.1/plotly-latest.min.js"></script>
+
+
+<style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#models-and-modellers"><i class="fa fa-check"></i><b>1.1</b> Models and Modellers</a>
+<ul>
+<li class="chapter" data-level="1.1.1" data-path="index.html"><a href="index.html#what-is-a-model"><i class="fa fa-check"></i><b>1.1.1</b> What is a Model</a></li>
+<li class="chapter" data-level="1.1.2" data-path="index.html"><a href="index.html#classification-of-models"><i class="fa fa-check"></i><b>1.1.2</b> Classification of Models</a></li>
+<li class="chapter" data-level="1.1.3" data-path="index.html"><a href="index.html#building-a-model-defining-the-problem-and-its-considerations"><i class="fa fa-check"></i><b>1.1.3</b> Building a Model (Defining the Problem and it’s Considerations)</a></li>
+<li class="chapter" data-level="1.1.4" data-path="index.html"><a href="index.html#the-modellers-creed"><i class="fa fa-check"></i><b>1.1.4</b> The Modeller’s creed</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="simple-linear-programming.html"><a href="simple-linear-programming.html"><i class="fa fa-check"></i><b>2</b> Simple Linear Programming</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="simple-linear-programming.html"><a href="simple-linear-programming.html#introduction-1"><i class="fa fa-check"></i><b>2.1</b> Introduction</a></li>
+<li class="chapter" data-level="2.2" data-path="simple-linear-programming.html"><a href="simple-linear-programming.html#the-simplex-method"><i class="fa fa-check"></i><b>2.2</b> The Simplex Method</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="simple-linear-programming.html"><a href="simple-linear-programming.html#results"><i class="fa fa-check"></i><b>2.2.1</b> Results</a></li>
+<li class="chapter" data-level="2.2.2" data-path="simple-linear-programming.html"><a href="simple-linear-programming.html#the-feasible-solution-space"><i class="fa fa-check"></i><b>2.2.2</b> The Feasible Solution Space</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="simple-linear-programming.html"><a href="simple-linear-programming.html#summary"><i class="fa fa-check"></i><b>2.3</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="simulated-annealing-and-the-sudoku-solver.html"><a href="simulated-annealing-and-the-sudoku-solver.html"><i class="fa fa-check"></i><b>3</b> Simulated Annealing and the Sudoku Solver</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="simulated-annealing-and-the-sudoku-solver.html"><a href="simulated-annealing-and-the-sudoku-solver.html#introduction-2"><i class="fa fa-check"></i><b>3.1</b> Introduction</a></li>
+<li class="chapter" data-level="3.2" data-path="simulated-annealing-and-the-sudoku-solver.html"><a href="simulated-annealing-and-the-sudoku-solver.html#simple-model"><i class="fa fa-check"></i><b>3.2</b> Simple Model</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="simulated-annealing-and-the-sudoku-solver.html"><a href="simulated-annealing-and-the-sudoku-solver.html#plot-objective-value"><i class="fa fa-check"></i><b>3.2.1</b> Plot objective value</a></li>
+<li class="chapter" data-level="3.2.2" data-path="simulated-annealing-and-the-sudoku-solver.html"><a href="simulated-annealing-and-the-sudoku-solver.html#plot-search-trajectory"><i class="fa fa-check"></i><b>3.2.2</b> Plot search trajectory</a></li>
+<li class="chapter" data-level="3.2.3" data-path="simulated-annealing-and-the-sudoku-solver.html"><a href="simulated-annealing-and-the-sudoku-solver.html#plot-objective-function-with-optimization-path"><i class="fa fa-check"></i><b>3.2.3</b> Plot objective function with optimization path</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="simulated-annealing-and-the-sudoku-solver.html"><a href="simulated-annealing-and-the-sudoku-solver.html#sudoku-solver"><i class="fa fa-check"></i><b>3.3</b> Sudoku Solver</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="simulated-annealing-and-the-sudoku-solver.html"><a href="simulated-annealing-and-the-sudoku-solver.html#code-notes"><i class="fa fa-check"></i><b>3.3.1</b> Code Notes:</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="simulated-annealing-and-the-sudoku-solver.html"><a href="simulated-annealing-and-the-sudoku-solver.html#simulated-annealing-solver"><i class="fa fa-check"></i><b>3.4</b> Simulated Annealing Solver</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="simulated-annealing-and-the-sudoku-solver.html"><a href="simulated-annealing-and-the-sudoku-solver.html#code-notes-1"><i class="fa fa-check"></i><b>3.4.1</b> Code Notes:</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="simulated-annealing-and-the-sudoku-solver.html"><a href="simulated-annealing-and-the-sudoku-solver.html#d-plot-of-sudoku-loss-landscape"><i class="fa fa-check"></i><b>3.5</b> 3D plot of Sudoku loss landscape</a>
+<ul>
+<li class="chapter" data-level="3.5.1" data-path="simulated-annealing-and-the-sudoku-solver.html"><a href="simulated-annealing-and-the-sudoku-solver.html#why-use-pca"><i class="fa fa-check"></i><b>3.5.1</b> Why use PCA</a></li>
+<li class="chapter" data-level="3.5.2" data-path="simulated-annealing-and-the-sudoku-solver.html"><a href="simulated-annealing-and-the-sudoku-solver.html#interpretation"><i class="fa fa-check"></i><b>3.5.2</b> Interpretation</a></li>
+<li class="chapter" data-level="3.5.3" data-path="simulated-annealing-and-the-sudoku-solver.html"><a href="simulated-annealing-and-the-sudoku-solver.html#constraint-decomposition-and-the-sudoku-solver"><i class="fa fa-check"></i><b>3.5.3</b> Constraint Decomposition and the Sudoku Solver</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="simple-goal-programming-with-sann.html"><a href="simple-goal-programming-with-sann.html"><i class="fa fa-check"></i><b>4</b> Simple Goal Programming with SANN</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="simple-goal-programming-with-sann.html"><a href="simple-goal-programming-with-sann.html#introduction-3"><i class="fa fa-check"></i><b>4.1</b> Introduction</a></li>
+<li class="chapter" data-level="4.2" data-path="simple-goal-programming-with-sann.html"><a href="simple-goal-programming-with-sann.html#a-simple-goal-programming-model"><i class="fa fa-check"></i><b>4.2</b> A Simple Goal Programming Model</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="simple-goal-programming-with-sann.html"><a href="simple-goal-programming-with-sann.html#the-objective-function"><i class="fa fa-check"></i><b>4.2.1</b> The Objective Function</a></li>
+<li class="chapter" data-level="4.2.2" data-path="simple-goal-programming-with-sann.html"><a href="simple-goal-programming-with-sann.html#code-notes-2"><i class="fa fa-check"></i><b>4.2.2</b> Code Notes:</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="simple-goal-programming-with-sann.html"><a href="simple-goal-programming-with-sann.html#the-sann-optimization"><i class="fa fa-check"></i><b>4.3</b> The SANN Optimization</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="simple-goal-programming-with-sann.html"><a href="simple-goal-programming-with-sann.html#code-notes-3"><i class="fa fa-check"></i><b>4.3.1</b> Code Notes:</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="simple-goal-programming-with-sann.html"><a href="simple-goal-programming-with-sann.html#the-results"><i class="fa fa-check"></i><b>4.4</b> The Results</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="markov-chain-with-goal-programming.html"><a href="markov-chain-with-goal-programming.html"><i class="fa fa-check"></i><b>5</b> Markov Chain with Goal Programming</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="markov-chain-with-goal-programming.html"><a href="markov-chain-with-goal-programming.html#introduction-4"><i class="fa fa-check"></i><b>5.1</b> Introduction</a></li>
+<li class="chapter" data-level="5.2" data-path="markov-chain-with-goal-programming.html"><a href="markov-chain-with-goal-programming.html#markov-chain-and-goal-programming"><i class="fa fa-check"></i><b>5.2</b> Markov Chain and Goal Programming</a></li>
+<li class="chapter" data-level="5.3" data-path="markov-chain-with-goal-programming.html"><a href="markov-chain-with-goal-programming.html#the-markov-chain-transition-probability-matrix"><i class="fa fa-check"></i><b>5.3</b> The Markov Chain Transition Probability Matrix</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="markov-chain-with-goal-programming.html"><a href="markov-chain-with-goal-programming.html#code-notes-4"><i class="fa fa-check"></i><b>5.3.1</b> Code Notes:</a></li>
+<li class="chapter" data-level="5.3.2" data-path="markov-chain-with-goal-programming.html"><a href="markov-chain-with-goal-programming.html#markov-habitat-function"><i class="fa fa-check"></i><b>5.3.2</b> Markov Habitat Function</a></li>
+<li class="chapter" data-level="5.3.3" data-path="markov-chain-with-goal-programming.html"><a href="markov-chain-with-goal-programming.html#the-objective-function-1"><i class="fa fa-check"></i><b>5.3.3</b> The Objective Function</a></li>
+<li class="chapter" data-level="5.3.4" data-path="markov-chain-with-goal-programming.html"><a href="markov-chain-with-goal-programming.html#the-sann-optimization-and-results"><i class="fa fa-check"></i><b>5.3.4</b> The SANN Optimization and RESULTS</a></li>
+<li class="chapter" data-level="5.3.5" data-path="markov-chain-with-goal-programming.html"><a href="markov-chain-with-goal-programming.html#results-1"><i class="fa fa-check"></i><b>5.3.5</b> Results</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="monte-carlo-markov-chain.html"><a href="monte-carlo-markov-chain.html"><i class="fa fa-check"></i><b>6</b> Monte Carlo Markov Chain</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="monte-carlo-markov-chain.html"><a href="monte-carlo-markov-chain.html#introduction-5"><i class="fa fa-check"></i><b>6.1</b> Introduction</a></li>
+<li class="chapter" data-level="6.2" data-path="monte-carlo-markov-chain.html"><a href="monte-carlo-markov-chain.html#the-monte-carlo-markov-chain"><i class="fa fa-check"></i><b>6.2</b> The Monte Carlo Markov Chain</a></li>
+<li class="chapter" data-level="6.3" data-path="monte-carlo-markov-chain.html"><a href="monte-carlo-markov-chain.html#mcmc-sampling-loop-joint-bulk-and-tail-model"><i class="fa fa-check"></i><b>6.3</b> MCMC Sampling Loop (Joint Bulk and Tail Model)</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="monte-carlo-markov-chain.html"><a href="monte-carlo-markov-chain.html#code-notes-6"><i class="fa fa-check"></i><b>6.3.1</b> Code Notes:</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="monte-carlo-markov-chain.html"><a href="monte-carlo-markov-chain.html#results-2"><i class="fa fa-check"></i><b>6.4</b> Results</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="cellular-automata-and-the-game-of-life.html"><a href="cellular-automata-and-the-game-of-life.html"><i class="fa fa-check"></i><b>7</b> Cellular Automata and the Game of Life</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="cellular-automata-and-the-game-of-life.html"><a href="cellular-automata-and-the-game-of-life.html#introduction-6"><i class="fa fa-check"></i><b>7.1</b> Introduction</a></li>
+<li class="chapter" data-level="7.2" data-path="cellular-automata-and-the-game-of-life.html"><a href="cellular-automata-and-the-game-of-life.html#wolfram"><i class="fa fa-check"></i><b>7.2</b> Wolfram</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="cellular-automata-and-the-game-of-life.html"><a href="cellular-automata-and-the-game-of-life.html#codes-notes"><i class="fa fa-check"></i><b>7.2.1</b> Codes Notes</a></li>
+<li class="chapter" data-level="7.2.2" data-path="cellular-automata-and-the-game-of-life.html"><a href="cellular-automata-and-the-game-of-life.html#class-iii-rule-30"><i class="fa fa-check"></i><b>7.2.2</b> Class III Rule 30</a></li>
+<li class="chapter" data-level="7.2.3" data-path="cellular-automata-and-the-game-of-life.html"><a href="cellular-automata-and-the-game-of-life.html#class-iv-rule-90"><i class="fa fa-check"></i><b>7.2.3</b> Class IV Rule 90</a></li>
+<li class="chapter" data-level="7.2.4" data-path="cellular-automata-and-the-game-of-life.html"><a href="cellular-automata-and-the-game-of-life.html#class-iv-rule-125"><i class="fa fa-check"></i><b>7.2.4</b> Class IV Rule 125</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="cellular-automata-and-the-game-of-life.html"><a href="cellular-automata-and-the-game-of-life.html#the-game-of-life"><i class="fa fa-check"></i><b>7.3</b> The Game of Life</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="cellular-automata-and-the-game-of-life.html"><a href="cellular-automata-and-the-game-of-life.html#code-notes-7"><i class="fa fa-check"></i><b>7.3.1</b> Code Notes</a></li>
+<li class="chapter" data-level="7.3.2" data-path="cellular-automata-and-the-game-of-life.html"><a href="cellular-automata-and-the-game-of-life.html#animate"><i class="fa fa-check"></i><b>7.3.2</b> Animate</a></li>
+<li class="chapter" data-level="7.3.3" data-path="cellular-automata-and-the-game-of-life.html"><a href="cellular-automata-and-the-game-of-life.html#population-trend"><i class="fa fa-check"></i><b>7.3.3</b> Population Trend</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="neutral-landscape-models.html"><a href="neutral-landscape-models.html"><i class="fa fa-check"></i><b>8</b> Neutral Landscape Models</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="neutral-landscape-models.html"><a href="neutral-landscape-models.html#introduction-7"><i class="fa fa-check"></i><b>8.1</b> Introduction</a></li>
+<li class="chapter" data-level="8.2" data-path="neutral-landscape-models.html"><a href="neutral-landscape-models.html#testing-fragmentation-and-connectivity"><i class="fa fa-check"></i><b>8.2</b> Testing fragmentation and connectivity</a></li>
+<li class="chapter" data-level="8.3" data-path="neutral-landscape-models.html"><a href="neutral-landscape-models.html#nlm-results"><i class="fa fa-check"></i><b>8.3</b> NLM RESULTS</a></li>
+<li class="chapter" data-level="8.4" data-path="neutral-landscape-models.html"><a href="neutral-landscape-models.html#introducing-spatial-autocorrolation"><i class="fa fa-check"></i><b>8.4</b> Introducing Spatial Autocorrolation</a></li>
+<li class="chapter" data-level="8.5" data-path="neutral-landscape-models.html"><a href="neutral-landscape-models.html#cluster-results"><i class="fa fa-check"></i><b>8.5</b> CLUSTER RESULTS</a></li>
+<li class="chapter" data-level="8.6" data-path="neutral-landscape-models.html"><a href="neutral-landscape-models.html#summary-1"><i class="fa fa-check"></i><b>8.6</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="simulation-and-spreading.html"><a href="simulation-and-spreading.html"><i class="fa fa-check"></i><b>9</b> Simulation and Spreading</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="simulation-and-spreading.html"><a href="simulation-and-spreading.html#introduction-8"><i class="fa fa-check"></i><b>9.1</b> Introduction</a></li>
+<li class="chapter" data-level="9.2" data-path="simulation-and-spreading.html"><a href="simulation-and-spreading.html#spreading"><i class="fa fa-check"></i><b>9.2</b> Spreading</a>
+<ul>
+<li class="chapter" data-level="9.2.1" data-path="simulation-and-spreading.html"><a href="simulation-and-spreading.html#simulated-landscapes"><i class="fa fa-check"></i><b>9.2.1</b> Simulated Landscapes</a></li>
+<li class="chapter" data-level="9.2.2" data-path="simulation-and-spreading.html"><a href="simulation-and-spreading.html#spreading-with-a-graph"><i class="fa fa-check"></i><b>9.2.2</b> Spreading with a graph</a></li>
+<li class="chapter" data-level="9.2.3" data-path="simulation-and-spreading.html"><a href="simulation-and-spreading.html#contagion"><i class="fa fa-check"></i><b>9.2.3</b> Contagion</a></li>
+<li class="chapter" data-level="9.2.4" data-path="simulation-and-spreading.html"><a href="simulation-and-spreading.html#monte-carlo-simulation"><i class="fa fa-check"></i><b>9.2.4</b> Monte Carlo Simulation</a></li>
+</ul></li>
+<li class="chapter" data-level="9.3" data-path="simulation-and-spreading.html"><a href="simulation-and-spreading.html#results-3"><i class="fa fa-check"></i><b>9.3</b> RESULTS</a></li>
+<li class="chapter" data-level="9.4" data-path="simulation-and-spreading.html"><a href="simulation-and-spreading.html#summary-2"><i class="fa fa-check"></i><b>9.4</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="spreading-and-the-wildfire-behaviour-framework.html"><a href="spreading-and-the-wildfire-behaviour-framework.html"><i class="fa fa-check"></i><b>10</b> Spreading and the Wildfire Behaviour Framework</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="spreading-and-the-wildfire-behaviour-framework.html"><a href="spreading-and-the-wildfire-behaviour-framework.html#introduction-9"><i class="fa fa-check"></i><b>10.1</b> Introduction</a></li>
+<li class="chapter" data-level="10.2" data-path="spreading-and-the-wildfire-behaviour-framework.html"><a href="spreading-and-the-wildfire-behaviour-framework.html#framework-parameters-and-functions"><i class="fa fa-check"></i><b>10.2</b> Framework Parameters and Functions</a>
+<ul>
+<li class="chapter" data-level="10.2.1" data-path="spreading-and-the-wildfire-behaviour-framework.html"><a href="spreading-and-the-wildfire-behaviour-framework.html#user-parameters"><i class="fa fa-check"></i><b>10.2.1</b> User Parameters</a></li>
+<li class="chapter" data-level="10.2.2" data-path="spreading-and-the-wildfire-behaviour-framework.html"><a href="spreading-and-the-wildfire-behaviour-framework.html#wind-module"><i class="fa fa-check"></i><b>10.2.2</b> Wind Module</a></li>
+<li class="chapter" data-level="10.2.3" data-path="spreading-and-the-wildfire-behaviour-framework.html"><a href="spreading-and-the-wildfire-behaviour-framework.html#fuel-landscape"><i class="fa fa-check"></i><b>10.2.3</b> Fuel Landscape</a></li>
+<li class="chapter" data-level="10.2.4" data-path="spreading-and-the-wildfire-behaviour-framework.html"><a href="spreading-and-the-wildfire-behaviour-framework.html#flammability"><i class="fa fa-check"></i><b>10.2.4</b> Flammability</a></li>
+<li class="chapter" data-level="10.2.5" data-path="spreading-and-the-wildfire-behaviour-framework.html"><a href="spreading-and-the-wildfire-behaviour-framework.html#moisture"><i class="fa fa-check"></i><b>10.2.5</b> Moisture</a></li>
+<li class="chapter" data-level="10.2.6" data-path="spreading-and-the-wildfire-behaviour-framework.html"><a href="spreading-and-the-wildfire-behaviour-framework.html#resistance-is-futile"><i class="fa fa-check"></i><b>10.2.6</b> Resistance (is futile)</a></li>
+<li class="chapter" data-level="10.2.7" data-path="spreading-and-the-wildfire-behaviour-framework.html"><a href="spreading-and-the-wildfire-behaviour-framework.html#ignition"><i class="fa fa-check"></i><b>10.2.7</b> Ignition</a></li>
+<li class="chapter" data-level="10.2.8" data-path="spreading-and-the-wildfire-behaviour-framework.html"><a href="spreading-and-the-wildfire-behaviour-framework.html#surfaces"><i class="fa fa-check"></i><b>10.2.8</b> Surfaces</a></li>
+</ul></li>
+<li class="chapter" data-level="10.3" data-path="spreading-and-the-wildfire-behaviour-framework.html"><a href="spreading-and-the-wildfire-behaviour-framework.html#the-dijkstra-algorithm"><i class="fa fa-check"></i><b>10.3</b> The Dijkstra Algorithm</a></li>
+<li class="chapter" data-level="10.4" data-path="spreading-and-the-wildfire-behaviour-framework.html"><a href="spreading-and-the-wildfire-behaviour-framework.html#metrics"><i class="fa fa-check"></i><b>10.4</b> Metrics</a></li>
+<li class="chapter" data-level="10.5" data-path="spreading-and-the-wildfire-behaviour-framework.html"><a href="spreading-and-the-wildfire-behaviour-framework.html#results-4"><i class="fa fa-check"></i><b>10.5</b> Results</a></li>
+<li class="chapter" data-level="10.6" data-path="spreading-and-the-wildfire-behaviour-framework.html"><a href="spreading-and-the-wildfire-behaviour-framework.html#summary-3"><i class="fa fa-check"></i><b>10.6</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="spatial-data-accuracy-and-precision-in-strategic-modelling.html"><a href="spatial-data-accuracy-and-precision-in-strategic-modelling.html"><i class="fa fa-check"></i><b>11</b> Spatial Data Accuracy and Precision in Strategic Modelling</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="spatial-data-accuracy-and-precision-in-strategic-modelling.html"><a href="spatial-data-accuracy-and-precision-in-strategic-modelling.html#introduction-10"><i class="fa fa-check"></i><b>11.1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="11.1.1" data-path="spatial-data-accuracy-and-precision-in-strategic-modelling.html"><a href="spatial-data-accuracy-and-precision-in-strategic-modelling.html#precision-and-the-grid"><i class="fa fa-check"></i><b>11.1.1</b> Precision and the grid</a></li>
+<li class="chapter" data-level="11.1.2" data-path="spatial-data-accuracy-and-precision-in-strategic-modelling.html"><a href="spatial-data-accuracy-and-precision-in-strategic-modelling.html#the-weakest-link-principle-in-spatial-analysis"><i class="fa fa-check"></i><b>11.1.2</b> The Weakest Link Principle in Spatial Analysis</a></li>
+<li class="chapter" data-level="11.1.3" data-path="spatial-data-accuracy-and-precision-in-strategic-modelling.html"><a href="spatial-data-accuracy-and-precision-in-strategic-modelling.html#fitness-for-purpose"><i class="fa fa-check"></i><b>11.1.3</b> Fitness for Purpose</a></li>
+<li class="chapter" data-level="11.1.4" data-path="spatial-data-accuracy-and-precision-in-strategic-modelling.html"><a href="spatial-data-accuracy-and-precision-in-strategic-modelling.html#raster-versus-vector-redux"><i class="fa fa-check"></i><b>11.1.4</b> Raster versus Vector Redux</a></li>
+<li class="chapter" data-level="11.1.5" data-path="spatial-data-accuracy-and-precision-in-strategic-modelling.html"><a href="spatial-data-accuracy-and-precision-in-strategic-modelling.html#path-dependency-and-the-illusion-of-precision"><i class="fa fa-check"></i><b>11.1.5</b> Path Dependency and the Illusion of Precision</a></li>
+<li class="chapter" data-level="11.1.6" data-path="spatial-data-accuracy-and-precision-in-strategic-modelling.html"><a href="spatial-data-accuracy-and-precision-in-strategic-modelling.html#scale-and-uncertainty"><i class="fa fa-check"></i><b>11.1.6</b> Scale and Uncertainty</a></li>
+</ul></li>
+<li class="chapter" data-level="11.2" data-path="spatial-data-accuracy-and-precision-in-strategic-modelling.html"><a href="spatial-data-accuracy-and-precision-in-strategic-modelling.html#summary-4"><i class="fa fa-check"></i><b>11.2</b> Summary</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Modelling Foundations</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="spatial-data-accuracy-and-precision-in-strategic-modelling" class="section level1 hasAnchor" number="11">
+<h1><span class="header-section-number">11</span> Spatial Data Accuracy and Precision in Strategic Modelling<a href="spatial-data-accuracy-and-precision-in-strategic-modelling.html#spatial-data-accuracy-and-precision-in-strategic-modelling" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="introduction-10" class="section level2 hasAnchor" number="11.1">
+<h2><span class="header-section-number">11.1</span> Introduction<a href="spatial-data-accuracy-and-precision-in-strategic-modelling.html#introduction-10" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Strategic forest and landscape modelling depends fundamentally on spatial data. Yet one of the most persistent misconceptions in resource analysis is the assumption that highly detailed spatial representations automatically produce more accurate results. In practice, the relationship between accuracy and precision is far more nuanced, particularly when models are intended to support strategic and tactical decision-making rather than operational field implementation.</p>
+<div id="precision-and-the-grid" class="section level3 hasAnchor" number="11.1.1">
+<h3><span class="header-section-number">11.1.1</span> Precision and the grid<a href="spatial-data-accuracy-and-precision-in-strategic-modelling.html#precision-and-the-grid" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Precision refers to the level of detail, resolution, or consistency with which spatial features are represented. Accuracy, by contrast, refers to how closely the data reflects reality. A dataset can be highly precise but inaccurate, just as it can be relatively coarse yet reasonably accurate for its intended purpose. The classic dartboard analogy illustrates this distinction well: darts clustered tightly together demonstrate precision, but only darts clustered around the bullseye demonstrate accuracy.</p>
+<p><img src="Modelling_Foundations_files/figure-html/bullseye_sda-1.png" width="80%" /></p>
+<p>This distinction is especially important in the context of Forest Estate Modelling, where standardized gridded data frameworks are used to support consistent province-wide analysis. Some practitioners remain hesitant to use raster-based approaches because rasterization appears to reduce spatial precision when compared to vector polygons. However, reduced precision does not necessarily imply reduced accuracy, nor does increase precision guarantee improved decision-making.</p>
+<p>The assumption that vector data is inherently superior often stems from the visual appearance of vector maps. Sharp polygon boundaries and highly detailed linework create the impression that the data closely represents reality. However, every map is ultimately an abstraction. Forest inventory polygons, roads, streams, and ecological boundaries are not direct representations of the landscape; they are interpretations derived from aerial and satellite imagery, field measurements, classification rules, and human judgment.</p>
+<p>The limitations of source data are often overlooked. Vegetation Resource Inventory (VRI) linework, for example, may have positional accuracies on the order of ±20 metres and species classification accuracies of approximately 60 percent. There are numerous examples where perceived certainty exceeds actual data quality, including inventory linework, species classification errors, and polygon delineation challenges. Even the simple act of drawing a boundary between two forest types is often subjective, especially where ecological transitions are gradual rather than discrete.It important to remember that a line drawn with a 0.5 mm pencil on a 1:20,000 map effectively represents a feature approximately 10 metres wide, demonstrating that apparent precision can mask substantial uncertainty. This introduces the concept of <strong>false precision</strong>. False precision occurs when data are represented or reported at a level of detail unsupported by the accuracy of the underlying measurements.</p>
+</div>
+<div id="the-weakest-link-principle-in-spatial-analysis" class="section level3 hasAnchor" number="11.1.2">
+<h3><span class="header-section-number">11.1.2</span> The Weakest Link Principle in Spatial Analysis<a href="spatial-data-accuracy-and-precision-in-strategic-modelling.html#the-weakest-link-principle-in-spatial-analysis" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>One of the most important—and most frequently misunderstood—principles in spatial modelling is that the quality of an analytical result cannot exceed the quality of its least reliable input. In other words, when multiple spatial datasets are combined, the resulting product inherits the uncertainty, accuracy limitations, and precision constraints of the weakest dataset involved. This principle is directly analogous to significant figures in mathematics, where the precision of a calculation is constrained by the least precise measurement used to produce it. Spatial overlays cannot create precision that did not already exist in the source data.</p>
+<p>Consider a simple example. Suppose a forest inventory polygon layer has a positional accuracy of ±20 m, while a stream network layer has a positional accuracy of ±5 m. When these layers are intersected to determine riparian management zones, the final product cannot realistically be considered accurate to ±5 m because one of its primary inputs may already be displaced by 20 m. The resulting analysis inherits the uncertainty of the forest inventory layer. Any map displaying boundaries to the nearest metre may appear highly precise, but it is conveying a level of certainty unsupported by the underlying data.</p>
+<p><img src="Modelling_Foundations_files/figure-html/weakest_link_sda-1.png" width="80%" /></p>
+<div style="font-size: 80%;">
+<p><em>Figure A demonstrates that a highly accurate streamlayer (±5 m) intersected with a less accurate forest inventory boundary (±20 m) yields an overlay whose reliability cannot exceed that of the forest inventory.</em></p>
+<p><em>Figure B demonstrates the same concept using MonteCarlo simulation. Thousands of realizations show that small stream errors contribute relatively little to the final uncertainty compared with the larger uncertainty in the inventory boundary. The resulting riparian boundary exhibits a broad range of plausible locations, illustrating how uncertainty propagates through spatial analysis and why final products inherit the limitations of their least accurate inputs.</em></p>
+</div>
+<p>This issue becomes even more pronounced when many layers are combined. Modern GIS systems can overlay dozens of datasets simultaneously: forest inventory, terrain models, roads, wildlife habitat, hydrology, fire history, climate surfaces, land ownership, and projected disturbances. The computational process can create an extraordinarily sophisticated output with millions of polygons, detailed statistics, and coordinates extending to several decimal places. However, the sophistication of the analytical engine does not improve the truthfulness of the inputs. It simply processes the uncertainty already embedded within them.</p>
+<p>An important distinction must therefore be made between <strong>computational precision and data accuracy</strong>. Computers perform calculations with extraordinary numerical precision. A GIS can calculate an area to six decimal places or determine a coordinate to the nearest millimetre. Yet these outputs are often derived from data layers whose real-world uncertainty may be measured in tens of metres and whose attribute uncertainty may be much larger. This tendency is an abuse of decimal precision—a situation where analytical outputs imply a degree of certainty that does not actually exist.</p>
+<p>The problem is compounded because uncertainty often propagates through analytical workflows. Every spatial layer contains both positional and attribute error. When layers are combined, these errors interact. A forest stand may be assigned the wrong leading species, a stream may be slightly misplaced, and a boundary may reflect an interpreter’s judgment rather than an objective field measurement. Individually, these errors may appear minor. Collectively, they can influence the outputs of suitability analyses, habitat assessments, timber supply forecasts, and landscape projections.</p>
+<p>Importantly, the addition of more variables does not necessarily improve model accuracy. There is a common tendency to assume that a more complex model must be a better representation of reality. But adding more variables with substantial uncertainty may simply add more uncertainty to the modelling process. If explanatory variables already contain large measurement errors, increasing model complexity can create the illusion of realism without delivering a corresponding improvement in predictive capability. In some cases, the additional complexity merely disguises uncertainty behind a more sophisticated analytical framework.</p>
+<p>This is particularly relevant in Forest Estate Modelling. Strategic models are not attempting to predict the exact location of a future harvest block fifty years from now (<strong>we are not in the prediction business</strong>). Rather, they are exploring broad patterns of timber supply, disturbance risk, habitat distribution, and landscape change. At these scales, uncertainties in inventory classification, growth projections, climate assumptions, and management decisions are often significantly larger than the uncertainties introduced by rasterizing data or simplifying geometries. Focusing excessively on geometric precision can therefore divert attention from more influential sources of uncertainty.</p>
+<p>The raster-versus-vector debate illustrates this concept well. Many analysts and the lay audience instinctively prefer vector data because it visually appears more detailed and therefore more accurate. Yet if the traditional inventory boundaries (re: VRI) themselves contain positional uncertainty as well as classification uncertainty maintaining sub-metre vector precision does little to improve the validity of strategic projections. In fact, a raster representation may more honestly communicate the level of certainty that exists in the source information.</p>
+</div>
+<div id="fitness-for-purpose" class="section level3 hasAnchor" number="11.1.3">
+<h3><span class="header-section-number">11.1.3</span> Fitness for Purpose<a href="spatial-data-accuracy-and-precision-in-strategic-modelling.html#fitness-for-purpose" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>A fundamental principle of spatial analysis is that data quality should be evaluated relative to its intended use rather than against an absolute standard of precision. This concept, often referred to as <strong>fitness for purpose</strong>, recognizes that no spatial dataset is universally “good” or “bad.” Instead, its usefulness depends on whether its accuracy, precision, resolution, and uncertainty are <strong>appropriate for the decision being supported</strong>. Data suitable for engineering a road alignment may be inadequate for cadastral surveys, while the same dataset may be more than sufficient for strategic timber supply analysis. The key question is therefore not “How precise is the data?” but rather “Is the data sufficiently accurate and reliable for the purpose at hand?”</p>
+<p>In Forest Estate Modelling, decisions are typically made at landscape, management-unit, or regional scales. Analysts are often interested in broad patterns such as future harvest flow, age-class distributions, habitat availability, wildfire risk, or cumulative effects. At these scales, many planning outcomes are driven by aggregate trends rather than the precise location of individual stand boundaries. Consequently, a gridded representation that accurately captures overall landscape composition may be entirely fit for purpose, even if it sacrifices some geometric detail. Requiring operational or survey-grade precision for strategic analyses may add complexity without materially improving the quality of the decisions being made.</p>
+<p>Ultimately, fitness for purpose shifts the focus from maximizing detail to maximizing decision value. A useful spatial model is not one that represents every feature with the highest possible precision, but one that <strong>accurately captures the information necessary to support robust and defensible decisions</strong>. This perspective helps avoid the trap of false precision and encourages a more balanced evaluation of spatial data, where precision, accuracy, cost, processing requirements, and uncertainty are all considered in relation to the planning objective. By aligning data representation with decision scale, analysts can produce results that are both scientifically credible and operationally practical.</p>
+<div id="kxrftulxfr" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#kxrftulxfr table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#kxrftulxfr thead, #kxrftulxfr tbody, #kxrftulxfr tfoot, #kxrftulxfr tr, #kxrftulxfr td, #kxrftulxfr th {
+  border-style: none;
+}
+
+#kxrftulxfr p {
+  margin: 0;
+  padding: 0;
+}
+
+#kxrftulxfr .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#kxrftulxfr .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#kxrftulxfr .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#kxrftulxfr .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#kxrftulxfr .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#kxrftulxfr .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#kxrftulxfr .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#kxrftulxfr .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#kxrftulxfr .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#kxrftulxfr .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#kxrftulxfr .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#kxrftulxfr .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#kxrftulxfr .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#kxrftulxfr .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#kxrftulxfr .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#kxrftulxfr .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#kxrftulxfr .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#kxrftulxfr .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#kxrftulxfr .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#kxrftulxfr .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#kxrftulxfr .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#kxrftulxfr .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#kxrftulxfr .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#kxrftulxfr .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#kxrftulxfr .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#kxrftulxfr .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#kxrftulxfr .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#kxrftulxfr .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#kxrftulxfr .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#kxrftulxfr .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#kxrftulxfr .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#kxrftulxfr .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#kxrftulxfr .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#kxrftulxfr .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#kxrftulxfr .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#kxrftulxfr .gt_left {
+  text-align: left;
+}
+
+#kxrftulxfr .gt_center {
+  text-align: center;
+}
+
+#kxrftulxfr .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#kxrftulxfr .gt_font_normal {
+  font-weight: normal;
+}
+
+#kxrftulxfr .gt_font_bold {
+  font-weight: bold;
+}
+
+#kxrftulxfr .gt_font_italic {
+  font-style: italic;
+}
+
+#kxrftulxfr .gt_super {
+  font-size: 65%;
+}
+
+#kxrftulxfr .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#kxrftulxfr .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#kxrftulxfr .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#kxrftulxfr .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#kxrftulxfr .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#kxrftulxfr .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#kxrftulxfr .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#kxrftulxfr .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#kxrftulxfr div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+</style>
+<table class="gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+  <thead>
+    <tr class="gt_heading">
+      <td colspan="9" class="gt_heading gt_title gt_font_normal" style><span class='gt_from_md'><strong>Monte Carlo Rasterization Validation</strong></span></td>
+    </tr>
+    <tr class="gt_heading">
+      <td colspan="9" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style>Raster versus vector volume comparison</td>
+    </tr>
+    <tr class="gt_col_headings">
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Resolution">Resolution (m)</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Mean_MAE">Mean MAE</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Median_MAE">Median MAE</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="MAE_LCL">MAE 2.5%</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="MAE_UCL">MAE 97.5%</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Mean_LEP">LEP (%)</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Mean_RMSE">RMSE</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Mean_Bias">Bias</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Mean_R2">R squared</th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr><td headers="Resolution" class="gt_row gt_right">25</td>
+<td headers="Mean_MAE" class="gt_row gt_right">1.72</td>
+<td headers="Median_MAE" class="gt_row gt_right">0.00</td>
+<td headers="MAE_LCL" class="gt_row gt_right">0.85</td>
+<td headers="MAE_UCL" class="gt_row gt_right">2.78</td>
+<td headers="Mean_LEP" class="gt_row gt_right">2.00</td>
+<td headers="Mean_RMSE" class="gt_row gt_right">15.02</td>
+<td headers="Mean_Bias" class="gt_row gt_right">0.02</td>
+<td headers="Mean_R2" class="gt_row gt_right">0.96</td></tr>
+    <tr><td headers="Resolution" class="gt_row gt_right">50</td>
+<td headers="Mean_MAE" class="gt_row gt_right">3.44</td>
+<td headers="Median_MAE" class="gt_row gt_right">0.00</td>
+<td headers="MAE_LCL" class="gt_row gt_right">2.24</td>
+<td headers="MAE_UCL" class="gt_row gt_right">4.74</td>
+<td headers="Mean_LEP" class="gt_row gt_right">4.00</td>
+<td headers="Mean_RMSE" class="gt_row gt_right">21.46</td>
+<td headers="Mean_Bias" class="gt_row gt_right">−0.05</td>
+<td headers="Mean_R2" class="gt_row gt_right">0.92</td></tr>
+    <tr><td headers="Resolution" class="gt_row gt_right">100</td>
+<td headers="Mean_MAE" class="gt_row gt_right">6.82</td>
+<td headers="Median_MAE" class="gt_row gt_right">0.00</td>
+<td headers="MAE_LCL" class="gt_row gt_right">5.16</td>
+<td headers="MAE_UCL" class="gt_row gt_right">8.83</td>
+<td headers="Mean_LEP" class="gt_row gt_right">7.88</td>
+<td headers="Mean_RMSE" class="gt_row gt_right">30.37</td>
+<td headers="Mean_Bias" class="gt_row gt_right">−0.02</td>
+<td headers="Mean_R2" class="gt_row gt_right">0.84</td></tr>
+    <tr><td headers="Resolution" class="gt_row gt_right">250</td>
+<td headers="Mean_MAE" class="gt_row gt_right">16.34</td>
+<td headers="Median_MAE" class="gt_row gt_right">0.00</td>
+<td headers="MAE_LCL" class="gt_row gt_right">13.76</td>
+<td headers="MAE_UCL" class="gt_row gt_right">19.04</td>
+<td headers="Mean_LEP" class="gt_row gt_right">18.86</td>
+<td headers="Mean_RMSE" class="gt_row gt_right">47.42</td>
+<td headers="Mean_Bias" class="gt_row gt_right">−0.36</td>
+<td headers="Mean_R2" class="gt_row gt_right">0.64</td></tr>
+  </tbody>
+  
+</table>
+</div>
+<div style="font-size: 80%;">
+<p><em>To evaluate how rasterization affects information content at different spatial resolutions, a Monte Carlo validation experiment was conducted using a vectorized synthetic forest inventory. Random sample locations were repeatedly compared against rasterized representations at resolutions of 25 m, 50 m, 100 m, and 250 m. Across 1,000 simulations, mean absolute error (MAE) increased from approximately 1.7 m³/ha at 25 m resolution to 16.7 m³/ha at 250 m resolution, while the coefficient of determination (R²) declined from approximately 0.96 to 0.64. However, bias remained near zero at all resolutions, indicating that rasterization did not systematically overestimate or underestimate stand volume.</em></p>
+<p><em>Perhaps more revealing was the spatial distribution of error. Even at 250 m resolution, approximately 81% of sampled locations reproduced the original stand volume exactly, while only 19% exhibited any deviation. Furthermore, the median absolute error remained zero across all tested resolutions, indicating that rasterization errors were concentrated within a relatively small proportion of the landscape rather than being uniformly distributed. Most locations therefore retained their original inventory values despite substantial reductions in geometric precision.</em></p>
+<p><em>From a fitness-for-purpose perspective, this suggests that modest reductions in geometric detail may be acceptable when the planning objective is to understand long-term landscape dynamics rather than predict the exact location of future operational activities.</em></p>
+</div>
+</div>
+<div id="raster-versus-vector-redux" class="section level3 hasAnchor" number="11.1.4">
+<h3><span class="header-section-number">11.1.4</span> Raster versus Vector Redux<a href="spatial-data-accuracy-and-precision-in-strategic-modelling.html#raster-versus-vector-redux" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Forest Estate Modelling is not concerned with predicting the exact location of a harvest block, road segment, or disturbance decades into the future. Instead, it seeks to understand broad patterns, trends, risks, and opportunities across large landscapes. In this context, the analytical value of sub-hectare precision is often overstated.</p>
+<p>The raster-versus-vector debate provides an excellent example. Rasterization converts vector polygons into a gridded representation, which necessarily reduces geometric precision. Small polygons may be generalized or omitted, and boundaries become less exact. Nevertheless, studies comparing rasterized and vectorized inventories have repeatedly shown that many aggregate planning metrics—such as species composition, age-class distributions, and total area estimates—remain remarkably stable across a range of grid sizes. Analysis across multiple Timber Supply Areas found extremely strong relationships between raster and vector area estimates and demonstrated that aggregation substantially reduces apparent error. At strategic scales, differences introduced by rasterization were often insignificant compared with the uncertainties already present in the inventory data itself.</p>
+<p>Furthermore, gridded approaches offer important practical advantages. Raster datasets eliminate many common vector-topology problems, including slivers, overlaps, gaps, and multipart polygon complications. Spatial overlays become computationally trivial, processing times are dramatically reduced, and model complexity can be managed more effectively. When planning exercises require thousands of scenarios runs or iterative analyses, reducing computational burden may provide greater analytical value than maintaining highly detailed geometries that contribute little additional insight.</p>
+<p><img src="Modelling_Foundations_files/figure-html/deviation_sda-1.png" width="80%" /></p>
+<div style="font-size: 80%;">
+<p><em>This experiment was designed to test the hypothesis that rasterization error decreases as study area size increases because boundary effects become a progressively smaller proportion of the total landscape. Synthetic forest inventories were generated across five landscape extents ranging from 100 ha (1 km × 1 km) to 62,500 ha (25 km × 25 km). Each inventory was represented both as vector polygons and raster surfaces with cell sizes of 25 m, 50 m, 100 m, and 250 m. For each combination of extent and resolution, species composition was calculated and the mean absolute difference between the vector and raster representations was used as a measure of rasterization deviation. The experiment was replicated twenty times to account for variability in landscape configuration and species distribution.</em></p>
+<p><em>The results strongly supported the hypothesis. For every raster resolution, composition deviation declined rapidly as study area size increased. At the smallest extent (100 ha), mean deviation ranged from 0.32% for a 25 m raster to 8.26% for a 250 m raster. In contrast, at the largest extent (62,500 ha), deviation fell to only 0.003%, 0.007%, 0.019%, and 0.055% for the 25 m, 50 m, 100 m, and 250 m rasters respectively. Even relatively coarse raster resolutions produced very small deviations once the analysis was conducted over a sufficiently large area. The standard deviations also decreased substantially with increasing extent, indicating that rasterization effects became both smaller and more consistent as landscape size increased. These findings suggest that rasterization error is dominated by edge and boundary effects, which become diluted as the proportion of interior area increases.</em></p>
+</div>
+</div>
+<div id="path-dependency-and-the-illusion-of-precision" class="section level3 hasAnchor" number="11.1.5">
+<h3><span class="header-section-number">11.1.5</span> Path Dependency and the Illusion of Precision<a href="spatial-data-accuracy-and-precision-in-strategic-modelling.html#path-dependency-and-the-illusion-of-precision" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Few analysts arrive at a preference for vector data through a rigorous examination of accuracy, uncertainty, or modelling performance. Rather, the preference often emerged through decades of accumulated institutional practices, software investments, training, workflows, and professional culture. Once an organization adopts a particular approach, every subsequent decision tends to reinforce that choice. In forestry, much of our inventory development evolved from air-photo interpretation, stand delineation, and polygon-based mapping. Forest inventory systems, GIS databases, operational planning tools, and analytical procedures were all built around polygon representations of the landscape. Over time, an entire ecosystem of software, expertise, and management processes developed around vector data.</p>
+<p>This creates a classic <strong>path dependency problem</strong>. Because vector data has traditionally been used, analysts become accustomed to thinking in polygons. Because they think in polygons, new systems are designed around polygons. Because new systems are designed around polygons, future analysts continue to use polygons. The result is that the underlying assumption—that polygons are inherently superior representations of reality—<strong>often goes unquestioned</strong>.</p>
+<div id="precision-becomes-a-proxy-for-quality" class="section level4 hasAnchor" number="11.1.5.1">
+<h4><span class="header-section-number">11.1.5.1</span> Precision Becomes a Proxy for Quality<a href="spatial-data-accuracy-and-precision-in-strategic-modelling.html#precision-becomes-a-proxy-for-quality" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>An interesting psychological effect emerges from this history. Detailed vector boundaries look authoritative. A stand polygon with dozens of vertices appears more sophisticated than a 100 m grid cell. The visual impression is that more detail must equal more knowledge. However, what analysts are often seeing is not increased accuracy but increased geometric complexity. A polygon boundary may be stored with sub-metre coordinate precision while representing a forest edge that was interpreted from aerial photography and known to have positional uncertainty of ±20 m. In this situation, the geometry appears precise while the underlying knowledge remains uncertain. The vector boundary creates an impression of certainty that the inventory itself cannot support.</p>
+<p>Raster approaches challenge this assumption because they make the abstraction more visible. A grid cell openly admits that it is a generalized representation of reality. It does not pretend that ecological transitions are infinitely sharp or that stand boundaries can be located with perfect certainty. In many ways, the raster is more honest about what we actually know.</p>
+</div>
+<div id="institutional-investment-reinforces-the-bias" class="section level4 hasAnchor" number="11.1.5.2">
+<h4><span class="header-section-number">11.1.5.2</span> Institutional Investment Reinforces the Bias<a href="spatial-data-accuracy-and-precision-in-strategic-modelling.html#institutional-investment-reinforces-the-bias" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Path dependency is also reinforced through investment.</p>
+<p>Organizations may have:</p>
+<ul>
+<li>Decades of polygon inventories.</li>
+<li>Custom vector processing tools.</li>
+<li>Analysts trained in vector workflows.</li>
+<li>Regulatory processes built around polygons.</li>
+<li>Legacy planning models require vector inputs.</li>
+</ul>
+<p>When significant investments have been made in a particular methodology, people naturally seek evidence that validates those investments. This does not occur because analysts are irrational; it is simply a normal organizational response. As a result, questions such as: “Does rasterization significantly affect strategic outcomes?” often become replaced by: “What information are we losing by not using vectors?”</p>
+<p><strong>The first question is scientific. The second is cultural.</strong></p>
+</div>
+<div id="strategic-modelling-changes-the-question" class="section level4 hasAnchor" number="11.1.5.3">
+<h4><span class="header-section-number">11.1.5.3</span> Strategic Modelling Changes the Question<a href="spatial-data-accuracy-and-precision-in-strategic-modelling.html#strategic-modelling-changes-the-question" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Path dependency becomes particularly problematic when <strong>operational thinking is transferred into strategic modelling</strong>. At the operational level, precise locations matter. Engineers building roads require highly detailed spatial information. Surveyors require exact coordinates. Harvest boundaries eventually need to be laid out on the ground.</p>
+<p>Strategic models, however, answer fundamentally different questions:</p>
+<ul>
+<li>What is the expected long-term timber supply?</li>
+<li>How connected is habitat across a landscape?</li>
+<li>What is the risk of disturbance?</li>
+<li>How resilient is the forest under alternative futures?</li>
+</ul>
+<p>These are aggregate, landscape-scale questions. Experience suggests that when analyses are aggregated into age classes, species groups, planning units, connectivity networks, or timber supply projections, the effects of rasterization often become trivial relative to the much larger uncertainties already present in inventory classification, yield projections, climate assumptions, and future management decisions. Yet because analysts have historically worked with polygons, there is often an instinctive belief that maintaining polygon geometry must improve the result, even when the modelling objective does not depend on that level of detail.</p>
+</div>
+<div id="the-false-equivalence-between-detail-and-insight" class="section level4 hasAnchor" number="11.1.5.4">
+<h4><span class="header-section-number">11.1.5.4</span> The False Equivalence Between Detail and Insight<a href="spatial-data-accuracy-and-precision-in-strategic-modelling.html#the-false-equivalence-between-detail-and-insight" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Perhaps the most important implication of path dependency is that it can cause organizations to <strong>confuse detail with insight</strong>. There is a common notion that increasing complexity automatically increases realism. More vertices, more polygons, more variables, and more detailed geometry may make a model appear more sophisticated, but they do not necessarily improve predictive capability. In some cases, they merely increase processing time and analytical effort without materially affecting outcomes.</p>
+<p>This is analogous to reporting a timber volume estimate as: <strong>12,364,718.437 m³</strong> instead of:<strong>12.4 million m³</strong></p>
+<p>The first appears more scientific, but if the underlying uncertainty is ±10%, the additional digits contribute no meaningful information. They create an illusion of certainty. Likewise, maintaining a polygon boundary to sub-metre precision contributes little if the inventory linework may be displaced by ±20 m and species attribution may only be correct 60% of the time.</p>
+</div>
+<div id="a-more-useful-perspective" class="section level4 hasAnchor" number="11.1.5.5">
+<h4><span class="header-section-number">11.1.5.5</span> A More Useful Perspective<a href="spatial-data-accuracy-and-precision-in-strategic-modelling.html#a-more-useful-perspective" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Rather than asking whether raster or vector is “better,” strategic modelling should ask: <strong>Which representation is most appropriate given the decision scale, data uncertainty, and management question?</strong> Once viewed this way, rasterization becomes less a loss of precision and more an acknowledgement of existing uncertainty. Indeed, one could argue that gridded representations help break path dependency by forcing analysts to think in terms of patterns, probabilities, and landscape dynamics instead of exact boundaries that may never have existed on the ground in the first place.</p>
+<p>The real challenge is not choosing between raster and vector. The challenge is recognizing when our preference for precision is driven by analytical necessity and when it is simply the inertia of decades of established practice. In many strategic modelling contexts, the latter is often a far greater influence than most practitioners realize.</p>
+</div>
+</div>
+<div id="scale-and-uncertainty" class="section level3 hasAnchor" number="11.1.6">
+<h3><span class="header-section-number">11.1.6</span> Scale and Uncertainty<a href="spatial-data-accuracy-and-precision-in-strategic-modelling.html#scale-and-uncertainty" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Another critical consideration in spatial modelling is the concept of <strong>scale appropriateness</strong>. Spatial data should not be judged in isolation but rather in relation to the decisions it is intended to support. The level of precision required to locate a bridge abutment, road crossing, or harvest boundary is fundamentally different from the level of precision required to evaluate long-term timber supply, habitat connectivity, wildfire resilience, or cumulative effects across hundreds of thousands of hectares. Strategic analyses are concerned with broad trends, patterns, and system behaviours rather than exact future locations. Consequently, the question is not whether data are as precise as possible, but whether they are sufficiently accurate and appropriately scaled to inform the decision being made. A common mistake in resource analysis is to apply operational standards of spatial precision to strategic questions, even though the underlying management objectives are entirely different.</p>
+<p>The danger of this mismatch is that highly detailed spatial representations can create an <strong>illusion of certainty</strong>. A vector polygon with sub-metre coordinates appears exact, but its apparent precision often exceeds the reliability of the underlying data. Inventory boundaries may have positional uncertainties of tens of metres, species classifications may be only partially correct, and ecological boundaries may represent subjective interpretations of gradual transitions rather than discrete features. Yet when these data are displayed with crisp lines and numerous decimal places, analysts and decision-makers can unconsciously place greater confidence in the outputs than is justified. The result is a form of false confidence in which attention becomes focused on small geometric details while overlooking much larger uncertainties embedded in inventory quality, growth projections, disturbance regimes, and model assumptions. Precision is visually compelling, but it is not synonymous with knowledge.</p>
+<p>At strategic scales, some of the largest sources of uncertainty are often unrelated to spatial representation altogether. Future climate conditions, wildfire occurrence, market behaviour, policy changes, growth responses, natural disturbances, and human decision-making frequently exert a far greater influence on projected outcomes than whether a stand boundary is represented as a polygon or a grid cell. <strong>In this context, expending significant effort to preserve operational-scale precision may provide little improvement in predictive capability while obscuring more consequential uncertainties.</strong> Effective strategic modelling therefore requires a shift in perspective: from asking how precisely we can represent the landscape to asking whether the representation is adequate for understanding future landscape dynamics. The objective is not to eliminate uncertainty—which is impossible—but to ensure that analytical effort is focused on the uncertainties that matter most to decision-making. In many cases, acknowledging the limits of what is known produces more robust and defensible strategic insights than pursuing ever greater levels of spatial detail.</p>
+<p><img src="Modelling_Foundations_files/figure-html/scale_sda-1.png" width="80%" /></p>
+<div style="font-size: 80%;">
+<p><em>Relative Sources of Uncertainty in Strategic Forest Modelling.</em>
+<em>Illustrative comparison of the relative influence of major uncertainty sources affecting long-term strategic forecasts. While raster resolution and geometric precision contribute some uncertainty, they are often substantially less influential than climate assumptions, growth responses, disturbance regimes, inventory quality, and future management decisions.</em></p>
+</div>
+<p>Effective strategic modelling requires acknowledging that <strong>uncertainty is unavoidable</strong>. The goal is not to eliminate uncertainty but to understand, quantify, and <strong>communicate it</strong> appropriately. Analysts should focus less on creating ever more detailed spatial representations and more on understanding the limitations of their data, the assumptions embedded within their models, and the sensitivity of outcomes to those assumptions.</p>
+<p>As D.H. Lawrence observed, <strong>“The map appears to us more real than the land.”</strong> This caution is particularly relevant in modern spatial analysis. Precision is valuable only when it serves the decision context. Strategic models succeed not because they represent every detail of reality, but because they represent reality sufficiently well to support informed decisions. Recognizing the distinction between accuracy and precision helps analysts and planners avoid the trap of false certainty and fosters a more honest, transparent, and effective approach to landscape-level decision-making.</p>
+</div>
+</div>
+<div id="summary-4" class="section level2 hasAnchor" number="11.2">
+<h2><span class="header-section-number">11.2</span> Summary<a href="spatial-data-accuracy-and-precision-in-strategic-modelling.html#summary-4" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Ultimately, uncertainty is not something that can be eliminated through geoprocessing, larger databases, or more powerful computers. It is an inherent property of observing and representing complex natural systems. <strong>The role of modelling is not to remove uncertainty but to manage it, quantify it where possible, and ensure that decision-makers understand its implications</strong>.</p>
+<p>A useful way to think about this is that technology can process uncertainty, but it cannot magically convert uncertain observations into certain knowledge. No matter how sophisticated the spatial analysis becomes, a model remains constrained by the quality of the data, assumptions, and interpretations that feed it. Recognizing this limitation encourages <strong>humility</strong> in modelling and helps analysts focus on what truly matters: producing results that are accurate enough for the decision being made, rather than merely more precise in appearance.</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="spreading-and-the-wildfire-behaviour-framework.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

@@ -120,3 +120,17 @@ the-dijkstra-algorithm
 metrics
 results-4
 summary-3
+spatial-data-accuracy-and-precision-in-strategic-modelling
+introduction-10
+precision-and-the-grid
+the-weakest-link-principle-in-spatial-analysis
+fitness-for-purpose
+raster-versus-vector-redux
+path-dependency-and-the-illusion-of-precision
+precision-becomes-a-proxy-for-quality
+institutional-investment-reinforces-the-bias
+strategic-modelling-changes-the-question
+the-false-equivalence-between-detail-and-insight
+a-more-useful-perspective
+scale-and-uncertainty
+summary-4
