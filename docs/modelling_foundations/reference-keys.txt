@@ -134,3 +134,14 @@ the-false-equivalence-between-detail-and-insight
 a-more-useful-perspective
 scale-and-uncertainty
 summary-4
+comparing-and-contrasting-the-patchworks-and-stsm-forest-estate-models
+introduction-11
+modelling-philosophy
+planning-horizon-perspective-whole-horizon-optimization-versus-step-wise-simulation
+stochastic-and-deterministic-modelling-in-patchworks-and-stsm
+forest-dynamics
+natural-disturbance
+roads
+user-interaction
+software-availability-and-licensing
+conclusion
