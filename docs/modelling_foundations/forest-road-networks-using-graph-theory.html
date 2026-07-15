@@ -591,7 +591,7 @@ use.</p>
 <p>The following image contrasts the integrated roads (green) overlain with the
 simplified modelled network (black) for TSA41</p>
 <div class="float">
-<img src="C:/Data/temp/simp_net.png" alt="contrasted networks" />
+<img src="simp_net.png" alt="contrasted networks" />
 <div class="figcaption"><small><strong>contrasted networks</strong></small></div>
 </div>
 <p>The cleaning and simplification process significantly reduces the total
@@ -632,7 +632,7 @@ Creation”</p>
 minimum size threshold and the current road network uses the simplified
 connected network previously generated (the default is 5 ha).</p>
 <div class="float">
-<img src="C:/Data/temp/FRN.png" alt="forest road network interface" />
+<img src="FRN.png" alt="forest road network interface" />
 <div class="figcaption"><small><strong>forest road network interface</strong></small></div>
 </div>
 <p>The beyond the spatial the FRN interface requires the following parameters:</p>
@@ -721,7 +721,7 @@ information system (GIS) program.</p>
 FRN future roads (red) connecting the total network to the THLB (green)
 for TSA41.</p>
 <div class="float">
-<img src="C:/Data/temp/FRN_dawson.png" alt="modelled networks" />
+<img src="FRN_dawson.png" alt="modelled networks" />
 <div class="figcaption"><small><strong>modelled networks</strong></small></div>
 </div>
 </div>
@@ -1009,13 +1009,13 @@ harvest level and patterns.</li>
 <p>From the Application launcher, double click on the ‘Build Road Segments’
 application.</p>
 <div class="float">
-<img src="C:/Data/temp/p1.png" alt="build road segments" />
+<img src="p1.png" alt="build road segments" />
 <div class="figcaption"><small><strong>build road segments</strong></small></div>
 </div>
 <p>On the next screen, point to the project blocks shapefile, and the road
 and mill (sink) shapefiles that were made in Step 1.</p>
 <div class="float">
-<img src="C:/Data/temp/p2.png" alt="generate road segments" />
+<img src="p2.png" alt="generate road segments" />
 <div class="figcaption"><small><strong>generate road segments</strong></small></div>
 </div>
 <p>In the following screens, for ‘Block label’, choose the correct unique
@@ -1023,11 +1023,11 @@ stand identifier used in your Patchworks model (sometimes stand, maybe
 unique_id, maybe gr_skey?). Otherwise use the following defaults as a
 starting point.</p>
 <div class="float">
-<img src="C:/Data/temp/p3.png" alt="column names" />
+<img src="p3.png" alt="column names" />
 <div class="figcaption"><small><strong>column names</strong></small></div>
 </div>
 <div class="float">
-<img src="C:/Data/temp/p4.png" alt="node labels" />
+<img src="p4.png" alt="node labels" />
 <div class="figcaption"><small><strong>node labels</strong></small></div>
 </div>
 <p>Choose the ‘roads’ folder located within the Patchworks analysis folder
@@ -1037,7 +1037,7 @@ you ever need to go back and tweak parameters, you won’t have to rely on
 your memory as to what you did. You can do this by clicking on the ‘Show
 code’ button and saving the text file.</p>
 <div class="float">
-<img src="C:/Data/temp/p6.png" alt="output" />
+<img src="p6.png" alt="output" />
 <div class="figcaption"></small><strong>output</strong></small></div>
 </div>
 <p>Then click ‘Finish’ and the road segment tool should work away. There
@@ -1052,13 +1052,13 @@ step. In this example, all blocks that had this warning were up in the
 high reaches of a watershed and were all non-THLB – i.e. there shouldn’t
 be a road nearby.</p>
 <div class="float">
-<img src="C:/Data/temp/p7.png" alt="cmd" />
+<img src="p7.png" alt="cmd" />
 <div class="figcaption"><small><strong>cmd</strong></small></div>
 </div>
 <p>After this tool has run, you will see the following csv files in the
 ‘roads’ folder – these are the main files for the Patchworks road model.</p>
 <div class="float">
-<img src="C:/Data/temp/p8.png" height="300" alt="output csvs" />
+<img src="p8.png" height="300" alt="output csvs" />
 <div class="figcaption"><small><strong>output csvs</strong></small></div>
 </div>
 </div>
@@ -1098,7 +1098,7 @@ that you can use to turn roads on or off. Add this line or switch it to
 ‘true’. If you prefer to be prompted by a pop-up every time you load the
 pin file, you can use the second example.</p>
 <div class="float">
-<img src="C:/Data/temp/p9.png" alt="booleans" />
+<img src="p9.png" alt="booleans" />
 <div class="figcaption"><small><strong>booleans</strong></small></div>
 </div>
 <p>Secondly, also near the top of the pin file (usually just after where
@@ -1107,7 +1107,7 @@ section of code is in place and that the names line up. This points
 Patchworks to the files that you made in the last few steps. Note that
 this section is wrapped in the useRoutes Boolean.</p>
 <div class="float">
-<img src="C:/Data/temp/p10.png" alt="locate_road" />
+<img src="p10.png" alt="locate_road" />
 <div class="figcaption"><small><strong>locate_road</strong></small></div>
 </div>
 <p>The third piece of code should be inserted at the bottom of the
@@ -1121,7 +1121,7 @@ the for loop to reflect how many mills you have in your project area.
 This creates an account called “route.total.build” that can be used
 later to limit the length of new road built in each period (see step 6).</p>
 <div class="float">
-<img src="C:/Data/temp/p11.png" alt="use_routes" />
+<img src="p11.png" alt="use_routes" />
 <div class="figcaption"><small><strong>use_routes</strong></small></div>
 </div>
 <p>Once the pin file is complete, try loading your model! Work through any
@@ -1132,7 +1132,7 @@ blocks that have a THLB area. Check that the warning indicates “(0
 managed)”, it is a problem if there are managed blocks that are not
 connected.</p>
 <div class="float">
-<img src="C:/Data/temp/p12.png" alt="warning" />
+<img src="p12.png" alt="warning" />
 <div class="figcaption"><small><strong>warning</strong></small></div>
 </div>
 </div>
@@ -1153,7 +1153,7 @@ used in your project, you may have to update some lines in this file
 (e.g. number of mills, location of the roads/mills shapefile, the name
 of your volume variable). There are more details on each check below.</p>
 <div class="float">
-<img src="C:/Data/temp/p13.png" alt="beanshell" />
+<img src="p13.png" alt="beanshell" />
 <div class="figcaption"><small><strong>beanshell</strong></small></div>
 </div>
 <div id="every-managed-block-is-joined-to-a-vertex" class="section level6 hasAnchor" number="14.3.3.4.0.1">
@@ -1221,7 +1221,7 @@ mill 1 (red dot) is highlighted from the harvest block (in pink on the
 right-hand side). It is a good idea to do a few of these spot checks
 from around the land base.</p>
 <div class="float">
-<img src="C:/Data/temp/p14.png" alt="least cost path" />
+<img src="p14.png" alt="least cost path" />
 <div class="figcaption"><small><strong>least cost path</strong></small></div>
 </div>
 </div>
@@ -1235,7 +1235,7 @@ the network table. Go to View -&gt; Show ‘Network’ table. Use the
 status. If it is correct, the total BUILD should be 0 in the ‘ext’
 category.</p>
 <div class="float">
-<img src="C:/Data/temp/p15.png" alt="summarise values" />
+<img src="p15.png" alt="summarise values" />
 <div class="figcaption"><small><strong>summarise values</strong></small></div>
 </div>
 </div>
@@ -1243,7 +1243,7 @@ category.</p>
 <h4><span class="header-section-number">14.3.3.6</span> Check that all volume harvested flows to a mill<a href="forest-road-networks-using-graph-theory.html#check-that-all-volume-harvested-flows-to-a-mill" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>We want to check that all the volume that is harvested is going to a mill (i.e. that the totals line up without a deficit or surplus). To do this either put in a dummy harvest volume target and let the scheduler run for a minute, or load a previously saved scenario – so that there is a substantial volume being harvested. Then check that the product.Yield account (or whatever it is called in your model) matches with the destination.mill.total account. Any lower and you are missing some connection in the road model and any more and you may have duplicates.</p>
 <div class="float">
-<img src="C:/Data/temp/p16.png" alt="harvest flows" />
+<img src="p16.png" alt="harvest flows" />
 <div class="figcaption"><small><strong>harvest flows</strong></small></div>
 </div>
 </div>
@@ -1252,7 +1252,7 @@ category.</p>
 <p>The last step is to carry out some sensitivity analyses to explore how limiting road length built affects harvest level and patterns. This will likely take more than one sensitivity.
 In the scenarioSet.bsh, set up a new scenario to run and add a limit to how much new road can be built per period using something like the following code (which would be saved in the targetDescription.bsh. In this example, the first argument passed is the ‘maximum length of road to be built per period’ and the second argument is the weighting. In order for it to be adhered to in the model, make sure the weighting is above product.Yield in the performance table.</p>
 <div class="float">
-<img src="C:/Data/temp/p17.png" alt="road limits" />
+<img src="p17.png" alt="road limits" />
 <div class="figcaption"><small><strong>road limits</strong></small></div>
 </div>
 <p>A common question might be what number to use for the road building limit, and while this is project specific, there are a few sources of potential information:
@@ -1263,7 +1263,7 @@ In the scenarioSet.bsh, set up a new scenario to run and add a limit to how much
 We want the road building limit to reflect realistic harvest patterns while not being unrealistically/overly restrictive on the harvest level, so it may take a few iterations to find an acceptable balance in the model.</p>
 <p>You can use the ‘Comparison reports’ functionality to compare between scenarios. We would expect that without a road building limit, the harvest pattern is more scattered with regards to distance from road and road building would spike in the first period. With a road building limit, this should be more controlled, as shown in the comparison report below.</p>
 <div class="float">
-<img src="C:/Data/temp/p18.png" alt="comparison reports" />
+<img src="p18.png" alt="comparison reports" />
 <div class="figcaption"><small><strong>comparison reports</strong></small></div>
 </div>
 
