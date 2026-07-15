@@ -333,12 +333,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="14" data-path="forest-road-networks-using-graph-theory.html"><a href="forest-road-networks-using-graph-theory.html"><i class="fa fa-check"></i><b>14</b> Forest Road Networks using Graph Theory</a>
 <ul>
 <li class="chapter" data-level="14.1" data-path="forest-road-networks-using-graph-theory.html"><a href="forest-road-networks-using-graph-theory.html#introduction-13"><i class="fa fa-check"></i><b>14.1</b> Introduction</a></li>
-<li class="chapter" data-level="14.2" data-path="forest-road-networks-using-graph-theory.html"><a href="forest-road-networks-using-graph-theory.html#creating-a-road-network-using-graph-theory"><i class="fa fa-check"></i><b>14.2</b> Creating a road network using graph theory</a></li>
-<li class="chapter" data-level="14.3" data-path="forest-road-networks-using-graph-theory.html"><a href="forest-road-networks-using-graph-theory.html#creating-a-connected-road-network-for-forest-estate-modelling"><i class="fa fa-check"></i><b>14.3</b> Creating a connected road network for forest estate modelling</a>
+<li class="chapter" data-level="14.2" data-path="forest-road-networks-using-graph-theory.html"><a href="forest-road-networks-using-graph-theory.html#creating-a-road-network-using-graph-theory"><i class="fa fa-check"></i><b>14.2</b> Creating a road network using graph theory</a>
 <ul>
-<li class="chapter" data-level="14.3.1" data-path="forest-road-networks-using-graph-theory.html"><a href="forest-road-networks-using-graph-theory.html#creating-a-simplified-network-in-r"><i class="fa fa-check"></i><b>14.3.1</b> Creating a simplified network in R</a></li>
-<li class="chapter" data-level="14.3.2" data-path="forest-road-networks-using-graph-theory.html"><a href="forest-road-networks-using-graph-theory.html#creating-future-roads"><i class="fa fa-check"></i><b>14.3.2</b> Creating Future Roads</a></li>
-<li class="chapter" data-level="14.3.3" data-path="forest-road-networks-using-graph-theory.html"><a href="forest-road-networks-using-graph-theory.html#create-patchworks-ready-road-network"><i class="fa fa-check"></i><b>14.3.3</b> Create Patchworks-Ready Road Network</a></li>
+<li class="chapter" data-level="14.2.1" data-path="forest-road-networks-using-graph-theory.html"><a href="forest-road-networks-using-graph-theory.html#creating-a-simplified-network-in-r"><i class="fa fa-check"></i><b>14.2.1</b> Creating a simplified network in R</a></li>
+<li class="chapter" data-level="14.2.2" data-path="forest-road-networks-using-graph-theory.html"><a href="forest-road-networks-using-graph-theory.html#creating-future-roads"><i class="fa fa-check"></i><b>14.2.2</b> Creating Future Roads</a></li>
+<li class="chapter" data-level="14.2.3" data-path="forest-road-networks-using-graph-theory.html"><a href="forest-road-networks-using-graph-theory.html#create-patchworks-ready-road-network"><i class="fa fa-check"></i><b>14.2.3</b> Create Patchworks-Ready Road Network</a></li>
 </ul></li>
 </ul></li>
 </ul>
@@ -370,19 +369,15 @@ construction, maintenance, and use can affect water quantity and quality
 by altering drainage patterns and providing sedimentation inputs into
 waterways. Many values are affected by the density, placement, traffic
 level, and permanency of the road network. It is therefore critical that
-models incorporate road networks that are generated through a robust,
+forest estate models incorporate road networks that are generated through a robust,
 consistent, and transparent methodology.</p>
 </div>
 <div id="creating-a-road-network-using-graph-theory" class="section level2 hasAnchor" number="14.2">
 <h2><span class="header-section-number">14.2</span> Creating a road network using graph theory<a href="forest-road-networks-using-graph-theory.html#creating-a-road-network-using-graph-theory" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Creating a connected road network using <a href="https://en.wikipedia.org/wiki/Graph_theory">graph theory</a> involves representing the transportation system as a set of nodes and edges. Nodes typically represent road intersections, junctions, or destinations, while edges represent the road segments connecting them. This abstraction transforms a physical road network into a mathematical graph that can be analyzed efficiently. By treating roads as graph components, researchers and planners can evaluate connectivity, identify critical links, and model traffic movement across a landscape.</p>
-<p>The first step in building a connected road network is defining how nodes and edges will be generated from spatial data. Road centerlines are converted into edges, and intersections are converted into nodes where roads meet. Attributes such as road length, travel time, speed limits, or construction costs can be stored as edge weights. These weights allow the graph to capture not only physical connectivity but also the relative difficulty or cost of traversing different routes. Geographic Information Systems (GIS) and network analysis tools are commonly used to create these graph representations from road datasets.</p>
+<p>Creating a connected road network using <a href="https://en.wikipedia.org/wiki/Graph_theory">graph theory</a> involves representing the transportation system as a set of nodes and edges. Nodes typically represent road intersections, junctions, or destinations, while edges represent the road segments connecting them. This abstraction transforms a physical road network into a mathematical graph that can be analyzed efficiently. By treating roads as graph components, modellers and planners can evaluate connectivity, identify critical links, and model traffic movement across a landscape.</p>
+<p>The first step in building a connected road network is defining how nodes and edges will be generated from spatial data. Road centerlines are converted into edges, and intersections are converted into nodes where roads meet. Attributes such as road length, travel time, speed limits, or construction costs can be stored as edge weights. These weights allow the graph to capture not only physical connectivity but also the relative difficulty or cost of traversing different routes. GIS and network analysis tools are commonly used to create these graph representations from road datasets.</p>
 <p>Ensuring network connectivity is a critical objective during graph construction. A connected graph is one in which every node can be reached from every other node through at least one path. Connectivity can be evaluated using graph metrics such as connected components, network density, average path length, and node degree. When disconnected components are identified, additional links can be added strategically to improve accessibility and reduce isolation. This process is particularly important in rural areas, emergency evacuation planning, and infrastructure development where uninterrupted travel is essential.</p>
-<p>Once a connected graph has been established, network algorithms can be applied to analyze and optimize road performance. Shortest-path algorithms such as Dijkstra’s or A* can identify efficient travel routes between locations, while centrality measures can highlight roads or intersections that are critical for maintaining network function. Graph-based analyses can also reveal bottlenecks, areas vulnerable to disruption, and opportunities for improving transportation efficiency through new road connections or upgrades.</p>
-<p>Graph-based road networks provide a powerful framework for transportation planning, landscape connectivity studies, and infrastructure management. By combining spatial data with graph theory, analysts can quantify connectivity, simulate movement patterns, and evaluate alternative development scenarios. The resulting connected network supports informed decision-making by identifying how changes to individual roads influence accessibility and movement across the entire transportation system.</p>
-</div>
-<div id="creating-a-connected-road-network-for-forest-estate-modelling" class="section level2 hasAnchor" number="14.3">
-<h2><span class="header-section-number">14.3</span> Creating a connected road network for forest estate modelling<a href="forest-road-networks-using-graph-theory.html#creating-a-connected-road-network-for-forest-estate-modelling" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Once a connected graph has been established, network algorithms can be applied to analyze and optimize road performance. Shortest-path algorithms such as Dijkstra’s can identify efficient travel routes between locations, while centrality measures can highlight roads or intersections that are critical for maintaining network function. Graph-based analyses can also reveal bottlenecks, areas vulnerable to disruption, and opportunities for improving efficiency through new road connections or upgrades.</p>
 <p>The following describes a process to generate a vector based connected
 road network suitable for a Patchworks forest estate model. The markdown
 describes:</p>
@@ -395,8 +390,8 @@ Forest Road Networks (FRN) plugin in QGIS</li>
 in R</li>
 <li>Implementing the network in a Patchworks model</li>
 </ol>
-<div id="creating-a-simplified-network-in-r" class="section level3 hasAnchor" number="14.3.1">
-<h3><span class="header-section-number">14.3.1</span> Creating a simplified network in R<a href="forest-road-networks-using-graph-theory.html#creating-a-simplified-network-in-r" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="creating-a-simplified-network-in-r" class="section level3 hasAnchor" number="14.2.1">
+<h3><span class="header-section-number">14.2.1</span> Creating a simplified network in R<a href="forest-road-networks-using-graph-theory.html#creating-a-simplified-network-in-r" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>The following code chunk creates a vector connected road network using
 the <a href="https://luukvdmeer.github.io/sfnetworks/">sfnetworks</a> package.</p>
 <p>The sfnetworks package in R is designed for working with spatial
@@ -410,7 +405,7 @@ a geographic context.</p>
 <li><p>Spatial Network Representation: The package allows you to convert
 spatial objects (like sf line features) into networks, treating each
 geographic element as either a node (point) or an edge (line). This
-helps in modelling transport networks, utility networks, and any
+helps in modelling forest road networks, utility networks, and any
 scenario where geographical connections are important.</p></li>
 <li><p>Conversion to Network Format: It seamlessly converts sf objects to a
 tidygraph-based network structure, enabling the use of tidyverse and
@@ -420,8 +415,8 @@ intersections, stations) and edges represent the connecting lines
 (e.g., roads, paths).</p></li>
 <li><p>Network Analysis: Once converted into a graph, users can analyze
 network properties such as node centrality (degree, betweenness,
-closeness), community detection, shortest path, and more. This is
-essential for tasks like identifying critical infrastructure,
+closeness), flow detection, shortest path, and more. This is
+essential for tasks like identifying paths to mills,
 assessing connectivity, or finding optimal routes.</p></li>
 <li><p>Spatially-Aware Layouts: The package integrates spatial data with
 network analysis tools, allowing for spatially-aware network
@@ -441,16 +436,18 @@ spatial operations.</p></li>
 <p>Using sfnetworks the following code chunk processes and analyzes a road network
 dataset. It begins by reading in road data from a
 geodatabase, cleaning and filtering it to remove irrelevant fields and
-certain road classes. The data is then converted into a line network and
+certain road classes. The data is then converted into a raw line network (sf object based on IntegratedRoads) and
 transformed into an undirected graph using the <code>sfnetworks</code> package.
 After simplifying the network, the script identifies the network’s
-connected components and selects the largest component. Degree
-centrality is calculated for each node in the network to assess the
+connected components and selects the largest component. <strong>Degree centrality</strong> is calculated for each node in the network to assess the
 importance of nodes based on their direct connections, and this is
 visualized using a plot. The average degree of each edge is computed and
 visualized as well. Finally, the network is reclassified, cleaned
 geometrically using QGIS, and saved as a new GeoPackage file for further
 use.</p>
+<div style="font-size: 80%;">
+<p><strong><em>Degree centrality is a fundamental graph theory metric that measures the importance or influence of a node based on the number of direct connections it has to other nodes within a network. In an undirected graph, degree centrality is simply the count of edges connected to a node, whereas in a directed graph it can be separated into in-degree (incoming connections) and out-degree (outgoing connections). Nodes with high degree centrality are often considered highly connected and can play critical roles in facilitating movement, communication, or resource flow throughout the network. In transportation networks, for example, intersections with high degree centrality connect multiple roads and may serve as important hubs for movement. Because it is easy to compute and interpret, degree centrality is widely used to assess local connectivity and identify key nodes in social, ecological, transportation, and communication networks.</em></strong></p>
+</div>
 <div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="forest-road-networks-using-graph-theory.html#cb60-1" tabindex="-1"></a></span>
 <span id="cb60-2"><a href="forest-road-networks-using-graph-theory.html#cb60-2" tabindex="-1"></a><span class="fu">library</span>(sfnetworks)</span>
 <span id="cb60-3"><a href="forest-road-networks-using-graph-theory.html#cb60-3" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
@@ -599,8 +596,8 @@ number of edges and nodes and orphaned segments from the source
 integrated roads. The modelled network linework is later supplemented with future
 roads connecting the modelled network to all portions of the THLB</p>
 </div>
-<div id="creating-future-roads" class="section level3 hasAnchor" number="14.3.2">
-<h3><span class="header-section-number">14.3.2</span> Creating Future Roads<a href="forest-road-networks-using-graph-theory.html#creating-future-roads" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="creating-future-roads" class="section level3 hasAnchor" number="14.2.2">
+<h3><span class="header-section-number">14.2.2</span> Creating Future Roads<a href="forest-road-networks-using-graph-theory.html#creating-future-roads" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>To create the future road vector linework the process employs the
 <a href="https://github.com/Klemet/ForestRoadNetworkPluginForQGIS">Forest Road
 Network</a>
@@ -725,8 +722,8 @@ for TSA41.</p>
 <div class="figcaption"><small><strong>modelled networks</strong></small></div>
 </div>
 </div>
-<div id="create-patchworks-ready-road-network" class="section level3 hasAnchor" number="14.3.3">
-<h3><span class="header-section-number">14.3.3</span> Create Patchworks-Ready Road Network<a href="forest-road-networks-using-graph-theory.html#create-patchworks-ready-road-network" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="create-patchworks-ready-road-network" class="section level3 hasAnchor" number="14.2.3">
+<h3><span class="header-section-number">14.2.3</span> Create Patchworks-Ready Road Network<a href="forest-road-networks-using-graph-theory.html#create-patchworks-ready-road-network" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>The following code chunk processes the forest road network (FRN) output
 derived from QGIS and combines it with the existing simplified connected
 network to create a unified, classified network for Patchworks. First,
@@ -965,8 +962,8 @@ GeoPackage for Patchworks deployment</p>
 <span id="cb62-204"><a href="forest-road-networks-using-graph-theory.html#cb62-204" tabindex="-1"></a></span>
 <span id="cb62-205"><a href="forest-road-networks-using-graph-theory.html#cb62-205" tabindex="-1"></a><span class="fu">table</span>(p_view<span class="sc">$</span>class)</span>
 <span id="cb62-206"><a href="forest-road-networks-using-graph-theory.html#cb62-206" tabindex="-1"></a><span class="fu">st_write</span>(p_view,<span class="st">&quot;.</span><span class="sc">\\</span><span class="st">data</span><span class="sc">\\</span><span class="st">WL</span><span class="sc">\\</span><span class="st">tsa41_total_network_class_simp10_dens100_reclass.gpkg&quot;</span>)</span></code></pre></div>
-<div id="implement-in-patchworks" class="section level4 hasAnchor" number="14.3.3.1">
-<h4><span class="header-section-number">14.3.3.1</span> Implement in Patchworks<a href="forest-road-networks-using-graph-theory.html#implement-in-patchworks" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div id="implement-in-patchworks" class="section level4 hasAnchor" number="14.2.3.1">
+<h4><span class="header-section-number">14.2.3.1</span> Implement in Patchworks<a href="forest-road-networks-using-graph-theory.html#implement-in-patchworks" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>This basic road set-up in Patchworks will allow the model to track (and
 control) the length of new roads built each period. This is often
 incorporated into models in order to produce a block pattern that
@@ -1003,8 +1000,8 @@ for connectivity etc. and</li>
 <li>Add sensitivities to explore how limiting road length built affects
 harvest level and patterns.</li>
 </ol>
-<div id="step-2-run-the-build-road-segments-tool" class="section level5 hasAnchor" number="14.3.3.1.1">
-<h5><span class="header-section-number">14.3.3.1.1</span> Step 2: Run the ‘Build Road Segments’ tool<a href="forest-road-networks-using-graph-theory.html#step-2-run-the-build-road-segments-tool" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<div id="step-2-run-the-build-road-segments-tool" class="section level5 hasAnchor" number="14.2.3.1.1">
+<h5><span class="header-section-number">14.2.3.1.1</span> Step 2: Run the ‘Build Road Segments’ tool<a href="forest-road-networks-using-graph-theory.html#step-2-run-the-build-road-segments-tool" class="anchor-section" aria-label="Anchor link to header"></a></h5>
 <p>This step creates the files needed for the road model in Patchworks.</p>
 <p>From the Application launcher, double click on the ‘Build Road Segments’
 application.</p>
@@ -1063,8 +1060,8 @@ be a road nearby.</p>
 </div>
 </div>
 </div>
-<div id="step-3-run-2_filter_linkages.r" class="section level4 hasAnchor" number="14.3.3.2">
-<h4><span class="header-section-number">14.3.3.2</span> Step 3: Run ‘2_filter_linkages.R’<a href="forest-road-networks-using-graph-theory.html#step-3-run-2_filter_linkages.r" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div id="step-3-run-2_filter_linkages.r" class="section level4 hasAnchor" number="14.2.3.2">
+<h4><span class="header-section-number">14.2.3.2</span> Step 3: Run ‘2_filter_linkages.R’<a href="forest-road-networks-using-graph-theory.html#step-3-run-2_filter_linkages.r" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>The linkages file lists which vertex (end of road segment) each block is
 linked to. This code updates the linkage file to only join stands with
 THLB to roads. For large models, this saves on model size, memory needs,
@@ -1088,8 +1085,8 @@ and run speed. It will create a file called ‘linkages_thlb.csv’.</p>
 <span id="cb63-17"><a href="forest-road-networks-using-graph-theory.html#cb63-17" tabindex="-1"></a><span class="co"># print out the filtered linkages file</span></span>
 <span id="cb63-18"><a href="forest-road-networks-using-graph-theory.html#cb63-18" tabindex="-1"></a><span class="fu">write.csv</span>(link2, <span class="at">file=</span><span class="st">&quot;linkages_thlb.csv&quot;</span>, <span class="at">row.names=</span><span class="cn">FALSE</span>)</span></code></pre></div>
 </div>
-<div id="step-4-update-the-pin-file" class="section level4 hasAnchor" number="14.3.3.3">
-<h4><span class="header-section-number">14.3.3.3</span> Step 4: Update the pin file<a href="forest-road-networks-using-graph-theory.html#step-4-update-the-pin-file" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div id="step-4-update-the-pin-file" class="section level4 hasAnchor" number="14.2.3.3">
+<h4><span class="header-section-number">14.2.3.3</span> Step 4: Update the pin file<a href="forest-road-networks-using-graph-theory.html#step-4-update-the-pin-file" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Update the pin file to include the lines necessary to incorporate the
 new road network. There is code to add/confirm in 3 places in the pin
 file.</p>
@@ -1136,8 +1133,8 @@ connected.</p>
 <div class="figcaption"><small><strong>warning</strong></small></div>
 </div>
 </div>
-<div id="step-5-qa-the-road-model" class="section level4 hasAnchor" number="14.3.3.4">
-<h4><span class="header-section-number">14.3.3.4</span> Step 5: QA the road model<a href="forest-road-networks-using-graph-theory.html#step-5-qa-the-road-model" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div id="step-5-qa-the-road-model" class="section level4 hasAnchor" number="14.2.3.4">
+<h4><span class="header-section-number">14.2.3.4</span> Step 5: QA the road model<a href="forest-road-networks-using-graph-theory.html#step-5-qa-the-road-model" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>There are a number of things that we need to check to make sure that the
 network model is working properly: • Every managed block is joined to a
 vertex (blocks connected to roads), • Every road is connected to a mill
@@ -1156,8 +1153,8 @@ of your volume variable). There are more details on each check below.</p>
 <img src="p13.png" alt="beanshell" />
 <div class="figcaption"><small><strong>beanshell</strong></small></div>
 </div>
-<div id="every-managed-block-is-joined-to-a-vertex" class="section level6 hasAnchor" number="14.3.3.4.0.1">
-<h6><span class="header-section-number">14.3.3.4.0.1</span> Every managed block is joined to a vertex<a href="forest-road-networks-using-graph-theory.html#every-managed-block-is-joined-to-a-vertex" class="anchor-section" aria-label="Anchor link to header"></a></h6>
+<div id="every-managed-block-is-joined-to-a-vertex" class="section level6 hasAnchor" number="14.2.3.4.0.1">
+<h6><span class="header-section-number">14.2.3.4.0.1</span> Every managed block is joined to a vertex<a href="forest-road-networks-using-graph-theory.html#every-managed-block-is-joined-to-a-vertex" class="anchor-section" aria-label="Anchor link to header"></a></h6>
 <p>The map titled “Check 1: is the block joined to a vertex?” creates a map
 that will show you if there are any unconnected blocks. All blocks with
 a THLB should show as connected and all blocks with no THLB should be
@@ -1176,8 +1173,8 @@ each block to find the nearest road. If it is just a few scattered
 managed blocks that are not joined, then this is a good option. The
 default at this time is 10,000m (or 10km).</p>
 </div>
-<div id="every-road-is-connected-to-a-mill" class="section level5 hasAnchor" number="14.3.3.4.1">
-<h5><span class="header-section-number">14.3.3.4.1</span> Every road is connected to a mill<a href="forest-road-networks-using-graph-theory.html#every-road-is-connected-to-a-mill" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<div id="every-road-is-connected-to-a-mill" class="section level5 hasAnchor" number="14.2.3.4.1">
+<h5><span class="header-section-number">14.2.3.4.1</span> Every road is connected to a mill<a href="forest-road-networks-using-graph-theory.html#every-road-is-connected-to-a-mill" class="anchor-section" aria-label="Anchor link to header"></a></h5>
 <p>The map titled “Check 2: roads connected to mill 1” creates a map that
 will show you if there are any unconnected roads. Note that this example
 just checks the connection to mill 1 because the assumption is that the
@@ -1191,8 +1188,8 @@ to largest or query where ‘DISTANCE &lt;= 0’ to highlight any unconnected
 roads. If there are chunks of the road network that are unconnected, you
 will need to go back to the source shapefile and fix the connectivity.</p>
 </div>
-<div id="every-managed-block-is-connected-to-a-mill" class="section level5 hasAnchor" number="14.3.3.4.2">
-<h5><span class="header-section-number">14.3.3.4.2</span> Every managed block is connected to a mill<a href="forest-road-networks-using-graph-theory.html#every-managed-block-is-connected-to-a-mill" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<div id="every-managed-block-is-connected-to-a-mill" class="section level5 hasAnchor" number="14.2.3.4.2">
+<h5><span class="header-section-number">14.2.3.4.2</span> Every managed block is connected to a mill<a href="forest-road-networks-using-graph-theory.html#every-managed-block-is-connected-to-a-mill" class="anchor-section" aria-label="Anchor link to header"></a></h5>
 <p>This is a combination of the above two checks and make sure volume from
 each managed stand can be sent to a mill. As with the one above, we have
 focused on mill 1, but you could duplicate this piece of code for each
@@ -1205,8 +1202,8 @@ because we set haul cost = 1 in “1_add_fields.R”. If there are managed
 blocks that are not connected to a mill, use the maps to identify why
 and refer to the fixes listed in the previous two steps.</p>
 </div>
-<div id="volumes-are-flowing-through-the-network" class="section level5 hasAnchor" number="14.3.3.4.3">
-<h5><span class="header-section-number">14.3.3.4.3</span> Volumes are flowing through the network<a href="forest-road-networks-using-graph-theory.html#volumes-are-flowing-through-the-network" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<div id="volumes-are-flowing-through-the-network" class="section level5 hasAnchor" number="14.2.3.4.3">
+<h5><span class="header-section-number">14.2.3.4.3</span> Volumes are flowing through the network<a href="forest-road-networks-using-graph-theory.html#volumes-are-flowing-through-the-network" class="anchor-section" aria-label="Anchor link to header"></a></h5>
 <p>We use a few spot checks to visually confirm that harvest volume is
 flowing through the network from a stand to mill. The map titled “Check
 4: Volume flow to mill 1” creates a map that will show the route the
@@ -1226,8 +1223,8 @@ from around the land base.</p>
 </div>
 </div>
 </div>
-<div id="check-build-costs" class="section level4 hasAnchor" number="14.3.3.5">
-<h4><span class="header-section-number">14.3.3.5</span> Check build costs<a href="forest-road-networks-using-graph-theory.html#check-build-costs" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div id="check-build-costs" class="section level4 hasAnchor" number="14.2.3.5">
+<h4><span class="header-section-number">14.2.3.5</span> Check build costs<a href="forest-road-networks-using-graph-theory.html#check-build-costs" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>We want to double-check that the build cost is 0 for existing roads and
 &gt; 0 for future roads in Patchworks. This can be done via a summary of
 the network table. Go to View -&gt; Show ‘Network’ table. Use the
@@ -1239,16 +1236,16 @@ category.</p>
 <div class="figcaption"><small><strong>summarise values</strong></small></div>
 </div>
 </div>
-<div id="check-that-all-volume-harvested-flows-to-a-mill" class="section level4 hasAnchor" number="14.3.3.6">
-<h4><span class="header-section-number">14.3.3.6</span> Check that all volume harvested flows to a mill<a href="forest-road-networks-using-graph-theory.html#check-that-all-volume-harvested-flows-to-a-mill" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div id="check-that-all-volume-harvested-flows-to-a-mill" class="section level4 hasAnchor" number="14.2.3.6">
+<h4><span class="header-section-number">14.2.3.6</span> Check that all volume harvested flows to a mill<a href="forest-road-networks-using-graph-theory.html#check-that-all-volume-harvested-flows-to-a-mill" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>We want to check that all the volume that is harvested is going to a mill (i.e. that the totals line up without a deficit or surplus). To do this either put in a dummy harvest volume target and let the scheduler run for a minute, or load a previously saved scenario – so that there is a substantial volume being harvested. Then check that the product.Yield account (or whatever it is called in your model) matches with the destination.mill.total account. Any lower and you are missing some connection in the road model and any more and you may have duplicates.</p>
 <div class="float">
 <img src="p16.png" alt="harvest flows" />
 <div class="figcaption"><small><strong>harvest flows</strong></small></div>
 </div>
 </div>
-<div id="step-6-limit-road-build-length" class="section level4 hasAnchor" number="14.3.3.7">
-<h4><span class="header-section-number">14.3.3.7</span> Step 6: Limit road build length<a href="forest-road-networks-using-graph-theory.html#step-6-limit-road-build-length" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div id="step-6-limit-road-build-length" class="section level4 hasAnchor" number="14.2.3.7">
+<h4><span class="header-section-number">14.2.3.7</span> Step 6: Limit road build length<a href="forest-road-networks-using-graph-theory.html#step-6-limit-road-build-length" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>The last step is to carry out some sensitivity analyses to explore how limiting road length built affects harvest level and patterns. This will likely take more than one sensitivity.
 In the scenarioSet.bsh, set up a new scenario to run and add a limit to how much new road can be built per period using something like the following code (which would be saved in the targetDescription.bsh. In this example, the first argument passed is the ‘maximum length of road to be built per period’ and the second argument is the weighting. In order for it to be adhered to in the model, make sure the weighting is above product.Yield in the performance table.</p>
 <div class="float">
