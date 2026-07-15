@@ -145,3 +145,10 @@ roads
 user-interaction
 software-availability-and-licensing
 conclusion
+introduction-to-geostatistics
+introduction-12
+geostatistical-modelling
+machine-learning
+area-of-applicability
+measures-of-model-reliability
+summary-5
