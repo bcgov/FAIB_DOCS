@@ -1,0 +1,996 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>2 Simple Linear Programming | Modelling Foundations</title>
+  <meta name="description" content="2 Simple Linear Programming | Modelling Foundations" />
+  <meta name="generator" content="bookdown 0.40 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="2 Simple Linear Programming | Modelling Foundations" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="2 Simple Linear Programming | Modelling Foundations" />
+  
+  
+  
+
+<meta name="author" content="A collaborative effort between a Human (Kelly Izzard) and AI" />
+
+
+<meta name="date" content="2026-07-15" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="index.html"/>
+<link rel="next" href="simulated-annealing-and-the-sudoku-solver.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<link href="libs/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet" />
+<script src="libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+<script src="libs/plotly-binding-4.10.4/plotly.js"></script>
+<script src="libs/typedarray-0.1/typedarray.min.js"></script>
+<link href="libs/crosstalk-1.2.1/css/crosstalk.min.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.2.1/js/crosstalk.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-2.11.1/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-2.11.1/plotly-latest.min.js"></script>
+
+
+<style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#models-and-modellers"><i class="fa fa-check"></i><b>1.1</b> Models and Modellers</a>
+<ul>
+<li class="chapter" data-level="1.1.1" data-path="index.html"><a href="index.html#what-is-a-model"><i class="fa fa-check"></i><b>1.1.1</b> What is a Model</a></li>
+<li class="chapter" data-level="1.1.2" data-path="index.html"><a href="index.html#classification-of-models"><i class="fa fa-check"></i><b>1.1.2</b> Classification of Models</a></li>
+<li class="chapter" data-level="1.1.3" data-path="index.html"><a href="index.html#building-a-model-defining-the-problem-and-its-considerations"><i class="fa fa-check"></i><b>1.1.3</b> Building a Model (Defining the Problem and it’s Considerations)</a></li>
+<li class="chapter" data-level="1.1.4" data-path="index.html"><a href="index.html#the-modellers-creed"><i class="fa fa-check"></i><b>1.1.4</b> The Modeller’s creed</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="simple-linear-programming.html"><a href="simple-linear-programming.html"><i class="fa fa-check"></i><b>2</b> Simple Linear Programming</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="simple-linear-programming.html"><a href="simple-linear-programming.html#introduction-1"><i class="fa fa-check"></i><b>2.1</b> Introduction</a></li>
+<li class="chapter" data-level="2.2" data-path="simple-linear-programming.html"><a href="simple-linear-programming.html#the-simplex-method"><i class="fa fa-check"></i><b>2.2</b> The Simplex Method</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="simple-linear-programming.html"><a href="simple-linear-programming.html#results"><i class="fa fa-check"></i><b>2.2.1</b> Results</a></li>
+<li class="chapter" data-level="2.2.2" data-path="simple-linear-programming.html"><a href="simple-linear-programming.html#the-feasible-solution-space"><i class="fa fa-check"></i><b>2.2.2</b> The Feasible Solution Space</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="simple-linear-programming.html"><a href="simple-linear-programming.html#summary"><i class="fa fa-check"></i><b>2.3</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="simulated-annealing-and-the-sudoku-solver.html"><a href="simulated-annealing-and-the-sudoku-solver.html"><i class="fa fa-check"></i><b>3</b> Simulated Annealing and the Sudoku Solver</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="simulated-annealing-and-the-sudoku-solver.html"><a href="simulated-annealing-and-the-sudoku-solver.html#introduction-2"><i class="fa fa-check"></i><b>3.1</b> Introduction</a></li>
+<li class="chapter" data-level="3.2" data-path="simulated-annealing-and-the-sudoku-solver.html"><a href="simulated-annealing-and-the-sudoku-solver.html#simple-model"><i class="fa fa-check"></i><b>3.2</b> Simple Model</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="simulated-annealing-and-the-sudoku-solver.html"><a href="simulated-annealing-and-the-sudoku-solver.html#plot-objective-value"><i class="fa fa-check"></i><b>3.2.1</b> Plot objective value</a></li>
+<li class="chapter" data-level="3.2.2" data-path="simulated-annealing-and-the-sudoku-solver.html"><a href="simulated-annealing-and-the-sudoku-solver.html#plot-search-trajectory"><i class="fa fa-check"></i><b>3.2.2</b> Plot search trajectory</a></li>
+<li class="chapter" data-level="3.2.3" data-path="simulated-annealing-and-the-sudoku-solver.html"><a href="simulated-annealing-and-the-sudoku-solver.html#plot-objective-function-with-optimization-path"><i class="fa fa-check"></i><b>3.2.3</b> Plot objective function with optimization path</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="simulated-annealing-and-the-sudoku-solver.html"><a href="simulated-annealing-and-the-sudoku-solver.html#sudoku-solver"><i class="fa fa-check"></i><b>3.3</b> Sudoku Solver</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="simulated-annealing-and-the-sudoku-solver.html"><a href="simulated-annealing-and-the-sudoku-solver.html#code-notes"><i class="fa fa-check"></i><b>3.3.1</b> Code Notes:</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="simulated-annealing-and-the-sudoku-solver.html"><a href="simulated-annealing-and-the-sudoku-solver.html#simulated-annealing-solver"><i class="fa fa-check"></i><b>3.4</b> Simulated Annealing Solver</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="simulated-annealing-and-the-sudoku-solver.html"><a href="simulated-annealing-and-the-sudoku-solver.html#code-notes-1"><i class="fa fa-check"></i><b>3.4.1</b> Code Notes:</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="simulated-annealing-and-the-sudoku-solver.html"><a href="simulated-annealing-and-the-sudoku-solver.html#d-plot-of-sudoku-loss-landscape"><i class="fa fa-check"></i><b>3.5</b> 3D plot of Sudoku loss landscape</a>
+<ul>
+<li class="chapter" data-level="3.5.1" data-path="simulated-annealing-and-the-sudoku-solver.html"><a href="simulated-annealing-and-the-sudoku-solver.html#why-use-pca"><i class="fa fa-check"></i><b>3.5.1</b> Why use PCA</a></li>
+<li class="chapter" data-level="3.5.2" data-path="simulated-annealing-and-the-sudoku-solver.html"><a href="simulated-annealing-and-the-sudoku-solver.html#interpretation"><i class="fa fa-check"></i><b>3.5.2</b> Interpretation</a></li>
+<li class="chapter" data-level="3.5.3" data-path="simulated-annealing-and-the-sudoku-solver.html"><a href="simulated-annealing-and-the-sudoku-solver.html#constraint-decomposition-and-the-sudoku-solver"><i class="fa fa-check"></i><b>3.5.3</b> Constraint Decomposition and the Sudoku Solver</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="simple-goal-programming-with-sann.html"><a href="simple-goal-programming-with-sann.html"><i class="fa fa-check"></i><b>4</b> Simple Goal Programming with SANN</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="simple-goal-programming-with-sann.html"><a href="simple-goal-programming-with-sann.html#introduction-3"><i class="fa fa-check"></i><b>4.1</b> Introduction</a></li>
+<li class="chapter" data-level="4.2" data-path="simple-goal-programming-with-sann.html"><a href="simple-goal-programming-with-sann.html#a-simple-goal-programming-model"><i class="fa fa-check"></i><b>4.2</b> A Simple Goal Programming Model</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="simple-goal-programming-with-sann.html"><a href="simple-goal-programming-with-sann.html#the-objective-function"><i class="fa fa-check"></i><b>4.2.1</b> The Objective Function</a></li>
+<li class="chapter" data-level="4.2.2" data-path="simple-goal-programming-with-sann.html"><a href="simple-goal-programming-with-sann.html#code-notes-2"><i class="fa fa-check"></i><b>4.2.2</b> Code Notes:</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="simple-goal-programming-with-sann.html"><a href="simple-goal-programming-with-sann.html#the-sann-optimization"><i class="fa fa-check"></i><b>4.3</b> The SANN Optimization</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="simple-goal-programming-with-sann.html"><a href="simple-goal-programming-with-sann.html#code-notes-3"><i class="fa fa-check"></i><b>4.3.1</b> Code Notes:</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="simple-goal-programming-with-sann.html"><a href="simple-goal-programming-with-sann.html#the-results"><i class="fa fa-check"></i><b>4.4</b> The Results</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="markov-chain-with-goal-programming.html"><a href="markov-chain-with-goal-programming.html"><i class="fa fa-check"></i><b>5</b> Markov Chain with Goal Programming</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="markov-chain-with-goal-programming.html"><a href="markov-chain-with-goal-programming.html#introduction-4"><i class="fa fa-check"></i><b>5.1</b> Introduction</a></li>
+<li class="chapter" data-level="5.2" data-path="markov-chain-with-goal-programming.html"><a href="markov-chain-with-goal-programming.html#markov-chain-and-goal-programming"><i class="fa fa-check"></i><b>5.2</b> Markov Chain and Goal Programming</a></li>
+<li class="chapter" data-level="5.3" data-path="markov-chain-with-goal-programming.html"><a href="markov-chain-with-goal-programming.html#the-markov-chain-transition-probability-matrix"><i class="fa fa-check"></i><b>5.3</b> The Markov Chain Transition Probability Matrix</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="markov-chain-with-goal-programming.html"><a href="markov-chain-with-goal-programming.html#code-notes-4"><i class="fa fa-check"></i><b>5.3.1</b> Code Notes:</a></li>
+<li class="chapter" data-level="5.3.2" data-path="markov-chain-with-goal-programming.html"><a href="markov-chain-with-goal-programming.html#markov-habitat-function"><i class="fa fa-check"></i><b>5.3.2</b> Markov Habitat Function</a></li>
+<li class="chapter" data-level="5.3.3" data-path="markov-chain-with-goal-programming.html"><a href="markov-chain-with-goal-programming.html#the-objective-function-1"><i class="fa fa-check"></i><b>5.3.3</b> The Objective Function</a></li>
+<li class="chapter" data-level="5.3.4" data-path="markov-chain-with-goal-programming.html"><a href="markov-chain-with-goal-programming.html#the-sann-optimization-and-results"><i class="fa fa-check"></i><b>5.3.4</b> The SANN Optimization and RESULTS</a></li>
+<li class="chapter" data-level="5.3.5" data-path="markov-chain-with-goal-programming.html"><a href="markov-chain-with-goal-programming.html#results-1"><i class="fa fa-check"></i><b>5.3.5</b> Results</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="monte-carlo-markov-chain.html"><a href="monte-carlo-markov-chain.html"><i class="fa fa-check"></i><b>6</b> Monte Carlo Markov Chain</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="monte-carlo-markov-chain.html"><a href="monte-carlo-markov-chain.html#introduction-5"><i class="fa fa-check"></i><b>6.1</b> Introduction</a></li>
+<li class="chapter" data-level="6.2" data-path="monte-carlo-markov-chain.html"><a href="monte-carlo-markov-chain.html#the-monte-carlo-markov-chain"><i class="fa fa-check"></i><b>6.2</b> The Monte Carlo Markov Chain</a></li>
+<li class="chapter" data-level="6.3" data-path="monte-carlo-markov-chain.html"><a href="monte-carlo-markov-chain.html#mcmc-sampling-loop-joint-bulk-and-tail-model"><i class="fa fa-check"></i><b>6.3</b> MCMC Sampling Loop (Joint Bulk and Tail Model)</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="monte-carlo-markov-chain.html"><a href="monte-carlo-markov-chain.html#code-notes-6"><i class="fa fa-check"></i><b>6.3.1</b> Code Notes:</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="monte-carlo-markov-chain.html"><a href="monte-carlo-markov-chain.html#results-2"><i class="fa fa-check"></i><b>6.4</b> Results</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="cellular-automata-and-the-game-of-life.html"><a href="cellular-automata-and-the-game-of-life.html"><i class="fa fa-check"></i><b>7</b> Cellular Automata and the Game of Life</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="cellular-automata-and-the-game-of-life.html"><a href="cellular-automata-and-the-game-of-life.html#introduction-6"><i class="fa fa-check"></i><b>7.1</b> Introduction</a></li>
+<li class="chapter" data-level="7.2" data-path="cellular-automata-and-the-game-of-life.html"><a href="cellular-automata-and-the-game-of-life.html#wolfram"><i class="fa fa-check"></i><b>7.2</b> Wolfram</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="cellular-automata-and-the-game-of-life.html"><a href="cellular-automata-and-the-game-of-life.html#codes-notes"><i class="fa fa-check"></i><b>7.2.1</b> Codes Notes</a></li>
+<li class="chapter" data-level="7.2.2" data-path="cellular-automata-and-the-game-of-life.html"><a href="cellular-automata-and-the-game-of-life.html#class-iii-rule-30"><i class="fa fa-check"></i><b>7.2.2</b> Class III Rule 30</a></li>
+<li class="chapter" data-level="7.2.3" data-path="cellular-automata-and-the-game-of-life.html"><a href="cellular-automata-and-the-game-of-life.html#class-iv-rule-90"><i class="fa fa-check"></i><b>7.2.3</b> Class IV Rule 90</a></li>
+<li class="chapter" data-level="7.2.4" data-path="cellular-automata-and-the-game-of-life.html"><a href="cellular-automata-and-the-game-of-life.html#class-iv-rule-125"><i class="fa fa-check"></i><b>7.2.4</b> Class IV Rule 125</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="cellular-automata-and-the-game-of-life.html"><a href="cellular-automata-and-the-game-of-life.html#the-game-of-life"><i class="fa fa-check"></i><b>7.3</b> The Game of Life</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="cellular-automata-and-the-game-of-life.html"><a href="cellular-automata-and-the-game-of-life.html#code-notes-7"><i class="fa fa-check"></i><b>7.3.1</b> Code Notes</a></li>
+<li class="chapter" data-level="7.3.2" data-path="cellular-automata-and-the-game-of-life.html"><a href="cellular-automata-and-the-game-of-life.html#animate"><i class="fa fa-check"></i><b>7.3.2</b> Animate</a></li>
+<li class="chapter" data-level="7.3.3" data-path="cellular-automata-and-the-game-of-life.html"><a href="cellular-automata-and-the-game-of-life.html#population-trend"><i class="fa fa-check"></i><b>7.3.3</b> Population Trend</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="neutral-landscape-models.html"><a href="neutral-landscape-models.html"><i class="fa fa-check"></i><b>8</b> Neutral Landscape Models</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="neutral-landscape-models.html"><a href="neutral-landscape-models.html#introduction-7"><i class="fa fa-check"></i><b>8.1</b> Introduction</a></li>
+<li class="chapter" data-level="8.2" data-path="neutral-landscape-models.html"><a href="neutral-landscape-models.html#testing-fragmentation-and-connectivity"><i class="fa fa-check"></i><b>8.2</b> Testing fragmentation and connectivity</a></li>
+<li class="chapter" data-level="8.3" data-path="neutral-landscape-models.html"><a href="neutral-landscape-models.html#nlm-results"><i class="fa fa-check"></i><b>8.3</b> NLM Results</a></li>
+<li class="chapter" data-level="8.4" data-path="neutral-landscape-models.html"><a href="neutral-landscape-models.html#introducing-spatial-autocorrolation"><i class="fa fa-check"></i><b>8.4</b> Introducing Spatial Autocorrolation</a></li>
+<li class="chapter" data-level="8.5" data-path="neutral-landscape-models.html"><a href="neutral-landscape-models.html#cluster-results"><i class="fa fa-check"></i><b>8.5</b> Cluster Results</a></li>
+<li class="chapter" data-level="8.6" data-path="neutral-landscape-models.html"><a href="neutral-landscape-models.html#summary-1"><i class="fa fa-check"></i><b>8.6</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="simulation-and-spreading.html"><a href="simulation-and-spreading.html"><i class="fa fa-check"></i><b>9</b> Simulation and Spreading</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="simulation-and-spreading.html"><a href="simulation-and-spreading.html#introduction-8"><i class="fa fa-check"></i><b>9.1</b> Introduction</a></li>
+<li class="chapter" data-level="9.2" data-path="simulation-and-spreading.html"><a href="simulation-and-spreading.html#spreading"><i class="fa fa-check"></i><b>9.2</b> Spreading</a>
+<ul>
+<li class="chapter" data-level="9.2.1" data-path="simulation-and-spreading.html"><a href="simulation-and-spreading.html#simulated-landscapes"><i class="fa fa-check"></i><b>9.2.1</b> Simulated Landscapes</a></li>
+<li class="chapter" data-level="9.2.2" data-path="simulation-and-spreading.html"><a href="simulation-and-spreading.html#spreading-with-a-graph"><i class="fa fa-check"></i><b>9.2.2</b> Spreading with a graph</a></li>
+<li class="chapter" data-level="9.2.3" data-path="simulation-and-spreading.html"><a href="simulation-and-spreading.html#contagion"><i class="fa fa-check"></i><b>9.2.3</b> Contagion</a></li>
+<li class="chapter" data-level="9.2.4" data-path="simulation-and-spreading.html"><a href="simulation-and-spreading.html#monte-carlo-simulation"><i class="fa fa-check"></i><b>9.2.4</b> Monte Carlo Simulation</a></li>
+</ul></li>
+<li class="chapter" data-level="9.3" data-path="simulation-and-spreading.html"><a href="simulation-and-spreading.html#results-3"><i class="fa fa-check"></i><b>9.3</b> Results</a></li>
+<li class="chapter" data-level="9.4" data-path="simulation-and-spreading.html"><a href="simulation-and-spreading.html#summary-2"><i class="fa fa-check"></i><b>9.4</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="spreading-and-the-wildfire-behaviour-framework.html"><a href="spreading-and-the-wildfire-behaviour-framework.html"><i class="fa fa-check"></i><b>10</b> Spreading and the Wildfire Behaviour Framework</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="spreading-and-the-wildfire-behaviour-framework.html"><a href="spreading-and-the-wildfire-behaviour-framework.html#introduction-9"><i class="fa fa-check"></i><b>10.1</b> Introduction</a></li>
+<li class="chapter" data-level="10.2" data-path="spreading-and-the-wildfire-behaviour-framework.html"><a href="spreading-and-the-wildfire-behaviour-framework.html#framework-parameters-and-functions"><i class="fa fa-check"></i><b>10.2</b> Framework Parameters and Functions</a>
+<ul>
+<li class="chapter" data-level="10.2.1" data-path="spreading-and-the-wildfire-behaviour-framework.html"><a href="spreading-and-the-wildfire-behaviour-framework.html#user-parameters"><i class="fa fa-check"></i><b>10.2.1</b> User Parameters</a></li>
+<li class="chapter" data-level="10.2.2" data-path="spreading-and-the-wildfire-behaviour-framework.html"><a href="spreading-and-the-wildfire-behaviour-framework.html#wind-module"><i class="fa fa-check"></i><b>10.2.2</b> Wind Module</a></li>
+<li class="chapter" data-level="10.2.3" data-path="spreading-and-the-wildfire-behaviour-framework.html"><a href="spreading-and-the-wildfire-behaviour-framework.html#fuel-landscape"><i class="fa fa-check"></i><b>10.2.3</b> Fuel Landscape</a></li>
+<li class="chapter" data-level="10.2.4" data-path="spreading-and-the-wildfire-behaviour-framework.html"><a href="spreading-and-the-wildfire-behaviour-framework.html#flammability"><i class="fa fa-check"></i><b>10.2.4</b> Flammability</a></li>
+<li class="chapter" data-level="10.2.5" data-path="spreading-and-the-wildfire-behaviour-framework.html"><a href="spreading-and-the-wildfire-behaviour-framework.html#moisture"><i class="fa fa-check"></i><b>10.2.5</b> Moisture</a></li>
+<li class="chapter" data-level="10.2.6" data-path="spreading-and-the-wildfire-behaviour-framework.html"><a href="spreading-and-the-wildfire-behaviour-framework.html#resistance-is-futile"><i class="fa fa-check"></i><b>10.2.6</b> Resistance (is futile)</a></li>
+<li class="chapter" data-level="10.2.7" data-path="spreading-and-the-wildfire-behaviour-framework.html"><a href="spreading-and-the-wildfire-behaviour-framework.html#ignition"><i class="fa fa-check"></i><b>10.2.7</b> Ignition</a></li>
+<li class="chapter" data-level="10.2.8" data-path="spreading-and-the-wildfire-behaviour-framework.html"><a href="spreading-and-the-wildfire-behaviour-framework.html#surfaces"><i class="fa fa-check"></i><b>10.2.8</b> Surfaces</a></li>
+</ul></li>
+<li class="chapter" data-level="10.3" data-path="spreading-and-the-wildfire-behaviour-framework.html"><a href="spreading-and-the-wildfire-behaviour-framework.html#the-dijkstra-algorithm"><i class="fa fa-check"></i><b>10.3</b> The Dijkstra Algorithm</a></li>
+<li class="chapter" data-level="10.4" data-path="spreading-and-the-wildfire-behaviour-framework.html"><a href="spreading-and-the-wildfire-behaviour-framework.html#metrics"><i class="fa fa-check"></i><b>10.4</b> Metrics</a></li>
+<li class="chapter" data-level="10.5" data-path="spreading-and-the-wildfire-behaviour-framework.html"><a href="spreading-and-the-wildfire-behaviour-framework.html#results-4"><i class="fa fa-check"></i><b>10.5</b> Results</a></li>
+<li class="chapter" data-level="10.6" data-path="spreading-and-the-wildfire-behaviour-framework.html"><a href="spreading-and-the-wildfire-behaviour-framework.html#summary-3"><i class="fa fa-check"></i><b>10.6</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="spatial-data-accuracy-and-precision-in-strategic-modelling.html"><a href="spatial-data-accuracy-and-precision-in-strategic-modelling.html"><i class="fa fa-check"></i><b>11</b> Spatial Data Accuracy and Precision in Strategic Modelling</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="spatial-data-accuracy-and-precision-in-strategic-modelling.html"><a href="spatial-data-accuracy-and-precision-in-strategic-modelling.html#introduction-10"><i class="fa fa-check"></i><b>11.1</b> Introduction</a></li>
+<li class="chapter" data-level="11.2" data-path="spatial-data-accuracy-and-precision-in-strategic-modelling.html"><a href="spatial-data-accuracy-and-precision-in-strategic-modelling.html#precision-and-the-grid"><i class="fa fa-check"></i><b>11.2</b> Precision and the grid</a></li>
+<li class="chapter" data-level="11.3" data-path="spatial-data-accuracy-and-precision-in-strategic-modelling.html"><a href="spatial-data-accuracy-and-precision-in-strategic-modelling.html#the-weakest-link-principle-in-spatial-analysis"><i class="fa fa-check"></i><b>11.3</b> The Weakest Link Principle in Spatial Analysis</a></li>
+<li class="chapter" data-level="11.4" data-path="spatial-data-accuracy-and-precision-in-strategic-modelling.html"><a href="spatial-data-accuracy-and-precision-in-strategic-modelling.html#fitness-for-purpose"><i class="fa fa-check"></i><b>11.4</b> Fitness for Purpose</a>
+<ul>
+<li class="chapter" data-level="11.4.1" data-path="spatial-data-accuracy-and-precision-in-strategic-modelling.html"><a href="spatial-data-accuracy-and-precision-in-strategic-modelling.html#raster-versus-vector-redux"><i class="fa fa-check"></i><b>11.4.1</b> Raster versus Vector Redux</a></li>
+</ul></li>
+<li class="chapter" data-level="11.5" data-path="spatial-data-accuracy-and-precision-in-strategic-modelling.html"><a href="spatial-data-accuracy-and-precision-in-strategic-modelling.html#path-dependency-and-the-illusion-of-precision"><i class="fa fa-check"></i><b>11.5</b> Path Dependency and the Illusion of Precision</a>
+<ul>
+<li class="chapter" data-level="11.5.1" data-path="spatial-data-accuracy-and-precision-in-strategic-modelling.html"><a href="spatial-data-accuracy-and-precision-in-strategic-modelling.html#precision-becomes-a-proxy-for-quality"><i class="fa fa-check"></i><b>11.5.1</b> Precision Becomes a Proxy for Quality</a></li>
+<li class="chapter" data-level="11.5.2" data-path="spatial-data-accuracy-and-precision-in-strategic-modelling.html"><a href="spatial-data-accuracy-and-precision-in-strategic-modelling.html#institutional-investment-reinforces-the-bias"><i class="fa fa-check"></i><b>11.5.2</b> Institutional Investment Reinforces the Bias</a></li>
+<li class="chapter" data-level="11.5.3" data-path="spatial-data-accuracy-and-precision-in-strategic-modelling.html"><a href="spatial-data-accuracy-and-precision-in-strategic-modelling.html#strategic-modelling-changes-the-question"><i class="fa fa-check"></i><b>11.5.3</b> Strategic Modelling Changes the Question</a></li>
+<li class="chapter" data-level="11.5.4" data-path="spatial-data-accuracy-and-precision-in-strategic-modelling.html"><a href="spatial-data-accuracy-and-precision-in-strategic-modelling.html#the-false-equivalence-between-detail-and-insight"><i class="fa fa-check"></i><b>11.5.4</b> The False Equivalence Between Detail and Insight</a></li>
+<li class="chapter" data-level="11.5.5" data-path="spatial-data-accuracy-and-precision-in-strategic-modelling.html"><a href="spatial-data-accuracy-and-precision-in-strategic-modelling.html#a-more-useful-perspective"><i class="fa fa-check"></i><b>11.5.5</b> A More Useful Perspective</a></li>
+</ul></li>
+<li class="chapter" data-level="11.6" data-path="spatial-data-accuracy-and-precision-in-strategic-modelling.html"><a href="spatial-data-accuracy-and-precision-in-strategic-modelling.html#scale-and-uncertainty"><i class="fa fa-check"></i><b>11.6</b> Scale and Uncertainty</a></li>
+<li class="chapter" data-level="11.7" data-path="spatial-data-accuracy-and-precision-in-strategic-modelling.html"><a href="spatial-data-accuracy-and-precision-in-strategic-modelling.html#summary-4"><i class="fa fa-check"></i><b>11.7</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="comparing-and-contrasting-the-patchworks-and-stsm-forest-estate-models.html"><a href="comparing-and-contrasting-the-patchworks-and-stsm-forest-estate-models.html"><i class="fa fa-check"></i><b>12</b> Comparing and Contrasting the Patchworks and STSM Forest Estate Models</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="comparing-and-contrasting-the-patchworks-and-stsm-forest-estate-models.html"><a href="comparing-and-contrasting-the-patchworks-and-stsm-forest-estate-models.html#introduction-11"><i class="fa fa-check"></i><b>12.1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="12.1.1" data-path="comparing-and-contrasting-the-patchworks-and-stsm-forest-estate-models.html"><a href="comparing-and-contrasting-the-patchworks-and-stsm-forest-estate-models.html#modelling-philosophy"><i class="fa fa-check"></i><b>12.1.1</b> Modelling Philosophy</a></li>
+<li class="chapter" data-level="12.1.2" data-path="comparing-and-contrasting-the-patchworks-and-stsm-forest-estate-models.html"><a href="comparing-and-contrasting-the-patchworks-and-stsm-forest-estate-models.html#planning-horizon-perspective-whole-horizon-optimization-versus-step-wise-simulation"><i class="fa fa-check"></i><b>12.1.2</b> Planning Horizon Perspective: Whole-Horizon Optimization versus Step-Wise Simulation</a></li>
+<li class="chapter" data-level="12.1.3" data-path="comparing-and-contrasting-the-patchworks-and-stsm-forest-estate-models.html"><a href="comparing-and-contrasting-the-patchworks-and-stsm-forest-estate-models.html#stochastic-and-deterministic-modelling-in-patchworks-and-stsm"><i class="fa fa-check"></i><b>12.1.3</b> Stochastic and Deterministic Modelling in Patchworks and STSM</a></li>
+<li class="chapter" data-level="12.1.4" data-path="comparing-and-contrasting-the-patchworks-and-stsm-forest-estate-models.html"><a href="comparing-and-contrasting-the-patchworks-and-stsm-forest-estate-models.html#forest-dynamics"><i class="fa fa-check"></i><b>12.1.4</b> Forest Dynamics</a></li>
+<li class="chapter" data-level="12.1.5" data-path="comparing-and-contrasting-the-patchworks-and-stsm-forest-estate-models.html"><a href="comparing-and-contrasting-the-patchworks-and-stsm-forest-estate-models.html#natural-disturbance"><i class="fa fa-check"></i><b>12.1.5</b> Natural Disturbance</a></li>
+<li class="chapter" data-level="12.1.6" data-path="comparing-and-contrasting-the-patchworks-and-stsm-forest-estate-models.html"><a href="comparing-and-contrasting-the-patchworks-and-stsm-forest-estate-models.html#roads"><i class="fa fa-check"></i><b>12.1.6</b> Roads</a></li>
+<li class="chapter" data-level="12.1.7" data-path="comparing-and-contrasting-the-patchworks-and-stsm-forest-estate-models.html"><a href="comparing-and-contrasting-the-patchworks-and-stsm-forest-estate-models.html#user-interaction"><i class="fa fa-check"></i><b>12.1.7</b> User Interaction</a></li>
+<li class="chapter" data-level="12.1.8" data-path="comparing-and-contrasting-the-patchworks-and-stsm-forest-estate-models.html"><a href="comparing-and-contrasting-the-patchworks-and-stsm-forest-estate-models.html#software-availability-and-licensing"><i class="fa fa-check"></i><b>12.1.8</b> Software Availability and Licensing</a></li>
+</ul></li>
+<li class="chapter" data-level="12.2" data-path="comparing-and-contrasting-the-patchworks-and-stsm-forest-estate-models.html"><a href="comparing-and-contrasting-the-patchworks-and-stsm-forest-estate-models.html#conclusion"><i class="fa fa-check"></i><b>12.2</b> Conclusion</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="introduction-to-geostatistics.html"><a href="introduction-to-geostatistics.html"><i class="fa fa-check"></i><b>13</b> Introduction to Geostatistics</a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="introduction-to-geostatistics.html"><a href="introduction-to-geostatistics.html#introduction-12"><i class="fa fa-check"></i><b>13.1</b> Introduction</a></li>
+<li class="chapter" data-level="13.2" data-path="introduction-to-geostatistics.html"><a href="introduction-to-geostatistics.html#geostatistical-modelling"><i class="fa fa-check"></i><b>13.2</b> Geostatistical Modelling</a>
+<ul>
+<li class="chapter" data-level="13.2.1" data-path="introduction-to-geostatistics.html"><a href="introduction-to-geostatistics.html#machine-learning"><i class="fa fa-check"></i><b>13.2.1</b> Machine Learning</a></li>
+<li class="chapter" data-level="13.2.2" data-path="introduction-to-geostatistics.html"><a href="introduction-to-geostatistics.html#area-of-applicability"><i class="fa fa-check"></i><b>13.2.2</b> Area of Applicability</a></li>
+<li class="chapter" data-level="13.2.3" data-path="introduction-to-geostatistics.html"><a href="introduction-to-geostatistics.html#measures-of-model-reliability"><i class="fa fa-check"></i><b>13.2.3</b> Measures of Model Reliability</a></li>
+</ul></li>
+<li class="chapter" data-level="13.3" data-path="introduction-to-geostatistics.html"><a href="introduction-to-geostatistics.html#summary-5"><i class="fa fa-check"></i><b>13.3</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="forest-road-networks-using-graph-theory.html"><a href="forest-road-networks-using-graph-theory.html"><i class="fa fa-check"></i><b>14</b> Forest Road Networks using Graph Theory</a>
+<ul>
+<li class="chapter" data-level="14.1" data-path="forest-road-networks-using-graph-theory.html"><a href="forest-road-networks-using-graph-theory.html#introduction-13"><i class="fa fa-check"></i><b>14.1</b> Introduction</a></li>
+<li class="chapter" data-level="14.2" data-path="forest-road-networks-using-graph-theory.html"><a href="forest-road-networks-using-graph-theory.html#creating-a-road-network-using-graph-theory"><i class="fa fa-check"></i><b>14.2</b> Creating a road network using graph theory</a>
+<ul>
+<li class="chapter" data-level="14.2.1" data-path="forest-road-networks-using-graph-theory.html"><a href="forest-road-networks-using-graph-theory.html#creating-a-simplified-network-in-r"><i class="fa fa-check"></i><b>14.2.1</b> Creating a simplified network in R</a></li>
+<li class="chapter" data-level="14.2.2" data-path="forest-road-networks-using-graph-theory.html"><a href="forest-road-networks-using-graph-theory.html#creating-future-roads"><i class="fa fa-check"></i><b>14.2.2</b> Creating Future Roads</a></li>
+<li class="chapter" data-level="14.2.3" data-path="forest-road-networks-using-graph-theory.html"><a href="forest-road-networks-using-graph-theory.html#create-patchworks-ready-road-network"><i class="fa fa-check"></i><b>14.2.3</b> Create Patchworks-Ready Road Network</a></li>
+</ul></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Modelling Foundations</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="simple-linear-programming" class="section level1 hasAnchor" number="2">
+<h1><span class="header-section-number">2</span> Simple Linear Programming<a href="simple-linear-programming.html#simple-linear-programming" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="introduction-1" class="section level2 hasAnchor" number="2.1">
+<h2><span class="header-section-number">2.1</span> Introduction<a href="simple-linear-programming.html#introduction-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Linear programming (LP) is a mathematical optimization technique used to identify the best possible solution to a problem when resources are limited and decisions are constrained. In its simplest form, linear programming seeks to maximize or minimize an objective function—such as profit, cost, timber volume, or net present value—while satisfying a set of linear constraints that represent real-world limitations. These constraints may include budgets, labour availability, harvest capacities, road construction limits, wildlife requirements, or other operational considerations. The term linear refers to the fact that both the objective function and the constraints are expressed as linear equations or inequalities.</p>
+<p>Linear programming has been widely applied in fields such as transportation, manufacturing, agriculture, finance, and natural resource management. In forestry, linear programming can be used to determine harvest schedules, allocate silviculture investments, design road networks, or balance timber production with environmental objectives. Although modern forest planning problems often involve thousands of decision variables and complex non-linear relationships, linear programming provides an important foundation for understanding optimization. The concepts of decision variables, objective functions, constraints, feasible solutions, and optimal solutions form the basis of many more advanced approaches, including simulated annealing, goal programming, and other heuristic optimization techniques used in contemporary forest estate planning.</p>
+<p>A good explainer is found
+<a href="https://www.youtube.com/watch?v=K7TL5NMlKIk">here</a></p>
+</div>
+<div id="the-simplex-method" class="section level2 hasAnchor" number="2.2">
+<h2><span class="header-section-number">2.2</span> The Simplex Method<a href="simple-linear-programming.html#the-simplex-method" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The <a href="https://en.wikipedia.org/wiki/Simplex_algorithm">Simplex Method</a> is one of the most widely used algorithms for solving linear programming problems. Developed by George Dantzig in 1947, the method provides a systematic procedure for finding the optimal solution to an optimization problem involving a linear objective function and a set of linear constraints. Rather than evaluating every possible solution, which would be impractical for most problems, the Simplex Method efficiently moves through a sequence of candidate solutions until it identifies the best feasible solution. Because of its speed and reliability, it became one of the foundational algorithms in operations research, economics, engineering, transportation planning, and natural resource management.</p>
+<p>Before understanding how the Simplex Method works, it is important to define several key terms. The <strong>objective function</strong> is the equation that measures the quantity to be maximized or minimized, such as profit, timber volume, net present value, or cost. For example, a forest manager might wish to maximize:</p>
+<p><strong>NPV=500x+800y</strong></p>
+<p>where x and y represent harvest areas in two forest stands. The objective function provides a numerical score for every possible solution and defines what the optimization process is trying to achieve. In a maximization problem, larger objective function values represent better solutions, while in a minimization problem, smaller values are preferred.</p>
+<p>A <strong>constraint</strong> is a mathematical restriction that limits the allowable values of the decision variables. Constraints represent real-world limitations such as budgets, harvesting capacities, road construction costs, labour availability, or wildlife habitat requirements. Together, all constraints define the set of solutions that are acceptable. The collection of points that satisfy every constraint simultaneously is known as the <strong>feasible region</strong>. In a two-variable problem, the feasible region can often be visualized as a polygon on a graph. Every point inside this region represents a valid solution, while points outside violate one or more constraints and are therefore infeasible.</p>
+<p>The Simplex Method exploits an important property of linear programming: if an optimal solution exists, it must occur at one of the corner points, or vertices, of the feasible region. Rather than searching the entire region, the algorithm begins at one feasible vertex and systematically moves to adjacent vertices that improve the objective function value. Each move is guaranteed to maintain feasibility while providing an equal or better solution. The process continues until no neighboring vertex offers further improvement, at which point the current vertex is the optimal solution. In essence, the Simplex Method finds the best solution by “walking” along the edges of the feasible region from one corner to another, efficiently locating the point that maximizes or minimizes the objective function.</p>
+<div id="a-simple-problem" class="section level4 hasAnchor" number="2.2.0.1">
+<h4><span class="header-section-number">2.2.0.1</span> A Simple Problem<a href="simple-linear-programming.html#a-simple-problem" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>This simplified forest harvest planning problem demonstrates how linear programming can be used to allocate limited resources in order to maximize economic return. The model contains two decision variables: xx, representing the number of hectares harvested in Stand A, and yy, representing the number of hectares harvested in Stand B. The objective is to maximize the forest estate’s net present value (NPV), expressed as:</p>
+<p>NPV=500x+800y</p>
+<p>This objective function indicates that each hectare harvested in Stand A contributes $500 of value, while each hectare harvested in Stand B contributes $800. Because Stand B generates a greater return per hectare, the optimization process will generally prefer harvesting Stand B whenever the available resources and management constraints allow it.</p>
+<p>The harvest plan must also satisfy several constraints that reflect operational and environmental limitations. The harvest capacity constraint (x+y ≤ 100) limits total harvesting to 100 hectares, representing available harvesting equipment, labour, or processing capacity. The road budget constraint (2x+5y ≤ 300) limits the amount of road construction or maintenance funding available, with Stand B requiring more road resources per hectare than Stand A. Finally, the wildlife constraint (x ≤ 70x) restricts harvesting in Stand A to ensure sufficient habitat retention. Together with the non-negativity constraints (x ≥ 0x, y ≥ 0y), these conditions define a set of feasible harvest plans. The purpose of the linear programming model is to identify the combination of harvest areas in Stands A and B that satisfies all constraints while producing the highest possible net present value.</p>
+<p>The <a href="https://cran.r-project.org/web/packages/lpSolve/refman/lpSolve.html">lpSolve package</a> is an R package that provides tools for solving linear programming, integer programming, and mixed-integer programming problems. It serves as an interface to the efficient lp_solve optimization library, allowing users to define an objective function, specify constraints, and automatically identify the optimal solution that maximizes or minimizes the objective while satisfying all constraints. In a typical workflow, the user supplies the coefficients of the objective function, a matrix of constraint coefficients, the direction of each constraint (e.g., ≤, =, ≥), and the corresponding right-hand-side values. The package then applies optimization algorithms, such as the Simplex Method, to determine the optimal values of the decision variables and the resulting objective function value. Because of its simplicity and ease of use, lpSolve is widely used for teaching linear programming concepts and solving practical optimization problems in fields such as forestry, transportation, manufacturing, finance, and resource management.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="simple-linear-programming.html#cb1-1" tabindex="-1"></a></span>
+<span id="cb1-2"><a href="simple-linear-programming.html#cb1-2" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-3"><a href="simple-linear-programming.html#cb1-3" tabindex="-1"></a><span class="fu">library</span>(lpSolve)</span>
+<span id="cb1-4"><a href="simple-linear-programming.html#cb1-4" tabindex="-1"></a><span class="fu">library</span>(gganimate)</span>
+<span id="cb1-5"><a href="simple-linear-programming.html#cb1-5" tabindex="-1"></a><span class="fu">library</span>(plotly)</span>
+<span id="cb1-6"><a href="simple-linear-programming.html#cb1-6" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="simple-linear-programming.html#cb1-7" tabindex="-1"></a>objective <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">500</span>,<span class="dv">800</span>)</span>
+<span id="cb1-8"><a href="simple-linear-programming.html#cb1-8" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="simple-linear-programming.html#cb1-9" tabindex="-1"></a><span class="co">#The constraints matrix stores the coefficients of the linear constraints used in </span></span>
+<span id="cb1-10"><a href="simple-linear-programming.html#cb1-10" tabindex="-1"></a><span class="co">#the optimization model. Each row represents a separate constraint, while the </span></span>
+<span id="cb1-11"><a href="simple-linear-programming.html#cb1-11" tabindex="-1"></a><span class="co">#two columns correspond to the decision variables x(hectares harvested in Stand </span></span>
+<span id="cb1-12"><a href="simple-linear-programming.html#cb1-12" tabindex="-1"></a><span class="co">#A) and y (hectares harvested in Stand B). </span></span>
+<span id="cb1-13"><a href="simple-linear-programming.html#cb1-13" tabindex="-1"></a><span class="co">#The first row, (1, 1), defines the harvest-capacity constraint x+y≤100, which </span></span>
+<span id="cb1-14"><a href="simple-linear-programming.html#cb1-14" tabindex="-1"></a><span class="co">#limits the total harvested area. The second row, (2, 5), defines the road-budget</span></span>
+<span id="cb1-15"><a href="simple-linear-programming.html#cb1-15" tabindex="-1"></a><span class="co">#constraint 2x+5y≤300, indicating that harvesting a hectare in Stand B requires</span></span>
+<span id="cb1-16"><a href="simple-linear-programming.html#cb1-16" tabindex="-1"></a><span class="co">#more road resources than harvesting a hectare in Stand A. The third row, (1, 0),</span></span>
+<span id="cb1-17"><a href="simple-linear-programming.html#cb1-17" tabindex="-1"></a><span class="co">#defines the wildlife constraint x≤70 restricting the amount of harvesting </span></span>
+<span id="cb1-18"><a href="simple-linear-programming.html#cb1-18" tabindex="-1"></a><span class="co">#allowed in Stand A. Together with the constraint directions (&lt;=) and right-hand-side</span></span>
+<span id="cb1-19"><a href="simple-linear-programming.html#cb1-19" tabindex="-1"></a><span class="co">#limits (100, 300, and 70), this matrix forms the system of inequalities </span></span>
+<span id="cb1-20"><a href="simple-linear-programming.html#cb1-20" tabindex="-1"></a><span class="co">#that defines the feasible region of the linear programming problem.</span></span>
+<span id="cb1-21"><a href="simple-linear-programming.html#cb1-21" tabindex="-1"></a></span>
+<span id="cb1-22"><a href="simple-linear-programming.html#cb1-22" tabindex="-1"></a>constraints <span class="ot">&lt;-</span> <span class="fu">matrix</span>(</span>
+<span id="cb1-23"><a href="simple-linear-programming.html#cb1-23" tabindex="-1"></a>  <span class="fu">c</span>(</span>
+<span id="cb1-24"><a href="simple-linear-programming.html#cb1-24" tabindex="-1"></a>    <span class="dv">1</span>,<span class="dv">1</span>,</span>
+<span id="cb1-25"><a href="simple-linear-programming.html#cb1-25" tabindex="-1"></a>    <span class="dv">2</span>,<span class="dv">5</span>,</span>
+<span id="cb1-26"><a href="simple-linear-programming.html#cb1-26" tabindex="-1"></a>    <span class="dv">1</span>,<span class="dv">0</span></span>
+<span id="cb1-27"><a href="simple-linear-programming.html#cb1-27" tabindex="-1"></a>  ),</span>
+<span id="cb1-28"><a href="simple-linear-programming.html#cb1-28" tabindex="-1"></a>  <span class="at">nrow=</span><span class="dv">3</span>,</span>
+<span id="cb1-29"><a href="simple-linear-programming.html#cb1-29" tabindex="-1"></a>  <span class="at">byrow=</span><span class="cn">TRUE</span></span>
+<span id="cb1-30"><a href="simple-linear-programming.html#cb1-30" tabindex="-1"></a>)</span>
+<span id="cb1-31"><a href="simple-linear-programming.html#cb1-31" tabindex="-1"></a></span>
+<span id="cb1-32"><a href="simple-linear-programming.html#cb1-32" tabindex="-1"></a>rhs <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb1-33"><a href="simple-linear-programming.html#cb1-33" tabindex="-1"></a>  <span class="dv">100</span>,</span>
+<span id="cb1-34"><a href="simple-linear-programming.html#cb1-34" tabindex="-1"></a>  <span class="dv">300</span>,</span>
+<span id="cb1-35"><a href="simple-linear-programming.html#cb1-35" tabindex="-1"></a>  <span class="dv">70</span></span>
+<span id="cb1-36"><a href="simple-linear-programming.html#cb1-36" tabindex="-1"></a>)</span>
+<span id="cb1-37"><a href="simple-linear-programming.html#cb1-37" tabindex="-1"></a></span>
+<span id="cb1-38"><a href="simple-linear-programming.html#cb1-38" tabindex="-1"></a>direction <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb1-39"><a href="simple-linear-programming.html#cb1-39" tabindex="-1"></a>  <span class="st">&quot;&lt;=&quot;</span>,</span>
+<span id="cb1-40"><a href="simple-linear-programming.html#cb1-40" tabindex="-1"></a>  <span class="st">&quot;&lt;=&quot;</span>,</span>
+<span id="cb1-41"><a href="simple-linear-programming.html#cb1-41" tabindex="-1"></a>  <span class="st">&quot;&lt;=&quot;</span></span>
+<span id="cb1-42"><a href="simple-linear-programming.html#cb1-42" tabindex="-1"></a>)</span>
+<span id="cb1-43"><a href="simple-linear-programming.html#cb1-43" tabindex="-1"></a></span>
+<span id="cb1-44"><a href="simple-linear-programming.html#cb1-44" tabindex="-1"></a></span>
+<span id="cb1-45"><a href="simple-linear-programming.html#cb1-45" tabindex="-1"></a>solution <span class="ot">&lt;-</span> <span class="fu">lp</span>(</span>
+<span id="cb1-46"><a href="simple-linear-programming.html#cb1-46" tabindex="-1"></a>  <span class="at">direction =</span> <span class="st">&quot;max&quot;</span>,</span>
+<span id="cb1-47"><a href="simple-linear-programming.html#cb1-47" tabindex="-1"></a>  <span class="at">objective.in =</span> objective,</span>
+<span id="cb1-48"><a href="simple-linear-programming.html#cb1-48" tabindex="-1"></a>  <span class="at">const.mat =</span> constraints,</span>
+<span id="cb1-49"><a href="simple-linear-programming.html#cb1-49" tabindex="-1"></a>  <span class="at">const.dir =</span> direction,</span>
+<span id="cb1-50"><a href="simple-linear-programming.html#cb1-50" tabindex="-1"></a>  <span class="at">const.rhs =</span> rhs</span>
+<span id="cb1-51"><a href="simple-linear-programming.html#cb1-51" tabindex="-1"></a>)</span></code></pre></div>
+</div>
+<div id="results" class="section level3 hasAnchor" number="2.2.1">
+<h3><span class="header-section-number">2.2.1</span> Results<a href="simple-linear-programming.html#results" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="bckyxngzlj" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#bckyxngzlj table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#bckyxngzlj thead, #bckyxngzlj tbody, #bckyxngzlj tfoot, #bckyxngzlj tr, #bckyxngzlj td, #bckyxngzlj th {
+  border-style: none;
+}
+
+#bckyxngzlj p {
+  margin: 0;
+  padding: 0;
+}
+
+#bckyxngzlj .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#bckyxngzlj .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#bckyxngzlj .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#bckyxngzlj .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#bckyxngzlj .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#bckyxngzlj .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#bckyxngzlj .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#bckyxngzlj .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#bckyxngzlj .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#bckyxngzlj .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#bckyxngzlj .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#bckyxngzlj .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#bckyxngzlj .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#bckyxngzlj .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#bckyxngzlj .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#bckyxngzlj .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#bckyxngzlj .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#bckyxngzlj .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#bckyxngzlj .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#bckyxngzlj .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#bckyxngzlj .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#bckyxngzlj .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#bckyxngzlj .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#bckyxngzlj .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#bckyxngzlj .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#bckyxngzlj .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#bckyxngzlj .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#bckyxngzlj .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#bckyxngzlj .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#bckyxngzlj .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#bckyxngzlj .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#bckyxngzlj .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#bckyxngzlj .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#bckyxngzlj .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#bckyxngzlj .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#bckyxngzlj .gt_left {
+  text-align: left;
+}
+
+#bckyxngzlj .gt_center {
+  text-align: center;
+}
+
+#bckyxngzlj .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#bckyxngzlj .gt_font_normal {
+  font-weight: normal;
+}
+
+#bckyxngzlj .gt_font_bold {
+  font-weight: bold;
+}
+
+#bckyxngzlj .gt_font_italic {
+  font-style: italic;
+}
+
+#bckyxngzlj .gt_super {
+  font-size: 65%;
+}
+
+#bckyxngzlj .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#bckyxngzlj .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#bckyxngzlj .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#bckyxngzlj .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#bckyxngzlj .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#bckyxngzlj .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#bckyxngzlj .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#bckyxngzlj .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#bckyxngzlj div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+</style>
+<table class="gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+  <thead>
+    <tr class="gt_heading">
+      <td colspan="2" class="gt_heading gt_title gt_font_normal" style>Linear Programming Solution</td>
+    </tr>
+    <tr class="gt_heading">
+      <td colspan="2" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style>Optimal Forest Harvest Plan</td>
+    </tr>
+    <tr class="gt_col_headings">
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="Variable">Variable</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Value">Value</th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr><td headers="Variable" class="gt_row gt_left">Stand A Harvest (ha)</td>
+<td headers="Value" class="gt_row gt_right">66.67</td></tr>
+    <tr><td headers="Variable" class="gt_row gt_left">Stand B Harvest (ha)</td>
+<td headers="Value" class="gt_row gt_right">33.33</td></tr>
+    <tr><td headers="Variable" class="gt_row gt_left">Maximum NPV</td>
+<td headers="Value" class="gt_row gt_right">60,000.00</td></tr>
+  </tbody>
+  
+</table>
+</div>
+<p>The linear programming model determined that the optimal harvest plan is to harvest approximately 66.67 hectares from Stand A and 33.33 hectares from Stand B, resulting in a maximum Net Present Value (NPV) of $60,000. These values represent the combination of harvest areas that produces the highest economic return while satisfying all of the management constraints imposed on the problem. Although Stand B generates more value per hectare ($800/ha) than Stand A ($500/ha), it also consumes more road-budget resources. The optimal solution therefore balances the higher profitability of Stand B against the greater road costs associated with harvesting it.</p>
+<p>An important observation is that the optimal solution occurs where the harvest-capacity constraint and the road-budget constraint intersect. At the optimum, both constraints are fully utilized:</p>
+<p>66.67+33.33 = 100</p>
+<p>and</p>
+<p>2(66.67)+5(33.33)≈300</p>
+<p>Because these constraints are binding, they are the primary factors limiting further increases in NPV. In contrast, the wildlife constraint is not binding, since the solution harvests only 66.67 hectares from Stand A, which is below the maximum allowable limit of 70 hectares. The results therefore indicate that available harvesting capacity and road budget are the critical resources determining the optimal harvest plan. Any increase in either of these resources would likely allow a higher NPV to be achieved, whereas relaxing the wildlife constraint alone would have no effect on the current optimal solution.</p>
+</div>
+<div id="the-feasible-solution-space" class="section level3 hasAnchor" number="2.2.2">
+<h3><span class="header-section-number">2.2.2</span> The Feasible Solution Space<a href="simple-linear-programming.html#the-feasible-solution-space" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><img src="Modelling_Foundations_files/figure-html/feasible_sol_lp-1.png" width="80%" /></p>
+<p>The figure illustrates the feasible solution space for the forest harvest planning problem. The horizontal axis represents the number of hectares harvested in Stand A, while the vertical axis represents the number of hectares harvested in Stand B. The red diagonal line corresponds to the harvest-capacity constraint (x+y≤100), the blue diagonal line represents the road-budget constraint (2x+5y≤300), and the vertical red line represents the wildlife constraint (x≤70). Each constraint divides the graph into a valid region and an invalid region. For a solution to be feasible, it must satisfy all constraints simultaneously, meaning it must lie below both diagonal lines and to the left of the vertical wildlife constraint.</p>
+<p>The shaded green region is the feasible region, which contains every harvest plan that satisfies all management requirements. Any point inside this area represents a valid combination of harvest areas for Stands A and B. For example, harvesting 30 hectares from Stand A and 20 hectares from Stand B would be feasible because it respects the harvest-capacity limit, remains within the road budget, and does not exceed the wildlife restriction. In contrast, points located outside the green region violate at least one constraint. A point above the harvest-capacity line exceeds the total allowable harvest area, a point above the road-budget line exceeds available road funding, and a point to the right of the wildlife line harvests too much of Stand A.</p>
+<p>The feasible region provides a visual representation of all possible solutions available to the forest manager. The objective of the linear programming model is not simply to find a feasible solution, but rather to find the best feasible solution according to the objective function. As the objective function is maximized, the search moves through the feasible region toward higher-profit combinations of harvest areas. Because the objective function and constraints are linear, the optimal solution occurs at one of the boundary vertices of the feasible region. In this example, the optimal harvest plan lies at the intersection of the harvest-capacity and road-budget constraints, where both resources are fully utilized and the maximum net present value is achieved.</p>
+<p><img src="Chapter1_LP_Objective_Function_Sweep.gif" width="80%" style="display: block; margin: auto;" /></p>
+<p>This figure illustrates the relationship between the objective function and the feasible region in a linear programming problem. The shaded green area represents the feasible solution space, containing all combinations of harvest areas in Stands A and B that satisfy the harvest-capacity, road-budget, and wildlife constraints. The two black diagonal lines are the harvest-capacity and road-budget constraints, while the vertical red line represents the wildlife constraint limiting harvest in Stand A. The red point marks the optimal solution identified by the linear programming model, located at approximately x=66.7 hectares and y=33.3 hectares. The blue line represents an objective-function contour, corresponding to a particular profit (NPV) level. In the animation, this blue line moves progressively upward and to the right, representing increasing profit values. As the objective-function contour advances, it eventually reaches the highest possible position while still touching the feasible region, at the red optimal point. Any further movement would place the contour entirely outside the feasible region and therefore violate one or more constraints. The animation therefore provides a visual demonstration of how linear programming identifies the optimal solution by maximizing the objective function within the set of feasible alternatives.</p>
+</div>
+</div>
+<div id="summary" class="section level2 hasAnchor" number="2.3">
+<h2><span class="header-section-number">2.3</span> Summary<a href="simple-linear-programming.html#summary" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>This chapter introduced the fundamental concepts of linear programming (LP) through a simple forest harvest planning problem. Linear programming is a mathematical optimization technique used to identify the best possible solution from a set of feasible alternatives while satisfying a series of constraints. Using decision variables representing harvest areas in two forest stands, an objective function representing net present value (NPV), and operational constraints representing harvest capacity, road budget, and wildlife requirements, the chapter demonstrated how optimization problems can be formulated mathematically and solved using the lpSolve package in R. Key concepts such as decision variables, objective functions, constraints, feasible regions, and optimal solutions were introduced and visualized to provide an intuitive understanding of how linear programming works.</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="simulated-annealing-and-the-sudoku-solver.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>
