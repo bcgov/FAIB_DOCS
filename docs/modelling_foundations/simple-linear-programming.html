@@ -23,7 +23,7 @@
 <meta name="author" content="A collaborative effort between a Human (Kelly Izzard) and AI" />
 
 
-<meta name="date" content="2026-07-15" />
+<meta name="date" content="2026-07-24" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -52,14 +52,6 @@
 <link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
 <link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
-<link href="libs/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet" />
-<script src="libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
-<script src="libs/plotly-binding-4.10.4/plotly.js"></script>
-<script src="libs/typedarray-0.1/typedarray.min.js"></script>
-<link href="libs/crosstalk-1.2.1/css/crosstalk.min.css" rel="stylesheet" />
-<script src="libs/crosstalk-1.2.1/js/crosstalk.min.js"></script>
-<link href="libs/plotly-htmlwidgets-css-2.11.1/plotly-htmlwidgets.css" rel="stylesheet" />
-<script src="libs/plotly-main-2.11.1/plotly-latest.min.js"></script>
 
 
 <style type="text/css">
@@ -147,13 +139,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul class="summary">
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a>
 <ul>
-<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#models-and-modellers"><i class="fa fa-check"></i><b>1.1</b> Models and Modellers</a>
-<ul>
-<li class="chapter" data-level="1.1.1" data-path="index.html"><a href="index.html#what-is-a-model"><i class="fa fa-check"></i><b>1.1.1</b> What is a Model</a></li>
-<li class="chapter" data-level="1.1.2" data-path="index.html"><a href="index.html#classification-of-models"><i class="fa fa-check"></i><b>1.1.2</b> Classification of Models</a></li>
-<li class="chapter" data-level="1.1.3" data-path="index.html"><a href="index.html#building-a-model-defining-the-problem-and-its-considerations"><i class="fa fa-check"></i><b>1.1.3</b> Building a Model (Defining the Problem and it’s Considerations)</a></li>
-<li class="chapter" data-level="1.1.4" data-path="index.html"><a href="index.html#the-modellers-creed"><i class="fa fa-check"></i><b>1.1.4</b> The Modeller’s creed</a></li>
-</ul></li>
+<li class="chapter" data-level="1.0.1" data-path="index.html"><a href="index.html#what-is-a-model"><i class="fa fa-check"></i><b>1.0.1</b> What is a Model</a></li>
+<li class="chapter" data-level="1.0.2" data-path="index.html"><a href="index.html#classification-of-models"><i class="fa fa-check"></i><b>1.0.2</b> Classification of Models</a></li>
+<li class="chapter" data-level="1.0.3" data-path="index.html"><a href="index.html#the-modellers-creed"><i class="fa fa-check"></i><b>1.0.3</b> The Modeller’s creed</a></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="simple-linear-programming.html"><a href="simple-linear-programming.html"><i class="fa fa-check"></i><b>2</b> Simple Linear Programming</a>
 <ul>
@@ -376,10 +364,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>The Simplex Method exploits an important property of linear programming: if an optimal solution exists, it must occur at one of the corner points, or vertices, of the feasible region. Rather than searching the entire region, the algorithm begins at one feasible vertex and systematically moves to adjacent vertices that improve the objective function value. Each move is guaranteed to maintain feasibility while providing an equal or better solution. The process continues until no neighboring vertex offers further improvement, at which point the current vertex is the optimal solution. In essence, the Simplex Method finds the best solution by “walking” along the edges of the feasible region from one corner to another, efficiently locating the point that maximizes or minimizes the objective function.</p>
 <div id="a-simple-problem" class="section level4 hasAnchor" number="2.2.0.1">
 <h4><span class="header-section-number">2.2.0.1</span> A Simple Problem<a href="simple-linear-programming.html#a-simple-problem" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<p>This simplified forest harvest planning problem demonstrates how linear programming can be used to allocate limited resources in order to maximize economic return. The model contains two decision variables: xx, representing the number of hectares harvested in Stand A, and yy, representing the number of hectares harvested in Stand B. The objective is to maximize the forest estate’s net present value (NPV), expressed as:</p>
+<p>This simplified forest harvest planning problem demonstrates how linear programming can be used to allocate limited resources in order to maximize economic return. The model contains two decision variables: x, representing the number of hectares harvested in Stand A, and y, representing the number of hectares harvested in Stand B. The objective is to maximize the forest estate’s net present value (NPV), expressed as:</p>
 <p>NPV=500x+800y</p>
 <p>This objective function indicates that each hectare harvested in Stand A contributes $500 of value, while each hectare harvested in Stand B contributes $800. Because Stand B generates a greater return per hectare, the optimization process will generally prefer harvesting Stand B whenever the available resources and management constraints allow it.</p>
-<p>The harvest plan must also satisfy several constraints that reflect operational and environmental limitations. The harvest capacity constraint (x+y ≤ 100) limits total harvesting to 100 hectares, representing available harvesting equipment, labour, or processing capacity. The road budget constraint (2x+5y ≤ 300) limits the amount of road construction or maintenance funding available, with Stand B requiring more road resources per hectare than Stand A. Finally, the wildlife constraint (x ≤ 70x) restricts harvesting in Stand A to ensure sufficient habitat retention. Together with the non-negativity constraints (x ≥ 0x, y ≥ 0y), these conditions define a set of feasible harvest plans. The purpose of the linear programming model is to identify the combination of harvest areas in Stands A and B that satisfies all constraints while producing the highest possible net present value.</p>
+<p>The harvest plan must also satisfy several constraints that reflect operational and environmental limitations. The harvest capacity constraint (x + y ≤ 100) limits total harvesting to 100 hectares, representing available harvesting equipment, labour, or processing capacity. The road budget constraint (2x + 5y ≤ 300) limits the amount of road construction or maintenance funding available, with Stand B requiring more road resources per hectare than Stand A. Finally, the wildlife constraint (x ≤ 70x) restricts harvesting in Stand A to ensure sufficient habitat retention. Together with the non-negativity constraints (x ≥ 0x, y ≥ 0y), these conditions define a set of feasible harvest plans. The purpose of the linear programming model is to identify the combination of harvest areas in Stands A and B that satisfies all constraints while producing the highest possible net present value.</p>
 <p>The <a href="https://cran.r-project.org/web/packages/lpSolve/refman/lpSolve.html">lpSolve package</a> is an R package that provides tools for solving linear programming, integer programming, and mixed-integer programming problems. It serves as an interface to the efficient lp_solve optimization library, allowing users to define an objective function, specify constraints, and automatically identify the optimal solution that maximizes or minimizes the objective while satisfying all constraints. In a typical workflow, the user supplies the coefficients of the objective function, a matrix of constraint coefficients, the direction of each constraint (e.g., ≤, =, ≥), and the corresponding right-hand-side values. The package then applies optimization algorithms, such as the Simplex Method, to determine the optimal values of the decision variables and the resulting objective function value. Because of its simplicity and ease of use, lpSolve is widely used for teaching linear programming concepts and solving practical optimization problems in fields such as forestry, transportation, manufacturing, finance, and resource management.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="simple-linear-programming.html#cb1-1" tabindex="-1"></a></span>
 <span id="cb1-2"><a href="simple-linear-programming.html#cb1-2" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
@@ -435,23 +423,23 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="results" class="section level3 hasAnchor" number="2.2.1">
 <h3><span class="header-section-number">2.2.1</span> Results<a href="simple-linear-programming.html#results" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div id="bckyxngzlj" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#bckyxngzlj table {
+<div id="pijivqytxx" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#pijivqytxx table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#bckyxngzlj thead, #bckyxngzlj tbody, #bckyxngzlj tfoot, #bckyxngzlj tr, #bckyxngzlj td, #bckyxngzlj th {
+#pijivqytxx thead, #pijivqytxx tbody, #pijivqytxx tfoot, #pijivqytxx tr, #pijivqytxx td, #pijivqytxx th {
   border-style: none;
 }
 
-#bckyxngzlj p {
+#pijivqytxx p {
   margin: 0;
   padding: 0;
 }
 
-#bckyxngzlj .gt_table {
+#pijivqytxx .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -477,12 +465,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-left-color: #D3D3D3;
 }
 
-#bckyxngzlj .gt_caption {
+#pijivqytxx .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#bckyxngzlj .gt_title {
+#pijivqytxx .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -494,7 +482,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-bottom-width: 0;
 }
 
-#bckyxngzlj .gt_subtitle {
+#pijivqytxx .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -506,7 +494,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-top-width: 0;
 }
 
-#bckyxngzlj .gt_heading {
+#pijivqytxx .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -518,13 +506,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-right-color: #D3D3D3;
 }
 
-#bckyxngzlj .gt_bottom_border {
+#pijivqytxx .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#bckyxngzlj .gt_col_headings {
+#pijivqytxx .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -539,7 +527,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-right-color: #D3D3D3;
 }
 
-#bckyxngzlj .gt_col_heading {
+#pijivqytxx .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -559,7 +547,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   overflow-x: hidden;
 }
 
-#bckyxngzlj .gt_column_spanner_outer {
+#pijivqytxx .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -571,15 +559,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   padding-right: 4px;
 }
 
-#bckyxngzlj .gt_column_spanner_outer:first-child {
+#pijivqytxx .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#bckyxngzlj .gt_column_spanner_outer:last-child {
+#pijivqytxx .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#bckyxngzlj .gt_column_spanner {
+#pijivqytxx .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -591,11 +579,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   width: 100%;
 }
 
-#bckyxngzlj .gt_spanner_row {
+#pijivqytxx .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#bckyxngzlj .gt_group_heading {
+#pijivqytxx .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -621,7 +609,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   text-align: left;
 }
 
-#bckyxngzlj .gt_empty_group_heading {
+#pijivqytxx .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -636,15 +624,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   vertical-align: middle;
 }
 
-#bckyxngzlj .gt_from_md > :first-child {
+#pijivqytxx .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#bckyxngzlj .gt_from_md > :last-child {
+#pijivqytxx .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#bckyxngzlj .gt_row {
+#pijivqytxx .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -663,7 +651,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   overflow-x: hidden;
 }
 
-#bckyxngzlj .gt_stub {
+#pijivqytxx .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -676,7 +664,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   padding-right: 5px;
 }
 
-#bckyxngzlj .gt_stub_row_group {
+#pijivqytxx .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -690,15 +678,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   vertical-align: top;
 }
 
-#bckyxngzlj .gt_row_group_first td {
+#pijivqytxx .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#bckyxngzlj .gt_row_group_first th {
+#pijivqytxx .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#bckyxngzlj .gt_summary_row {
+#pijivqytxx .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -708,16 +696,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   padding-right: 5px;
 }
 
-#bckyxngzlj .gt_first_summary_row {
+#pijivqytxx .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#bckyxngzlj .gt_first_summary_row.thick {
+#pijivqytxx .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#bckyxngzlj .gt_last_summary_row {
+#pijivqytxx .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -727,7 +715,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-bottom-color: #D3D3D3;
 }
 
-#bckyxngzlj .gt_grand_summary_row {
+#pijivqytxx .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -737,7 +725,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   padding-right: 5px;
 }
 
-#bckyxngzlj .gt_first_grand_summary_row {
+#pijivqytxx .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -747,7 +735,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-top-color: #D3D3D3;
 }
 
-#bckyxngzlj .gt_last_grand_summary_row_top {
+#pijivqytxx .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -757,11 +745,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-bottom-color: #D3D3D3;
 }
 
-#bckyxngzlj .gt_striped {
+#pijivqytxx .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#bckyxngzlj .gt_table_body {
+#pijivqytxx .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -770,7 +758,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-bottom-color: #D3D3D3;
 }
 
-#bckyxngzlj .gt_footnotes {
+#pijivqytxx .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -784,7 +772,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-right-color: #D3D3D3;
 }
 
-#bckyxngzlj .gt_footnote {
+#pijivqytxx .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -793,7 +781,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   padding-right: 5px;
 }
 
-#bckyxngzlj .gt_sourcenotes {
+#pijivqytxx .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -807,7 +795,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-right-color: #D3D3D3;
 }
 
-#bckyxngzlj .gt_sourcenote {
+#pijivqytxx .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -815,72 +803,72 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   padding-right: 5px;
 }
 
-#bckyxngzlj .gt_left {
+#pijivqytxx .gt_left {
   text-align: left;
 }
 
-#bckyxngzlj .gt_center {
+#pijivqytxx .gt_center {
   text-align: center;
 }
 
-#bckyxngzlj .gt_right {
+#pijivqytxx .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#bckyxngzlj .gt_font_normal {
+#pijivqytxx .gt_font_normal {
   font-weight: normal;
 }
 
-#bckyxngzlj .gt_font_bold {
+#pijivqytxx .gt_font_bold {
   font-weight: bold;
 }
 
-#bckyxngzlj .gt_font_italic {
+#pijivqytxx .gt_font_italic {
   font-style: italic;
 }
 
-#bckyxngzlj .gt_super {
+#pijivqytxx .gt_super {
   font-size: 65%;
 }
 
-#bckyxngzlj .gt_footnote_marks {
+#pijivqytxx .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#bckyxngzlj .gt_asterisk {
+#pijivqytxx .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#bckyxngzlj .gt_indent_1 {
+#pijivqytxx .gt_indent_1 {
   text-indent: 5px;
 }
 
-#bckyxngzlj .gt_indent_2 {
+#pijivqytxx .gt_indent_2 {
   text-indent: 10px;
 }
 
-#bckyxngzlj .gt_indent_3 {
+#pijivqytxx .gt_indent_3 {
   text-indent: 15px;
 }
 
-#bckyxngzlj .gt_indent_4 {
+#pijivqytxx .gt_indent_4 {
   text-indent: 20px;
 }
 
-#bckyxngzlj .gt_indent_5 {
+#pijivqytxx .gt_indent_5 {
   text-indent: 25px;
 }
 
-#bckyxngzlj .katex-display {
+#pijivqytxx .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#bckyxngzlj div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#pijivqytxx div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -921,7 +909,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>The figure illustrates the feasible solution space for the forest harvest planning problem. The horizontal axis represents the number of hectares harvested in Stand A, while the vertical axis represents the number of hectares harvested in Stand B. The red diagonal line corresponds to the harvest-capacity constraint (x+y≤100), the blue diagonal line represents the road-budget constraint (2x+5y≤300), and the vertical red line represents the wildlife constraint (x≤70). Each constraint divides the graph into a valid region and an invalid region. For a solution to be feasible, it must satisfy all constraints simultaneously, meaning it must lie below both diagonal lines and to the left of the vertical wildlife constraint.</p>
 <p>The shaded green region is the feasible region, which contains every harvest plan that satisfies all management requirements. Any point inside this area represents a valid combination of harvest areas for Stands A and B. For example, harvesting 30 hectares from Stand A and 20 hectares from Stand B would be feasible because it respects the harvest-capacity limit, remains within the road budget, and does not exceed the wildlife restriction. In contrast, points located outside the green region violate at least one constraint. A point above the harvest-capacity line exceeds the total allowable harvest area, a point above the road-budget line exceeds available road funding, and a point to the right of the wildlife line harvests too much of Stand A.</p>
 <p>The feasible region provides a visual representation of all possible solutions available to the forest manager. The objective of the linear programming model is not simply to find a feasible solution, but rather to find the best feasible solution according to the objective function. As the objective function is maximized, the search moves through the feasible region toward higher-profit combinations of harvest areas. Because the objective function and constraints are linear, the optimal solution occurs at one of the boundary vertices of the feasible region. In this example, the optimal harvest plan lies at the intersection of the harvest-capacity and road-budget constraints, where both resources are fully utilized and the maximum net present value is achieved.</p>
-<p><img src="Chapter1_LP_Objective_Function_Sweep.gif" width="80%" style="display: block; margin: auto;" /></p>
+<p><img src="Chapter1_LP_Objective_Function_Sweep.gif" width="100%" style="display: block; margin: auto;" /></p>
 <p>This figure illustrates the relationship between the objective function and the feasible region in a linear programming problem. The shaded green area represents the feasible solution space, containing all combinations of harvest areas in Stands A and B that satisfy the harvest-capacity, road-budget, and wildlife constraints. The two black diagonal lines are the harvest-capacity and road-budget constraints, while the vertical red line represents the wildlife constraint limiting harvest in Stand A. The red point marks the optimal solution identified by the linear programming model, located at approximately x=66.7 hectares and y=33.3 hectares. The blue line represents an objective-function contour, corresponding to a particular profit (NPV) level. In the animation, this blue line moves progressively upward and to the right, representing increasing profit values. As the objective-function contour advances, it eventually reaches the highest possible position while still touching the feasible region, at the red optimal point. Any further movement would place the contour entirely outside the feasible region and therefore violate one or more constraints. The animation therefore provides a visual demonstration of how linear programming identifies the optimal solution by maximizing the objective function within the set of feasible alternatives.</p>
 </div>
 </div>
