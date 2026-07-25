@@ -23,7 +23,7 @@
 <meta name="author" content="A collaborative effort between a Human (Kelly Izzard) and AI" />
 
 
-<meta name="date" content="2026-07-15" />
+<meta name="date" content="2026-07-24" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -52,14 +52,6 @@
 <link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
 <link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
-<link href="libs/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet" />
-<script src="libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
-<script src="libs/plotly-binding-4.10.4/plotly.js"></script>
-<script src="libs/typedarray-0.1/typedarray.min.js"></script>
-<link href="libs/crosstalk-1.2.1/css/crosstalk.min.css" rel="stylesheet" />
-<script src="libs/crosstalk-1.2.1/js/crosstalk.min.js"></script>
-<link href="libs/plotly-htmlwidgets-css-2.11.1/plotly-htmlwidgets.css" rel="stylesheet" />
-<script src="libs/plotly-main-2.11.1/plotly-latest.min.js"></script>
 
 
 <style type="text/css">
@@ -147,13 +139,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul class="summary">
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a>
 <ul>
-<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#models-and-modellers"><i class="fa fa-check"></i><b>1.1</b> Models and Modellers</a>
-<ul>
-<li class="chapter" data-level="1.1.1" data-path="index.html"><a href="index.html#what-is-a-model"><i class="fa fa-check"></i><b>1.1.1</b> What is a Model</a></li>
-<li class="chapter" data-level="1.1.2" data-path="index.html"><a href="index.html#classification-of-models"><i class="fa fa-check"></i><b>1.1.2</b> Classification of Models</a></li>
-<li class="chapter" data-level="1.1.3" data-path="index.html"><a href="index.html#building-a-model-defining-the-problem-and-its-considerations"><i class="fa fa-check"></i><b>1.1.3</b> Building a Model (Defining the Problem and it’s Considerations)</a></li>
-<li class="chapter" data-level="1.1.4" data-path="index.html"><a href="index.html#the-modellers-creed"><i class="fa fa-check"></i><b>1.1.4</b> The Modeller’s creed</a></li>
-</ul></li>
+<li class="chapter" data-level="1.0.1" data-path="index.html"><a href="index.html#what-is-a-model"><i class="fa fa-check"></i><b>1.0.1</b> What is a Model</a></li>
+<li class="chapter" data-level="1.0.2" data-path="index.html"><a href="index.html#classification-of-models"><i class="fa fa-check"></i><b>1.0.2</b> Classification of Models</a></li>
+<li class="chapter" data-level="1.0.3" data-path="index.html"><a href="index.html#the-modellers-creed"><i class="fa fa-check"></i><b>1.0.3</b> The Modeller’s creed</a></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="simple-linear-programming.html"><a href="simple-linear-programming.html"><i class="fa fa-check"></i><b>2</b> Simple Linear Programming</a>
 <ul>
@@ -378,48 +366,35 @@ satisfying all management constraints.</p>
 The model seeks the optimal harvest allocation among three forest management units by minimizing a weighted objective function that
 balances deviations from target timber production (<strong>100,000 m³</strong>), revenue (<strong>$5,000,000</strong>), and habitat quality (<strong>300 quality habitat units</strong>). Relative priorities are assigned through weights, with revenue receiving the highest relative priority, followed by timber production and habitat conservation. Harvest, revenue, and habitat are calculated from unit-specific coefficients, and each goal deviation is
 normalized by its target value (<code>abs(harvest - target.harvest)/target.harvest</code>) before being combined into a single weighted objective function. To ensure feasible solutions, large penalty terms are added whenever constraints are violated, including a maximum total harvested area of 200 ha, a minimum habitat requirement of 250 units, and a maximum harvest of 80 ha in Unit 3. The optimization begins from an initial allocation of 50 ha in each unit and uses simulated annealing with an initial temperature of 50 over 50,000 iterations to explore alternative harvest allocations and identify a near-optimal solution. After convergence, the script calculates the resulting harvest, revenue, habitat value, and normalized goal deviations, verifies that all constraints have been satisfied, and reports the optimal harvest allocation and associated performance measures.</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="simple-goal-programming-with-sann.html#cb11-1" tabindex="-1"></a></span>
-<span id="cb11-2"><a href="simple-goal-programming-with-sann.html#cb11-2" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">55</span>)</span>
-<span id="cb11-3"><a href="simple-goal-programming-with-sann.html#cb11-3" tabindex="-1"></a></span>
-<span id="cb11-4"><a href="simple-goal-programming-with-sann.html#cb11-4" tabindex="-1"></a><span class="do">############################################################</span></span>
-<span id="cb11-5"><a href="simple-goal-programming-with-sann.html#cb11-5" tabindex="-1"></a><span class="co"># MANAGEMENT GOALS</span></span>
-<span id="cb11-6"><a href="simple-goal-programming-with-sann.html#cb11-6" tabindex="-1"></a><span class="do">############################################################</span></span>
-<span id="cb11-7"><a href="simple-goal-programming-with-sann.html#cb11-7" tabindex="-1"></a></span>
-<span id="cb11-8"><a href="simple-goal-programming-with-sann.html#cb11-8" tabindex="-1"></a><span class="co"># Target timber production (m3)</span></span>
-<span id="cb11-9"><a href="simple-goal-programming-with-sann.html#cb11-9" tabindex="-1"></a>target.harvest <span class="ot">&lt;-</span> <span class="dv">100000</span></span>
-<span id="cb11-10"><a href="simple-goal-programming-with-sann.html#cb11-10" tabindex="-1"></a></span>
-<span id="cb11-11"><a href="simple-goal-programming-with-sann.html#cb11-11" tabindex="-1"></a><span class="co"># Target revenue ($)</span></span>
-<span id="cb11-12"><a href="simple-goal-programming-with-sann.html#cb11-12" tabindex="-1"></a>target.revenue <span class="ot">&lt;-</span> <span class="dv">5000000</span></span>
-<span id="cb11-13"><a href="simple-goal-programming-with-sann.html#cb11-13" tabindex="-1"></a></span>
-<span id="cb11-14"><a href="simple-goal-programming-with-sann.html#cb11-14" tabindex="-1"></a><span class="co"># Target habitat score</span></span>
-<span id="cb11-15"><a href="simple-goal-programming-with-sann.html#cb11-15" tabindex="-1"></a>target.habitat <span class="ot">&lt;-</span> <span class="dv">300</span></span>
-<span id="cb11-16"><a href="simple-goal-programming-with-sann.html#cb11-16" tabindex="-1"></a></span>
-<span id="cb11-17"><a href="simple-goal-programming-with-sann.html#cb11-17" tabindex="-1"></a></span>
-<span id="cb11-18"><a href="simple-goal-programming-with-sann.html#cb11-18" tabindex="-1"></a><span class="do">############################################################</span></span>
-<span id="cb11-19"><a href="simple-goal-programming-with-sann.html#cb11-19" tabindex="-1"></a><span class="co"># GOAL PRIORITIES (WEIGHTS)</span></span>
-<span id="cb11-20"><a href="simple-goal-programming-with-sann.html#cb11-20" tabindex="-1"></a><span class="co">#</span></span>
-<span id="cb11-21"><a href="simple-goal-programming-with-sann.html#cb11-21" tabindex="-1"></a><span class="co"># Larger values indicate greater importance.</span></span>
-<span id="cb11-22"><a href="simple-goal-programming-with-sann.html#cb11-22" tabindex="-1"></a><span class="co">#</span></span>
-<span id="cb11-23"><a href="simple-goal-programming-with-sann.html#cb11-23" tabindex="-1"></a><span class="co"># Harvest &gt; Revenue &gt; Habitat</span></span>
-<span id="cb11-24"><a href="simple-goal-programming-with-sann.html#cb11-24" tabindex="-1"></a><span class="do">############################################################</span></span>
-<span id="cb11-25"><a href="simple-goal-programming-with-sann.html#cb11-25" tabindex="-1"></a></span>
-<span id="cb11-26"><a href="simple-goal-programming-with-sann.html#cb11-26" tabindex="-1"></a>w1 <span class="ot">&lt;-</span> <span class="dv">3</span>     <span class="co"># Harvest priority</span></span>
-<span id="cb11-27"><a href="simple-goal-programming-with-sann.html#cb11-27" tabindex="-1"></a>w2 <span class="ot">&lt;-</span> <span class="dv">5</span>     <span class="co"># Revenue priority</span></span>
-<span id="cb11-28"><a href="simple-goal-programming-with-sann.html#cb11-28" tabindex="-1"></a>w3 <span class="ot">&lt;-</span> <span class="dv">1</span>     <span class="co"># Habitat priority</span></span>
-<span id="cb11-29"><a href="simple-goal-programming-with-sann.html#cb11-29" tabindex="-1"></a></span>
-<span id="cb11-30"><a href="simple-goal-programming-with-sann.html#cb11-30" tabindex="-1"></a></span>
-<span id="cb11-31"><a href="simple-goal-programming-with-sann.html#cb11-31" tabindex="-1"></a><span class="do">############################################################</span></span>
-<span id="cb11-32"><a href="simple-goal-programming-with-sann.html#cb11-32" tabindex="-1"></a><span class="co"># FOREST MANAGEMENT UNIT COEFFICIENTS</span></span>
-<span id="cb11-33"><a href="simple-goal-programming-with-sann.html#cb11-33" tabindex="-1"></a><span class="co">#</span></span>
-<span id="cb11-34"><a href="simple-goal-programming-with-sann.html#cb11-34" tabindex="-1"></a><span class="co">#                 Unit1 Unit2 Unit3</span></span>
-<span id="cb11-35"><a href="simple-goal-programming-with-sann.html#cb11-35" tabindex="-1"></a><span class="co"># Timber (m3/ha)     400    800     600</span></span>
-<span id="cb11-36"><a href="simple-goal-programming-with-sann.html#cb11-36" tabindex="-1"></a><span class="co"># Revenue ($/ha)    20000 40000 30000</span></span>
-<span id="cb11-37"><a href="simple-goal-programming-with-sann.html#cb11-37" tabindex="-1"></a><span class="co"># Habitat Quality     1     2     4</span></span>
-<span id="cb11-38"><a href="simple-goal-programming-with-sann.html#cb11-38" tabindex="-1"></a><span class="do">############################################################</span></span>
-<span id="cb11-39"><a href="simple-goal-programming-with-sann.html#cb11-39" tabindex="-1"></a></span>
-<span id="cb11-40"><a href="simple-goal-programming-with-sann.html#cb11-40" tabindex="-1"></a>timber.coef  <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">400</span>, <span class="dv">800</span>, <span class="dv">600</span>)</span>
-<span id="cb11-41"><a href="simple-goal-programming-with-sann.html#cb11-41" tabindex="-1"></a>revenue.coef <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">20000</span>, <span class="dv">40000</span>, <span class="dv">30000</span>)</span>
-<span id="cb11-42"><a href="simple-goal-programming-with-sann.html#cb11-42" tabindex="-1"></a>habitat.coef <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">4</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="simple-goal-programming-with-sann.html#cb1-1" tabindex="-1"></a></span>
+<span id="cb1-2"><a href="simple-goal-programming-with-sann.html#cb1-2" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">55</span>)</span>
+<span id="cb1-3"><a href="simple-goal-programming-with-sann.html#cb1-3" tabindex="-1"></a><span class="do">############################################################</span></span>
+<span id="cb1-4"><a href="simple-goal-programming-with-sann.html#cb1-4" tabindex="-1"></a><span class="co"># MANAGEMENT GOALS</span></span>
+<span id="cb1-5"><a href="simple-goal-programming-with-sann.html#cb1-5" tabindex="-1"></a><span class="do">############################################################</span></span>
+<span id="cb1-6"><a href="simple-goal-programming-with-sann.html#cb1-6" tabindex="-1"></a><span class="co"># Target timber production (m3)</span></span>
+<span id="cb1-7"><a href="simple-goal-programming-with-sann.html#cb1-7" tabindex="-1"></a>target.harvest <span class="ot">&lt;-</span> <span class="dv">100000</span></span>
+<span id="cb1-8"><a href="simple-goal-programming-with-sann.html#cb1-8" tabindex="-1"></a><span class="co"># Target revenue ($)</span></span>
+<span id="cb1-9"><a href="simple-goal-programming-with-sann.html#cb1-9" tabindex="-1"></a>target.revenue <span class="ot">&lt;-</span> <span class="dv">5000000</span></span>
+<span id="cb1-10"><a href="simple-goal-programming-with-sann.html#cb1-10" tabindex="-1"></a><span class="co"># Target habitat score</span></span>
+<span id="cb1-11"><a href="simple-goal-programming-with-sann.html#cb1-11" tabindex="-1"></a>target.habitat <span class="ot">&lt;-</span> <span class="dv">300</span></span>
+<span id="cb1-12"><a href="simple-goal-programming-with-sann.html#cb1-12" tabindex="-1"></a><span class="do">############################################################</span></span>
+<span id="cb1-13"><a href="simple-goal-programming-with-sann.html#cb1-13" tabindex="-1"></a><span class="co"># GOAL PRIORITIES (WEIGHTS)</span></span>
+<span id="cb1-14"><a href="simple-goal-programming-with-sann.html#cb1-14" tabindex="-1"></a><span class="co"># Larger values indicate greater importance.</span></span>
+<span id="cb1-15"><a href="simple-goal-programming-with-sann.html#cb1-15" tabindex="-1"></a><span class="co"># Harvest &gt; Revenue &gt; Habitat</span></span>
+<span id="cb1-16"><a href="simple-goal-programming-with-sann.html#cb1-16" tabindex="-1"></a><span class="do">############################################################</span></span>
+<span id="cb1-17"><a href="simple-goal-programming-with-sann.html#cb1-17" tabindex="-1"></a>w1 <span class="ot">&lt;-</span> <span class="dv">3</span>     <span class="co"># Harvest priority</span></span>
+<span id="cb1-18"><a href="simple-goal-programming-with-sann.html#cb1-18" tabindex="-1"></a>w2 <span class="ot">&lt;-</span> <span class="dv">5</span>     <span class="co"># Revenue priority</span></span>
+<span id="cb1-19"><a href="simple-goal-programming-with-sann.html#cb1-19" tabindex="-1"></a>w3 <span class="ot">&lt;-</span> <span class="dv">1</span>     <span class="co"># Habitat priority</span></span>
+<span id="cb1-20"><a href="simple-goal-programming-with-sann.html#cb1-20" tabindex="-1"></a><span class="do">###########################################################</span></span>
+<span id="cb1-21"><a href="simple-goal-programming-with-sann.html#cb1-21" tabindex="-1"></a><span class="co"># FOREST MANAGEMENT UNIT COEFFICIENTS</span></span>
+<span id="cb1-22"><a href="simple-goal-programming-with-sann.html#cb1-22" tabindex="-1"></a><span class="co">#                 Unit1 Unit2 Unit3</span></span>
+<span id="cb1-23"><a href="simple-goal-programming-with-sann.html#cb1-23" tabindex="-1"></a><span class="co"># Timber (m3/ha)     400    800     600</span></span>
+<span id="cb1-24"><a href="simple-goal-programming-with-sann.html#cb1-24" tabindex="-1"></a><span class="co"># Revenue ($/ha)    20000 40000 30000</span></span>
+<span id="cb1-25"><a href="simple-goal-programming-with-sann.html#cb1-25" tabindex="-1"></a><span class="co"># Habitat Quality     1     2     4</span></span>
+<span id="cb1-26"><a href="simple-goal-programming-with-sann.html#cb1-26" tabindex="-1"></a><span class="do">############################################################</span></span>
+<span id="cb1-27"><a href="simple-goal-programming-with-sann.html#cb1-27" tabindex="-1"></a>timber.coef  <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">400</span>, <span class="dv">800</span>, <span class="dv">600</span>)</span>
+<span id="cb1-28"><a href="simple-goal-programming-with-sann.html#cb1-28" tabindex="-1"></a>revenue.coef <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">20000</span>, <span class="dv">40000</span>, <span class="dv">30000</span>)</span>
+<span id="cb1-29"><a href="simple-goal-programming-with-sann.html#cb1-29" tabindex="-1"></a>habitat.coef <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">4</span>)</span></code></pre></div>
 <div id="the-objective-function" class="section level3 hasAnchor" number="4.2.1">
 <h3><span class="header-section-number">4.2.1</span> The Objective Function<a href="simple-goal-programming-with-sann.html#the-objective-function" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>This function defines the objective function for a <strong>goal programming optimization model</strong> that evaluates a proposed
@@ -452,82 +427,61 @@ is applied. Because these penalties are added to the objective function, any sol
 constraints receives a much larger objective value, making it far less likely to be selected by the optimization algorithm.
 The multiplier of <strong>1000</strong> is chosen to make constraint violations much more costly than small improvements in the objective,
 effectively encouraging the algorithm to prioritize feasible solutions.</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="simple-goal-programming-with-sann.html#cb12-1" tabindex="-1"></a></span>
-<span id="cb12-2"><a href="simple-goal-programming-with-sann.html#cb12-2" tabindex="-1"></a></span>
-<span id="cb12-3"><a href="simple-goal-programming-with-sann.html#cb12-3" tabindex="-1"></a></span>
-<span id="cb12-4"><a href="simple-goal-programming-with-sann.html#cb12-4" tabindex="-1"></a>goal_function <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
-<span id="cb12-5"><a href="simple-goal-programming-with-sann.html#cb12-5" tabindex="-1"></a>  </span>
-<span id="cb12-6"><a href="simple-goal-programming-with-sann.html#cb12-6" tabindex="-1"></a>  <span class="do">##########################################################</span></span>
-<span id="cb12-7"><a href="simple-goal-programming-with-sann.html#cb12-7" tabindex="-1"></a>  <span class="co"># PERFORMANCE METRICS</span></span>
-<span id="cb12-8"><a href="simple-goal-programming-with-sann.html#cb12-8" tabindex="-1"></a>  <span class="do">##########################################################</span></span>
-<span id="cb12-9"><a href="simple-goal-programming-with-sann.html#cb12-9" tabindex="-1"></a>  </span>
-<span id="cb12-10"><a href="simple-goal-programming-with-sann.html#cb12-10" tabindex="-1"></a>  harvest <span class="ot">&lt;-</span> <span class="fu">sum</span>(timber.coef <span class="sc">*</span> x)</span>
-<span id="cb12-11"><a href="simple-goal-programming-with-sann.html#cb12-11" tabindex="-1"></a>  </span>
-<span id="cb12-12"><a href="simple-goal-programming-with-sann.html#cb12-12" tabindex="-1"></a>  revenue <span class="ot">&lt;-</span> <span class="fu">sum</span>(revenue.coef <span class="sc">*</span> x)</span>
-<span id="cb12-13"><a href="simple-goal-programming-with-sann.html#cb12-13" tabindex="-1"></a>  </span>
-<span id="cb12-14"><a href="simple-goal-programming-with-sann.html#cb12-14" tabindex="-1"></a>  habitat <span class="ot">&lt;-</span> <span class="fu">sum</span>(habitat.coef <span class="sc">*</span> x)</span>
-<span id="cb12-15"><a href="simple-goal-programming-with-sann.html#cb12-15" tabindex="-1"></a>  </span>
-<span id="cb12-16"><a href="simple-goal-programming-with-sann.html#cb12-16" tabindex="-1"></a>  <span class="do">##########################################################</span></span>
-<span id="cb12-17"><a href="simple-goal-programming-with-sann.html#cb12-17" tabindex="-1"></a>  <span class="co"># NORMALIZED DEVIATIONS FROM TARGETS</span></span>
-<span id="cb12-18"><a href="simple-goal-programming-with-sann.html#cb12-18" tabindex="-1"></a>  <span class="do">##########################################################</span></span>
-<span id="cb12-19"><a href="simple-goal-programming-with-sann.html#cb12-19" tabindex="-1"></a>  </span>
-<span id="cb12-20"><a href="simple-goal-programming-with-sann.html#cb12-20" tabindex="-1"></a>  d.harvest <span class="ot">&lt;-</span> <span class="fu">abs</span>(harvest <span class="sc">-</span> target.harvest) <span class="sc">/</span></span>
-<span id="cb12-21"><a href="simple-goal-programming-with-sann.html#cb12-21" tabindex="-1"></a>    target.harvest</span>
-<span id="cb12-22"><a href="simple-goal-programming-with-sann.html#cb12-22" tabindex="-1"></a>  </span>
-<span id="cb12-23"><a href="simple-goal-programming-with-sann.html#cb12-23" tabindex="-1"></a>  d.revenue <span class="ot">&lt;-</span> <span class="fu">abs</span>(revenue <span class="sc">-</span> target.revenue) <span class="sc">/</span></span>
-<span id="cb12-24"><a href="simple-goal-programming-with-sann.html#cb12-24" tabindex="-1"></a>    target.revenue</span>
-<span id="cb12-25"><a href="simple-goal-programming-with-sann.html#cb12-25" tabindex="-1"></a>  </span>
-<span id="cb12-26"><a href="simple-goal-programming-with-sann.html#cb12-26" tabindex="-1"></a>  d.habitat <span class="ot">&lt;-</span> <span class="fu">abs</span>(habitat <span class="sc">-</span> target.habitat) <span class="sc">/</span></span>
-<span id="cb12-27"><a href="simple-goal-programming-with-sann.html#cb12-27" tabindex="-1"></a>    target.habitat</span>
-<span id="cb12-28"><a href="simple-goal-programming-with-sann.html#cb12-28" tabindex="-1"></a>  </span>
-<span id="cb12-29"><a href="simple-goal-programming-with-sann.html#cb12-29" tabindex="-1"></a>  <span class="do">##########################################################</span></span>
-<span id="cb12-30"><a href="simple-goal-programming-with-sann.html#cb12-30" tabindex="-1"></a>  <span class="co"># GOAL PROGRAMMING OBJECTIVE Function</span></span>
-<span id="cb12-31"><a href="simple-goal-programming-with-sann.html#cb12-31" tabindex="-1"></a>  <span class="do">##########################################################</span></span>
-<span id="cb12-32"><a href="simple-goal-programming-with-sann.html#cb12-32" tabindex="-1"></a>  </span>
-<span id="cb12-33"><a href="simple-goal-programming-with-sann.html#cb12-33" tabindex="-1"></a>  z <span class="ot">&lt;-</span> (w1 <span class="sc">*</span> d.harvest) <span class="sc">+</span></span>
-<span id="cb12-34"><a href="simple-goal-programming-with-sann.html#cb12-34" tabindex="-1"></a>    (w2 <span class="sc">*</span> d.revenue) <span class="sc">+</span></span>
-<span id="cb12-35"><a href="simple-goal-programming-with-sann.html#cb12-35" tabindex="-1"></a>    (w3 <span class="sc">*</span> d.habitat)</span>
-<span id="cb12-36"><a href="simple-goal-programming-with-sann.html#cb12-36" tabindex="-1"></a>  </span>
-<span id="cb12-37"><a href="simple-goal-programming-with-sann.html#cb12-37" tabindex="-1"></a>  <span class="do">##########################################################</span></span>
-<span id="cb12-38"><a href="simple-goal-programming-with-sann.html#cb12-38" tabindex="-1"></a>  <span class="co">#</span></span>
-<span id="cb12-39"><a href="simple-goal-programming-with-sann.html#cb12-39" tabindex="-1"></a>  <span class="co"># Constraint 1:</span></span>
-<span id="cb12-40"><a href="simple-goal-programming-with-sann.html#cb12-40" tabindex="-1"></a>  <span class="co"># Total harvest area &lt;= 200 ha : upper, one-sided goal</span></span>
-<span id="cb12-41"><a href="simple-goal-programming-with-sann.html#cb12-41" tabindex="-1"></a>  <span class="co">#</span></span>
-<span id="cb12-42"><a href="simple-goal-programming-with-sann.html#cb12-42" tabindex="-1"></a>  <span class="co"># Constraint 2:</span></span>
-<span id="cb12-43"><a href="simple-goal-programming-with-sann.html#cb12-43" tabindex="-1"></a>  <span class="co"># Habitat &gt;= 250 units: lower one - sided goal</span></span>
-<span id="cb12-44"><a href="simple-goal-programming-with-sann.html#cb12-44" tabindex="-1"></a>  <span class="co">#</span></span>
-<span id="cb12-45"><a href="simple-goal-programming-with-sann.html#cb12-45" tabindex="-1"></a>  <span class="co"># Constraint 3:</span></span>
-<span id="cb12-46"><a href="simple-goal-programming-with-sann.html#cb12-46" tabindex="-1"></a>  <span class="co"># Unit 3 harvest &lt;= 80 ha: upper one-sided goal</span></span>
-<span id="cb12-47"><a href="simple-goal-programming-with-sann.html#cb12-47" tabindex="-1"></a>  <span class="do">##########################################################</span></span>
-<span id="cb12-48"><a href="simple-goal-programming-with-sann.html#cb12-48" tabindex="-1"></a>  </span>
-<span id="cb12-49"><a href="simple-goal-programming-with-sann.html#cb12-49" tabindex="-1"></a>  penalty <span class="ot">&lt;-</span> <span class="dv">0</span></span>
-<span id="cb12-50"><a href="simple-goal-programming-with-sann.html#cb12-50" tabindex="-1"></a>  </span>
-<span id="cb12-51"><a href="simple-goal-programming-with-sann.html#cb12-51" tabindex="-1"></a>  <span class="co"># Constraint 1</span></span>
-<span id="cb12-52"><a href="simple-goal-programming-with-sann.html#cb12-52" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">sum</span>(x) <span class="sc">&gt;</span> <span class="dv">200</span>) {</span>
-<span id="cb12-53"><a href="simple-goal-programming-with-sann.html#cb12-53" tabindex="-1"></a>    penalty <span class="ot">&lt;-</span> penalty <span class="sc">+</span></span>
-<span id="cb12-54"><a href="simple-goal-programming-with-sann.html#cb12-54" tabindex="-1"></a>      <span class="dv">1000</span> <span class="sc">*</span> (<span class="fu">sum</span>(x) <span class="sc">-</span> <span class="dv">200</span>)</span>
-<span id="cb12-55"><a href="simple-goal-programming-with-sann.html#cb12-55" tabindex="-1"></a>  }</span>
-<span id="cb12-56"><a href="simple-goal-programming-with-sann.html#cb12-56" tabindex="-1"></a>  </span>
-<span id="cb12-57"><a href="simple-goal-programming-with-sann.html#cb12-57" tabindex="-1"></a>  <span class="co"># Constraint 2</span></span>
-<span id="cb12-58"><a href="simple-goal-programming-with-sann.html#cb12-58" tabindex="-1"></a>  <span class="cf">if</span> (habitat <span class="sc">&lt;</span> <span class="dv">250</span>) {</span>
-<span id="cb12-59"><a href="simple-goal-programming-with-sann.html#cb12-59" tabindex="-1"></a>    penalty <span class="ot">&lt;-</span> penalty <span class="sc">+</span></span>
-<span id="cb12-60"><a href="simple-goal-programming-with-sann.html#cb12-60" tabindex="-1"></a>      <span class="dv">1000</span> <span class="sc">*</span> (<span class="dv">250</span> <span class="sc">-</span> habitat)</span>
-<span id="cb12-61"><a href="simple-goal-programming-with-sann.html#cb12-61" tabindex="-1"></a>  }</span>
-<span id="cb12-62"><a href="simple-goal-programming-with-sann.html#cb12-62" tabindex="-1"></a>  </span>
-<span id="cb12-63"><a href="simple-goal-programming-with-sann.html#cb12-63" tabindex="-1"></a>  <span class="co"># Constraint 3</span></span>
-<span id="cb12-64"><a href="simple-goal-programming-with-sann.html#cb12-64" tabindex="-1"></a>  <span class="cf">if</span> (x[<span class="dv">3</span>] <span class="sc">&gt;</span> <span class="dv">80</span>) {</span>
-<span id="cb12-65"><a href="simple-goal-programming-with-sann.html#cb12-65" tabindex="-1"></a>    penalty <span class="ot">&lt;-</span> penalty <span class="sc">+</span></span>
-<span id="cb12-66"><a href="simple-goal-programming-with-sann.html#cb12-66" tabindex="-1"></a>      <span class="dv">1000</span> <span class="sc">*</span> (x[<span class="dv">3</span>] <span class="sc">-</span> <span class="dv">80</span>)</span>
-<span id="cb12-67"><a href="simple-goal-programming-with-sann.html#cb12-67" tabindex="-1"></a>  }</span>
-<span id="cb12-68"><a href="simple-goal-programming-with-sann.html#cb12-68" tabindex="-1"></a>  </span>
-<span id="cb12-69"><a href="simple-goal-programming-with-sann.html#cb12-69" tabindex="-1"></a>  <span class="do">##########################################################</span></span>
-<span id="cb12-70"><a href="simple-goal-programming-with-sann.html#cb12-70" tabindex="-1"></a>  <span class="co"># OBJECTIVE + PENALTIES</span></span>
-<span id="cb12-71"><a href="simple-goal-programming-with-sann.html#cb12-71" tabindex="-1"></a>  <span class="do">##########################################################</span></span>
-<span id="cb12-72"><a href="simple-goal-programming-with-sann.html#cb12-72" tabindex="-1"></a>  </span>
-<span id="cb12-73"><a href="simple-goal-programming-with-sann.html#cb12-73" tabindex="-1"></a>  z <span class="ot">&lt;-</span> z <span class="sc">+</span> penalty</span>
-<span id="cb12-74"><a href="simple-goal-programming-with-sann.html#cb12-74" tabindex="-1"></a>  </span>
-<span id="cb12-75"><a href="simple-goal-programming-with-sann.html#cb12-75" tabindex="-1"></a>  <span class="fu">return</span>(z)</span>
-<span id="cb12-76"><a href="simple-goal-programming-with-sann.html#cb12-76" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="simple-goal-programming-with-sann.html#cb2-1" tabindex="-1"></a>goal_function <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
+<span id="cb2-2"><a href="simple-goal-programming-with-sann.html#cb2-2" tabindex="-1"></a>  <span class="do">##########################################################</span></span>
+<span id="cb2-3"><a href="simple-goal-programming-with-sann.html#cb2-3" tabindex="-1"></a>  <span class="co"># PERFORMANCE METRICS</span></span>
+<span id="cb2-4"><a href="simple-goal-programming-with-sann.html#cb2-4" tabindex="-1"></a>  <span class="do">##########################################################</span></span>
+<span id="cb2-5"><a href="simple-goal-programming-with-sann.html#cb2-5" tabindex="-1"></a>  harvest <span class="ot">&lt;-</span> <span class="fu">sum</span>(timber.coef <span class="sc">*</span> x)</span>
+<span id="cb2-6"><a href="simple-goal-programming-with-sann.html#cb2-6" tabindex="-1"></a>  revenue <span class="ot">&lt;-</span> <span class="fu">sum</span>(revenue.coef <span class="sc">*</span> x)</span>
+<span id="cb2-7"><a href="simple-goal-programming-with-sann.html#cb2-7" tabindex="-1"></a>  habitat <span class="ot">&lt;-</span> <span class="fu">sum</span>(habitat.coef <span class="sc">*</span> x)</span>
+<span id="cb2-8"><a href="simple-goal-programming-with-sann.html#cb2-8" tabindex="-1"></a>  <span class="do">##########################################################</span></span>
+<span id="cb2-9"><a href="simple-goal-programming-with-sann.html#cb2-9" tabindex="-1"></a>  <span class="co"># NORMALIZED DEVIATIONS FROM TARGETS</span></span>
+<span id="cb2-10"><a href="simple-goal-programming-with-sann.html#cb2-10" tabindex="-1"></a>  <span class="do">##########################################################</span></span>
+<span id="cb2-11"><a href="simple-goal-programming-with-sann.html#cb2-11" tabindex="-1"></a>  d.harvest <span class="ot">&lt;-</span> <span class="fu">abs</span>(harvest <span class="sc">-</span> target.harvest) <span class="sc">/</span></span>
+<span id="cb2-12"><a href="simple-goal-programming-with-sann.html#cb2-12" tabindex="-1"></a>    target.harvest</span>
+<span id="cb2-13"><a href="simple-goal-programming-with-sann.html#cb2-13" tabindex="-1"></a>  d.revenue <span class="ot">&lt;-</span> <span class="fu">abs</span>(revenue <span class="sc">-</span> target.revenue) <span class="sc">/</span></span>
+<span id="cb2-14"><a href="simple-goal-programming-with-sann.html#cb2-14" tabindex="-1"></a>    target.revenue</span>
+<span id="cb2-15"><a href="simple-goal-programming-with-sann.html#cb2-15" tabindex="-1"></a>  d.habitat <span class="ot">&lt;-</span> <span class="fu">abs</span>(habitat <span class="sc">-</span> target.habitat) <span class="sc">/</span></span>
+<span id="cb2-16"><a href="simple-goal-programming-with-sann.html#cb2-16" tabindex="-1"></a>    target.habitat</span>
+<span id="cb2-17"><a href="simple-goal-programming-with-sann.html#cb2-17" tabindex="-1"></a>  <span class="do">##########################################################</span></span>
+<span id="cb2-18"><a href="simple-goal-programming-with-sann.html#cb2-18" tabindex="-1"></a>  <span class="co"># GOAL PROGRAMMING OBJECTIVE Function</span></span>
+<span id="cb2-19"><a href="simple-goal-programming-with-sann.html#cb2-19" tabindex="-1"></a>  <span class="do">##########################################################</span></span>
+<span id="cb2-20"><a href="simple-goal-programming-with-sann.html#cb2-20" tabindex="-1"></a>  z <span class="ot">&lt;-</span> (w1 <span class="sc">*</span> d.harvest) <span class="sc">+</span></span>
+<span id="cb2-21"><a href="simple-goal-programming-with-sann.html#cb2-21" tabindex="-1"></a>    (w2 <span class="sc">*</span> d.revenue) <span class="sc">+</span></span>
+<span id="cb2-22"><a href="simple-goal-programming-with-sann.html#cb2-22" tabindex="-1"></a>    (w3 <span class="sc">*</span> d.habitat)</span>
+<span id="cb2-23"><a href="simple-goal-programming-with-sann.html#cb2-23" tabindex="-1"></a>  <span class="do">##########################################################</span></span>
+<span id="cb2-24"><a href="simple-goal-programming-with-sann.html#cb2-24" tabindex="-1"></a>  <span class="co">#</span></span>
+<span id="cb2-25"><a href="simple-goal-programming-with-sann.html#cb2-25" tabindex="-1"></a>  <span class="co"># Constraint 1:</span></span>
+<span id="cb2-26"><a href="simple-goal-programming-with-sann.html#cb2-26" tabindex="-1"></a>  <span class="co"># Total harvest area &lt;= 200 ha : upper, one-sided goal</span></span>
+<span id="cb2-27"><a href="simple-goal-programming-with-sann.html#cb2-27" tabindex="-1"></a>  <span class="co">#</span></span>
+<span id="cb2-28"><a href="simple-goal-programming-with-sann.html#cb2-28" tabindex="-1"></a>  <span class="co"># Constraint 2:</span></span>
+<span id="cb2-29"><a href="simple-goal-programming-with-sann.html#cb2-29" tabindex="-1"></a>  <span class="co"># Habitat &gt;= 250 units: lower one - sided goal</span></span>
+<span id="cb2-30"><a href="simple-goal-programming-with-sann.html#cb2-30" tabindex="-1"></a>  <span class="co">#</span></span>
+<span id="cb2-31"><a href="simple-goal-programming-with-sann.html#cb2-31" tabindex="-1"></a>  <span class="co"># Constraint 3:</span></span>
+<span id="cb2-32"><a href="simple-goal-programming-with-sann.html#cb2-32" tabindex="-1"></a>  <span class="co"># Unit 3 harvest &lt;= 80 ha: upper one-sided goal</span></span>
+<span id="cb2-33"><a href="simple-goal-programming-with-sann.html#cb2-33" tabindex="-1"></a>  <span class="do">##########################################################</span></span>
+<span id="cb2-34"><a href="simple-goal-programming-with-sann.html#cb2-34" tabindex="-1"></a>  penalty <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb2-35"><a href="simple-goal-programming-with-sann.html#cb2-35" tabindex="-1"></a>  <span class="co"># Constraint 1</span></span>
+<span id="cb2-36"><a href="simple-goal-programming-with-sann.html#cb2-36" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">sum</span>(x) <span class="sc">&gt;</span> <span class="dv">200</span>) {</span>
+<span id="cb2-37"><a href="simple-goal-programming-with-sann.html#cb2-37" tabindex="-1"></a>    penalty <span class="ot">&lt;-</span> penalty <span class="sc">+</span></span>
+<span id="cb2-38"><a href="simple-goal-programming-with-sann.html#cb2-38" tabindex="-1"></a>      <span class="dv">1000</span> <span class="sc">*</span> (<span class="fu">sum</span>(x) <span class="sc">-</span> <span class="dv">200</span>)</span>
+<span id="cb2-39"><a href="simple-goal-programming-with-sann.html#cb2-39" tabindex="-1"></a>  }</span>
+<span id="cb2-40"><a href="simple-goal-programming-with-sann.html#cb2-40" tabindex="-1"></a>  <span class="co"># Constraint 2</span></span>
+<span id="cb2-41"><a href="simple-goal-programming-with-sann.html#cb2-41" tabindex="-1"></a>  <span class="cf">if</span> (habitat <span class="sc">&lt;</span> <span class="dv">250</span>) {</span>
+<span id="cb2-42"><a href="simple-goal-programming-with-sann.html#cb2-42" tabindex="-1"></a>    penalty <span class="ot">&lt;-</span> penalty <span class="sc">+</span></span>
+<span id="cb2-43"><a href="simple-goal-programming-with-sann.html#cb2-43" tabindex="-1"></a>      <span class="dv">1000</span> <span class="sc">*</span> (<span class="dv">250</span> <span class="sc">-</span> habitat)</span>
+<span id="cb2-44"><a href="simple-goal-programming-with-sann.html#cb2-44" tabindex="-1"></a>  }</span>
+<span id="cb2-45"><a href="simple-goal-programming-with-sann.html#cb2-45" tabindex="-1"></a>  <span class="co"># Constraint 3</span></span>
+<span id="cb2-46"><a href="simple-goal-programming-with-sann.html#cb2-46" tabindex="-1"></a>  <span class="cf">if</span> (x[<span class="dv">3</span>] <span class="sc">&gt;</span> <span class="dv">80</span>) {</span>
+<span id="cb2-47"><a href="simple-goal-programming-with-sann.html#cb2-47" tabindex="-1"></a>    penalty <span class="ot">&lt;-</span> penalty <span class="sc">+</span></span>
+<span id="cb2-48"><a href="simple-goal-programming-with-sann.html#cb2-48" tabindex="-1"></a>      <span class="dv">1000</span> <span class="sc">*</span> (x[<span class="dv">3</span>] <span class="sc">-</span> <span class="dv">80</span>)</span>
+<span id="cb2-49"><a href="simple-goal-programming-with-sann.html#cb2-49" tabindex="-1"></a>  }</span>
+<span id="cb2-50"><a href="simple-goal-programming-with-sann.html#cb2-50" tabindex="-1"></a>  <span class="do">##########################################################</span></span>
+<span id="cb2-51"><a href="simple-goal-programming-with-sann.html#cb2-51" tabindex="-1"></a>  <span class="co"># OBJECTIVE + PENALTIES</span></span>
+<span id="cb2-52"><a href="simple-goal-programming-with-sann.html#cb2-52" tabindex="-1"></a>  <span class="do">##########################################################</span></span>
+<span id="cb2-53"><a href="simple-goal-programming-with-sann.html#cb2-53" tabindex="-1"></a>  z <span class="ot">&lt;-</span> z <span class="sc">+</span> penalty</span>
+<span id="cb2-54"><a href="simple-goal-programming-with-sann.html#cb2-54" tabindex="-1"></a>  <span class="fu">return</span>(z)</span>
+<span id="cb2-55"><a href="simple-goal-programming-with-sann.html#cb2-55" tabindex="-1"></a>}</span></code></pre></div>
 </div>
 </div>
 </div>
@@ -555,116 +509,98 @@ the simulated annealing schedule (internal to the optim function), making the al
 <p>Finally, it evaluates whether the optimized solution satisfies the three operational constraints by
 checking that the total harvested area does not exceed 200 ha, habitat remains at or above 250 units, and harvest in Unit 3 does
 not exceed 80 ha. These calculations provide a summary of both the quality and feasibility of the optimized solution.</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="simple-goal-programming-with-sann.html#cb13-1" tabindex="-1"></a></span>
-<span id="cb13-2"><a href="simple-goal-programming-with-sann.html#cb13-2" tabindex="-1"></a></span>
-<span id="cb13-3"><a href="simple-goal-programming-with-sann.html#cb13-3" tabindex="-1"></a>result <span class="ot">&lt;-</span> <span class="fu">optim</span>( <span class="co">#base R</span></span>
-<span id="cb13-4"><a href="simple-goal-programming-with-sann.html#cb13-4" tabindex="-1"></a>  <span class="at">par =</span> <span class="fu">c</span>(<span class="dv">50</span>, <span class="dv">50</span>, <span class="dv">50</span>),   <span class="co"># Initial solution of 50 ha for each unit</span></span>
-<span id="cb13-5"><a href="simple-goal-programming-with-sann.html#cb13-5" tabindex="-1"></a>  <span class="at">fn =</span> goal_function, <span class="co">#load the objective function</span></span>
-<span id="cb13-6"><a href="simple-goal-programming-with-sann.html#cb13-6" tabindex="-1"></a>  <span class="at">method =</span> <span class="st">&quot;SANN&quot;</span>, <span class="co">#use the simulated annealing method</span></span>
-<span id="cb13-7"><a href="simple-goal-programming-with-sann.html#cb13-7" tabindex="-1"></a>  <span class="at">control =</span> <span class="fu">list</span>(</span>
-<span id="cb13-8"><a href="simple-goal-programming-with-sann.html#cb13-8" tabindex="-1"></a>    <span class="at">maxit =</span> <span class="dv">50000</span>, <span class="co">#interations</span></span>
-<span id="cb13-9"><a href="simple-goal-programming-with-sann.html#cb13-9" tabindex="-1"></a>    <span class="at">temp =</span> <span class="dv">50</span>, <span class="co">#set initail tempture to 50, decrementing cooling schedule internal to the function</span></span>
-<span id="cb13-10"><a href="simple-goal-programming-with-sann.html#cb13-10" tabindex="-1"></a>    <span class="at">trace =</span> <span class="cn">TRUE</span> <span class="co"># report objective value</span></span>
-<span id="cb13-11"><a href="simple-goal-programming-with-sann.html#cb13-11" tabindex="-1"></a>  )</span>
-<span id="cb13-12"><a href="simple-goal-programming-with-sann.html#cb13-12" tabindex="-1"></a>)</span>
-<span id="cb13-13"><a href="simple-goal-programming-with-sann.html#cb13-13" tabindex="-1"></a><span class="do">## sann objective function values</span></span>
-<span id="cb13-14"><a href="simple-goal-programming-with-sann.html#cb13-14" tabindex="-1"></a><span class="do">## initial       value 0.966667</span></span>
-<span id="cb13-15"><a href="simple-goal-programming-with-sann.html#cb13-15" tabindex="-1"></a><span class="do">## iter     1000 value 0.822967</span></span>
-<span id="cb13-16"><a href="simple-goal-programming-with-sann.html#cb13-16" tabindex="-1"></a><span class="do">## iter     2000 value 0.822967</span></span>
-<span id="cb13-17"><a href="simple-goal-programming-with-sann.html#cb13-17" tabindex="-1"></a><span class="do">## iter     3000 value 0.822967</span></span>
-<span id="cb13-18"><a href="simple-goal-programming-with-sann.html#cb13-18" tabindex="-1"></a><span class="do">## iter     4000 value 0.751262</span></span>
-<span id="cb13-19"><a href="simple-goal-programming-with-sann.html#cb13-19" tabindex="-1"></a><span class="do">## iter     5000 value 0.691897</span></span>
-<span id="cb13-20"><a href="simple-goal-programming-with-sann.html#cb13-20" tabindex="-1"></a><span class="do">## iter     6000 value 0.691897</span></span>
-<span id="cb13-21"><a href="simple-goal-programming-with-sann.html#cb13-21" tabindex="-1"></a><span class="do">## iter     7000 value 0.691897</span></span>
-<span id="cb13-22"><a href="simple-goal-programming-with-sann.html#cb13-22" tabindex="-1"></a><span class="do">## iter     8000 value 0.691897</span></span>
-<span id="cb13-23"><a href="simple-goal-programming-with-sann.html#cb13-23" tabindex="-1"></a><span class="do">## iter     9000 value 0.691897</span></span>
-<span id="cb13-24"><a href="simple-goal-programming-with-sann.html#cb13-24" tabindex="-1"></a><span class="do">## iter    10000 value 0.691897</span></span>
-<span id="cb13-25"><a href="simple-goal-programming-with-sann.html#cb13-25" tabindex="-1"></a><span class="do">## iter    11000 value 0.691897</span></span>
-<span id="cb13-26"><a href="simple-goal-programming-with-sann.html#cb13-26" tabindex="-1"></a><span class="do">## iter    12000 value 0.691897</span></span>
-<span id="cb13-27"><a href="simple-goal-programming-with-sann.html#cb13-27" tabindex="-1"></a><span class="do">## iter    13000 value 0.691897</span></span>
-<span id="cb13-28"><a href="simple-goal-programming-with-sann.html#cb13-28" tabindex="-1"></a><span class="do">## iter    14000 value 0.544625</span></span>
-<span id="cb13-29"><a href="simple-goal-programming-with-sann.html#cb13-29" tabindex="-1"></a><span class="do">## iter    15000 value 0.544625</span></span>
-<span id="cb13-30"><a href="simple-goal-programming-with-sann.html#cb13-30" tabindex="-1"></a><span class="do">## iter    16000 value 0.544625</span></span>
-<span id="cb13-31"><a href="simple-goal-programming-with-sann.html#cb13-31" tabindex="-1"></a><span class="do">## iter    17000 value 0.544625</span></span>
-<span id="cb13-32"><a href="simple-goal-programming-with-sann.html#cb13-32" tabindex="-1"></a><span class="do">## iter    18000 value 0.544625</span></span>
-<span id="cb13-33"><a href="simple-goal-programming-with-sann.html#cb13-33" tabindex="-1"></a><span class="do">## iter    19000 value 0.544625</span></span>
-<span id="cb13-34"><a href="simple-goal-programming-with-sann.html#cb13-34" tabindex="-1"></a><span class="do">## iter    20000 value 0.544625</span></span>
-<span id="cb13-35"><a href="simple-goal-programming-with-sann.html#cb13-35" tabindex="-1"></a><span class="do">## iter    21000 value 0.544625</span></span>
-<span id="cb13-36"><a href="simple-goal-programming-with-sann.html#cb13-36" tabindex="-1"></a><span class="do">## iter    22000 value 0.544625</span></span>
-<span id="cb13-37"><a href="simple-goal-programming-with-sann.html#cb13-37" tabindex="-1"></a><span class="do">## iter    23000 value 0.544625</span></span>
-<span id="cb13-38"><a href="simple-goal-programming-with-sann.html#cb13-38" tabindex="-1"></a><span class="do">## iter    24000 value 0.544625</span></span>
-<span id="cb13-39"><a href="simple-goal-programming-with-sann.html#cb13-39" tabindex="-1"></a><span class="do">## iter    25000 value 0.544625</span></span>
-<span id="cb13-40"><a href="simple-goal-programming-with-sann.html#cb13-40" tabindex="-1"></a><span class="do">## iter    26000 value 0.544625</span></span>
-<span id="cb13-41"><a href="simple-goal-programming-with-sann.html#cb13-41" tabindex="-1"></a><span class="do">## iter    27000 value 0.544625</span></span>
-<span id="cb13-42"><a href="simple-goal-programming-with-sann.html#cb13-42" tabindex="-1"></a><span class="do">## iter    28000 value 0.544625</span></span>
-<span id="cb13-43"><a href="simple-goal-programming-with-sann.html#cb13-43" tabindex="-1"></a><span class="do">## iter    29000 value 0.544625</span></span>
-<span id="cb13-44"><a href="simple-goal-programming-with-sann.html#cb13-44" tabindex="-1"></a><span class="do">## iter    30000 value 0.544625</span></span>
-<span id="cb13-45"><a href="simple-goal-programming-with-sann.html#cb13-45" tabindex="-1"></a><span class="do">## iter    31000 value 0.544625</span></span>
-<span id="cb13-46"><a href="simple-goal-programming-with-sann.html#cb13-46" tabindex="-1"></a><span class="do">## iter    32000 value 0.544625</span></span>
-<span id="cb13-47"><a href="simple-goal-programming-with-sann.html#cb13-47" tabindex="-1"></a><span class="do">## iter    33000 value 0.544625</span></span>
-<span id="cb13-48"><a href="simple-goal-programming-with-sann.html#cb13-48" tabindex="-1"></a><span class="do">## iter    34000 value 0.544625</span></span>
-<span id="cb13-49"><a href="simple-goal-programming-with-sann.html#cb13-49" tabindex="-1"></a><span class="do">## iter    35000 value 0.544625</span></span>
-<span id="cb13-50"><a href="simple-goal-programming-with-sann.html#cb13-50" tabindex="-1"></a><span class="do">## iter    36000 value 0.544625</span></span>
-<span id="cb13-51"><a href="simple-goal-programming-with-sann.html#cb13-51" tabindex="-1"></a><span class="do">## iter    37000 value 0.544625</span></span>
-<span id="cb13-52"><a href="simple-goal-programming-with-sann.html#cb13-52" tabindex="-1"></a><span class="do">## iter    38000 value 0.544625</span></span>
-<span id="cb13-53"><a href="simple-goal-programming-with-sann.html#cb13-53" tabindex="-1"></a><span class="do">## iter    39000 value 0.269334</span></span>
-<span id="cb13-54"><a href="simple-goal-programming-with-sann.html#cb13-54" tabindex="-1"></a><span class="do">## iter    40000 value 0.225869</span></span>
-<span id="cb13-55"><a href="simple-goal-programming-with-sann.html#cb13-55" tabindex="-1"></a><span class="do">## iter    41000 value 0.225869</span></span>
-<span id="cb13-56"><a href="simple-goal-programming-with-sann.html#cb13-56" tabindex="-1"></a><span class="do">## iter    42000 value 0.212307</span></span>
-<span id="cb13-57"><a href="simple-goal-programming-with-sann.html#cb13-57" tabindex="-1"></a><span class="do">## iter    43000 value 0.212307</span></span>
-<span id="cb13-58"><a href="simple-goal-programming-with-sann.html#cb13-58" tabindex="-1"></a><span class="do">## iter    44000 value 0.212307</span></span>
-<span id="cb13-59"><a href="simple-goal-programming-with-sann.html#cb13-59" tabindex="-1"></a><span class="do">## iter    45000 value 0.212307</span></span>
-<span id="cb13-60"><a href="simple-goal-programming-with-sann.html#cb13-60" tabindex="-1"></a><span class="do">## iter    46000 value 0.158525</span></span>
-<span id="cb13-61"><a href="simple-goal-programming-with-sann.html#cb13-61" tabindex="-1"></a><span class="do">## iter    47000 value 0.148288</span></span>
-<span id="cb13-62"><a href="simple-goal-programming-with-sann.html#cb13-62" tabindex="-1"></a><span class="do">## iter    48000 value 0.148288</span></span>
-<span id="cb13-63"><a href="simple-goal-programming-with-sann.html#cb13-63" tabindex="-1"></a><span class="do">## iter    49000 value 0.148288</span></span>
-<span id="cb13-64"><a href="simple-goal-programming-with-sann.html#cb13-64" tabindex="-1"></a><span class="do">## iter    49999 value 0.148288</span></span>
-<span id="cb13-65"><a href="simple-goal-programming-with-sann.html#cb13-65" tabindex="-1"></a><span class="do">## final         value 0.148288</span></span>
-<span id="cb13-66"><a href="simple-goal-programming-with-sann.html#cb13-66" tabindex="-1"></a><span class="do">## sann stopped after 49999 iterations</span></span>
-<span id="cb13-67"><a href="simple-goal-programming-with-sann.html#cb13-67" tabindex="-1"></a></span>
-<span id="cb13-68"><a href="simple-goal-programming-with-sann.html#cb13-68" tabindex="-1"></a></span>
-<span id="cb13-69"><a href="simple-goal-programming-with-sann.html#cb13-69" tabindex="-1"></a><span class="do">############################################################</span></span>
-<span id="cb13-70"><a href="simple-goal-programming-with-sann.html#cb13-70" tabindex="-1"></a><span class="co"># EXTRACT BEST SOLUTION FOUND</span></span>
-<span id="cb13-71"><a href="simple-goal-programming-with-sann.html#cb13-71" tabindex="-1"></a><span class="do">############################################################</span></span>
-<span id="cb13-72"><a href="simple-goal-programming-with-sann.html#cb13-72" tabindex="-1"></a></span>
-<span id="cb13-73"><a href="simple-goal-programming-with-sann.html#cb13-73" tabindex="-1"></a></span>
-<span id="cb13-74"><a href="simple-goal-programming-with-sann.html#cb13-74" tabindex="-1"></a>x <span class="ot">&lt;-</span> result<span class="sc">$</span>par</span>
-<span id="cb13-75"><a href="simple-goal-programming-with-sann.html#cb13-75" tabindex="-1"></a></span>
-<span id="cb13-76"><a href="simple-goal-programming-with-sann.html#cb13-76" tabindex="-1"></a></span>
-<span id="cb13-77"><a href="simple-goal-programming-with-sann.html#cb13-77" tabindex="-1"></a><span class="do">############################################################</span></span>
-<span id="cb13-78"><a href="simple-goal-programming-with-sann.html#cb13-78" tabindex="-1"></a><span class="co"># CALCULATE FINAL PERFORMANCE</span></span>
-<span id="cb13-79"><a href="simple-goal-programming-with-sann.html#cb13-79" tabindex="-1"></a><span class="do">############################################################</span></span>
-<span id="cb13-80"><a href="simple-goal-programming-with-sann.html#cb13-80" tabindex="-1"></a></span>
-<span id="cb13-81"><a href="simple-goal-programming-with-sann.html#cb13-81" tabindex="-1"></a>harvest <span class="ot">&lt;-</span> <span class="fu">sum</span>(timber.coef <span class="sc">*</span> x)</span>
-<span id="cb13-82"><a href="simple-goal-programming-with-sann.html#cb13-82" tabindex="-1"></a></span>
-<span id="cb13-83"><a href="simple-goal-programming-with-sann.html#cb13-83" tabindex="-1"></a>revenue <span class="ot">&lt;-</span> <span class="fu">sum</span>(revenue.coef <span class="sc">*</span> x)</span>
-<span id="cb13-84"><a href="simple-goal-programming-with-sann.html#cb13-84" tabindex="-1"></a></span>
-<span id="cb13-85"><a href="simple-goal-programming-with-sann.html#cb13-85" tabindex="-1"></a>habitat <span class="ot">&lt;-</span> <span class="fu">sum</span>(habitat.coef <span class="sc">*</span> x)</span>
-<span id="cb13-86"><a href="simple-goal-programming-with-sann.html#cb13-86" tabindex="-1"></a></span>
-<span id="cb13-87"><a href="simple-goal-programming-with-sann.html#cb13-87" tabindex="-1"></a></span>
-<span id="cb13-88"><a href="simple-goal-programming-with-sann.html#cb13-88" tabindex="-1"></a><span class="do">############################################################</span></span>
-<span id="cb13-89"><a href="simple-goal-programming-with-sann.html#cb13-89" tabindex="-1"></a><span class="co"># CALCULATE FINAL DEVIATIONS</span></span>
-<span id="cb13-90"><a href="simple-goal-programming-with-sann.html#cb13-90" tabindex="-1"></a><span class="do">#############################################################</span></span>
-<span id="cb13-91"><a href="simple-goal-programming-with-sann.html#cb13-91" tabindex="-1"></a></span>
-<span id="cb13-92"><a href="simple-goal-programming-with-sann.html#cb13-92" tabindex="-1"></a>d.harvest <span class="ot">&lt;-</span> <span class="fu">abs</span>(harvest <span class="sc">-</span> target.harvest) <span class="sc">/</span></span>
-<span id="cb13-93"><a href="simple-goal-programming-with-sann.html#cb13-93" tabindex="-1"></a>  target.harvest</span>
-<span id="cb13-94"><a href="simple-goal-programming-with-sann.html#cb13-94" tabindex="-1"></a></span>
-<span id="cb13-95"><a href="simple-goal-programming-with-sann.html#cb13-95" tabindex="-1"></a>d.revenue <span class="ot">&lt;-</span> <span class="fu">abs</span>(revenue <span class="sc">-</span> target.revenue) <span class="sc">/</span></span>
-<span id="cb13-96"><a href="simple-goal-programming-with-sann.html#cb13-96" tabindex="-1"></a>  target.revenue</span>
-<span id="cb13-97"><a href="simple-goal-programming-with-sann.html#cb13-97" tabindex="-1"></a></span>
-<span id="cb13-98"><a href="simple-goal-programming-with-sann.html#cb13-98" tabindex="-1"></a>d.habitat <span class="ot">&lt;-</span> <span class="fu">abs</span>(habitat <span class="sc">-</span> target.habitat) <span class="sc">/</span></span>
-<span id="cb13-99"><a href="simple-goal-programming-with-sann.html#cb13-99" tabindex="-1"></a>  target.habitat</span>
-<span id="cb13-100"><a href="simple-goal-programming-with-sann.html#cb13-100" tabindex="-1"></a></span>
-<span id="cb13-101"><a href="simple-goal-programming-with-sann.html#cb13-101" tabindex="-1"></a></span>
-<span id="cb13-102"><a href="simple-goal-programming-with-sann.html#cb13-102" tabindex="-1"></a><span class="do">############################################################</span></span>
-<span id="cb13-103"><a href="simple-goal-programming-with-sann.html#cb13-103" tabindex="-1"></a><span class="co"># CHECK CONSTRAINTS</span></span>
-<span id="cb13-104"><a href="simple-goal-programming-with-sann.html#cb13-104" tabindex="-1"></a><span class="do">############################################################</span></span>
-<span id="cb13-105"><a href="simple-goal-programming-with-sann.html#cb13-105" tabindex="-1"></a></span>
-<span id="cb13-106"><a href="simple-goal-programming-with-sann.html#cb13-106" tabindex="-1"></a>total.area <span class="ot">&lt;-</span> <span class="fu">sum</span>(x)</span>
-<span id="cb13-107"><a href="simple-goal-programming-with-sann.html#cb13-107" tabindex="-1"></a></span>
-<span id="cb13-108"><a href="simple-goal-programming-with-sann.html#cb13-108" tabindex="-1"></a>constraint1 <span class="ot">&lt;-</span> total.area <span class="sc">&lt;=</span> <span class="dv">200</span></span>
-<span id="cb13-109"><a href="simple-goal-programming-with-sann.html#cb13-109" tabindex="-1"></a>constraint2 <span class="ot">&lt;-</span> habitat <span class="sc">&gt;=</span> <span class="dv">250</span></span>
-<span id="cb13-110"><a href="simple-goal-programming-with-sann.html#cb13-110" tabindex="-1"></a>constraint3 <span class="ot">&lt;-</span> x[<span class="dv">3</span>] <span class="sc">&lt;=</span> <span class="dv">80</span></span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="simple-goal-programming-with-sann.html#cb3-1" tabindex="-1"></a></span>
+<span id="cb3-2"><a href="simple-goal-programming-with-sann.html#cb3-2" tabindex="-1"></a>result <span class="ot">&lt;-</span> <span class="fu">optim</span>( <span class="co">#base R</span></span>
+<span id="cb3-3"><a href="simple-goal-programming-with-sann.html#cb3-3" tabindex="-1"></a>  <span class="at">par =</span> <span class="fu">c</span>(<span class="dv">50</span>, <span class="dv">50</span>, <span class="dv">50</span>),   <span class="co"># Initial solution of 50 ha for each unit</span></span>
+<span id="cb3-4"><a href="simple-goal-programming-with-sann.html#cb3-4" tabindex="-1"></a>  <span class="at">fn =</span> goal_function, <span class="co">#load the objective function</span></span>
+<span id="cb3-5"><a href="simple-goal-programming-with-sann.html#cb3-5" tabindex="-1"></a>  <span class="at">method =</span> <span class="st">&quot;SANN&quot;</span>, <span class="co">#use the simulated annealing method</span></span>
+<span id="cb3-6"><a href="simple-goal-programming-with-sann.html#cb3-6" tabindex="-1"></a>  <span class="at">control =</span> <span class="fu">list</span>(</span>
+<span id="cb3-7"><a href="simple-goal-programming-with-sann.html#cb3-7" tabindex="-1"></a>    <span class="at">maxit =</span> <span class="dv">50000</span>, <span class="co">#interations</span></span>
+<span id="cb3-8"><a href="simple-goal-programming-with-sann.html#cb3-8" tabindex="-1"></a>    <span class="at">temp =</span> <span class="dv">50</span>, <span class="co">#set initail tempture to 50, decrementing cooling schedule internal to the function</span></span>
+<span id="cb3-9"><a href="simple-goal-programming-with-sann.html#cb3-9" tabindex="-1"></a>    <span class="at">trace =</span> <span class="cn">TRUE</span> <span class="co"># report objective value</span></span>
+<span id="cb3-10"><a href="simple-goal-programming-with-sann.html#cb3-10" tabindex="-1"></a>  )</span>
+<span id="cb3-11"><a href="simple-goal-programming-with-sann.html#cb3-11" tabindex="-1"></a>)</span>
+<span id="cb3-12"><a href="simple-goal-programming-with-sann.html#cb3-12" tabindex="-1"></a><span class="do">## sann objective function values</span></span>
+<span id="cb3-13"><a href="simple-goal-programming-with-sann.html#cb3-13" tabindex="-1"></a><span class="do">## initial       value 0.966667</span></span>
+<span id="cb3-14"><a href="simple-goal-programming-with-sann.html#cb3-14" tabindex="-1"></a><span class="do">## iter     1000 value 0.822967</span></span>
+<span id="cb3-15"><a href="simple-goal-programming-with-sann.html#cb3-15" tabindex="-1"></a><span class="do">## iter     2000 value 0.822967</span></span>
+<span id="cb3-16"><a href="simple-goal-programming-with-sann.html#cb3-16" tabindex="-1"></a><span class="do">## iter     3000 value 0.822967</span></span>
+<span id="cb3-17"><a href="simple-goal-programming-with-sann.html#cb3-17" tabindex="-1"></a><span class="do">## iter     4000 value 0.751262</span></span>
+<span id="cb3-18"><a href="simple-goal-programming-with-sann.html#cb3-18" tabindex="-1"></a><span class="do">## iter     5000 value 0.691897</span></span>
+<span id="cb3-19"><a href="simple-goal-programming-with-sann.html#cb3-19" tabindex="-1"></a><span class="do">## iter     6000 value 0.691897</span></span>
+<span id="cb3-20"><a href="simple-goal-programming-with-sann.html#cb3-20" tabindex="-1"></a><span class="do">## iter     7000 value 0.691897</span></span>
+<span id="cb3-21"><a href="simple-goal-programming-with-sann.html#cb3-21" tabindex="-1"></a><span class="do">## iter     8000 value 0.691897</span></span>
+<span id="cb3-22"><a href="simple-goal-programming-with-sann.html#cb3-22" tabindex="-1"></a><span class="do">## iter     9000 value 0.691897</span></span>
+<span id="cb3-23"><a href="simple-goal-programming-with-sann.html#cb3-23" tabindex="-1"></a><span class="do">## iter    10000 value 0.691897</span></span>
+<span id="cb3-24"><a href="simple-goal-programming-with-sann.html#cb3-24" tabindex="-1"></a><span class="do">## iter    11000 value 0.691897</span></span>
+<span id="cb3-25"><a href="simple-goal-programming-with-sann.html#cb3-25" tabindex="-1"></a><span class="do">## iter    12000 value 0.691897</span></span>
+<span id="cb3-26"><a href="simple-goal-programming-with-sann.html#cb3-26" tabindex="-1"></a><span class="do">## iter    13000 value 0.691897</span></span>
+<span id="cb3-27"><a href="simple-goal-programming-with-sann.html#cb3-27" tabindex="-1"></a><span class="do">## iter    14000 value 0.544625</span></span>
+<span id="cb3-28"><a href="simple-goal-programming-with-sann.html#cb3-28" tabindex="-1"></a><span class="do">## iter    15000 value 0.544625</span></span>
+<span id="cb3-29"><a href="simple-goal-programming-with-sann.html#cb3-29" tabindex="-1"></a><span class="do">## iter    16000 value 0.544625</span></span>
+<span id="cb3-30"><a href="simple-goal-programming-with-sann.html#cb3-30" tabindex="-1"></a><span class="do">## iter    17000 value 0.544625</span></span>
+<span id="cb3-31"><a href="simple-goal-programming-with-sann.html#cb3-31" tabindex="-1"></a><span class="do">## iter    18000 value 0.544625</span></span>
+<span id="cb3-32"><a href="simple-goal-programming-with-sann.html#cb3-32" tabindex="-1"></a><span class="do">## iter    19000 value 0.544625</span></span>
+<span id="cb3-33"><a href="simple-goal-programming-with-sann.html#cb3-33" tabindex="-1"></a><span class="do">## iter    20000 value 0.544625</span></span>
+<span id="cb3-34"><a href="simple-goal-programming-with-sann.html#cb3-34" tabindex="-1"></a><span class="do">## iter    21000 value 0.544625</span></span>
+<span id="cb3-35"><a href="simple-goal-programming-with-sann.html#cb3-35" tabindex="-1"></a><span class="do">## iter    22000 value 0.544625</span></span>
+<span id="cb3-36"><a href="simple-goal-programming-with-sann.html#cb3-36" tabindex="-1"></a><span class="do">## iter    23000 value 0.544625</span></span>
+<span id="cb3-37"><a href="simple-goal-programming-with-sann.html#cb3-37" tabindex="-1"></a><span class="do">## iter    24000 value 0.544625</span></span>
+<span id="cb3-38"><a href="simple-goal-programming-with-sann.html#cb3-38" tabindex="-1"></a><span class="do">## iter    25000 value 0.544625</span></span>
+<span id="cb3-39"><a href="simple-goal-programming-with-sann.html#cb3-39" tabindex="-1"></a><span class="do">## iter    26000 value 0.544625</span></span>
+<span id="cb3-40"><a href="simple-goal-programming-with-sann.html#cb3-40" tabindex="-1"></a><span class="do">## iter    27000 value 0.544625</span></span>
+<span id="cb3-41"><a href="simple-goal-programming-with-sann.html#cb3-41" tabindex="-1"></a><span class="do">## iter    28000 value 0.544625</span></span>
+<span id="cb3-42"><a href="simple-goal-programming-with-sann.html#cb3-42" tabindex="-1"></a><span class="do">## iter    29000 value 0.544625</span></span>
+<span id="cb3-43"><a href="simple-goal-programming-with-sann.html#cb3-43" tabindex="-1"></a><span class="do">## iter    30000 value 0.544625</span></span>
+<span id="cb3-44"><a href="simple-goal-programming-with-sann.html#cb3-44" tabindex="-1"></a><span class="do">## iter    31000 value 0.544625</span></span>
+<span id="cb3-45"><a href="simple-goal-programming-with-sann.html#cb3-45" tabindex="-1"></a><span class="do">## iter    32000 value 0.544625</span></span>
+<span id="cb3-46"><a href="simple-goal-programming-with-sann.html#cb3-46" tabindex="-1"></a><span class="do">## iter    33000 value 0.544625</span></span>
+<span id="cb3-47"><a href="simple-goal-programming-with-sann.html#cb3-47" tabindex="-1"></a><span class="do">## iter    34000 value 0.544625</span></span>
+<span id="cb3-48"><a href="simple-goal-programming-with-sann.html#cb3-48" tabindex="-1"></a><span class="do">## iter    35000 value 0.544625</span></span>
+<span id="cb3-49"><a href="simple-goal-programming-with-sann.html#cb3-49" tabindex="-1"></a><span class="do">## iter    36000 value 0.544625</span></span>
+<span id="cb3-50"><a href="simple-goal-programming-with-sann.html#cb3-50" tabindex="-1"></a><span class="do">## iter    37000 value 0.544625</span></span>
+<span id="cb3-51"><a href="simple-goal-programming-with-sann.html#cb3-51" tabindex="-1"></a><span class="do">## iter    38000 value 0.544625</span></span>
+<span id="cb3-52"><a href="simple-goal-programming-with-sann.html#cb3-52" tabindex="-1"></a><span class="do">## iter    39000 value 0.269334</span></span>
+<span id="cb3-53"><a href="simple-goal-programming-with-sann.html#cb3-53" tabindex="-1"></a><span class="do">## iter    40000 value 0.225869</span></span>
+<span id="cb3-54"><a href="simple-goal-programming-with-sann.html#cb3-54" tabindex="-1"></a><span class="do">## iter    41000 value 0.225869</span></span>
+<span id="cb3-55"><a href="simple-goal-programming-with-sann.html#cb3-55" tabindex="-1"></a><span class="do">## iter    42000 value 0.212307</span></span>
+<span id="cb3-56"><a href="simple-goal-programming-with-sann.html#cb3-56" tabindex="-1"></a><span class="do">## iter    43000 value 0.212307</span></span>
+<span id="cb3-57"><a href="simple-goal-programming-with-sann.html#cb3-57" tabindex="-1"></a><span class="do">## iter    44000 value 0.212307</span></span>
+<span id="cb3-58"><a href="simple-goal-programming-with-sann.html#cb3-58" tabindex="-1"></a><span class="do">## iter    45000 value 0.212307</span></span>
+<span id="cb3-59"><a href="simple-goal-programming-with-sann.html#cb3-59" tabindex="-1"></a><span class="do">## iter    46000 value 0.158525</span></span>
+<span id="cb3-60"><a href="simple-goal-programming-with-sann.html#cb3-60" tabindex="-1"></a><span class="do">## iter    47000 value 0.148288</span></span>
+<span id="cb3-61"><a href="simple-goal-programming-with-sann.html#cb3-61" tabindex="-1"></a><span class="do">## iter    48000 value 0.148288</span></span>
+<span id="cb3-62"><a href="simple-goal-programming-with-sann.html#cb3-62" tabindex="-1"></a><span class="do">## iter    49000 value 0.148288</span></span>
+<span id="cb3-63"><a href="simple-goal-programming-with-sann.html#cb3-63" tabindex="-1"></a><span class="do">## iter    49999 value 0.148288</span></span>
+<span id="cb3-64"><a href="simple-goal-programming-with-sann.html#cb3-64" tabindex="-1"></a><span class="do">## final         value 0.148288</span></span>
+<span id="cb3-65"><a href="simple-goal-programming-with-sann.html#cb3-65" tabindex="-1"></a><span class="do">## sann stopped after 49999 iterations</span></span>
+<span id="cb3-66"><a href="simple-goal-programming-with-sann.html#cb3-66" tabindex="-1"></a><span class="do">############################################################</span></span>
+<span id="cb3-67"><a href="simple-goal-programming-with-sann.html#cb3-67" tabindex="-1"></a><span class="co"># EXTRACT BEST SOLUTION FOUND</span></span>
+<span id="cb3-68"><a href="simple-goal-programming-with-sann.html#cb3-68" tabindex="-1"></a><span class="do">###########################################################</span></span>
+<span id="cb3-69"><a href="simple-goal-programming-with-sann.html#cb3-69" tabindex="-1"></a>x <span class="ot">&lt;-</span> result<span class="sc">$</span>par</span>
+<span id="cb3-70"><a href="simple-goal-programming-with-sann.html#cb3-70" tabindex="-1"></a><span class="do">############################################################</span></span>
+<span id="cb3-71"><a href="simple-goal-programming-with-sann.html#cb3-71" tabindex="-1"></a><span class="co"># CALCULATE FINAL PERFORMANCE</span></span>
+<span id="cb3-72"><a href="simple-goal-programming-with-sann.html#cb3-72" tabindex="-1"></a><span class="do">############################################################</span></span>
+<span id="cb3-73"><a href="simple-goal-programming-with-sann.html#cb3-73" tabindex="-1"></a>harvest <span class="ot">&lt;-</span> <span class="fu">sum</span>(timber.coef <span class="sc">*</span> x)</span>
+<span id="cb3-74"><a href="simple-goal-programming-with-sann.html#cb3-74" tabindex="-1"></a>revenue <span class="ot">&lt;-</span> <span class="fu">sum</span>(revenue.coef <span class="sc">*</span> x)</span>
+<span id="cb3-75"><a href="simple-goal-programming-with-sann.html#cb3-75" tabindex="-1"></a>habitat <span class="ot">&lt;-</span> <span class="fu">sum</span>(habitat.coef <span class="sc">*</span> x)</span>
+<span id="cb3-76"><a href="simple-goal-programming-with-sann.html#cb3-76" tabindex="-1"></a><span class="do">############################################################</span></span>
+<span id="cb3-77"><a href="simple-goal-programming-with-sann.html#cb3-77" tabindex="-1"></a><span class="co"># CALCULATE FINAL DEVIATIONS</span></span>
+<span id="cb3-78"><a href="simple-goal-programming-with-sann.html#cb3-78" tabindex="-1"></a><span class="do">#############################################################</span></span>
+<span id="cb3-79"><a href="simple-goal-programming-with-sann.html#cb3-79" tabindex="-1"></a>d.harvest <span class="ot">&lt;-</span> <span class="fu">abs</span>(harvest <span class="sc">-</span> target.harvest) <span class="sc">/</span></span>
+<span id="cb3-80"><a href="simple-goal-programming-with-sann.html#cb3-80" tabindex="-1"></a>  target.harvest</span>
+<span id="cb3-81"><a href="simple-goal-programming-with-sann.html#cb3-81" tabindex="-1"></a>d.revenue <span class="ot">&lt;-</span> <span class="fu">abs</span>(revenue <span class="sc">-</span> target.revenue) <span class="sc">/</span></span>
+<span id="cb3-82"><a href="simple-goal-programming-with-sann.html#cb3-82" tabindex="-1"></a>  target.revenue</span>
+<span id="cb3-83"><a href="simple-goal-programming-with-sann.html#cb3-83" tabindex="-1"></a>d.habitat <span class="ot">&lt;-</span> <span class="fu">abs</span>(habitat <span class="sc">-</span> target.habitat) <span class="sc">/</span></span>
+<span id="cb3-84"><a href="simple-goal-programming-with-sann.html#cb3-84" tabindex="-1"></a>  target.habitat</span>
+<span id="cb3-85"><a href="simple-goal-programming-with-sann.html#cb3-85" tabindex="-1"></a><span class="do">############################################################</span></span>
+<span id="cb3-86"><a href="simple-goal-programming-with-sann.html#cb3-86" tabindex="-1"></a><span class="co"># CHECK CONSTRAINTS</span></span>
+<span id="cb3-87"><a href="simple-goal-programming-with-sann.html#cb3-87" tabindex="-1"></a><span class="do">############################################################</span></span>
+<span id="cb3-88"><a href="simple-goal-programming-with-sann.html#cb3-88" tabindex="-1"></a>total.area <span class="ot">&lt;-</span> <span class="fu">sum</span>(x)</span>
+<span id="cb3-89"><a href="simple-goal-programming-with-sann.html#cb3-89" tabindex="-1"></a></span>
+<span id="cb3-90"><a href="simple-goal-programming-with-sann.html#cb3-90" tabindex="-1"></a>constraint1 <span class="ot">&lt;-</span> total.area <span class="sc">&lt;=</span> <span class="dv">200</span></span>
+<span id="cb3-91"><a href="simple-goal-programming-with-sann.html#cb3-91" tabindex="-1"></a>constraint2 <span class="ot">&lt;-</span> habitat <span class="sc">&gt;=</span> <span class="dv">250</span></span>
+<span id="cb3-92"><a href="simple-goal-programming-with-sann.html#cb3-92" tabindex="-1"></a>constraint3 <span class="ot">&lt;-</span> x[<span class="dv">3</span>] <span class="sc">&lt;=</span> <span class="dv">80</span></span></code></pre></div>
 </div>
 </div>
 </div>

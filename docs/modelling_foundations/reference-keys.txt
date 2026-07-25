@@ -170,3 +170,4 @@ check-build-costs
 check-that-all-volume-harvested-flows-to-a-mill
 step-6-limit-road-build-length
 fig:fragmentation-metrics
+goal-programming-using-a-markov-chain
