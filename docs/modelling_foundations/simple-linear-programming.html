@@ -23,7 +23,7 @@
 <meta name="author" content="A collaborative effort between a Human (Kelly Izzard) and AI" />
 
 
-<meta name="date" content="2026-07-24" />
+<meta name="date" content="2026-07-26" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -49,9 +49,18 @@
 
 
 
+<link href="libs/codefolding-lua-1.1/codefolding-lua.css" rel="stylesheet" />
 <link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
 <link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<link href="libs/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet" />
+<script src="libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+<script src="libs/plotly-binding-4.10.4/plotly.js"></script>
+<script src="libs/typedarray-0.1/typedarray.min.js"></script>
+<link href="libs/crosstalk-1.2.1/css/crosstalk.min.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.2.1/js/crosstalk.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-2.11.1/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-2.11.1/plotly-latest.min.js"></script>
 
 
 <style type="text/css">
@@ -139,9 +148,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul class="summary">
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a>
 <ul>
-<li class="chapter" data-level="1.0.1" data-path="index.html"><a href="index.html#what-is-a-model"><i class="fa fa-check"></i><b>1.0.1</b> What is a Model</a></li>
-<li class="chapter" data-level="1.0.2" data-path="index.html"><a href="index.html#classification-of-models"><i class="fa fa-check"></i><b>1.0.2</b> Classification of Models</a></li>
-<li class="chapter" data-level="1.0.3" data-path="index.html"><a href="index.html#the-modellers-creed"><i class="fa fa-check"></i><b>1.0.3</b> The Modeller’s creed</a></li>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#models-and-modellers"><i class="fa fa-check"></i><b>1.1</b> Models and Modellers</a>
+<ul>
+<li class="chapter" data-level="1.1.1" data-path="index.html"><a href="index.html#what-is-a-model"><i class="fa fa-check"></i><b>1.1.1</b> What is a Model</a></li>
+<li class="chapter" data-level="1.1.2" data-path="index.html"><a href="index.html#classification-of-models"><i class="fa fa-check"></i><b>1.1.2</b> Classification of Models</a></li>
+<li class="chapter" data-level="1.1.3" data-path="index.html"><a href="index.html#building-a-model-defining-the-problem-and-its-considerations"><i class="fa fa-check"></i><b>1.1.3</b> Building a Model (Defining the Problem and it’s Considerations)</a></li>
+<li class="chapter" data-level="1.1.4" data-path="index.html"><a href="index.html#the-modellers-creed"><i class="fa fa-check"></i><b>1.1.4</b> The Modeller’s creed</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="simple-linear-programming.html"><a href="simple-linear-programming.html"><i class="fa fa-check"></i><b>2</b> Simple Linear Programming</a>
 <ul>
@@ -191,17 +204,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="4.4" data-path="simple-goal-programming-with-sann.html"><a href="simple-goal-programming-with-sann.html#the-results"><i class="fa fa-check"></i><b>4.4</b> The Results</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="markov-chain-with-goal-programming.html"><a href="markov-chain-with-goal-programming.html"><i class="fa fa-check"></i><b>5</b> Markov Chain with Goal Programming</a>
+<li class="chapter" data-level="5" data-path="goal-programming-using-a-markov-chain.html"><a href="goal-programming-using-a-markov-chain.html"><i class="fa fa-check"></i><b>5</b> Goal Programming using a Markov Chain</a>
 <ul>
-<li class="chapter" data-level="5.1" data-path="markov-chain-with-goal-programming.html"><a href="markov-chain-with-goal-programming.html#introduction-4"><i class="fa fa-check"></i><b>5.1</b> Introduction</a></li>
-<li class="chapter" data-level="5.2" data-path="markov-chain-with-goal-programming.html"><a href="markov-chain-with-goal-programming.html#markov-chain-and-goal-programming"><i class="fa fa-check"></i><b>5.2</b> Markov Chain and Goal Programming</a></li>
-<li class="chapter" data-level="5.3" data-path="markov-chain-with-goal-programming.html"><a href="markov-chain-with-goal-programming.html#the-markov-chain-transition-probability-matrix"><i class="fa fa-check"></i><b>5.3</b> The Markov Chain Transition Probability Matrix</a>
+<li class="chapter" data-level="5.1" data-path="goal-programming-using-a-markov-chain.html"><a href="goal-programming-using-a-markov-chain.html#introduction-4"><i class="fa fa-check"></i><b>5.1</b> Introduction</a></li>
+<li class="chapter" data-level="5.2" data-path="goal-programming-using-a-markov-chain.html"><a href="goal-programming-using-a-markov-chain.html#markov-chain-and-goal-programming"><i class="fa fa-check"></i><b>5.2</b> Markov Chain and Goal Programming</a></li>
+<li class="chapter" data-level="5.3" data-path="goal-programming-using-a-markov-chain.html"><a href="goal-programming-using-a-markov-chain.html#the-markov-chain-transition-probability-matrix"><i class="fa fa-check"></i><b>5.3</b> The Markov Chain Transition Probability Matrix</a>
 <ul>
-<li class="chapter" data-level="5.3.1" data-path="markov-chain-with-goal-programming.html"><a href="markov-chain-with-goal-programming.html#code-notes-4"><i class="fa fa-check"></i><b>5.3.1</b> Code Notes:</a></li>
-<li class="chapter" data-level="5.3.2" data-path="markov-chain-with-goal-programming.html"><a href="markov-chain-with-goal-programming.html#markov-habitat-function"><i class="fa fa-check"></i><b>5.3.2</b> Markov Habitat Function</a></li>
-<li class="chapter" data-level="5.3.3" data-path="markov-chain-with-goal-programming.html"><a href="markov-chain-with-goal-programming.html#the-objective-function-1"><i class="fa fa-check"></i><b>5.3.3</b> The Objective Function</a></li>
-<li class="chapter" data-level="5.3.4" data-path="markov-chain-with-goal-programming.html"><a href="markov-chain-with-goal-programming.html#the-sann-optimization-and-results"><i class="fa fa-check"></i><b>5.3.4</b> The SANN Optimization and RESULTS</a></li>
-<li class="chapter" data-level="5.3.5" data-path="markov-chain-with-goal-programming.html"><a href="markov-chain-with-goal-programming.html#results-1"><i class="fa fa-check"></i><b>5.3.5</b> Results</a></li>
+<li class="chapter" data-level="5.3.1" data-path="goal-programming-using-a-markov-chain.html"><a href="goal-programming-using-a-markov-chain.html#code-notes-4"><i class="fa fa-check"></i><b>5.3.1</b> Code Notes:</a></li>
+<li class="chapter" data-level="5.3.2" data-path="goal-programming-using-a-markov-chain.html"><a href="goal-programming-using-a-markov-chain.html#markov-habitat-function"><i class="fa fa-check"></i><b>5.3.2</b> Markov Habitat Function</a></li>
+<li class="chapter" data-level="5.3.3" data-path="goal-programming-using-a-markov-chain.html"><a href="goal-programming-using-a-markov-chain.html#the-objective-function-1"><i class="fa fa-check"></i><b>5.3.3</b> The Objective Function</a></li>
+<li class="chapter" data-level="5.3.4" data-path="goal-programming-using-a-markov-chain.html"><a href="goal-programming-using-a-markov-chain.html#the-sann-optimization-and-results"><i class="fa fa-check"></i><b>5.3.4</b> The SANN Optimization and RESULTS</a></li>
+<li class="chapter" data-level="5.3.5" data-path="goal-programming-using-a-markov-chain.html"><a href="goal-programming-using-a-markov-chain.html#results-1"><i class="fa fa-check"></i><b>5.3.5</b> Results</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="monte-carlo-markov-chain.html"><a href="monte-carlo-markov-chain.html"><i class="fa fa-check"></i><b>6</b> Monte Carlo Markov Chain</a>
@@ -318,14 +331,35 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="13.3" data-path="introduction-to-geostatistics.html"><a href="introduction-to-geostatistics.html#summary-5"><i class="fa fa-check"></i><b>13.3</b> Summary</a></li>
 </ul></li>
-<li class="chapter" data-level="14" data-path="forest-road-networks-using-graph-theory.html"><a href="forest-road-networks-using-graph-theory.html"><i class="fa fa-check"></i><b>14</b> Forest Road Networks using Graph Theory</a>
+<li class="chapter" data-level="14" data-path="appendix-1-creating-forest-road-networks-using-graph-theory.html"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html"><i class="fa fa-check"></i><b>14</b> Appendix #1 Creating Forest Road Networks using Graph Theory</a>
 <ul>
-<li class="chapter" data-level="14.1" data-path="forest-road-networks-using-graph-theory.html"><a href="forest-road-networks-using-graph-theory.html#introduction-13"><i class="fa fa-check"></i><b>14.1</b> Introduction</a></li>
-<li class="chapter" data-level="14.2" data-path="forest-road-networks-using-graph-theory.html"><a href="forest-road-networks-using-graph-theory.html#creating-a-road-network-using-graph-theory"><i class="fa fa-check"></i><b>14.2</b> Creating a road network using graph theory</a>
+<li class="chapter" data-level="14.1" data-path="appendix-1-creating-forest-road-networks-using-graph-theory.html"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#introduction-13"><i class="fa fa-check"></i><b>14.1</b> Introduction</a></li>
+<li class="chapter" data-level="14.2" data-path="appendix-1-creating-forest-road-networks-using-graph-theory.html"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#creating-a-road-network-using-graph-theory"><i class="fa fa-check"></i><b>14.2</b> Creating a road network using graph theory</a>
 <ul>
-<li class="chapter" data-level="14.2.1" data-path="forest-road-networks-using-graph-theory.html"><a href="forest-road-networks-using-graph-theory.html#creating-a-simplified-network-in-r"><i class="fa fa-check"></i><b>14.2.1</b> Creating a simplified network in R</a></li>
-<li class="chapter" data-level="14.2.2" data-path="forest-road-networks-using-graph-theory.html"><a href="forest-road-networks-using-graph-theory.html#creating-future-roads"><i class="fa fa-check"></i><b>14.2.2</b> Creating Future Roads</a></li>
-<li class="chapter" data-level="14.2.3" data-path="forest-road-networks-using-graph-theory.html"><a href="forest-road-networks-using-graph-theory.html#create-patchworks-ready-road-network"><i class="fa fa-check"></i><b>14.2.3</b> Create Patchworks-Ready Road Network</a></li>
+<li class="chapter" data-level="14.2.1" data-path="appendix-1-creating-forest-road-networks-using-graph-theory.html"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#creating-a-simplified-network-in-r"><i class="fa fa-check"></i><b>14.2.1</b> Creating a simplified network in R</a></li>
+<li class="chapter" data-level="14.2.2" data-path="appendix-1-creating-forest-road-networks-using-graph-theory.html"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#creating-future-roads"><i class="fa fa-check"></i><b>14.2.2</b> Creating Future Roads</a></li>
+<li class="chapter" data-level="14.2.3" data-path="appendix-1-creating-forest-road-networks-using-graph-theory.html"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#create-patchworks-ready-road-network"><i class="fa fa-check"></i><b>14.2.3</b> Create Patchworks-Ready Road Network</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="appendix-2-patchworks-fire-adjustments.html"><a href="appendix-2-patchworks-fire-adjustments.html"><i class="fa fa-check"></i><b>15</b> Appendix #2: Patchworks Fire Adjustments</a>
+<ul>
+<li class="chapter" data-level="15.1" data-path="appendix-2-patchworks-fire-adjustments.html"><a href="appendix-2-patchworks-fire-adjustments.html#introduction-14"><i class="fa fa-check"></i><b>15.1</b> Introduction</a></li>
+<li class="chapter" data-level="15.2" data-path="appendix-2-patchworks-fire-adjustments.html"><a href="appendix-2-patchworks-fire-adjustments.html#process-summary"><i class="fa fa-check"></i><b>15.2</b> Process Summary</a>
+<ul>
+<li class="chapter" data-level="15.2.1" data-path="appendix-2-patchworks-fire-adjustments.html"><a href="appendix-2-patchworks-fire-adjustments.html#step-1-calculate-cmai"><i class="fa fa-check"></i><b>15.2.1</b> Step 1: Calculate CMAI</a></li>
+<li class="chapter" data-level="15.2.2" data-path="appendix-2-patchworks-fire-adjustments.html"><a href="appendix-2-patchworks-fire-adjustments.html#step-2-master-dataframe"><i class="fa fa-check"></i><b>15.2.2</b> Step 2: Master Dataframe</a></li>
+<li class="chapter" data-level="15.2.3" data-path="appendix-2-patchworks-fire-adjustments.html"><a href="appendix-2-patchworks-fire-adjustments.html#step-3-species-and-si"><i class="fa fa-check"></i><b>15.2.3</b> Step 3: Species and SI</a></li>
+<li class="chapter" data-level="15.2.4" data-path="appendix-2-patchworks-fire-adjustments.html"><a href="appendix-2-patchworks-fire-adjustments.html#step-4-aggregation-fields"><i class="fa fa-check"></i><b>15.2.4</b> Step 4: Aggregation Fields</a></li>
+<li class="chapter" data-level="15.2.5" data-path="appendix-2-patchworks-fire-adjustments.html"><a href="appendix-2-patchworks-fire-adjustments.html#step-5-find-aggregates"><i class="fa fa-check"></i><b>15.2.5</b> Step 5: Find Aggregates</a></li>
+<li class="chapter" data-level="15.2.6" data-path="appendix-2-patchworks-fire-adjustments.html"><a href="appendix-2-patchworks-fire-adjustments.html#step-6-reset-ages-and-aus"><i class="fa fa-check"></i><b>15.2.6</b> Step 6: Reset Ages and AUs</a></li>
+<li class="chapter" data-level="15.2.7" data-path="appendix-2-patchworks-fire-adjustments.html"><a href="appendix-2-patchworks-fire-adjustments.html#step-7-view-spatial"><i class="fa fa-check"></i><b>15.2.7</b> Step 7: View Spatial</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="16" data-path="appendix-3-the-provincial-age-table.html"><a href="appendix-3-the-provincial-age-table.html"><i class="fa fa-check"></i><b>16</b> Appendix #3: The Provincial Age Table</a>
+<ul>
+<li class="chapter" data-level="16.1" data-path="appendix-3-the-provincial-age-table.html"><a href="appendix-3-the-provincial-age-table.html#introduction-15"><i class="fa fa-check"></i><b>16.1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="16.1.1" data-path="appendix-3-the-provincial-age-table.html"><a href="appendix-3-the-provincial-age-table.html#age"><i class="fa fa-check"></i><b>16.1.1</b> Age</a></li>
 </ul></li>
 </ul></li>
 </ul>
@@ -369,6 +403,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>This objective function indicates that each hectare harvested in Stand A contributes $500 of value, while each hectare harvested in Stand B contributes $800. Because Stand B generates a greater return per hectare, the optimization process will generally prefer harvesting Stand B whenever the available resources and management constraints allow it.</p>
 <p>The harvest plan must also satisfy several constraints that reflect operational and environmental limitations. The harvest capacity constraint (x + y ≤ 100) limits total harvesting to 100 hectares, representing available harvesting equipment, labour, or processing capacity. The road budget constraint (2x + 5y ≤ 300) limits the amount of road construction or maintenance funding available, with Stand B requiring more road resources per hectare than Stand A. Finally, the wildlife constraint (x ≤ 70x) restricts harvesting in Stand A to ensure sufficient habitat retention. Together with the non-negativity constraints (x ≥ 0x, y ≥ 0y), these conditions define a set of feasible harvest plans. The purpose of the linear programming model is to identify the combination of harvest areas in Stands A and B that satisfies all constraints while producing the highest possible net present value.</p>
 <p>The <a href="https://cran.r-project.org/web/packages/lpSolve/refman/lpSolve.html">lpSolve package</a> is an R package that provides tools for solving linear programming, integer programming, and mixed-integer programming problems. It serves as an interface to the efficient lp_solve optimization library, allowing users to define an objective function, specify constraints, and automatically identify the optimal solution that maximizes or minimizes the objective while satisfying all constraints. In a typical workflow, the user supplies the coefficients of the objective function, a matrix of constraint coefficients, the direction of each constraint (e.g., ≤, =, ≥), and the corresponding right-hand-side values. The package then applies optimization algorithms, such as the Simplex Method, to determine the optimal values of the decision variables and the resulting objective function value. Because of its simplicity and ease of use, lpSolve is widely used for teaching linear programming concepts and solving practical optimization problems in fields such as forestry, transportation, manufacturing, finance, and resource management.</p>
+<details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="simple-linear-programming.html#cb1-1" tabindex="-1"></a></span>
 <span id="cb1-2"><a href="simple-linear-programming.html#cb1-2" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb1-3"><a href="simple-linear-programming.html#cb1-3" tabindex="-1"></a><span class="fu">library</span>(lpSolve)</span>
@@ -420,26 +455,27 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb1-49"><a href="simple-linear-programming.html#cb1-49" tabindex="-1"></a>  <span class="at">const.dir =</span> direction,</span>
 <span id="cb1-50"><a href="simple-linear-programming.html#cb1-50" tabindex="-1"></a>  <span class="at">const.rhs =</span> rhs</span>
 <span id="cb1-51"><a href="simple-linear-programming.html#cb1-51" tabindex="-1"></a>)</span></code></pre></div>
+</details>
 </div>
 <div id="results" class="section level3 hasAnchor" number="2.2.1">
 <h3><span class="header-section-number">2.2.1</span> Results<a href="simple-linear-programming.html#results" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div id="pijivqytxx" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#pijivqytxx table {
+<div id="ddhhoegznk" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#ddhhoegznk table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#pijivqytxx thead, #pijivqytxx tbody, #pijivqytxx tfoot, #pijivqytxx tr, #pijivqytxx td, #pijivqytxx th {
+#ddhhoegznk thead, #ddhhoegznk tbody, #ddhhoegznk tfoot, #ddhhoegznk tr, #ddhhoegznk td, #ddhhoegznk th {
   border-style: none;
 }
 
-#pijivqytxx p {
+#ddhhoegznk p {
   margin: 0;
   padding: 0;
 }
 
-#pijivqytxx .gt_table {
+#ddhhoegznk .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -465,12 +501,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-left-color: #D3D3D3;
 }
 
-#pijivqytxx .gt_caption {
+#ddhhoegznk .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#pijivqytxx .gt_title {
+#ddhhoegznk .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -482,7 +518,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-bottom-width: 0;
 }
 
-#pijivqytxx .gt_subtitle {
+#ddhhoegznk .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -494,7 +530,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-top-width: 0;
 }
 
-#pijivqytxx .gt_heading {
+#ddhhoegznk .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -506,13 +542,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-right-color: #D3D3D3;
 }
 
-#pijivqytxx .gt_bottom_border {
+#ddhhoegznk .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#pijivqytxx .gt_col_headings {
+#ddhhoegznk .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -527,7 +563,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-right-color: #D3D3D3;
 }
 
-#pijivqytxx .gt_col_heading {
+#ddhhoegznk .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -547,7 +583,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   overflow-x: hidden;
 }
 
-#pijivqytxx .gt_column_spanner_outer {
+#ddhhoegznk .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -559,15 +595,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   padding-right: 4px;
 }
 
-#pijivqytxx .gt_column_spanner_outer:first-child {
+#ddhhoegznk .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#pijivqytxx .gt_column_spanner_outer:last-child {
+#ddhhoegznk .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#pijivqytxx .gt_column_spanner {
+#ddhhoegznk .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -579,11 +615,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   width: 100%;
 }
 
-#pijivqytxx .gt_spanner_row {
+#ddhhoegznk .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#pijivqytxx .gt_group_heading {
+#ddhhoegznk .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -609,7 +645,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   text-align: left;
 }
 
-#pijivqytxx .gt_empty_group_heading {
+#ddhhoegznk .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -624,15 +660,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   vertical-align: middle;
 }
 
-#pijivqytxx .gt_from_md > :first-child {
+#ddhhoegznk .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#pijivqytxx .gt_from_md > :last-child {
+#ddhhoegznk .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#pijivqytxx .gt_row {
+#ddhhoegznk .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -651,7 +687,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   overflow-x: hidden;
 }
 
-#pijivqytxx .gt_stub {
+#ddhhoegznk .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -664,7 +700,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   padding-right: 5px;
 }
 
-#pijivqytxx .gt_stub_row_group {
+#ddhhoegznk .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -678,15 +714,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   vertical-align: top;
 }
 
-#pijivqytxx .gt_row_group_first td {
+#ddhhoegznk .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#pijivqytxx .gt_row_group_first th {
+#ddhhoegznk .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#pijivqytxx .gt_summary_row {
+#ddhhoegznk .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -696,16 +732,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   padding-right: 5px;
 }
 
-#pijivqytxx .gt_first_summary_row {
+#ddhhoegznk .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#pijivqytxx .gt_first_summary_row.thick {
+#ddhhoegznk .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#pijivqytxx .gt_last_summary_row {
+#ddhhoegznk .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -715,7 +751,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-bottom-color: #D3D3D3;
 }
 
-#pijivqytxx .gt_grand_summary_row {
+#ddhhoegznk .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -725,7 +761,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   padding-right: 5px;
 }
 
-#pijivqytxx .gt_first_grand_summary_row {
+#ddhhoegznk .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -735,7 +771,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-top-color: #D3D3D3;
 }
 
-#pijivqytxx .gt_last_grand_summary_row_top {
+#ddhhoegznk .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -745,11 +781,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-bottom-color: #D3D3D3;
 }
 
-#pijivqytxx .gt_striped {
+#ddhhoegznk .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#pijivqytxx .gt_table_body {
+#ddhhoegznk .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -758,7 +794,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-bottom-color: #D3D3D3;
 }
 
-#pijivqytxx .gt_footnotes {
+#ddhhoegznk .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -772,7 +808,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-right-color: #D3D3D3;
 }
 
-#pijivqytxx .gt_footnote {
+#ddhhoegznk .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -781,7 +817,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   padding-right: 5px;
 }
 
-#pijivqytxx .gt_sourcenotes {
+#ddhhoegznk .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -795,7 +831,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-right-color: #D3D3D3;
 }
 
-#pijivqytxx .gt_sourcenote {
+#ddhhoegznk .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -803,72 +839,72 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   padding-right: 5px;
 }
 
-#pijivqytxx .gt_left {
+#ddhhoegznk .gt_left {
   text-align: left;
 }
 
-#pijivqytxx .gt_center {
+#ddhhoegznk .gt_center {
   text-align: center;
 }
 
-#pijivqytxx .gt_right {
+#ddhhoegznk .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#pijivqytxx .gt_font_normal {
+#ddhhoegznk .gt_font_normal {
   font-weight: normal;
 }
 
-#pijivqytxx .gt_font_bold {
+#ddhhoegznk .gt_font_bold {
   font-weight: bold;
 }
 
-#pijivqytxx .gt_font_italic {
+#ddhhoegznk .gt_font_italic {
   font-style: italic;
 }
 
-#pijivqytxx .gt_super {
+#ddhhoegznk .gt_super {
   font-size: 65%;
 }
 
-#pijivqytxx .gt_footnote_marks {
+#ddhhoegznk .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#pijivqytxx .gt_asterisk {
+#ddhhoegznk .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#pijivqytxx .gt_indent_1 {
+#ddhhoegznk .gt_indent_1 {
   text-indent: 5px;
 }
 
-#pijivqytxx .gt_indent_2 {
+#ddhhoegznk .gt_indent_2 {
   text-indent: 10px;
 }
 
-#pijivqytxx .gt_indent_3 {
+#ddhhoegznk .gt_indent_3 {
   text-indent: 15px;
 }
 
-#pijivqytxx .gt_indent_4 {
+#ddhhoegznk .gt_indent_4 {
   text-indent: 20px;
 }
 
-#pijivqytxx .gt_indent_5 {
+#ddhhoegznk .gt_indent_5 {
   text-indent: 25px;
 }
 
-#pijivqytxx .katex-display {
+#ddhhoegznk .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#pijivqytxx div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#ddhhoegznk div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
