@@ -191,3 +191,14 @@ results-and-vri
 recent-harvest
 retention-flag
 age-assignment-case-statement
+appendix-4-segmentation-and-block-aggregation
+introduction-16
+methods
+set-up
+normalize-the-attributes
+build-the-adjacency-graph
+convert-raster-cell-ids-to-x-row-ids
+calculate-edge-weights
+example-calculation-of-edge-weight
+build-the-graph
+segmentation

@@ -23,7 +23,7 @@
 <meta name="author" content="A collaborative effort between a Human (Kelly Izzard) and AI" />
 
 
-<meta name="date" content="2026-07-26" />
+<meta name="date" content="2026-07-31" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -61,6 +61,21 @@
 <script src="libs/crosstalk-1.2.1/js/crosstalk.min.js"></script>
 <link href="libs/plotly-htmlwidgets-css-2.11.1/plotly-htmlwidgets.css" rel="stylesheet" />
 <script src="libs/plotly-main-2.11.1/plotly-latest.min.js"></script>
+<link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
+<script src="libs/leaflet-1.3.1/leaflet.js"></script>
+<link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet" />
+<script src="libs/proj4-2.6.2/proj4.min.js"></script>
+<script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
+<link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet" />
+<script src="libs/leaflet-binding-2.2.2/leaflet.js"></script>
+<script src="libs/leaflet-providers-2.0.0/leaflet-providers_2.0.0.js"></script>
+<script src="libs/leaflet-providers-plugin-2.2.2/leaflet-providers-plugin.js"></script>
+<script src="libs/HomeButton-0.0.1/home-button.js"></script>
+<script src="libs/HomeButton-0.0.1/easy-button-src.min.js"></script>
+<link href="libs/segment_poly-CSS-0.0.1/segment_poly_home-button.css" rel="stylesheet" />
+<script src="libs/clipboard-0.0.1/setClipboardText.js"></script>
+<link href="libs/mapviewCSS-0.0.1/mapview-popup.css" rel="stylesheet" />
+<link href="libs/mapviewCSS-0.0.1/mapview.css" rel="stylesheet" />
 
 
 <style type="text/css">
@@ -362,6 +377,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="16.1.1" data-path="appendix-3-the-provincial-age-table.html"><a href="appendix-3-the-provincial-age-table.html#age"><i class="fa fa-check"></i><b>16.1.1</b> Age</a></li>
 </ul></li>
 </ul></li>
+<li class="chapter" data-level="17" data-path="appendix-4-segmentation-and-block-aggregation.html"><a href="appendix-4-segmentation-and-block-aggregation.html"><i class="fa fa-check"></i><b>17</b> Appendix #4 Segmentation and Block Aggregation</a>
+<ul>
+<li class="chapter" data-level="17.1" data-path="appendix-4-segmentation-and-block-aggregation.html"><a href="appendix-4-segmentation-and-block-aggregation.html#introduction-16"><i class="fa fa-check"></i><b>17.1</b> Introduction</a></li>
+<li class="chapter" data-level="17.2" data-path="appendix-4-segmentation-and-block-aggregation.html"><a href="appendix-4-segmentation-and-block-aggregation.html#methods"><i class="fa fa-check"></i><b>17.2</b> Methods</a>
+<ul>
+<li class="chapter" data-level="17.2.1" data-path="appendix-4-segmentation-and-block-aggregation.html"><a href="appendix-4-segmentation-and-block-aggregation.html#set-up"><i class="fa fa-check"></i><b>17.2.1</b> Set-up</a></li>
+<li class="chapter" data-level="17.2.2" data-path="appendix-4-segmentation-and-block-aggregation.html"><a href="appendix-4-segmentation-and-block-aggregation.html#normalize-the-attributes"><i class="fa fa-check"></i><b>17.2.2</b> Normalize the attributes</a></li>
+<li class="chapter" data-level="17.2.3" data-path="appendix-4-segmentation-and-block-aggregation.html"><a href="appendix-4-segmentation-and-block-aggregation.html#build-the-adjacency-graph"><i class="fa fa-check"></i><b>17.2.3</b> Build the adjacency graph</a></li>
+<li class="chapter" data-level="17.2.4" data-path="appendix-4-segmentation-and-block-aggregation.html"><a href="appendix-4-segmentation-and-block-aggregation.html#convert-raster-cell-ids-to-x-row-ids"><i class="fa fa-check"></i><b>17.2.4</b> Convert Raster Cell IDs to X Row IDs</a></li>
+<li class="chapter" data-level="17.2.5" data-path="appendix-4-segmentation-and-block-aggregation.html"><a href="appendix-4-segmentation-and-block-aggregation.html#calculate-edge-weights"><i class="fa fa-check"></i><b>17.2.5</b> Calculate Edge Weights</a></li>
+<li class="chapter" data-level="17.2.6" data-path="appendix-4-segmentation-and-block-aggregation.html"><a href="appendix-4-segmentation-and-block-aggregation.html#build-the-graph"><i class="fa fa-check"></i><b>17.2.6</b> Build the Graph</a></li>
+<li class="chapter" data-level="17.2.7" data-path="appendix-4-segmentation-and-block-aggregation.html"><a href="appendix-4-segmentation-and-block-aggregation.html#segmentation"><i class="fa fa-check"></i><b>17.2.7</b> Segmentation</a></li>
+</ul></li>
+</ul></li>
 </ul>
 
       </nav>
@@ -459,23 +488,23 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="results" class="section level3 hasAnchor" number="2.2.1">
 <h3><span class="header-section-number">2.2.1</span> Results<a href="simple-linear-programming.html#results" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div id="ddhhoegznk" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#ddhhoegznk table {
+<div id="onbdqxvlub" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#onbdqxvlub table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#ddhhoegznk thead, #ddhhoegznk tbody, #ddhhoegznk tfoot, #ddhhoegznk tr, #ddhhoegznk td, #ddhhoegznk th {
+#onbdqxvlub thead, #onbdqxvlub tbody, #onbdqxvlub tfoot, #onbdqxvlub tr, #onbdqxvlub td, #onbdqxvlub th {
   border-style: none;
 }
 
-#ddhhoegznk p {
+#onbdqxvlub p {
   margin: 0;
   padding: 0;
 }
 
-#ddhhoegznk .gt_table {
+#onbdqxvlub .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -501,12 +530,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-left-color: #D3D3D3;
 }
 
-#ddhhoegznk .gt_caption {
+#onbdqxvlub .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#ddhhoegznk .gt_title {
+#onbdqxvlub .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -518,7 +547,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-bottom-width: 0;
 }
 
-#ddhhoegznk .gt_subtitle {
+#onbdqxvlub .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -530,7 +559,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-top-width: 0;
 }
 
-#ddhhoegznk .gt_heading {
+#onbdqxvlub .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -542,13 +571,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-right-color: #D3D3D3;
 }
 
-#ddhhoegznk .gt_bottom_border {
+#onbdqxvlub .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#ddhhoegznk .gt_col_headings {
+#onbdqxvlub .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -563,7 +592,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-right-color: #D3D3D3;
 }
 
-#ddhhoegznk .gt_col_heading {
+#onbdqxvlub .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -583,7 +612,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   overflow-x: hidden;
 }
 
-#ddhhoegznk .gt_column_spanner_outer {
+#onbdqxvlub .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -595,15 +624,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   padding-right: 4px;
 }
 
-#ddhhoegznk .gt_column_spanner_outer:first-child {
+#onbdqxvlub .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#ddhhoegznk .gt_column_spanner_outer:last-child {
+#onbdqxvlub .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#ddhhoegznk .gt_column_spanner {
+#onbdqxvlub .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -615,11 +644,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   width: 100%;
 }
 
-#ddhhoegznk .gt_spanner_row {
+#onbdqxvlub .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#ddhhoegznk .gt_group_heading {
+#onbdqxvlub .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -645,7 +674,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   text-align: left;
 }
 
-#ddhhoegznk .gt_empty_group_heading {
+#onbdqxvlub .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -660,15 +689,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   vertical-align: middle;
 }
 
-#ddhhoegznk .gt_from_md > :first-child {
+#onbdqxvlub .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#ddhhoegznk .gt_from_md > :last-child {
+#onbdqxvlub .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#ddhhoegznk .gt_row {
+#onbdqxvlub .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -687,7 +716,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   overflow-x: hidden;
 }
 
-#ddhhoegznk .gt_stub {
+#onbdqxvlub .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -700,7 +729,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   padding-right: 5px;
 }
 
-#ddhhoegznk .gt_stub_row_group {
+#onbdqxvlub .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -714,15 +743,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   vertical-align: top;
 }
 
-#ddhhoegznk .gt_row_group_first td {
+#onbdqxvlub .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#ddhhoegznk .gt_row_group_first th {
+#onbdqxvlub .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#ddhhoegznk .gt_summary_row {
+#onbdqxvlub .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -732,16 +761,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   padding-right: 5px;
 }
 
-#ddhhoegznk .gt_first_summary_row {
+#onbdqxvlub .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#ddhhoegznk .gt_first_summary_row.thick {
+#onbdqxvlub .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#ddhhoegznk .gt_last_summary_row {
+#onbdqxvlub .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -751,7 +780,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-bottom-color: #D3D3D3;
 }
 
-#ddhhoegznk .gt_grand_summary_row {
+#onbdqxvlub .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -761,7 +790,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   padding-right: 5px;
 }
 
-#ddhhoegznk .gt_first_grand_summary_row {
+#onbdqxvlub .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -771,7 +800,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-top-color: #D3D3D3;
 }
 
-#ddhhoegznk .gt_last_grand_summary_row_top {
+#onbdqxvlub .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -781,11 +810,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-bottom-color: #D3D3D3;
 }
 
-#ddhhoegznk .gt_striped {
+#onbdqxvlub .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#ddhhoegznk .gt_table_body {
+#onbdqxvlub .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -794,7 +823,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-bottom-color: #D3D3D3;
 }
 
-#ddhhoegznk .gt_footnotes {
+#onbdqxvlub .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -808,7 +837,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-right-color: #D3D3D3;
 }
 
-#ddhhoegznk .gt_footnote {
+#onbdqxvlub .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -817,7 +846,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   padding-right: 5px;
 }
 
-#ddhhoegznk .gt_sourcenotes {
+#onbdqxvlub .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -831,7 +860,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-right-color: #D3D3D3;
 }
 
-#ddhhoegznk .gt_sourcenote {
+#onbdqxvlub .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -839,72 +868,72 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   padding-right: 5px;
 }
 
-#ddhhoegznk .gt_left {
+#onbdqxvlub .gt_left {
   text-align: left;
 }
 
-#ddhhoegznk .gt_center {
+#onbdqxvlub .gt_center {
   text-align: center;
 }
 
-#ddhhoegznk .gt_right {
+#onbdqxvlub .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#ddhhoegznk .gt_font_normal {
+#onbdqxvlub .gt_font_normal {
   font-weight: normal;
 }
 
-#ddhhoegznk .gt_font_bold {
+#onbdqxvlub .gt_font_bold {
   font-weight: bold;
 }
 
-#ddhhoegznk .gt_font_italic {
+#onbdqxvlub .gt_font_italic {
   font-style: italic;
 }
 
-#ddhhoegznk .gt_super {
+#onbdqxvlub .gt_super {
   font-size: 65%;
 }
 
-#ddhhoegznk .gt_footnote_marks {
+#onbdqxvlub .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#ddhhoegznk .gt_asterisk {
+#onbdqxvlub .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#ddhhoegznk .gt_indent_1 {
+#onbdqxvlub .gt_indent_1 {
   text-indent: 5px;
 }
 
-#ddhhoegznk .gt_indent_2 {
+#onbdqxvlub .gt_indent_2 {
   text-indent: 10px;
 }
 
-#ddhhoegznk .gt_indent_3 {
+#onbdqxvlub .gt_indent_3 {
   text-indent: 15px;
 }
 
-#ddhhoegznk .gt_indent_4 {
+#onbdqxvlub .gt_indent_4 {
   text-indent: 20px;
 }
 
-#ddhhoegznk .gt_indent_5 {
+#onbdqxvlub .gt_indent_5 {
   text-indent: 25px;
 }
 
-#ddhhoegznk .katex-display {
+#onbdqxvlub .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#ddhhoegznk div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#onbdqxvlub div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -1015,6 +1044,20 @@ gitbook.start({
 });
 </script>
 
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
 </body>
 
 </html>
