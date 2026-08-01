@@ -20,10 +20,10 @@ plot-search-trajectory
 plot-objective-function-with-optimization-path
 sudoku-solver
 code-notes
-initial-sudoku-setup
+initia-sudoku-set-up
 initial-sigma
 define-3x3-blocks
-generate-a-neighbor-state-transition
+generate-a-neighbour-state-transition
 simulated-annealing-solver
 code-notes-1
 simulated-annealing-parameters
@@ -125,7 +125,6 @@ introduction-10
 precision-and-the-grid
 the-weakest-link-principle-in-spatial-analysis
 fitness-for-purpose
-raster-versus-vector-redux
 path-dependency-and-the-illusion-of-precision
 precision-becomes-a-proxy-for-quality
 institutional-investment-reinforces-the-bias

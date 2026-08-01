@@ -23,7 +23,7 @@
 <meta name="author" content="A collaborative effort between a Human (Kelly Izzard) and AI" />
 
 
-<meta name="date" content="2026-07-31" />
+<meta name="date" content="2026-08-01" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -305,10 +305,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="11.1" data-path="spatial-data-accuracy-and-precision-in-strategic-modelling.html"><a href="spatial-data-accuracy-and-precision-in-strategic-modelling.html#introduction-10"><i class="fa fa-check"></i><b>11.1</b> Introduction</a></li>
 <li class="chapter" data-level="11.2" data-path="spatial-data-accuracy-and-precision-in-strategic-modelling.html"><a href="spatial-data-accuracy-and-precision-in-strategic-modelling.html#precision-and-the-grid"><i class="fa fa-check"></i><b>11.2</b> Precision and the grid</a></li>
 <li class="chapter" data-level="11.3" data-path="spatial-data-accuracy-and-precision-in-strategic-modelling.html"><a href="spatial-data-accuracy-and-precision-in-strategic-modelling.html#the-weakest-link-principle-in-spatial-analysis"><i class="fa fa-check"></i><b>11.3</b> The Weakest Link Principle in Spatial Analysis</a></li>
-<li class="chapter" data-level="11.4" data-path="spatial-data-accuracy-and-precision-in-strategic-modelling.html"><a href="spatial-data-accuracy-and-precision-in-strategic-modelling.html#fitness-for-purpose"><i class="fa fa-check"></i><b>11.4</b> Fitness for Purpose</a>
-<ul>
-<li class="chapter" data-level="11.4.1" data-path="spatial-data-accuracy-and-precision-in-strategic-modelling.html"><a href="spatial-data-accuracy-and-precision-in-strategic-modelling.html#raster-versus-vector-redux"><i class="fa fa-check"></i><b>11.4.1</b> Raster versus Vector Redux</a></li>
-</ul></li>
+<li class="chapter" data-level="11.4" data-path="spatial-data-accuracy-and-precision-in-strategic-modelling.html"><a href="spatial-data-accuracy-and-precision-in-strategic-modelling.html#fitness-for-purpose"><i class="fa fa-check"></i><b>11.4</b> Fitness for Purpose</a></li>
 <li class="chapter" data-level="11.5" data-path="spatial-data-accuracy-and-precision-in-strategic-modelling.html"><a href="spatial-data-accuracy-and-precision-in-strategic-modelling.html#path-dependency-and-the-illusion-of-precision"><i class="fa fa-check"></i><b>11.5</b> Path Dependency and the Illusion of Precision</a>
 <ul>
 <li class="chapter" data-level="11.5.1" data-path="spatial-data-accuracy-and-precision-in-strategic-modelling.html"><a href="spatial-data-accuracy-and-precision-in-strategic-modelling.html#precision-becomes-a-proxy-for-quality"><i class="fa fa-check"></i><b>11.5.1</b> Precision Becomes a Proxy for Quality</a></li>
@@ -457,218 +454,218 @@ and records the state of every cell after each update. The results are stored in
 each row represents a generation and each column represents a cell position, allowing the evolution of the
 automaton to be visualized over time.</p>
 <details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="cellular-automata-and-the-game-of-life.html#cb18-1" tabindex="-1"></a></span>
-<span id="cb18-2"><a href="cellular-automata-and-the-game-of-life.html#cb18-2" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb18-3"><a href="cellular-automata-and-the-game-of-life.html#cb18-3" tabindex="-1"></a><span class="fu">library</span>(gganimate)</span>
-<span id="cb18-4"><a href="cellular-automata-and-the-game-of-life.html#cb18-4" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb18-5"><a href="cellular-automata-and-the-game-of-life.html#cb18-5" tabindex="-1"></a></span>
-<span id="cb18-6"><a href="cellular-automata-and-the-game-of-life.html#cb18-6" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="cn">NULL</span>)</span>
-<span id="cb18-7"><a href="cellular-automata-and-the-game-of-life.html#cb18-7" tabindex="-1"></a></span>
-<span id="cb18-8"><a href="cellular-automata-and-the-game-of-life.html#cb18-8" tabindex="-1"></a><span class="do">###########################################################################################</span></span>
-<span id="cb18-9"><a href="cellular-automata-and-the-game-of-life.html#cb18-9" tabindex="-1"></a><span class="co">#PARAMETERS</span></span>
-<span id="cb18-10"><a href="cellular-automata-and-the-game-of-life.html#cb18-10" tabindex="-1"></a><span class="do">##########################################################################################</span></span>
-<span id="cb18-11"><a href="cellular-automata-and-the-game-of-life.html#cb18-11" tabindex="-1"></a></span>
-<span id="cb18-12"><a href="cellular-automata-and-the-game-of-life.html#cb18-12" tabindex="-1"></a>grid_size <span class="ot">&lt;-</span> <span class="dv">50</span></span>
-<span id="cb18-13"><a href="cellular-automata-and-the-game-of-life.html#cb18-13" tabindex="-1"></a>generations <span class="ot">&lt;-</span> <span class="dv">500</span></span>
-<span id="cb18-14"><a href="cellular-automata-and-the-game-of-life.html#cb18-14" tabindex="-1"></a>density <span class="ot">&lt;-</span> <span class="fl">0.20</span></span>
-<span id="cb18-15"><a href="cellular-automata-and-the-game-of-life.html#cb18-15" tabindex="-1"></a></span>
-<span id="cb18-16"><a href="cellular-automata-and-the-game-of-life.html#cb18-16" tabindex="-1"></a><span class="do">################################################################################</span></span>
-<span id="cb18-17"><a href="cellular-automata-and-the-game-of-life.html#cb18-17" tabindex="-1"></a></span>
-<span id="cb18-18"><a href="cellular-automata-and-the-game-of-life.html#cb18-18" tabindex="-1"></a><span class="co"># =========================</span></span>
-<span id="cb18-19"><a href="cellular-automata-and-the-game-of-life.html#cb18-19" tabindex="-1"></a><span class="co"># Wolfram-style CA variants</span></span>
-<span id="cb18-20"><a href="cellular-automata-and-the-game-of-life.html#cb18-20" tabindex="-1"></a><span class="co"># (same grid interface)</span></span>
-<span id="cb18-21"><a href="cellular-automata-and-the-game-of-life.html#cb18-21" tabindex="-1"></a><span class="co"># =========================</span></span>
-<span id="cb18-22"><a href="cellular-automata-and-the-game-of-life.html#cb18-22" tabindex="-1"></a></span>
-<span id="cb18-23"><a href="cellular-automata-and-the-game-of-life.html#cb18-23" tabindex="-1"></a></span>
-<span id="cb18-24"><a href="cellular-automata-and-the-game-of-life.html#cb18-24" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb18-25"><a href="cellular-automata-and-the-game-of-life.html#cb18-25" tabindex="-1"></a></span>
-<span id="cb18-26"><a href="cellular-automata-and-the-game-of-life.html#cb18-26" tabindex="-1"></a></span>
-<span id="cb18-27"><a href="cellular-automata-and-the-game-of-life.html#cb18-27" tabindex="-1"></a><span class="co"># #################################################################################################################</span></span>
-<span id="cb18-28"><a href="cellular-automata-and-the-game-of-life.html#cb18-28" tabindex="-1"></a><span class="co"># Convert rule number to lookup table</span></span>
-<span id="cb18-29"><a href="cellular-automata-and-the-game-of-life.html#cb18-29" tabindex="-1"></a><span class="do">#############################################################################################################</span></span>
-<span id="cb18-30"><a href="cellular-automata-and-the-game-of-life.html#cb18-30" tabindex="-1"></a></span>
-<span id="cb18-31"><a href="cellular-automata-and-the-game-of-life.html#cb18-31" tabindex="-1"></a>make_rule <span class="ot">&lt;-</span> <span class="cf">function</span>(rule_number) {</span>
-<span id="cb18-32"><a href="cellular-automata-and-the-game-of-life.html#cb18-32" tabindex="-1"></a>  </span>
-<span id="cb18-33"><a href="cellular-automata-and-the-game-of-life.html#cb18-33" tabindex="-1"></a>  bits <span class="ot">&lt;-</span> <span class="fu">rev</span>(<span class="fu">as.integer</span>(<span class="fu">intToBits</span>(rule_number)[<span class="dv">1</span><span class="sc">:</span><span class="dv">8</span>]))</span>
-<span id="cb18-34"><a href="cellular-automata-and-the-game-of-life.html#cb18-34" tabindex="-1"></a>  </span>
-<span id="cb18-35"><a href="cellular-automata-and-the-game-of-life.html#cb18-35" tabindex="-1"></a>  <span class="fu">names</span>(bits) <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
-<span id="cb18-36"><a href="cellular-automata-and-the-game-of-life.html#cb18-36" tabindex="-1"></a>    <span class="st">&quot;111&quot;</span>, <span class="st">&quot;110&quot;</span>, <span class="st">&quot;101&quot;</span>, <span class="st">&quot;100&quot;</span>,</span>
-<span id="cb18-37"><a href="cellular-automata-and-the-game-of-life.html#cb18-37" tabindex="-1"></a>    <span class="st">&quot;011&quot;</span>, <span class="st">&quot;010&quot;</span>, <span class="st">&quot;001&quot;</span>, <span class="st">&quot;000&quot;</span></span>
-<span id="cb18-38"><a href="cellular-automata-and-the-game-of-life.html#cb18-38" tabindex="-1"></a>  )</span>
-<span id="cb18-39"><a href="cellular-automata-and-the-game-of-life.html#cb18-39" tabindex="-1"></a>  </span>
-<span id="cb18-40"><a href="cellular-automata-and-the-game-of-life.html#cb18-40" tabindex="-1"></a>  bits</span>
-<span id="cb18-41"><a href="cellular-automata-and-the-game-of-life.html#cb18-41" tabindex="-1"></a>}</span>
-<span id="cb18-42"><a href="cellular-automata-and-the-game-of-life.html#cb18-42" tabindex="-1"></a></span>
-<span id="cb18-43"><a href="cellular-automata-and-the-game-of-life.html#cb18-43" tabindex="-1"></a><span class="do">###############################################################################################################</span></span>
-<span id="cb18-44"><a href="cellular-automata-and-the-game-of-life.html#cb18-44" tabindex="-1"></a><span class="co"># Compute next generation</span></span>
-<span id="cb18-45"><a href="cellular-automata-and-the-game-of-life.html#cb18-45" tabindex="-1"></a><span class="do">##################################################################################################################</span></span>
-<span id="cb18-46"><a href="cellular-automata-and-the-game-of-life.html#cb18-46" tabindex="-1"></a></span>
-<span id="cb18-47"><a href="cellular-automata-and-the-game-of-life.html#cb18-47" tabindex="-1"></a>update_generation <span class="ot">&lt;-</span> <span class="cf">function</span>(cells, rule) {</span>
-<span id="cb18-48"><a href="cellular-automata-and-the-game-of-life.html#cb18-48" tabindex="-1"></a>  </span>
-<span id="cb18-49"><a href="cellular-automata-and-the-game-of-life.html#cb18-49" tabindex="-1"></a>  n <span class="ot">&lt;-</span> <span class="fu">length</span>(cells)</span>
-<span id="cb18-50"><a href="cellular-automata-and-the-game-of-life.html#cb18-50" tabindex="-1"></a>  next_cells <span class="ot">&lt;-</span> <span class="fu">integer</span>(n)</span>
-<span id="cb18-51"><a href="cellular-automata-and-the-game-of-life.html#cb18-51" tabindex="-1"></a>  </span>
-<span id="cb18-52"><a href="cellular-automata-and-the-game-of-life.html#cb18-52" tabindex="-1"></a>  <span class="cf">for</span>(i <span class="cf">in</span> <span class="fu">seq_len</span>(n)) {</span>
-<span id="cb18-53"><a href="cellular-automata-and-the-game-of-life.html#cb18-53" tabindex="-1"></a>    </span>
-<span id="cb18-54"><a href="cellular-automata-and-the-game-of-life.html#cb18-54" tabindex="-1"></a>    left   <span class="ot">&lt;-</span> cells[((i <span class="sc">-</span> <span class="dv">2</span>) <span class="sc">%%</span> n) <span class="sc">+</span> <span class="dv">1</span>]</span>
-<span id="cb18-55"><a href="cellular-automata-and-the-game-of-life.html#cb18-55" tabindex="-1"></a>    center <span class="ot">&lt;-</span> cells[i]</span>
-<span id="cb18-56"><a href="cellular-automata-and-the-game-of-life.html#cb18-56" tabindex="-1"></a>    right  <span class="ot">&lt;-</span> cells[(i <span class="sc">%%</span> n) <span class="sc">+</span> <span class="dv">1</span>]</span>
-<span id="cb18-57"><a href="cellular-automata-and-the-game-of-life.html#cb18-57" tabindex="-1"></a>    </span>
-<span id="cb18-58"><a href="cellular-automata-and-the-game-of-life.html#cb18-58" tabindex="-1"></a>    pattern <span class="ot">&lt;-</span> <span class="fu">paste0</span>(left, center, right)</span>
-<span id="cb18-59"><a href="cellular-automata-and-the-game-of-life.html#cb18-59" tabindex="-1"></a>    </span>
-<span id="cb18-60"><a href="cellular-automata-and-the-game-of-life.html#cb18-60" tabindex="-1"></a>    next_cells[i] <span class="ot">&lt;-</span> rule[pattern]</span>
-<span id="cb18-61"><a href="cellular-automata-and-the-game-of-life.html#cb18-61" tabindex="-1"></a>  }</span>
-<span id="cb18-62"><a href="cellular-automata-and-the-game-of-life.html#cb18-62" tabindex="-1"></a>  </span>
-<span id="cb18-63"><a href="cellular-automata-and-the-game-of-life.html#cb18-63" tabindex="-1"></a>  next_cells</span>
-<span id="cb18-64"><a href="cellular-automata-and-the-game-of-life.html#cb18-64" tabindex="-1"></a>}</span>
-<span id="cb18-65"><a href="cellular-automata-and-the-game-of-life.html#cb18-65" tabindex="-1"></a></span>
-<span id="cb18-66"><a href="cellular-automata-and-the-game-of-life.html#cb18-66" tabindex="-1"></a><span class="do">##########################################################################################################</span></span>
-<span id="cb18-67"><a href="cellular-automata-and-the-game-of-life.html#cb18-67" tabindex="-1"></a><span class="co"># Run simulation</span></span>
-<span id="cb18-68"><a href="cellular-automata-and-the-game-of-life.html#cb18-68" tabindex="-1"></a><span class="do">##############################################################################################################33</span></span>
-<span id="cb18-69"><a href="cellular-automata-and-the-game-of-life.html#cb18-69" tabindex="-1"></a></span>
-<span id="cb18-70"><a href="cellular-automata-and-the-game-of-life.html#cb18-70" tabindex="-1"></a>simulate_ca <span class="ot">&lt;-</span> <span class="cf">function</span>(</span>
-<span id="cb18-71"><a href="cellular-automata-and-the-game-of-life.html#cb18-71" tabindex="-1"></a>    <span class="at">rule_number =</span> <span class="dv">30</span>,</span>
-<span id="cb18-72"><a href="cellular-automata-and-the-game-of-life.html#cb18-72" tabindex="-1"></a>    <span class="at">width =</span> <span class="dv">101</span>,</span>
-<span id="cb18-73"><a href="cellular-automata-and-the-game-of-life.html#cb18-73" tabindex="-1"></a>    <span class="at">steps =</span> <span class="dv">100</span></span>
-<span id="cb18-74"><a href="cellular-automata-and-the-game-of-life.html#cb18-74" tabindex="-1"></a>) {</span>
-<span id="cb18-75"><a href="cellular-automata-and-the-game-of-life.html#cb18-75" tabindex="-1"></a>  </span>
-<span id="cb18-76"><a href="cellular-automata-and-the-game-of-life.html#cb18-76" tabindex="-1"></a>  rule <span class="ot">&lt;-</span> <span class="fu">make_rule</span>(rule_number)</span>
-<span id="cb18-77"><a href="cellular-automata-and-the-game-of-life.html#cb18-77" tabindex="-1"></a>  </span>
-<span id="cb18-78"><a href="cellular-automata-and-the-game-of-life.html#cb18-78" tabindex="-1"></a>  history <span class="ot">&lt;-</span> <span class="fu">matrix</span>(</span>
-<span id="cb18-79"><a href="cellular-automata-and-the-game-of-life.html#cb18-79" tabindex="-1"></a>    <span class="dv">0</span>,</span>
-<span id="cb18-80"><a href="cellular-automata-and-the-game-of-life.html#cb18-80" tabindex="-1"></a>    <span class="at">nrow =</span> steps,</span>
-<span id="cb18-81"><a href="cellular-automata-and-the-game-of-life.html#cb18-81" tabindex="-1"></a>    <span class="at">ncol =</span> width</span>
-<span id="cb18-82"><a href="cellular-automata-and-the-game-of-life.html#cb18-82" tabindex="-1"></a>  )</span>
-<span id="cb18-83"><a href="cellular-automata-and-the-game-of-life.html#cb18-83" tabindex="-1"></a>  </span>
-<span id="cb18-84"><a href="cellular-automata-and-the-game-of-life.html#cb18-84" tabindex="-1"></a>  current <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">0</span>, width)</span>
-<span id="cb18-85"><a href="cellular-automata-and-the-game-of-life.html#cb18-85" tabindex="-1"></a>  </span>
-<span id="cb18-86"><a href="cellular-automata-and-the-game-of-life.html#cb18-86" tabindex="-1"></a>  <span class="co"># single seed</span></span>
-<span id="cb18-87"><a href="cellular-automata-and-the-game-of-life.html#cb18-87" tabindex="-1"></a>  current[(width <span class="sc">+</span> <span class="dv">1</span>) <span class="sc">%/%</span> <span class="dv">2</span>] <span class="ot">&lt;-</span> <span class="dv">1</span></span>
-<span id="cb18-88"><a href="cellular-automata-and-the-game-of-life.html#cb18-88" tabindex="-1"></a>  </span>
-<span id="cb18-89"><a href="cellular-automata-and-the-game-of-life.html#cb18-89" tabindex="-1"></a>  history[<span class="dv">1</span>, ] <span class="ot">&lt;-</span> current</span>
-<span id="cb18-90"><a href="cellular-automata-and-the-game-of-life.html#cb18-90" tabindex="-1"></a>  </span>
-<span id="cb18-91"><a href="cellular-automata-and-the-game-of-life.html#cb18-91" tabindex="-1"></a>  <span class="cf">for</span>(t <span class="cf">in</span> <span class="dv">2</span><span class="sc">:</span>steps) {</span>
-<span id="cb18-92"><a href="cellular-automata-and-the-game-of-life.html#cb18-92" tabindex="-1"></a>    </span>
-<span id="cb18-93"><a href="cellular-automata-and-the-game-of-life.html#cb18-93" tabindex="-1"></a>    current <span class="ot">&lt;-</span> <span class="fu">update_generation</span>(</span>
-<span id="cb18-94"><a href="cellular-automata-and-the-game-of-life.html#cb18-94" tabindex="-1"></a>      current,</span>
-<span id="cb18-95"><a href="cellular-automata-and-the-game-of-life.html#cb18-95" tabindex="-1"></a>      rule</span>
-<span id="cb18-96"><a href="cellular-automata-and-the-game-of-life.html#cb18-96" tabindex="-1"></a>    )</span>
-<span id="cb18-97"><a href="cellular-automata-and-the-game-of-life.html#cb18-97" tabindex="-1"></a>    </span>
-<span id="cb18-98"><a href="cellular-automata-and-the-game-of-life.html#cb18-98" tabindex="-1"></a>    history[t, ] <span class="ot">&lt;-</span> current</span>
-<span id="cb18-99"><a href="cellular-automata-and-the-game-of-life.html#cb18-99" tabindex="-1"></a>  }</span>
-<span id="cb18-100"><a href="cellular-automata-and-the-game-of-life.html#cb18-100" tabindex="-1"></a>  </span>
-<span id="cb18-101"><a href="cellular-automata-and-the-game-of-life.html#cb18-101" tabindex="-1"></a>  history</span>
-<span id="cb18-102"><a href="cellular-automata-and-the-game-of-life.html#cb18-102" tabindex="-1"></a>}</span>
-<span id="cb18-103"><a href="cellular-automata-and-the-game-of-life.html#cb18-103" tabindex="-1"></a></span>
-<span id="cb18-104"><a href="cellular-automata-and-the-game-of-life.html#cb18-104" tabindex="-1"></a><span class="co"># ----------------------------------------------------------</span></span>
-<span id="cb18-105"><a href="cellular-automata-and-the-game-of-life.html#cb18-105" tabindex="-1"></a><span class="co"># Parameters</span></span>
-<span id="cb18-106"><a href="cellular-automata-and-the-game-of-life.html#cb18-106" tabindex="-1"></a><span class="co"># ----------------------------------------------------------</span></span>
-<span id="cb18-107"><a href="cellular-automata-and-the-game-of-life.html#cb18-107" tabindex="-1"></a></span>
-<span id="cb18-108"><a href="cellular-automata-and-the-game-of-life.html#cb18-108" tabindex="-1"></a>RULE  <span class="ot">&lt;-</span> <span class="dv">165</span></span>
-<span id="cb18-109"><a href="cellular-automata-and-the-game-of-life.html#cb18-109" tabindex="-1"></a>WIDTH <span class="ot">&lt;-</span> <span class="dv">151</span></span>
-<span id="cb18-110"><a href="cellular-automata-and-the-game-of-life.html#cb18-110" tabindex="-1"></a>STEPS <span class="ot">&lt;-</span> <span class="dv">120</span></span>
-<span id="cb18-111"><a href="cellular-automata-and-the-game-of-life.html#cb18-111" tabindex="-1"></a></span>
-<span id="cb18-112"><a href="cellular-automata-and-the-game-of-life.html#cb18-112" tabindex="-1"></a><span class="co"># ----------------------------------------------------------</span></span>
-<span id="cb18-113"><a href="cellular-automata-and-the-game-of-life.html#cb18-113" tabindex="-1"></a><span class="co"># Generate automaton</span></span>
-<span id="cb18-114"><a href="cellular-automata-and-the-game-of-life.html#cb18-114" tabindex="-1"></a><span class="co"># ----------------------------------------------------------</span></span>
-<span id="cb18-115"><a href="cellular-automata-and-the-game-of-life.html#cb18-115" tabindex="-1"></a></span>
-<span id="cb18-116"><a href="cellular-automata-and-the-game-of-life.html#cb18-116" tabindex="-1"></a>history <span class="ot">&lt;-</span> <span class="fu">simulate_ca</span>(</span>
-<span id="cb18-117"><a href="cellular-automata-and-the-game-of-life.html#cb18-117" tabindex="-1"></a>  <span class="at">rule_number =</span> RULE,</span>
-<span id="cb18-118"><a href="cellular-automata-and-the-game-of-life.html#cb18-118" tabindex="-1"></a>  <span class="at">width =</span> WIDTH,</span>
-<span id="cb18-119"><a href="cellular-automata-and-the-game-of-life.html#cb18-119" tabindex="-1"></a>  <span class="at">steps =</span> STEPS</span>
-<span id="cb18-120"><a href="cellular-automata-and-the-game-of-life.html#cb18-120" tabindex="-1"></a>)</span>
-<span id="cb18-121"><a href="cellular-automata-and-the-game-of-life.html#cb18-121" tabindex="-1"></a></span>
-<span id="cb18-122"><a href="cellular-automata-and-the-game-of-life.html#cb18-122" tabindex="-1"></a><span class="co"># ----------------------------------------------------------</span></span>
-<span id="cb18-123"><a href="cellular-automata-and-the-game-of-life.html#cb18-123" tabindex="-1"></a><span class="co"># Convert to tidy format</span></span>
-<span id="cb18-124"><a href="cellular-automata-and-the-game-of-life.html#cb18-124" tabindex="-1"></a><span class="co"># ----------------------------------------------------------</span></span>
-<span id="cb18-125"><a href="cellular-automata-and-the-game-of-life.html#cb18-125" tabindex="-1"></a></span>
-<span id="cb18-126"><a href="cellular-automata-and-the-game-of-life.html#cb18-126" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(history)</span>
-<span id="cb18-127"><a href="cellular-automata-and-the-game-of-life.html#cb18-127" tabindex="-1"></a></span>
-<span id="cb18-128"><a href="cellular-automata-and-the-game-of-life.html#cb18-128" tabindex="-1"></a>df<span class="sc">$</span>generation <span class="ot">&lt;-</span> <span class="fu">seq_len</span>(<span class="fu">nrow</span>(df))</span>
-<span id="cb18-129"><a href="cellular-automata-and-the-game-of-life.html#cb18-129" tabindex="-1"></a></span>
-<span id="cb18-130"><a href="cellular-automata-and-the-game-of-life.html#cb18-130" tabindex="-1"></a>df_long <span class="ot">&lt;-</span> <span class="fu">pivot_longer</span>(</span>
-<span id="cb18-131"><a href="cellular-automata-and-the-game-of-life.html#cb18-131" tabindex="-1"></a>  df,</span>
-<span id="cb18-132"><a href="cellular-automata-and-the-game-of-life.html#cb18-132" tabindex="-1"></a>  <span class="at">cols =</span> <span class="sc">-</span>generation,</span>
-<span id="cb18-133"><a href="cellular-automata-and-the-game-of-life.html#cb18-133" tabindex="-1"></a>  <span class="at">names_to =</span> <span class="st">&quot;cell&quot;</span>,</span>
-<span id="cb18-134"><a href="cellular-automata-and-the-game-of-life.html#cb18-134" tabindex="-1"></a>  <span class="at">values_to =</span> <span class="st">&quot;state&quot;</span></span>
-<span id="cb18-135"><a href="cellular-automata-and-the-game-of-life.html#cb18-135" tabindex="-1"></a>)</span>
-<span id="cb18-136"><a href="cellular-automata-and-the-game-of-life.html#cb18-136" tabindex="-1"></a></span>
-<span id="cb18-137"><a href="cellular-automata-and-the-game-of-life.html#cb18-137" tabindex="-1"></a>df_long <span class="ot">&lt;-</span> df_long <span class="sc">%&gt;%</span></span>
-<span id="cb18-138"><a href="cellular-automata-and-the-game-of-life.html#cb18-138" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb18-139"><a href="cellular-automata-and-the-game-of-life.html#cb18-139" tabindex="-1"></a>    <span class="at">cell =</span> <span class="fu">as.numeric</span>(<span class="fu">gsub</span>(<span class="st">&quot;V&quot;</span>, <span class="st">&quot;&quot;</span>, cell))</span>
-<span id="cb18-140"><a href="cellular-automata-and-the-game-of-life.html#cb18-140" tabindex="-1"></a>  )</span>
-<span id="cb18-141"><a href="cellular-automata-and-the-game-of-life.html#cb18-141" tabindex="-1"></a></span>
-<span id="cb18-142"><a href="cellular-automata-and-the-game-of-life.html#cb18-142" tabindex="-1"></a>max_gen <span class="ot">&lt;-</span> <span class="fu">max</span>(df_long<span class="sc">$</span>generation)</span>
-<span id="cb18-143"><a href="cellular-automata-and-the-game-of-life.html#cb18-143" tabindex="-1"></a></span>
-<span id="cb18-144"><a href="cellular-automata-and-the-game-of-life.html#cb18-144" tabindex="-1"></a>animation_df <span class="ot">&lt;-</span> dplyr<span class="sc">::</span><span class="fu">bind_rows</span>(</span>
-<span id="cb18-145"><a href="cellular-automata-and-the-game-of-life.html#cb18-145" tabindex="-1"></a>  <span class="fu">lapply</span>(<span class="dv">1</span><span class="sc">:</span>max_gen, <span class="cf">function</span>(g) {</span>
-<span id="cb18-146"><a href="cellular-automata-and-the-game-of-life.html#cb18-146" tabindex="-1"></a>    </span>
-<span id="cb18-147"><a href="cellular-automata-and-the-game-of-life.html#cb18-147" tabindex="-1"></a>    df_long <span class="sc">%&gt;%</span></span>
-<span id="cb18-148"><a href="cellular-automata-and-the-game-of-life.html#cb18-148" tabindex="-1"></a>      <span class="fu">filter</span>(generation <span class="sc">&lt;=</span> g) <span class="sc">%&gt;%</span></span>
-<span id="cb18-149"><a href="cellular-automata-and-the-game-of-life.html#cb18-149" tabindex="-1"></a>      <span class="fu">mutate</span>(<span class="at">frame =</span> g)</span>
-<span id="cb18-150"><a href="cellular-automata-and-the-game-of-life.html#cb18-150" tabindex="-1"></a>    </span>
-<span id="cb18-151"><a href="cellular-automata-and-the-game-of-life.html#cb18-151" tabindex="-1"></a>  })</span>
-<span id="cb18-152"><a href="cellular-automata-and-the-game-of-life.html#cb18-152" tabindex="-1"></a>)</span>
-<span id="cb18-153"><a href="cellular-automata-and-the-game-of-life.html#cb18-153" tabindex="-1"></a></span>
-<span id="cb18-154"><a href="cellular-automata-and-the-game-of-life.html#cb18-154" tabindex="-1"></a><span class="co"># ----------------------------------------------------------</span></span>
-<span id="cb18-155"><a href="cellular-automata-and-the-game-of-life.html#cb18-155" tabindex="-1"></a><span class="co"># Animation</span></span>
-<span id="cb18-156"><a href="cellular-automata-and-the-game-of-life.html#cb18-156" tabindex="-1"></a><span class="co"># ----------------------------------------------------------</span></span>
-<span id="cb18-157"><a href="cellular-automata-and-the-game-of-life.html#cb18-157" tabindex="-1"></a></span>
-<span id="cb18-158"><a href="cellular-automata-and-the-game-of-life.html#cb18-158" tabindex="-1"></a></span>
-<span id="cb18-159"><a href="cellular-automata-and-the-game-of-life.html#cb18-159" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(</span>
-<span id="cb18-160"><a href="cellular-automata-and-the-game-of-life.html#cb18-160" tabindex="-1"></a>  animation_df,</span>
-<span id="cb18-161"><a href="cellular-automata-and-the-game-of-life.html#cb18-161" tabindex="-1"></a>  <span class="fu">aes</span>(</span>
-<span id="cb18-162"><a href="cellular-automata-and-the-game-of-life.html#cb18-162" tabindex="-1"></a>    <span class="at">x =</span> cell,</span>
-<span id="cb18-163"><a href="cellular-automata-and-the-game-of-life.html#cb18-163" tabindex="-1"></a>    <span class="at">y =</span> <span class="sc">-</span>generation,</span>
-<span id="cb18-164"><a href="cellular-automata-and-the-game-of-life.html#cb18-164" tabindex="-1"></a>    <span class="at">fill =</span> <span class="fu">factor</span>(state)</span>
-<span id="cb18-165"><a href="cellular-automata-and-the-game-of-life.html#cb18-165" tabindex="-1"></a>  )</span>
-<span id="cb18-166"><a href="cellular-automata-and-the-game-of-life.html#cb18-166" tabindex="-1"></a>) <span class="sc">+</span></span>
-<span id="cb18-167"><a href="cellular-automata-and-the-game-of-life.html#cb18-167" tabindex="-1"></a>  <span class="fu">geom_tile</span>() <span class="sc">+</span></span>
-<span id="cb18-168"><a href="cellular-automata-and-the-game-of-life.html#cb18-168" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(</span>
-<span id="cb18-169"><a href="cellular-automata-and-the-game-of-life.html#cb18-169" tabindex="-1"></a>    <span class="at">values =</span> <span class="fu">c</span>(</span>
-<span id="cb18-170"><a href="cellular-automata-and-the-game-of-life.html#cb18-170" tabindex="-1"></a>      <span class="st">&quot;0&quot;</span> <span class="ot">=</span> <span class="st">&quot;white&quot;</span>,</span>
-<span id="cb18-171"><a href="cellular-automata-and-the-game-of-life.html#cb18-171" tabindex="-1"></a>      <span class="st">&quot;1&quot;</span> <span class="ot">=</span> <span class="st">&quot;black&quot;</span></span>
-<span id="cb18-172"><a href="cellular-automata-and-the-game-of-life.html#cb18-172" tabindex="-1"></a>    )</span>
-<span id="cb18-173"><a href="cellular-automata-and-the-game-of-life.html#cb18-173" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb18-174"><a href="cellular-automata-and-the-game-of-life.html#cb18-174" tabindex="-1"></a>  <span class="fu">coord_equal</span>() <span class="sc">+</span></span>
-<span id="cb18-175"><a href="cellular-automata-and-the-game-of-life.html#cb18-175" tabindex="-1"></a>  <span class="fu">theme_void</span>() <span class="sc">+</span></span>
-<span id="cb18-176"><a href="cellular-automata-and-the-game-of-life.html#cb18-176" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
-<span id="cb18-177"><a href="cellular-automata-and-the-game-of-life.html#cb18-177" tabindex="-1"></a>    <span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span></span>
-<span id="cb18-178"><a href="cellular-automata-and-the-game-of-life.html#cb18-178" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb18-179"><a href="cellular-automata-and-the-game-of-life.html#cb18-179" tabindex="-1"></a>  <span class="fu">transition_manual</span>(frame)</span>
-<span id="cb18-180"><a href="cellular-automata-and-the-game-of-life.html#cb18-180" tabindex="-1"></a></span>
-<span id="cb18-181"><a href="cellular-automata-and-the-game-of-life.html#cb18-181" tabindex="-1"></a></span>
-<span id="cb18-182"><a href="cellular-automata-and-the-game-of-life.html#cb18-182" tabindex="-1"></a><span class="co"># ----------------------------------------------------------</span></span>
-<span id="cb18-183"><a href="cellular-automata-and-the-game-of-life.html#cb18-183" tabindex="-1"></a><span class="co"># Render GIF</span></span>
-<span id="cb18-184"><a href="cellular-automata-and-the-game-of-life.html#cb18-184" tabindex="-1"></a><span class="co"># ----------------------------------------------------------</span></span>
-<span id="cb18-185"><a href="cellular-automata-and-the-game-of-life.html#cb18-185" tabindex="-1"></a><span class="fu">animate</span>(</span>
-<span id="cb18-186"><a href="cellular-automata-and-the-game-of-life.html#cb18-186" tabindex="-1"></a>  p,</span>
-<span id="cb18-187"><a href="cellular-automata-and-the-game-of-life.html#cb18-187" tabindex="-1"></a>  <span class="at">nframes =</span> max_gen,</span>
-<span id="cb18-188"><a href="cellular-automata-and-the-game-of-life.html#cb18-188" tabindex="-1"></a>  <span class="at">fps =</span> <span class="dv">10</span>,</span>
-<span id="cb18-189"><a href="cellular-automata-and-the-game-of-life.html#cb18-189" tabindex="-1"></a>  <span class="at">width =</span> <span class="dv">800</span>,</span>
-<span id="cb18-190"><a href="cellular-automata-and-the-game-of-life.html#cb18-190" tabindex="-1"></a>  <span class="at">height =</span> <span class="dv">800</span></span>
-<span id="cb18-191"><a href="cellular-automata-and-the-game-of-life.html#cb18-191" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="cellular-automata-and-the-game-of-life.html#cb21-1" tabindex="-1"></a></span>
+<span id="cb21-2"><a href="cellular-automata-and-the-game-of-life.html#cb21-2" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb21-3"><a href="cellular-automata-and-the-game-of-life.html#cb21-3" tabindex="-1"></a><span class="fu">library</span>(gganimate)</span>
+<span id="cb21-4"><a href="cellular-automata-and-the-game-of-life.html#cb21-4" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb21-5"><a href="cellular-automata-and-the-game-of-life.html#cb21-5" tabindex="-1"></a></span>
+<span id="cb21-6"><a href="cellular-automata-and-the-game-of-life.html#cb21-6" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="cn">NULL</span>)</span>
+<span id="cb21-7"><a href="cellular-automata-and-the-game-of-life.html#cb21-7" tabindex="-1"></a></span>
+<span id="cb21-8"><a href="cellular-automata-and-the-game-of-life.html#cb21-8" tabindex="-1"></a><span class="do">###########################################################################################</span></span>
+<span id="cb21-9"><a href="cellular-automata-and-the-game-of-life.html#cb21-9" tabindex="-1"></a><span class="co">#PARAMETERS</span></span>
+<span id="cb21-10"><a href="cellular-automata-and-the-game-of-life.html#cb21-10" tabindex="-1"></a><span class="do">##########################################################################################</span></span>
+<span id="cb21-11"><a href="cellular-automata-and-the-game-of-life.html#cb21-11" tabindex="-1"></a></span>
+<span id="cb21-12"><a href="cellular-automata-and-the-game-of-life.html#cb21-12" tabindex="-1"></a>grid_size <span class="ot">&lt;-</span> <span class="dv">50</span></span>
+<span id="cb21-13"><a href="cellular-automata-and-the-game-of-life.html#cb21-13" tabindex="-1"></a>generations <span class="ot">&lt;-</span> <span class="dv">500</span></span>
+<span id="cb21-14"><a href="cellular-automata-and-the-game-of-life.html#cb21-14" tabindex="-1"></a>density <span class="ot">&lt;-</span> <span class="fl">0.20</span></span>
+<span id="cb21-15"><a href="cellular-automata-and-the-game-of-life.html#cb21-15" tabindex="-1"></a></span>
+<span id="cb21-16"><a href="cellular-automata-and-the-game-of-life.html#cb21-16" tabindex="-1"></a><span class="do">################################################################################</span></span>
+<span id="cb21-17"><a href="cellular-automata-and-the-game-of-life.html#cb21-17" tabindex="-1"></a></span>
+<span id="cb21-18"><a href="cellular-automata-and-the-game-of-life.html#cb21-18" tabindex="-1"></a><span class="co"># =========================</span></span>
+<span id="cb21-19"><a href="cellular-automata-and-the-game-of-life.html#cb21-19" tabindex="-1"></a><span class="co"># Wolfram-style CA variants</span></span>
+<span id="cb21-20"><a href="cellular-automata-and-the-game-of-life.html#cb21-20" tabindex="-1"></a><span class="co"># (same grid interface)</span></span>
+<span id="cb21-21"><a href="cellular-automata-and-the-game-of-life.html#cb21-21" tabindex="-1"></a><span class="co"># =========================</span></span>
+<span id="cb21-22"><a href="cellular-automata-and-the-game-of-life.html#cb21-22" tabindex="-1"></a></span>
+<span id="cb21-23"><a href="cellular-automata-and-the-game-of-life.html#cb21-23" tabindex="-1"></a></span>
+<span id="cb21-24"><a href="cellular-automata-and-the-game-of-life.html#cb21-24" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb21-25"><a href="cellular-automata-and-the-game-of-life.html#cb21-25" tabindex="-1"></a></span>
+<span id="cb21-26"><a href="cellular-automata-and-the-game-of-life.html#cb21-26" tabindex="-1"></a></span>
+<span id="cb21-27"><a href="cellular-automata-and-the-game-of-life.html#cb21-27" tabindex="-1"></a><span class="co"># #################################################################################################################</span></span>
+<span id="cb21-28"><a href="cellular-automata-and-the-game-of-life.html#cb21-28" tabindex="-1"></a><span class="co"># Convert rule number to lookup table</span></span>
+<span id="cb21-29"><a href="cellular-automata-and-the-game-of-life.html#cb21-29" tabindex="-1"></a><span class="do">#############################################################################################################</span></span>
+<span id="cb21-30"><a href="cellular-automata-and-the-game-of-life.html#cb21-30" tabindex="-1"></a></span>
+<span id="cb21-31"><a href="cellular-automata-and-the-game-of-life.html#cb21-31" tabindex="-1"></a>make_rule <span class="ot">&lt;-</span> <span class="cf">function</span>(rule_number) {</span>
+<span id="cb21-32"><a href="cellular-automata-and-the-game-of-life.html#cb21-32" tabindex="-1"></a>  </span>
+<span id="cb21-33"><a href="cellular-automata-and-the-game-of-life.html#cb21-33" tabindex="-1"></a>  bits <span class="ot">&lt;-</span> <span class="fu">rev</span>(<span class="fu">as.integer</span>(<span class="fu">intToBits</span>(rule_number)[<span class="dv">1</span><span class="sc">:</span><span class="dv">8</span>]))</span>
+<span id="cb21-34"><a href="cellular-automata-and-the-game-of-life.html#cb21-34" tabindex="-1"></a>  </span>
+<span id="cb21-35"><a href="cellular-automata-and-the-game-of-life.html#cb21-35" tabindex="-1"></a>  <span class="fu">names</span>(bits) <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb21-36"><a href="cellular-automata-and-the-game-of-life.html#cb21-36" tabindex="-1"></a>    <span class="st">&quot;111&quot;</span>, <span class="st">&quot;110&quot;</span>, <span class="st">&quot;101&quot;</span>, <span class="st">&quot;100&quot;</span>,</span>
+<span id="cb21-37"><a href="cellular-automata-and-the-game-of-life.html#cb21-37" tabindex="-1"></a>    <span class="st">&quot;011&quot;</span>, <span class="st">&quot;010&quot;</span>, <span class="st">&quot;001&quot;</span>, <span class="st">&quot;000&quot;</span></span>
+<span id="cb21-38"><a href="cellular-automata-and-the-game-of-life.html#cb21-38" tabindex="-1"></a>  )</span>
+<span id="cb21-39"><a href="cellular-automata-and-the-game-of-life.html#cb21-39" tabindex="-1"></a>  </span>
+<span id="cb21-40"><a href="cellular-automata-and-the-game-of-life.html#cb21-40" tabindex="-1"></a>  bits</span>
+<span id="cb21-41"><a href="cellular-automata-and-the-game-of-life.html#cb21-41" tabindex="-1"></a>}</span>
+<span id="cb21-42"><a href="cellular-automata-and-the-game-of-life.html#cb21-42" tabindex="-1"></a></span>
+<span id="cb21-43"><a href="cellular-automata-and-the-game-of-life.html#cb21-43" tabindex="-1"></a><span class="do">###############################################################################################################</span></span>
+<span id="cb21-44"><a href="cellular-automata-and-the-game-of-life.html#cb21-44" tabindex="-1"></a><span class="co"># Compute next generation</span></span>
+<span id="cb21-45"><a href="cellular-automata-and-the-game-of-life.html#cb21-45" tabindex="-1"></a><span class="do">##################################################################################################################</span></span>
+<span id="cb21-46"><a href="cellular-automata-and-the-game-of-life.html#cb21-46" tabindex="-1"></a></span>
+<span id="cb21-47"><a href="cellular-automata-and-the-game-of-life.html#cb21-47" tabindex="-1"></a>update_generation <span class="ot">&lt;-</span> <span class="cf">function</span>(cells, rule) {</span>
+<span id="cb21-48"><a href="cellular-automata-and-the-game-of-life.html#cb21-48" tabindex="-1"></a>  </span>
+<span id="cb21-49"><a href="cellular-automata-and-the-game-of-life.html#cb21-49" tabindex="-1"></a>  n <span class="ot">&lt;-</span> <span class="fu">length</span>(cells)</span>
+<span id="cb21-50"><a href="cellular-automata-and-the-game-of-life.html#cb21-50" tabindex="-1"></a>  next_cells <span class="ot">&lt;-</span> <span class="fu">integer</span>(n)</span>
+<span id="cb21-51"><a href="cellular-automata-and-the-game-of-life.html#cb21-51" tabindex="-1"></a>  </span>
+<span id="cb21-52"><a href="cellular-automata-and-the-game-of-life.html#cb21-52" tabindex="-1"></a>  <span class="cf">for</span>(i <span class="cf">in</span> <span class="fu">seq_len</span>(n)) {</span>
+<span id="cb21-53"><a href="cellular-automata-and-the-game-of-life.html#cb21-53" tabindex="-1"></a>    </span>
+<span id="cb21-54"><a href="cellular-automata-and-the-game-of-life.html#cb21-54" tabindex="-1"></a>    left   <span class="ot">&lt;-</span> cells[((i <span class="sc">-</span> <span class="dv">2</span>) <span class="sc">%%</span> n) <span class="sc">+</span> <span class="dv">1</span>]</span>
+<span id="cb21-55"><a href="cellular-automata-and-the-game-of-life.html#cb21-55" tabindex="-1"></a>    center <span class="ot">&lt;-</span> cells[i]</span>
+<span id="cb21-56"><a href="cellular-automata-and-the-game-of-life.html#cb21-56" tabindex="-1"></a>    right  <span class="ot">&lt;-</span> cells[(i <span class="sc">%%</span> n) <span class="sc">+</span> <span class="dv">1</span>]</span>
+<span id="cb21-57"><a href="cellular-automata-and-the-game-of-life.html#cb21-57" tabindex="-1"></a>    </span>
+<span id="cb21-58"><a href="cellular-automata-and-the-game-of-life.html#cb21-58" tabindex="-1"></a>    pattern <span class="ot">&lt;-</span> <span class="fu">paste0</span>(left, center, right)</span>
+<span id="cb21-59"><a href="cellular-automata-and-the-game-of-life.html#cb21-59" tabindex="-1"></a>    </span>
+<span id="cb21-60"><a href="cellular-automata-and-the-game-of-life.html#cb21-60" tabindex="-1"></a>    next_cells[i] <span class="ot">&lt;-</span> rule[pattern]</span>
+<span id="cb21-61"><a href="cellular-automata-and-the-game-of-life.html#cb21-61" tabindex="-1"></a>  }</span>
+<span id="cb21-62"><a href="cellular-automata-and-the-game-of-life.html#cb21-62" tabindex="-1"></a>  </span>
+<span id="cb21-63"><a href="cellular-automata-and-the-game-of-life.html#cb21-63" tabindex="-1"></a>  next_cells</span>
+<span id="cb21-64"><a href="cellular-automata-and-the-game-of-life.html#cb21-64" tabindex="-1"></a>}</span>
+<span id="cb21-65"><a href="cellular-automata-and-the-game-of-life.html#cb21-65" tabindex="-1"></a></span>
+<span id="cb21-66"><a href="cellular-automata-and-the-game-of-life.html#cb21-66" tabindex="-1"></a><span class="do">##########################################################################################################</span></span>
+<span id="cb21-67"><a href="cellular-automata-and-the-game-of-life.html#cb21-67" tabindex="-1"></a><span class="co"># Run simulation</span></span>
+<span id="cb21-68"><a href="cellular-automata-and-the-game-of-life.html#cb21-68" tabindex="-1"></a><span class="do">##############################################################################################################33</span></span>
+<span id="cb21-69"><a href="cellular-automata-and-the-game-of-life.html#cb21-69" tabindex="-1"></a></span>
+<span id="cb21-70"><a href="cellular-automata-and-the-game-of-life.html#cb21-70" tabindex="-1"></a>simulate_ca <span class="ot">&lt;-</span> <span class="cf">function</span>(</span>
+<span id="cb21-71"><a href="cellular-automata-and-the-game-of-life.html#cb21-71" tabindex="-1"></a>    <span class="at">rule_number =</span> <span class="dv">30</span>,</span>
+<span id="cb21-72"><a href="cellular-automata-and-the-game-of-life.html#cb21-72" tabindex="-1"></a>    <span class="at">width =</span> <span class="dv">101</span>,</span>
+<span id="cb21-73"><a href="cellular-automata-and-the-game-of-life.html#cb21-73" tabindex="-1"></a>    <span class="at">steps =</span> <span class="dv">100</span></span>
+<span id="cb21-74"><a href="cellular-automata-and-the-game-of-life.html#cb21-74" tabindex="-1"></a>) {</span>
+<span id="cb21-75"><a href="cellular-automata-and-the-game-of-life.html#cb21-75" tabindex="-1"></a>  </span>
+<span id="cb21-76"><a href="cellular-automata-and-the-game-of-life.html#cb21-76" tabindex="-1"></a>  rule <span class="ot">&lt;-</span> <span class="fu">make_rule</span>(rule_number)</span>
+<span id="cb21-77"><a href="cellular-automata-and-the-game-of-life.html#cb21-77" tabindex="-1"></a>  </span>
+<span id="cb21-78"><a href="cellular-automata-and-the-game-of-life.html#cb21-78" tabindex="-1"></a>  history <span class="ot">&lt;-</span> <span class="fu">matrix</span>(</span>
+<span id="cb21-79"><a href="cellular-automata-and-the-game-of-life.html#cb21-79" tabindex="-1"></a>    <span class="dv">0</span>,</span>
+<span id="cb21-80"><a href="cellular-automata-and-the-game-of-life.html#cb21-80" tabindex="-1"></a>    <span class="at">nrow =</span> steps,</span>
+<span id="cb21-81"><a href="cellular-automata-and-the-game-of-life.html#cb21-81" tabindex="-1"></a>    <span class="at">ncol =</span> width</span>
+<span id="cb21-82"><a href="cellular-automata-and-the-game-of-life.html#cb21-82" tabindex="-1"></a>  )</span>
+<span id="cb21-83"><a href="cellular-automata-and-the-game-of-life.html#cb21-83" tabindex="-1"></a>  </span>
+<span id="cb21-84"><a href="cellular-automata-and-the-game-of-life.html#cb21-84" tabindex="-1"></a>  current <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">0</span>, width)</span>
+<span id="cb21-85"><a href="cellular-automata-and-the-game-of-life.html#cb21-85" tabindex="-1"></a>  </span>
+<span id="cb21-86"><a href="cellular-automata-and-the-game-of-life.html#cb21-86" tabindex="-1"></a>  <span class="co"># single seed</span></span>
+<span id="cb21-87"><a href="cellular-automata-and-the-game-of-life.html#cb21-87" tabindex="-1"></a>  current[(width <span class="sc">+</span> <span class="dv">1</span>) <span class="sc">%/%</span> <span class="dv">2</span>] <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb21-88"><a href="cellular-automata-and-the-game-of-life.html#cb21-88" tabindex="-1"></a>  </span>
+<span id="cb21-89"><a href="cellular-automata-and-the-game-of-life.html#cb21-89" tabindex="-1"></a>  history[<span class="dv">1</span>, ] <span class="ot">&lt;-</span> current</span>
+<span id="cb21-90"><a href="cellular-automata-and-the-game-of-life.html#cb21-90" tabindex="-1"></a>  </span>
+<span id="cb21-91"><a href="cellular-automata-and-the-game-of-life.html#cb21-91" tabindex="-1"></a>  <span class="cf">for</span>(t <span class="cf">in</span> <span class="dv">2</span><span class="sc">:</span>steps) {</span>
+<span id="cb21-92"><a href="cellular-automata-and-the-game-of-life.html#cb21-92" tabindex="-1"></a>    </span>
+<span id="cb21-93"><a href="cellular-automata-and-the-game-of-life.html#cb21-93" tabindex="-1"></a>    current <span class="ot">&lt;-</span> <span class="fu">update_generation</span>(</span>
+<span id="cb21-94"><a href="cellular-automata-and-the-game-of-life.html#cb21-94" tabindex="-1"></a>      current,</span>
+<span id="cb21-95"><a href="cellular-automata-and-the-game-of-life.html#cb21-95" tabindex="-1"></a>      rule</span>
+<span id="cb21-96"><a href="cellular-automata-and-the-game-of-life.html#cb21-96" tabindex="-1"></a>    )</span>
+<span id="cb21-97"><a href="cellular-automata-and-the-game-of-life.html#cb21-97" tabindex="-1"></a>    </span>
+<span id="cb21-98"><a href="cellular-automata-and-the-game-of-life.html#cb21-98" tabindex="-1"></a>    history[t, ] <span class="ot">&lt;-</span> current</span>
+<span id="cb21-99"><a href="cellular-automata-and-the-game-of-life.html#cb21-99" tabindex="-1"></a>  }</span>
+<span id="cb21-100"><a href="cellular-automata-and-the-game-of-life.html#cb21-100" tabindex="-1"></a>  </span>
+<span id="cb21-101"><a href="cellular-automata-and-the-game-of-life.html#cb21-101" tabindex="-1"></a>  history</span>
+<span id="cb21-102"><a href="cellular-automata-and-the-game-of-life.html#cb21-102" tabindex="-1"></a>}</span>
+<span id="cb21-103"><a href="cellular-automata-and-the-game-of-life.html#cb21-103" tabindex="-1"></a></span>
+<span id="cb21-104"><a href="cellular-automata-and-the-game-of-life.html#cb21-104" tabindex="-1"></a><span class="co"># ----------------------------------------------------------</span></span>
+<span id="cb21-105"><a href="cellular-automata-and-the-game-of-life.html#cb21-105" tabindex="-1"></a><span class="co"># Parameters</span></span>
+<span id="cb21-106"><a href="cellular-automata-and-the-game-of-life.html#cb21-106" tabindex="-1"></a><span class="co"># ----------------------------------------------------------</span></span>
+<span id="cb21-107"><a href="cellular-automata-and-the-game-of-life.html#cb21-107" tabindex="-1"></a></span>
+<span id="cb21-108"><a href="cellular-automata-and-the-game-of-life.html#cb21-108" tabindex="-1"></a>RULE  <span class="ot">&lt;-</span> <span class="dv">165</span></span>
+<span id="cb21-109"><a href="cellular-automata-and-the-game-of-life.html#cb21-109" tabindex="-1"></a>WIDTH <span class="ot">&lt;-</span> <span class="dv">151</span></span>
+<span id="cb21-110"><a href="cellular-automata-and-the-game-of-life.html#cb21-110" tabindex="-1"></a>STEPS <span class="ot">&lt;-</span> <span class="dv">120</span></span>
+<span id="cb21-111"><a href="cellular-automata-and-the-game-of-life.html#cb21-111" tabindex="-1"></a></span>
+<span id="cb21-112"><a href="cellular-automata-and-the-game-of-life.html#cb21-112" tabindex="-1"></a><span class="co"># ----------------------------------------------------------</span></span>
+<span id="cb21-113"><a href="cellular-automata-and-the-game-of-life.html#cb21-113" tabindex="-1"></a><span class="co"># Generate automaton</span></span>
+<span id="cb21-114"><a href="cellular-automata-and-the-game-of-life.html#cb21-114" tabindex="-1"></a><span class="co"># ----------------------------------------------------------</span></span>
+<span id="cb21-115"><a href="cellular-automata-and-the-game-of-life.html#cb21-115" tabindex="-1"></a></span>
+<span id="cb21-116"><a href="cellular-automata-and-the-game-of-life.html#cb21-116" tabindex="-1"></a>history <span class="ot">&lt;-</span> <span class="fu">simulate_ca</span>(</span>
+<span id="cb21-117"><a href="cellular-automata-and-the-game-of-life.html#cb21-117" tabindex="-1"></a>  <span class="at">rule_number =</span> RULE,</span>
+<span id="cb21-118"><a href="cellular-automata-and-the-game-of-life.html#cb21-118" tabindex="-1"></a>  <span class="at">width =</span> WIDTH,</span>
+<span id="cb21-119"><a href="cellular-automata-and-the-game-of-life.html#cb21-119" tabindex="-1"></a>  <span class="at">steps =</span> STEPS</span>
+<span id="cb21-120"><a href="cellular-automata-and-the-game-of-life.html#cb21-120" tabindex="-1"></a>)</span>
+<span id="cb21-121"><a href="cellular-automata-and-the-game-of-life.html#cb21-121" tabindex="-1"></a></span>
+<span id="cb21-122"><a href="cellular-automata-and-the-game-of-life.html#cb21-122" tabindex="-1"></a><span class="co"># ----------------------------------------------------------</span></span>
+<span id="cb21-123"><a href="cellular-automata-and-the-game-of-life.html#cb21-123" tabindex="-1"></a><span class="co"># Convert to tidy format</span></span>
+<span id="cb21-124"><a href="cellular-automata-and-the-game-of-life.html#cb21-124" tabindex="-1"></a><span class="co"># ----------------------------------------------------------</span></span>
+<span id="cb21-125"><a href="cellular-automata-and-the-game-of-life.html#cb21-125" tabindex="-1"></a></span>
+<span id="cb21-126"><a href="cellular-automata-and-the-game-of-life.html#cb21-126" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(history)</span>
+<span id="cb21-127"><a href="cellular-automata-and-the-game-of-life.html#cb21-127" tabindex="-1"></a></span>
+<span id="cb21-128"><a href="cellular-automata-and-the-game-of-life.html#cb21-128" tabindex="-1"></a>df<span class="sc">$</span>generation <span class="ot">&lt;-</span> <span class="fu">seq_len</span>(<span class="fu">nrow</span>(df))</span>
+<span id="cb21-129"><a href="cellular-automata-and-the-game-of-life.html#cb21-129" tabindex="-1"></a></span>
+<span id="cb21-130"><a href="cellular-automata-and-the-game-of-life.html#cb21-130" tabindex="-1"></a>df_long <span class="ot">&lt;-</span> <span class="fu">pivot_longer</span>(</span>
+<span id="cb21-131"><a href="cellular-automata-and-the-game-of-life.html#cb21-131" tabindex="-1"></a>  df,</span>
+<span id="cb21-132"><a href="cellular-automata-and-the-game-of-life.html#cb21-132" tabindex="-1"></a>  <span class="at">cols =</span> <span class="sc">-</span>generation,</span>
+<span id="cb21-133"><a href="cellular-automata-and-the-game-of-life.html#cb21-133" tabindex="-1"></a>  <span class="at">names_to =</span> <span class="st">&quot;cell&quot;</span>,</span>
+<span id="cb21-134"><a href="cellular-automata-and-the-game-of-life.html#cb21-134" tabindex="-1"></a>  <span class="at">values_to =</span> <span class="st">&quot;state&quot;</span></span>
+<span id="cb21-135"><a href="cellular-automata-and-the-game-of-life.html#cb21-135" tabindex="-1"></a>)</span>
+<span id="cb21-136"><a href="cellular-automata-and-the-game-of-life.html#cb21-136" tabindex="-1"></a></span>
+<span id="cb21-137"><a href="cellular-automata-and-the-game-of-life.html#cb21-137" tabindex="-1"></a>df_long <span class="ot">&lt;-</span> df_long <span class="sc">%&gt;%</span></span>
+<span id="cb21-138"><a href="cellular-automata-and-the-game-of-life.html#cb21-138" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb21-139"><a href="cellular-automata-and-the-game-of-life.html#cb21-139" tabindex="-1"></a>    <span class="at">cell =</span> <span class="fu">as.numeric</span>(<span class="fu">gsub</span>(<span class="st">&quot;V&quot;</span>, <span class="st">&quot;&quot;</span>, cell))</span>
+<span id="cb21-140"><a href="cellular-automata-and-the-game-of-life.html#cb21-140" tabindex="-1"></a>  )</span>
+<span id="cb21-141"><a href="cellular-automata-and-the-game-of-life.html#cb21-141" tabindex="-1"></a></span>
+<span id="cb21-142"><a href="cellular-automata-and-the-game-of-life.html#cb21-142" tabindex="-1"></a>max_gen <span class="ot">&lt;-</span> <span class="fu">max</span>(df_long<span class="sc">$</span>generation)</span>
+<span id="cb21-143"><a href="cellular-automata-and-the-game-of-life.html#cb21-143" tabindex="-1"></a></span>
+<span id="cb21-144"><a href="cellular-automata-and-the-game-of-life.html#cb21-144" tabindex="-1"></a>animation_df <span class="ot">&lt;-</span> dplyr<span class="sc">::</span><span class="fu">bind_rows</span>(</span>
+<span id="cb21-145"><a href="cellular-automata-and-the-game-of-life.html#cb21-145" tabindex="-1"></a>  <span class="fu">lapply</span>(<span class="dv">1</span><span class="sc">:</span>max_gen, <span class="cf">function</span>(g) {</span>
+<span id="cb21-146"><a href="cellular-automata-and-the-game-of-life.html#cb21-146" tabindex="-1"></a>    </span>
+<span id="cb21-147"><a href="cellular-automata-and-the-game-of-life.html#cb21-147" tabindex="-1"></a>    df_long <span class="sc">%&gt;%</span></span>
+<span id="cb21-148"><a href="cellular-automata-and-the-game-of-life.html#cb21-148" tabindex="-1"></a>      <span class="fu">filter</span>(generation <span class="sc">&lt;=</span> g) <span class="sc">%&gt;%</span></span>
+<span id="cb21-149"><a href="cellular-automata-and-the-game-of-life.html#cb21-149" tabindex="-1"></a>      <span class="fu">mutate</span>(<span class="at">frame =</span> g)</span>
+<span id="cb21-150"><a href="cellular-automata-and-the-game-of-life.html#cb21-150" tabindex="-1"></a>    </span>
+<span id="cb21-151"><a href="cellular-automata-and-the-game-of-life.html#cb21-151" tabindex="-1"></a>  })</span>
+<span id="cb21-152"><a href="cellular-automata-and-the-game-of-life.html#cb21-152" tabindex="-1"></a>)</span>
+<span id="cb21-153"><a href="cellular-automata-and-the-game-of-life.html#cb21-153" tabindex="-1"></a></span>
+<span id="cb21-154"><a href="cellular-automata-and-the-game-of-life.html#cb21-154" tabindex="-1"></a><span class="co"># ----------------------------------------------------------</span></span>
+<span id="cb21-155"><a href="cellular-automata-and-the-game-of-life.html#cb21-155" tabindex="-1"></a><span class="co"># Animation</span></span>
+<span id="cb21-156"><a href="cellular-automata-and-the-game-of-life.html#cb21-156" tabindex="-1"></a><span class="co"># ----------------------------------------------------------</span></span>
+<span id="cb21-157"><a href="cellular-automata-and-the-game-of-life.html#cb21-157" tabindex="-1"></a></span>
+<span id="cb21-158"><a href="cellular-automata-and-the-game-of-life.html#cb21-158" tabindex="-1"></a></span>
+<span id="cb21-159"><a href="cellular-automata-and-the-game-of-life.html#cb21-159" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(</span>
+<span id="cb21-160"><a href="cellular-automata-and-the-game-of-life.html#cb21-160" tabindex="-1"></a>  animation_df,</span>
+<span id="cb21-161"><a href="cellular-automata-and-the-game-of-life.html#cb21-161" tabindex="-1"></a>  <span class="fu">aes</span>(</span>
+<span id="cb21-162"><a href="cellular-automata-and-the-game-of-life.html#cb21-162" tabindex="-1"></a>    <span class="at">x =</span> cell,</span>
+<span id="cb21-163"><a href="cellular-automata-and-the-game-of-life.html#cb21-163" tabindex="-1"></a>    <span class="at">y =</span> <span class="sc">-</span>generation,</span>
+<span id="cb21-164"><a href="cellular-automata-and-the-game-of-life.html#cb21-164" tabindex="-1"></a>    <span class="at">fill =</span> <span class="fu">factor</span>(state)</span>
+<span id="cb21-165"><a href="cellular-automata-and-the-game-of-life.html#cb21-165" tabindex="-1"></a>  )</span>
+<span id="cb21-166"><a href="cellular-automata-and-the-game-of-life.html#cb21-166" tabindex="-1"></a>) <span class="sc">+</span></span>
+<span id="cb21-167"><a href="cellular-automata-and-the-game-of-life.html#cb21-167" tabindex="-1"></a>  <span class="fu">geom_tile</span>() <span class="sc">+</span></span>
+<span id="cb21-168"><a href="cellular-automata-and-the-game-of-life.html#cb21-168" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(</span>
+<span id="cb21-169"><a href="cellular-automata-and-the-game-of-life.html#cb21-169" tabindex="-1"></a>    <span class="at">values =</span> <span class="fu">c</span>(</span>
+<span id="cb21-170"><a href="cellular-automata-and-the-game-of-life.html#cb21-170" tabindex="-1"></a>      <span class="st">&quot;0&quot;</span> <span class="ot">=</span> <span class="st">&quot;white&quot;</span>,</span>
+<span id="cb21-171"><a href="cellular-automata-and-the-game-of-life.html#cb21-171" tabindex="-1"></a>      <span class="st">&quot;1&quot;</span> <span class="ot">=</span> <span class="st">&quot;black&quot;</span></span>
+<span id="cb21-172"><a href="cellular-automata-and-the-game-of-life.html#cb21-172" tabindex="-1"></a>    )</span>
+<span id="cb21-173"><a href="cellular-automata-and-the-game-of-life.html#cb21-173" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb21-174"><a href="cellular-automata-and-the-game-of-life.html#cb21-174" tabindex="-1"></a>  <span class="fu">coord_equal</span>() <span class="sc">+</span></span>
+<span id="cb21-175"><a href="cellular-automata-and-the-game-of-life.html#cb21-175" tabindex="-1"></a>  <span class="fu">theme_void</span>() <span class="sc">+</span></span>
+<span id="cb21-176"><a href="cellular-automata-and-the-game-of-life.html#cb21-176" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb21-177"><a href="cellular-automata-and-the-game-of-life.html#cb21-177" tabindex="-1"></a>    <span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span></span>
+<span id="cb21-178"><a href="cellular-automata-and-the-game-of-life.html#cb21-178" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb21-179"><a href="cellular-automata-and-the-game-of-life.html#cb21-179" tabindex="-1"></a>  <span class="fu">transition_manual</span>(frame)</span>
+<span id="cb21-180"><a href="cellular-automata-and-the-game-of-life.html#cb21-180" tabindex="-1"></a></span>
+<span id="cb21-181"><a href="cellular-automata-and-the-game-of-life.html#cb21-181" tabindex="-1"></a></span>
+<span id="cb21-182"><a href="cellular-automata-and-the-game-of-life.html#cb21-182" tabindex="-1"></a><span class="co"># ----------------------------------------------------------</span></span>
+<span id="cb21-183"><a href="cellular-automata-and-the-game-of-life.html#cb21-183" tabindex="-1"></a><span class="co"># Render GIF</span></span>
+<span id="cb21-184"><a href="cellular-automata-and-the-game-of-life.html#cb21-184" tabindex="-1"></a><span class="co"># ----------------------------------------------------------</span></span>
+<span id="cb21-185"><a href="cellular-automata-and-the-game-of-life.html#cb21-185" tabindex="-1"></a><span class="fu">animate</span>(</span>
+<span id="cb21-186"><a href="cellular-automata-and-the-game-of-life.html#cb21-186" tabindex="-1"></a>  p,</span>
+<span id="cb21-187"><a href="cellular-automata-and-the-game-of-life.html#cb21-187" tabindex="-1"></a>  <span class="at">nframes =</span> max_gen,</span>
+<span id="cb21-188"><a href="cellular-automata-and-the-game-of-life.html#cb21-188" tabindex="-1"></a>  <span class="at">fps =</span> <span class="dv">10</span>,</span>
+<span id="cb21-189"><a href="cellular-automata-and-the-game-of-life.html#cb21-189" tabindex="-1"></a>  <span class="at">width =</span> <span class="dv">800</span>,</span>
+<span id="cb21-190"><a href="cellular-automata-and-the-game-of-life.html#cb21-190" tabindex="-1"></a>  <span class="at">height =</span> <span class="dv">800</span></span>
+<span id="cb21-191"><a href="cellular-automata-and-the-game-of-life.html#cb21-191" tabindex="-1"></a>)</span></code></pre></div>
 </details>
 </div>
 </div>
 <div id="class-iii-rule-30" class="section level3 hasAnchor" number="7.2.2">
 <h3><span class="header-section-number">7.2.2</span> Class III Rule 30<a href="cellular-automata-and-the-game-of-life.html#class-iii-rule-30" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="cellular-automata-and-the-game-of-life.html#cb19-1" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">include_graphics</span>(<span class="st">&quot;Rule30_Class1.gif&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="cellular-automata-and-the-game-of-life.html#cb22-1" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">include_graphics</span>(<span class="st">&quot;Rule30_Class1.gif&quot;</span>)</span></code></pre></div>
 </details>
 <p><img src="Rule30_Class1.gif" width="80%" /></p>
 </div>
 <div id="class-iv-rule-90" class="section level3 hasAnchor" number="7.2.3">
 <h3><span class="header-section-number">7.2.3</span> Class IV Rule 90<a href="cellular-automata-and-the-game-of-life.html#class-iv-rule-90" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="cellular-automata-and-the-game-of-life.html#cb20-1" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">include_graphics</span>(<span class="st">&quot;Rule90_Class1.gif&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="cellular-automata-and-the-game-of-life.html#cb23-1" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">include_graphics</span>(<span class="st">&quot;Rule90_Class1.gif&quot;</span>)</span></code></pre></div>
 </details>
 <p><img src="Rule90_Class1.gif" width="80%" /></p>
 </div>
 <div id="class-iv-rule-125" class="section level3 hasAnchor" number="7.2.4">
 <h3><span class="header-section-number">7.2.4</span> Class IV Rule 125<a href="cellular-automata-and-the-game-of-life.html#class-iv-rule-125" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="cellular-automata-and-the-game-of-life.html#cb21-1" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">include_graphics</span>(<span class="st">&quot;Rule125_Class1.gif&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="cellular-automata-and-the-game-of-life.html#cb24-1" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">include_graphics</span>(<span class="st">&quot;Rule125_Class1.gif&quot;</span>)</span></code></pre></div>
 </details>
 <p><img src="Rule125_Class1.gif" width="80%" /></p>
 </div>
@@ -710,184 +707,184 @@ the grid is updated to the next generation using Conway’s rules. Finally, all 
 into a single data frame (life_df), which contains the positions of living cells and the generation in which they occur,
 making the data suitable for visualization and animation.</p>
 <details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="cellular-automata-and-the-game-of-life.html#cb22-1" tabindex="-1"></a><span class="co"># Parameters</span></span>
-<span id="cb22-2"><a href="cellular-automata-and-the-game-of-life.html#cb22-2" tabindex="-1"></a></span>
-<span id="cb22-3"><a href="cellular-automata-and-the-game-of-life.html#cb22-3" tabindex="-1"></a></span>
-<span id="cb22-4"><a href="cellular-automata-and-the-game-of-life.html#cb22-4" tabindex="-1"></a>grid_size <span class="ot">&lt;-</span> <span class="dv">50</span></span>
-<span id="cb22-5"><a href="cellular-automata-and-the-game-of-life.html#cb22-5" tabindex="-1"></a>generations <span class="ot">&lt;-</span> <span class="dv">100</span></span>
-<span id="cb22-6"><a href="cellular-automata-and-the-game-of-life.html#cb22-6" tabindex="-1"></a>density <span class="ot">&lt;-</span> <span class="fl">0.20</span></span>
-<span id="cb22-7"><a href="cellular-automata-and-the-game-of-life.html#cb22-7" tabindex="-1"></a></span>
-<span id="cb22-8"><a href="cellular-automata-and-the-game-of-life.html#cb22-8" tabindex="-1"></a><span class="do">################################# Functions##################################################################</span></span>
-<span id="cb22-9"><a href="cellular-automata-and-the-game-of-life.html#cb22-9" tabindex="-1"></a><span class="co">#COUNT Neighbours</span></span>
-<span id="cb22-10"><a href="cellular-automata-and-the-game-of-life.html#cb22-10" tabindex="-1"></a><span class="do">###############################################################################################################</span></span>
-<span id="cb22-11"><a href="cellular-automata-and-the-game-of-life.html#cb22-11" tabindex="-1"></a>count_neighbors <span class="ot">&lt;-</span> <span class="cf">function</span>(g) {</span>
-<span id="cb22-12"><a href="cellular-automata-and-the-game-of-life.html#cb22-12" tabindex="-1"></a></span>
-<span id="cb22-13"><a href="cellular-automata-and-the-game-of-life.html#cb22-13" tabindex="-1"></a>  up    <span class="ot">&lt;-</span> <span class="fu">rbind</span>(g[<span class="fu">nrow</span>(g), ], g[<span class="sc">-</span><span class="fu">nrow</span>(g), ])</span>
-<span id="cb22-14"><a href="cellular-automata-and-the-game-of-life.html#cb22-14" tabindex="-1"></a>  down  <span class="ot">&lt;-</span> <span class="fu">rbind</span>(g[<span class="sc">-</span><span class="dv">1</span>, ], g[<span class="dv">1</span>, ])</span>
-<span id="cb22-15"><a href="cellular-automata-and-the-game-of-life.html#cb22-15" tabindex="-1"></a></span>
-<span id="cb22-16"><a href="cellular-automata-and-the-game-of-life.html#cb22-16" tabindex="-1"></a>  left  <span class="ot">&lt;-</span> <span class="fu">cbind</span>(g[, <span class="fu">ncol</span>(g)], g[, <span class="sc">-</span><span class="fu">ncol</span>(g)])</span>
-<span id="cb22-17"><a href="cellular-automata-and-the-game-of-life.html#cb22-17" tabindex="-1"></a>  right <span class="ot">&lt;-</span> <span class="fu">cbind</span>(g[, <span class="sc">-</span><span class="dv">1</span>], g[, <span class="dv">1</span>])</span>
-<span id="cb22-18"><a href="cellular-automata-and-the-game-of-life.html#cb22-18" tabindex="-1"></a></span>
-<span id="cb22-19"><a href="cellular-automata-and-the-game-of-life.html#cb22-19" tabindex="-1"></a>  up_left    <span class="ot">&lt;-</span> <span class="fu">cbind</span>(up[, <span class="fu">ncol</span>(g)], up[, <span class="sc">-</span><span class="fu">ncol</span>(g)])</span>
-<span id="cb22-20"><a href="cellular-automata-and-the-game-of-life.html#cb22-20" tabindex="-1"></a>  up_right   <span class="ot">&lt;-</span> <span class="fu">cbind</span>(up[, <span class="sc">-</span><span class="dv">1</span>], up[, <span class="dv">1</span>])</span>
-<span id="cb22-21"><a href="cellular-automata-and-the-game-of-life.html#cb22-21" tabindex="-1"></a></span>
-<span id="cb22-22"><a href="cellular-automata-and-the-game-of-life.html#cb22-22" tabindex="-1"></a>  down_left  <span class="ot">&lt;-</span> <span class="fu">cbind</span>(down[, <span class="fu">ncol</span>(g)], down[, <span class="sc">-</span><span class="fu">ncol</span>(g)])</span>
-<span id="cb22-23"><a href="cellular-automata-and-the-game-of-life.html#cb22-23" tabindex="-1"></a>  down_right <span class="ot">&lt;-</span> <span class="fu">cbind</span>(down[, <span class="sc">-</span><span class="dv">1</span>], down[, <span class="dv">1</span>])</span>
-<span id="cb22-24"><a href="cellular-automata-and-the-game-of-life.html#cb22-24" tabindex="-1"></a></span>
-<span id="cb22-25"><a href="cellular-automata-and-the-game-of-life.html#cb22-25" tabindex="-1"></a>  up <span class="sc">+</span> down <span class="sc">+</span></span>
-<span id="cb22-26"><a href="cellular-automata-and-the-game-of-life.html#cb22-26" tabindex="-1"></a>    left <span class="sc">+</span> right <span class="sc">+</span></span>
-<span id="cb22-27"><a href="cellular-automata-and-the-game-of-life.html#cb22-27" tabindex="-1"></a>    up_left <span class="sc">+</span> up_right <span class="sc">+</span></span>
-<span id="cb22-28"><a href="cellular-automata-and-the-game-of-life.html#cb22-28" tabindex="-1"></a>    down_left <span class="sc">+</span> down_right</span>
-<span id="cb22-29"><a href="cellular-automata-and-the-game-of-life.html#cb22-29" tabindex="-1"></a>}</span>
-<span id="cb22-30"><a href="cellular-automata-and-the-game-of-life.html#cb22-30" tabindex="-1"></a><span class="do">###########################################################################################################</span></span>
-<span id="cb22-31"><a href="cellular-automata-and-the-game-of-life.html#cb22-31" tabindex="-1"></a><span class="co">#NEXT GENERATION</span></span>
-<span id="cb22-32"><a href="cellular-automata-and-the-game-of-life.html#cb22-32" tabindex="-1"></a><span class="do">##############################################################################################################3</span></span>
-<span id="cb22-33"><a href="cellular-automata-and-the-game-of-life.html#cb22-33" tabindex="-1"></a>next_generation <span class="ot">&lt;-</span> <span class="cf">function</span>(g) {</span>
-<span id="cb22-34"><a href="cellular-automata-and-the-game-of-life.html#cb22-34" tabindex="-1"></a></span>
-<span id="cb22-35"><a href="cellular-automata-and-the-game-of-life.html#cb22-35" tabindex="-1"></a>  nbrs <span class="ot">&lt;-</span> <span class="fu">count_neighbors</span>(g)</span>
-<span id="cb22-36"><a href="cellular-automata-and-the-game-of-life.html#cb22-36" tabindex="-1"></a></span>
-<span id="cb22-37"><a href="cellular-automata-and-the-game-of-life.html#cb22-37" tabindex="-1"></a>  survive <span class="ot">&lt;-</span> (g <span class="sc">==</span> <span class="dv">1</span><span class="dt">L</span>) <span class="sc">&amp;</span></span>
-<span id="cb22-38"><a href="cellular-automata-and-the-game-of-life.html#cb22-38" tabindex="-1"></a>    (nbrs <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">2</span><span class="dt">L</span>, <span class="dv">3</span><span class="dt">L</span>))</span>
-<span id="cb22-39"><a href="cellular-automata-and-the-game-of-life.html#cb22-39" tabindex="-1"></a></span>
-<span id="cb22-40"><a href="cellular-automata-and-the-game-of-life.html#cb22-40" tabindex="-1"></a>  born <span class="ot">&lt;-</span> (g <span class="sc">==</span> <span class="dv">0</span><span class="dt">L</span>) <span class="sc">&amp;</span></span>
-<span id="cb22-41"><a href="cellular-automata-and-the-game-of-life.html#cb22-41" tabindex="-1"></a>    (nbrs <span class="sc">==</span> <span class="dv">3</span><span class="dt">L</span>)</span>
-<span id="cb22-42"><a href="cellular-automata-and-the-game-of-life.html#cb22-42" tabindex="-1"></a></span>
-<span id="cb22-43"><a href="cellular-automata-and-the-game-of-life.html#cb22-43" tabindex="-1"></a>  <span class="fu">matrix</span>(</span>
-<span id="cb22-44"><a href="cellular-automata-and-the-game-of-life.html#cb22-44" tabindex="-1"></a>    <span class="fu">as.integer</span>(survive <span class="sc">|</span> born),</span>
-<span id="cb22-45"><a href="cellular-automata-and-the-game-of-life.html#cb22-45" tabindex="-1"></a>    <span class="at">nrow =</span> <span class="fu">nrow</span>(g),</span>
-<span id="cb22-46"><a href="cellular-automata-and-the-game-of-life.html#cb22-46" tabindex="-1"></a>    <span class="at">ncol =</span> <span class="fu">ncol</span>(g)</span>
-<span id="cb22-47"><a href="cellular-automata-and-the-game-of-life.html#cb22-47" tabindex="-1"></a>  )</span>
-<span id="cb22-48"><a href="cellular-automata-and-the-game-of-life.html#cb22-48" tabindex="-1"></a>}</span>
-<span id="cb22-49"><a href="cellular-automata-and-the-game-of-life.html#cb22-49" tabindex="-1"></a></span>
-<span id="cb22-50"><a href="cellular-automata-and-the-game-of-life.html#cb22-50" tabindex="-1"></a><span class="do">#############################################################################################################</span></span>
-<span id="cb22-51"><a href="cellular-automata-and-the-game-of-life.html#cb22-51" tabindex="-1"></a><span class="co"># Initialize Grid</span></span>
-<span id="cb22-52"><a href="cellular-automata-and-the-game-of-life.html#cb22-52" tabindex="-1"></a><span class="do">############################################################################################################</span></span>
-<span id="cb22-53"><a href="cellular-automata-and-the-game-of-life.html#cb22-53" tabindex="-1"></a></span>
-<span id="cb22-54"><a href="cellular-automata-and-the-game-of-life.html#cb22-54" tabindex="-1"></a>grid <span class="ot">&lt;-</span> <span class="fu">matrix</span>(</span>
-<span id="cb22-55"><a href="cellular-automata-and-the-game-of-life.html#cb22-55" tabindex="-1"></a>  <span class="fu">as.integer</span>(</span>
-<span id="cb22-56"><a href="cellular-automata-and-the-game-of-life.html#cb22-56" tabindex="-1"></a>    <span class="fu">runif</span>(grid_size <span class="sc">*</span> grid_size) <span class="sc">&lt;</span> density</span>
-<span id="cb22-57"><a href="cellular-automata-and-the-game-of-life.html#cb22-57" tabindex="-1"></a>  ),</span>
-<span id="cb22-58"><a href="cellular-automata-and-the-game-of-life.html#cb22-58" tabindex="-1"></a>  <span class="at">nrow =</span> grid_size,</span>
-<span id="cb22-59"><a href="cellular-automata-and-the-game-of-life.html#cb22-59" tabindex="-1"></a>  <span class="at">ncol =</span> grid_size</span>
-<span id="cb22-60"><a href="cellular-automata-and-the-game-of-life.html#cb22-60" tabindex="-1"></a>)</span>
-<span id="cb22-61"><a href="cellular-automata-and-the-game-of-life.html#cb22-61" tabindex="-1"></a></span>
-<span id="cb22-62"><a href="cellular-automata-and-the-game-of-life.html#cb22-62" tabindex="-1"></a><span class="do">#######################################################################################################################</span></span>
-<span id="cb22-63"><a href="cellular-automata-and-the-game-of-life.html#cb22-63" tabindex="-1"></a><span class="co"># Run Simulation</span></span>
-<span id="cb22-64"><a href="cellular-automata-and-the-game-of-life.html#cb22-64" tabindex="-1"></a><span class="do">########################################################################################################################</span></span>
-<span id="cb22-65"><a href="cellular-automata-and-the-game-of-life.html#cb22-65" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb22-66"><a href="cellular-automata-and-the-game-of-life.html#cb22-66" tabindex="-1"></a>frames <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
-<span id="cb22-67"><a href="cellular-automata-and-the-game-of-life.html#cb22-67" tabindex="-1"></a></span>
-<span id="cb22-68"><a href="cellular-automata-and-the-game-of-life.html#cb22-68" tabindex="-1"></a><span class="cf">for</span> (gen <span class="cf">in</span> <span class="fu">seq_len</span>(generations)) {</span>
-<span id="cb22-69"><a href="cellular-automata-and-the-game-of-life.html#cb22-69" tabindex="-1"></a></span>
-<span id="cb22-70"><a href="cellular-automata-and-the-game-of-life.html#cb22-70" tabindex="-1"></a>  live_cells <span class="ot">&lt;-</span> <span class="fu">which</span>(</span>
-<span id="cb22-71"><a href="cellular-automata-and-the-game-of-life.html#cb22-71" tabindex="-1"></a>    grid <span class="sc">==</span> <span class="dv">1</span>,</span>
-<span id="cb22-72"><a href="cellular-automata-and-the-game-of-life.html#cb22-72" tabindex="-1"></a>    <span class="at">arr.ind =</span> <span class="cn">TRUE</span></span>
-<span id="cb22-73"><a href="cellular-automata-and-the-game-of-life.html#cb22-73" tabindex="-1"></a>  )</span>
-<span id="cb22-74"><a href="cellular-automata-and-the-game-of-life.html#cb22-74" tabindex="-1"></a></span>
-<span id="cb22-75"><a href="cellular-automata-and-the-game-of-life.html#cb22-75" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">nrow</span>(live_cells) <span class="sc">&gt;</span> <span class="dv">0</span>) {</span>
-<span id="cb22-76"><a href="cellular-automata-and-the-game-of-life.html#cb22-76" tabindex="-1"></a></span>
-<span id="cb22-77"><a href="cellular-automata-and-the-game-of-life.html#cb22-77" tabindex="-1"></a>    frames[[gen]] <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb22-78"><a href="cellular-automata-and-the-game-of-life.html#cb22-78" tabindex="-1"></a>      <span class="at">x =</span> live_cells[, <span class="dv">2</span>],</span>
-<span id="cb22-79"><a href="cellular-automata-and-the-game-of-life.html#cb22-79" tabindex="-1"></a>      <span class="at">y =</span> grid_size <span class="sc">-</span> live_cells[, <span class="dv">1</span>] <span class="sc">+</span> <span class="dv">1</span>,</span>
-<span id="cb22-80"><a href="cellular-automata-and-the-game-of-life.html#cb22-80" tabindex="-1"></a>      <span class="at">generation =</span> gen</span>
-<span id="cb22-81"><a href="cellular-automata-and-the-game-of-life.html#cb22-81" tabindex="-1"></a>    )</span>
-<span id="cb22-82"><a href="cellular-automata-and-the-game-of-life.html#cb22-82" tabindex="-1"></a></span>
-<span id="cb22-83"><a href="cellular-automata-and-the-game-of-life.html#cb22-83" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
-<span id="cb22-84"><a href="cellular-automata-and-the-game-of-life.html#cb22-84" tabindex="-1"></a></span>
-<span id="cb22-85"><a href="cellular-automata-and-the-game-of-life.html#cb22-85" tabindex="-1"></a>    frames[[gen]] <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb22-86"><a href="cellular-automata-and-the-game-of-life.html#cb22-86" tabindex="-1"></a>      <span class="at">x =</span> <span class="fu">numeric</span>(),</span>
-<span id="cb22-87"><a href="cellular-automata-and-the-game-of-life.html#cb22-87" tabindex="-1"></a>      <span class="at">y =</span> <span class="fu">numeric</span>(),</span>
-<span id="cb22-88"><a href="cellular-automata-and-the-game-of-life.html#cb22-88" tabindex="-1"></a>      <span class="at">generation =</span> <span class="fu">numeric</span>()</span>
-<span id="cb22-89"><a href="cellular-automata-and-the-game-of-life.html#cb22-89" tabindex="-1"></a>    )</span>
-<span id="cb22-90"><a href="cellular-automata-and-the-game-of-life.html#cb22-90" tabindex="-1"></a></span>
-<span id="cb22-91"><a href="cellular-automata-and-the-game-of-life.html#cb22-91" tabindex="-1"></a>  }</span>
-<span id="cb22-92"><a href="cellular-automata-and-the-game-of-life.html#cb22-92" tabindex="-1"></a></span>
-<span id="cb22-93"><a href="cellular-automata-and-the-game-of-life.html#cb22-93" tabindex="-1"></a>  grid <span class="ot">&lt;-</span> <span class="fu">next_generation</span>(grid)</span>
-<span id="cb22-94"><a href="cellular-automata-and-the-game-of-life.html#cb22-94" tabindex="-1"></a>}</span>
-<span id="cb22-95"><a href="cellular-automata-and-the-game-of-life.html#cb22-95" tabindex="-1"></a></span>
-<span id="cb22-96"><a href="cellular-automata-and-the-game-of-life.html#cb22-96" tabindex="-1"></a>life_df <span class="ot">&lt;-</span> dplyr<span class="sc">::</span><span class="fu">bind_rows</span>(frames)</span>
-<span id="cb22-97"><a href="cellular-automata-and-the-game-of-life.html#cb22-97" tabindex="-1"></a><span class="fu">glimpse</span>(life_df)</span>
-<span id="cb22-98"><a href="cellular-automata-and-the-game-of-life.html#cb22-98" tabindex="-1"></a><span class="do">## Rows: 23,028</span></span>
-<span id="cb22-99"><a href="cellular-automata-and-the-game-of-life.html#cb22-99" tabindex="-1"></a><span class="do">## Columns: 3</span></span>
-<span id="cb22-100"><a href="cellular-automata-and-the-game-of-life.html#cb22-100" tabindex="-1"></a><span class="do">## $ x          &lt;int&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,…</span></span>
-<span id="cb22-101"><a href="cellular-automata-and-the-game-of-life.html#cb22-101" tabindex="-1"></a><span class="do">## $ y          &lt;dbl&gt; 47, 34, 30, 26, 23, 20, 16, 12, 9, 46, 44, 32, 31, 26, 22, …</span></span>
-<span id="cb22-102"><a href="cellular-automata-and-the-game-of-life.html#cb22-102" tabindex="-1"></a><span class="do">## $ generation &lt;int&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,…</span></span>
-<span id="cb22-103"><a href="cellular-automata-and-the-game-of-life.html#cb22-103" tabindex="-1"></a></span>
-<span id="cb22-104"><a href="cellular-automata-and-the-game-of-life.html#cb22-104" tabindex="-1"></a><span class="do">#####################################################################################################################</span></span>
-<span id="cb22-105"><a href="cellular-automata-and-the-game-of-life.html#cb22-105" tabindex="-1"></a><span class="co"># Animated Simulation</span></span>
-<span id="cb22-106"><a href="cellular-automata-and-the-game-of-life.html#cb22-106" tabindex="-1"></a></span>
-<span id="cb22-107"><a href="cellular-automata-and-the-game-of-life.html#cb22-107" tabindex="-1"></a><span class="fu">library</span>(gganimate)</span>
-<span id="cb22-108"><a href="cellular-automata-and-the-game-of-life.html#cb22-108" tabindex="-1"></a></span>
-<span id="cb22-109"><a href="cellular-automata-and-the-game-of-life.html#cb22-109" tabindex="-1"></a></span>
-<span id="cb22-110"><a href="cellular-automata-and-the-game-of-life.html#cb22-110" tabindex="-1"></a>animation_plot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(</span>
-<span id="cb22-111"><a href="cellular-automata-and-the-game-of-life.html#cb22-111" tabindex="-1"></a>  life_df,</span>
-<span id="cb22-112"><a href="cellular-automata-and-the-game-of-life.html#cb22-112" tabindex="-1"></a>  <span class="fu">aes</span>(</span>
-<span id="cb22-113"><a href="cellular-automata-and-the-game-of-life.html#cb22-113" tabindex="-1"></a>    <span class="at">x =</span> x,</span>
-<span id="cb22-114"><a href="cellular-automata-and-the-game-of-life.html#cb22-114" tabindex="-1"></a>    <span class="at">y =</span> y</span>
-<span id="cb22-115"><a href="cellular-automata-and-the-game-of-life.html#cb22-115" tabindex="-1"></a>  )</span>
-<span id="cb22-116"><a href="cellular-automata-and-the-game-of-life.html#cb22-116" tabindex="-1"></a>) <span class="sc">+</span></span>
-<span id="cb22-117"><a href="cellular-automata-and-the-game-of-life.html#cb22-117" tabindex="-1"></a></span>
-<span id="cb22-118"><a href="cellular-automata-and-the-game-of-life.html#cb22-118" tabindex="-1"></a>  <span class="fu">geom_tile</span>(</span>
-<span id="cb22-119"><a href="cellular-automata-and-the-game-of-life.html#cb22-119" tabindex="-1"></a>    <span class="at">width =</span> <span class="dv">1</span>,</span>
-<span id="cb22-120"><a href="cellular-automata-and-the-game-of-life.html#cb22-120" tabindex="-1"></a>    <span class="at">height =</span> <span class="dv">1</span>,</span>
-<span id="cb22-121"><a href="cellular-automata-and-the-game-of-life.html#cb22-121" tabindex="-1"></a>    <span class="at">fill =</span> <span class="st">&quot;#00FF66&quot;</span></span>
-<span id="cb22-122"><a href="cellular-automata-and-the-game-of-life.html#cb22-122" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb22-123"><a href="cellular-automata-and-the-game-of-life.html#cb22-123" tabindex="-1"></a></span>
-<span id="cb22-124"><a href="cellular-automata-and-the-game-of-life.html#cb22-124" tabindex="-1"></a>  <span class="fu">coord_fixed</span>() <span class="sc">+</span></span>
-<span id="cb22-125"><a href="cellular-automata-and-the-game-of-life.html#cb22-125" tabindex="-1"></a></span>
-<span id="cb22-126"><a href="cellular-automata-and-the-game-of-life.html#cb22-126" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(</span>
-<span id="cb22-127"><a href="cellular-automata-and-the-game-of-life.html#cb22-127" tabindex="-1"></a>    <span class="at">limits =</span> <span class="fu">c</span>(<span class="fl">0.5</span>, grid_size <span class="sc">+</span> <span class="fl">0.5</span>),</span>
-<span id="cb22-128"><a href="cellular-automata-and-the-game-of-life.html#cb22-128" tabindex="-1"></a>    <span class="at">expand =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>)</span>
-<span id="cb22-129"><a href="cellular-automata-and-the-game-of-life.html#cb22-129" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb22-130"><a href="cellular-automata-and-the-game-of-life.html#cb22-130" tabindex="-1"></a></span>
-<span id="cb22-131"><a href="cellular-automata-and-the-game-of-life.html#cb22-131" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(</span>
-<span id="cb22-132"><a href="cellular-automata-and-the-game-of-life.html#cb22-132" tabindex="-1"></a>    <span class="at">limits =</span> <span class="fu">c</span>(<span class="fl">0.5</span>, grid_size <span class="sc">+</span> <span class="fl">0.5</span>),</span>
-<span id="cb22-133"><a href="cellular-automata-and-the-game-of-life.html#cb22-133" tabindex="-1"></a>    <span class="at">expand =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>)</span>
-<span id="cb22-134"><a href="cellular-automata-and-the-game-of-life.html#cb22-134" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb22-135"><a href="cellular-automata-and-the-game-of-life.html#cb22-135" tabindex="-1"></a></span>
-<span id="cb22-136"><a href="cellular-automata-and-the-game-of-life.html#cb22-136" tabindex="-1"></a>  <span class="fu">theme_void</span>() <span class="sc">+</span></span>
-<span id="cb22-137"><a href="cellular-automata-and-the-game-of-life.html#cb22-137" tabindex="-1"></a></span>
-<span id="cb22-138"><a href="cellular-automata-and-the-game-of-life.html#cb22-138" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
-<span id="cb22-139"><a href="cellular-automata-and-the-game-of-life.html#cb22-139" tabindex="-1"></a>    <span class="at">plot.background =</span> <span class="fu">element_rect</span>(</span>
-<span id="cb22-140"><a href="cellular-automata-and-the-game-of-life.html#cb22-140" tabindex="-1"></a>      <span class="at">fill =</span> <span class="st">&quot;black&quot;</span>,</span>
-<span id="cb22-141"><a href="cellular-automata-and-the-game-of-life.html#cb22-141" tabindex="-1"></a>      <span class="at">colour =</span> <span class="cn">NA</span></span>
-<span id="cb22-142"><a href="cellular-automata-and-the-game-of-life.html#cb22-142" tabindex="-1"></a>    ),</span>
-<span id="cb22-143"><a href="cellular-automata-and-the-game-of-life.html#cb22-143" tabindex="-1"></a></span>
-<span id="cb22-144"><a href="cellular-automata-and-the-game-of-life.html#cb22-144" tabindex="-1"></a>    <span class="at">panel.background =</span> <span class="fu">element_rect</span>(</span>
-<span id="cb22-145"><a href="cellular-automata-and-the-game-of-life.html#cb22-145" tabindex="-1"></a>      <span class="at">fill =</span> <span class="st">&quot;black&quot;</span>,</span>
-<span id="cb22-146"><a href="cellular-automata-and-the-game-of-life.html#cb22-146" tabindex="-1"></a>      <span class="at">colour =</span> <span class="cn">NA</span></span>
-<span id="cb22-147"><a href="cellular-automata-and-the-game-of-life.html#cb22-147" tabindex="-1"></a>    ),</span>
-<span id="cb22-148"><a href="cellular-automata-and-the-game-of-life.html#cb22-148" tabindex="-1"></a></span>
-<span id="cb22-149"><a href="cellular-automata-and-the-game-of-life.html#cb22-149" tabindex="-1"></a>    <span class="at">plot.title =</span> <span class="fu">element_text</span>(</span>
-<span id="cb22-150"><a href="cellular-automata-and-the-game-of-life.html#cb22-150" tabindex="-1"></a>      <span class="at">colour =</span> <span class="st">&quot;white&quot;</span>,</span>
-<span id="cb22-151"><a href="cellular-automata-and-the-game-of-life.html#cb22-151" tabindex="-1"></a>      <span class="at">hjust =</span> <span class="fl">0.5</span>,</span>
-<span id="cb22-152"><a href="cellular-automata-and-the-game-of-life.html#cb22-152" tabindex="-1"></a>      <span class="at">size =</span> <span class="dv">18</span></span>
-<span id="cb22-153"><a href="cellular-automata-and-the-game-of-life.html#cb22-153" tabindex="-1"></a>    )</span>
-<span id="cb22-154"><a href="cellular-automata-and-the-game-of-life.html#cb22-154" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb22-155"><a href="cellular-automata-and-the-game-of-life.html#cb22-155" tabindex="-1"></a></span>
-<span id="cb22-156"><a href="cellular-automata-and-the-game-of-life.html#cb22-156" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb22-157"><a href="cellular-automata-and-the-game-of-life.html#cb22-157" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Conway&#39;s Game of Life</span><span class="sc">\n</span><span class="st">Generation: {frame_time}&quot;</span></span>
-<span id="cb22-158"><a href="cellular-automata-and-the-game-of-life.html#cb22-158" tabindex="-1"></a>  ) <span class="sc">+</span> <span class="fu">transition_time</span>(generation)</span></code></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="cellular-automata-and-the-game-of-life.html#cb25-1" tabindex="-1"></a><span class="co"># Parameters</span></span>
+<span id="cb25-2"><a href="cellular-automata-and-the-game-of-life.html#cb25-2" tabindex="-1"></a></span>
+<span id="cb25-3"><a href="cellular-automata-and-the-game-of-life.html#cb25-3" tabindex="-1"></a></span>
+<span id="cb25-4"><a href="cellular-automata-and-the-game-of-life.html#cb25-4" tabindex="-1"></a>grid_size <span class="ot">&lt;-</span> <span class="dv">50</span></span>
+<span id="cb25-5"><a href="cellular-automata-and-the-game-of-life.html#cb25-5" tabindex="-1"></a>generations <span class="ot">&lt;-</span> <span class="dv">100</span></span>
+<span id="cb25-6"><a href="cellular-automata-and-the-game-of-life.html#cb25-6" tabindex="-1"></a>density <span class="ot">&lt;-</span> <span class="fl">0.20</span></span>
+<span id="cb25-7"><a href="cellular-automata-and-the-game-of-life.html#cb25-7" tabindex="-1"></a></span>
+<span id="cb25-8"><a href="cellular-automata-and-the-game-of-life.html#cb25-8" tabindex="-1"></a><span class="do">################################# Functions##################################################################</span></span>
+<span id="cb25-9"><a href="cellular-automata-and-the-game-of-life.html#cb25-9" tabindex="-1"></a><span class="co">#COUNT Neighbours</span></span>
+<span id="cb25-10"><a href="cellular-automata-and-the-game-of-life.html#cb25-10" tabindex="-1"></a><span class="do">###############################################################################################################</span></span>
+<span id="cb25-11"><a href="cellular-automata-and-the-game-of-life.html#cb25-11" tabindex="-1"></a>count_neighbors <span class="ot">&lt;-</span> <span class="cf">function</span>(g) {</span>
+<span id="cb25-12"><a href="cellular-automata-and-the-game-of-life.html#cb25-12" tabindex="-1"></a></span>
+<span id="cb25-13"><a href="cellular-automata-and-the-game-of-life.html#cb25-13" tabindex="-1"></a>  up    <span class="ot">&lt;-</span> <span class="fu">rbind</span>(g[<span class="fu">nrow</span>(g), ], g[<span class="sc">-</span><span class="fu">nrow</span>(g), ])</span>
+<span id="cb25-14"><a href="cellular-automata-and-the-game-of-life.html#cb25-14" tabindex="-1"></a>  down  <span class="ot">&lt;-</span> <span class="fu">rbind</span>(g[<span class="sc">-</span><span class="dv">1</span>, ], g[<span class="dv">1</span>, ])</span>
+<span id="cb25-15"><a href="cellular-automata-and-the-game-of-life.html#cb25-15" tabindex="-1"></a></span>
+<span id="cb25-16"><a href="cellular-automata-and-the-game-of-life.html#cb25-16" tabindex="-1"></a>  left  <span class="ot">&lt;-</span> <span class="fu">cbind</span>(g[, <span class="fu">ncol</span>(g)], g[, <span class="sc">-</span><span class="fu">ncol</span>(g)])</span>
+<span id="cb25-17"><a href="cellular-automata-and-the-game-of-life.html#cb25-17" tabindex="-1"></a>  right <span class="ot">&lt;-</span> <span class="fu">cbind</span>(g[, <span class="sc">-</span><span class="dv">1</span>], g[, <span class="dv">1</span>])</span>
+<span id="cb25-18"><a href="cellular-automata-and-the-game-of-life.html#cb25-18" tabindex="-1"></a></span>
+<span id="cb25-19"><a href="cellular-automata-and-the-game-of-life.html#cb25-19" tabindex="-1"></a>  up_left    <span class="ot">&lt;-</span> <span class="fu">cbind</span>(up[, <span class="fu">ncol</span>(g)], up[, <span class="sc">-</span><span class="fu">ncol</span>(g)])</span>
+<span id="cb25-20"><a href="cellular-automata-and-the-game-of-life.html#cb25-20" tabindex="-1"></a>  up_right   <span class="ot">&lt;-</span> <span class="fu">cbind</span>(up[, <span class="sc">-</span><span class="dv">1</span>], up[, <span class="dv">1</span>])</span>
+<span id="cb25-21"><a href="cellular-automata-and-the-game-of-life.html#cb25-21" tabindex="-1"></a></span>
+<span id="cb25-22"><a href="cellular-automata-and-the-game-of-life.html#cb25-22" tabindex="-1"></a>  down_left  <span class="ot">&lt;-</span> <span class="fu">cbind</span>(down[, <span class="fu">ncol</span>(g)], down[, <span class="sc">-</span><span class="fu">ncol</span>(g)])</span>
+<span id="cb25-23"><a href="cellular-automata-and-the-game-of-life.html#cb25-23" tabindex="-1"></a>  down_right <span class="ot">&lt;-</span> <span class="fu">cbind</span>(down[, <span class="sc">-</span><span class="dv">1</span>], down[, <span class="dv">1</span>])</span>
+<span id="cb25-24"><a href="cellular-automata-and-the-game-of-life.html#cb25-24" tabindex="-1"></a></span>
+<span id="cb25-25"><a href="cellular-automata-and-the-game-of-life.html#cb25-25" tabindex="-1"></a>  up <span class="sc">+</span> down <span class="sc">+</span></span>
+<span id="cb25-26"><a href="cellular-automata-and-the-game-of-life.html#cb25-26" tabindex="-1"></a>    left <span class="sc">+</span> right <span class="sc">+</span></span>
+<span id="cb25-27"><a href="cellular-automata-and-the-game-of-life.html#cb25-27" tabindex="-1"></a>    up_left <span class="sc">+</span> up_right <span class="sc">+</span></span>
+<span id="cb25-28"><a href="cellular-automata-and-the-game-of-life.html#cb25-28" tabindex="-1"></a>    down_left <span class="sc">+</span> down_right</span>
+<span id="cb25-29"><a href="cellular-automata-and-the-game-of-life.html#cb25-29" tabindex="-1"></a>}</span>
+<span id="cb25-30"><a href="cellular-automata-and-the-game-of-life.html#cb25-30" tabindex="-1"></a><span class="do">###########################################################################################################</span></span>
+<span id="cb25-31"><a href="cellular-automata-and-the-game-of-life.html#cb25-31" tabindex="-1"></a><span class="co">#NEXT GENERATION</span></span>
+<span id="cb25-32"><a href="cellular-automata-and-the-game-of-life.html#cb25-32" tabindex="-1"></a><span class="do">##############################################################################################################3</span></span>
+<span id="cb25-33"><a href="cellular-automata-and-the-game-of-life.html#cb25-33" tabindex="-1"></a>next_generation <span class="ot">&lt;-</span> <span class="cf">function</span>(g) {</span>
+<span id="cb25-34"><a href="cellular-automata-and-the-game-of-life.html#cb25-34" tabindex="-1"></a></span>
+<span id="cb25-35"><a href="cellular-automata-and-the-game-of-life.html#cb25-35" tabindex="-1"></a>  nbrs <span class="ot">&lt;-</span> <span class="fu">count_neighbors</span>(g)</span>
+<span id="cb25-36"><a href="cellular-automata-and-the-game-of-life.html#cb25-36" tabindex="-1"></a></span>
+<span id="cb25-37"><a href="cellular-automata-and-the-game-of-life.html#cb25-37" tabindex="-1"></a>  survive <span class="ot">&lt;-</span> (g <span class="sc">==</span> <span class="dv">1</span><span class="dt">L</span>) <span class="sc">&amp;</span></span>
+<span id="cb25-38"><a href="cellular-automata-and-the-game-of-life.html#cb25-38" tabindex="-1"></a>    (nbrs <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">2</span><span class="dt">L</span>, <span class="dv">3</span><span class="dt">L</span>))</span>
+<span id="cb25-39"><a href="cellular-automata-and-the-game-of-life.html#cb25-39" tabindex="-1"></a></span>
+<span id="cb25-40"><a href="cellular-automata-and-the-game-of-life.html#cb25-40" tabindex="-1"></a>  born <span class="ot">&lt;-</span> (g <span class="sc">==</span> <span class="dv">0</span><span class="dt">L</span>) <span class="sc">&amp;</span></span>
+<span id="cb25-41"><a href="cellular-automata-and-the-game-of-life.html#cb25-41" tabindex="-1"></a>    (nbrs <span class="sc">==</span> <span class="dv">3</span><span class="dt">L</span>)</span>
+<span id="cb25-42"><a href="cellular-automata-and-the-game-of-life.html#cb25-42" tabindex="-1"></a></span>
+<span id="cb25-43"><a href="cellular-automata-and-the-game-of-life.html#cb25-43" tabindex="-1"></a>  <span class="fu">matrix</span>(</span>
+<span id="cb25-44"><a href="cellular-automata-and-the-game-of-life.html#cb25-44" tabindex="-1"></a>    <span class="fu">as.integer</span>(survive <span class="sc">|</span> born),</span>
+<span id="cb25-45"><a href="cellular-automata-and-the-game-of-life.html#cb25-45" tabindex="-1"></a>    <span class="at">nrow =</span> <span class="fu">nrow</span>(g),</span>
+<span id="cb25-46"><a href="cellular-automata-and-the-game-of-life.html#cb25-46" tabindex="-1"></a>    <span class="at">ncol =</span> <span class="fu">ncol</span>(g)</span>
+<span id="cb25-47"><a href="cellular-automata-and-the-game-of-life.html#cb25-47" tabindex="-1"></a>  )</span>
+<span id="cb25-48"><a href="cellular-automata-and-the-game-of-life.html#cb25-48" tabindex="-1"></a>}</span>
+<span id="cb25-49"><a href="cellular-automata-and-the-game-of-life.html#cb25-49" tabindex="-1"></a></span>
+<span id="cb25-50"><a href="cellular-automata-and-the-game-of-life.html#cb25-50" tabindex="-1"></a><span class="do">#############################################################################################################</span></span>
+<span id="cb25-51"><a href="cellular-automata-and-the-game-of-life.html#cb25-51" tabindex="-1"></a><span class="co"># Initialize Grid</span></span>
+<span id="cb25-52"><a href="cellular-automata-and-the-game-of-life.html#cb25-52" tabindex="-1"></a><span class="do">############################################################################################################</span></span>
+<span id="cb25-53"><a href="cellular-automata-and-the-game-of-life.html#cb25-53" tabindex="-1"></a></span>
+<span id="cb25-54"><a href="cellular-automata-and-the-game-of-life.html#cb25-54" tabindex="-1"></a>grid <span class="ot">&lt;-</span> <span class="fu">matrix</span>(</span>
+<span id="cb25-55"><a href="cellular-automata-and-the-game-of-life.html#cb25-55" tabindex="-1"></a>  <span class="fu">as.integer</span>(</span>
+<span id="cb25-56"><a href="cellular-automata-and-the-game-of-life.html#cb25-56" tabindex="-1"></a>    <span class="fu">runif</span>(grid_size <span class="sc">*</span> grid_size) <span class="sc">&lt;</span> density</span>
+<span id="cb25-57"><a href="cellular-automata-and-the-game-of-life.html#cb25-57" tabindex="-1"></a>  ),</span>
+<span id="cb25-58"><a href="cellular-automata-and-the-game-of-life.html#cb25-58" tabindex="-1"></a>  <span class="at">nrow =</span> grid_size,</span>
+<span id="cb25-59"><a href="cellular-automata-and-the-game-of-life.html#cb25-59" tabindex="-1"></a>  <span class="at">ncol =</span> grid_size</span>
+<span id="cb25-60"><a href="cellular-automata-and-the-game-of-life.html#cb25-60" tabindex="-1"></a>)</span>
+<span id="cb25-61"><a href="cellular-automata-and-the-game-of-life.html#cb25-61" tabindex="-1"></a></span>
+<span id="cb25-62"><a href="cellular-automata-and-the-game-of-life.html#cb25-62" tabindex="-1"></a><span class="do">#######################################################################################################################</span></span>
+<span id="cb25-63"><a href="cellular-automata-and-the-game-of-life.html#cb25-63" tabindex="-1"></a><span class="co"># Run Simulation</span></span>
+<span id="cb25-64"><a href="cellular-automata-and-the-game-of-life.html#cb25-64" tabindex="-1"></a><span class="do">########################################################################################################################</span></span>
+<span id="cb25-65"><a href="cellular-automata-and-the-game-of-life.html#cb25-65" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb25-66"><a href="cellular-automata-and-the-game-of-life.html#cb25-66" tabindex="-1"></a>frames <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
+<span id="cb25-67"><a href="cellular-automata-and-the-game-of-life.html#cb25-67" tabindex="-1"></a></span>
+<span id="cb25-68"><a href="cellular-automata-and-the-game-of-life.html#cb25-68" tabindex="-1"></a><span class="cf">for</span> (gen <span class="cf">in</span> <span class="fu">seq_len</span>(generations)) {</span>
+<span id="cb25-69"><a href="cellular-automata-and-the-game-of-life.html#cb25-69" tabindex="-1"></a></span>
+<span id="cb25-70"><a href="cellular-automata-and-the-game-of-life.html#cb25-70" tabindex="-1"></a>  live_cells <span class="ot">&lt;-</span> <span class="fu">which</span>(</span>
+<span id="cb25-71"><a href="cellular-automata-and-the-game-of-life.html#cb25-71" tabindex="-1"></a>    grid <span class="sc">==</span> <span class="dv">1</span>,</span>
+<span id="cb25-72"><a href="cellular-automata-and-the-game-of-life.html#cb25-72" tabindex="-1"></a>    <span class="at">arr.ind =</span> <span class="cn">TRUE</span></span>
+<span id="cb25-73"><a href="cellular-automata-and-the-game-of-life.html#cb25-73" tabindex="-1"></a>  )</span>
+<span id="cb25-74"><a href="cellular-automata-and-the-game-of-life.html#cb25-74" tabindex="-1"></a></span>
+<span id="cb25-75"><a href="cellular-automata-and-the-game-of-life.html#cb25-75" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">nrow</span>(live_cells) <span class="sc">&gt;</span> <span class="dv">0</span>) {</span>
+<span id="cb25-76"><a href="cellular-automata-and-the-game-of-life.html#cb25-76" tabindex="-1"></a></span>
+<span id="cb25-77"><a href="cellular-automata-and-the-game-of-life.html#cb25-77" tabindex="-1"></a>    frames[[gen]] <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb25-78"><a href="cellular-automata-and-the-game-of-life.html#cb25-78" tabindex="-1"></a>      <span class="at">x =</span> live_cells[, <span class="dv">2</span>],</span>
+<span id="cb25-79"><a href="cellular-automata-and-the-game-of-life.html#cb25-79" tabindex="-1"></a>      <span class="at">y =</span> grid_size <span class="sc">-</span> live_cells[, <span class="dv">1</span>] <span class="sc">+</span> <span class="dv">1</span>,</span>
+<span id="cb25-80"><a href="cellular-automata-and-the-game-of-life.html#cb25-80" tabindex="-1"></a>      <span class="at">generation =</span> gen</span>
+<span id="cb25-81"><a href="cellular-automata-and-the-game-of-life.html#cb25-81" tabindex="-1"></a>    )</span>
+<span id="cb25-82"><a href="cellular-automata-and-the-game-of-life.html#cb25-82" tabindex="-1"></a></span>
+<span id="cb25-83"><a href="cellular-automata-and-the-game-of-life.html#cb25-83" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
+<span id="cb25-84"><a href="cellular-automata-and-the-game-of-life.html#cb25-84" tabindex="-1"></a></span>
+<span id="cb25-85"><a href="cellular-automata-and-the-game-of-life.html#cb25-85" tabindex="-1"></a>    frames[[gen]] <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb25-86"><a href="cellular-automata-and-the-game-of-life.html#cb25-86" tabindex="-1"></a>      <span class="at">x =</span> <span class="fu">numeric</span>(),</span>
+<span id="cb25-87"><a href="cellular-automata-and-the-game-of-life.html#cb25-87" tabindex="-1"></a>      <span class="at">y =</span> <span class="fu">numeric</span>(),</span>
+<span id="cb25-88"><a href="cellular-automata-and-the-game-of-life.html#cb25-88" tabindex="-1"></a>      <span class="at">generation =</span> <span class="fu">numeric</span>()</span>
+<span id="cb25-89"><a href="cellular-automata-and-the-game-of-life.html#cb25-89" tabindex="-1"></a>    )</span>
+<span id="cb25-90"><a href="cellular-automata-and-the-game-of-life.html#cb25-90" tabindex="-1"></a></span>
+<span id="cb25-91"><a href="cellular-automata-and-the-game-of-life.html#cb25-91" tabindex="-1"></a>  }</span>
+<span id="cb25-92"><a href="cellular-automata-and-the-game-of-life.html#cb25-92" tabindex="-1"></a></span>
+<span id="cb25-93"><a href="cellular-automata-and-the-game-of-life.html#cb25-93" tabindex="-1"></a>  grid <span class="ot">&lt;-</span> <span class="fu">next_generation</span>(grid)</span>
+<span id="cb25-94"><a href="cellular-automata-and-the-game-of-life.html#cb25-94" tabindex="-1"></a>}</span>
+<span id="cb25-95"><a href="cellular-automata-and-the-game-of-life.html#cb25-95" tabindex="-1"></a></span>
+<span id="cb25-96"><a href="cellular-automata-and-the-game-of-life.html#cb25-96" tabindex="-1"></a>life_df <span class="ot">&lt;-</span> dplyr<span class="sc">::</span><span class="fu">bind_rows</span>(frames)</span>
+<span id="cb25-97"><a href="cellular-automata-and-the-game-of-life.html#cb25-97" tabindex="-1"></a><span class="fu">glimpse</span>(life_df)</span>
+<span id="cb25-98"><a href="cellular-automata-and-the-game-of-life.html#cb25-98" tabindex="-1"></a><span class="do">## Rows: 23,028</span></span>
+<span id="cb25-99"><a href="cellular-automata-and-the-game-of-life.html#cb25-99" tabindex="-1"></a><span class="do">## Columns: 3</span></span>
+<span id="cb25-100"><a href="cellular-automata-and-the-game-of-life.html#cb25-100" tabindex="-1"></a><span class="do">## $ x          &lt;int&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,…</span></span>
+<span id="cb25-101"><a href="cellular-automata-and-the-game-of-life.html#cb25-101" tabindex="-1"></a><span class="do">## $ y          &lt;dbl&gt; 47, 34, 30, 26, 23, 20, 16, 12, 9, 46, 44, 32, 31, 26, 22, …</span></span>
+<span id="cb25-102"><a href="cellular-automata-and-the-game-of-life.html#cb25-102" tabindex="-1"></a><span class="do">## $ generation &lt;int&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,…</span></span>
+<span id="cb25-103"><a href="cellular-automata-and-the-game-of-life.html#cb25-103" tabindex="-1"></a></span>
+<span id="cb25-104"><a href="cellular-automata-and-the-game-of-life.html#cb25-104" tabindex="-1"></a><span class="do">#####################################################################################################################</span></span>
+<span id="cb25-105"><a href="cellular-automata-and-the-game-of-life.html#cb25-105" tabindex="-1"></a><span class="co"># Animated Simulation</span></span>
+<span id="cb25-106"><a href="cellular-automata-and-the-game-of-life.html#cb25-106" tabindex="-1"></a></span>
+<span id="cb25-107"><a href="cellular-automata-and-the-game-of-life.html#cb25-107" tabindex="-1"></a><span class="fu">library</span>(gganimate)</span>
+<span id="cb25-108"><a href="cellular-automata-and-the-game-of-life.html#cb25-108" tabindex="-1"></a></span>
+<span id="cb25-109"><a href="cellular-automata-and-the-game-of-life.html#cb25-109" tabindex="-1"></a></span>
+<span id="cb25-110"><a href="cellular-automata-and-the-game-of-life.html#cb25-110" tabindex="-1"></a>animation_plot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(</span>
+<span id="cb25-111"><a href="cellular-automata-and-the-game-of-life.html#cb25-111" tabindex="-1"></a>  life_df,</span>
+<span id="cb25-112"><a href="cellular-automata-and-the-game-of-life.html#cb25-112" tabindex="-1"></a>  <span class="fu">aes</span>(</span>
+<span id="cb25-113"><a href="cellular-automata-and-the-game-of-life.html#cb25-113" tabindex="-1"></a>    <span class="at">x =</span> x,</span>
+<span id="cb25-114"><a href="cellular-automata-and-the-game-of-life.html#cb25-114" tabindex="-1"></a>    <span class="at">y =</span> y</span>
+<span id="cb25-115"><a href="cellular-automata-and-the-game-of-life.html#cb25-115" tabindex="-1"></a>  )</span>
+<span id="cb25-116"><a href="cellular-automata-and-the-game-of-life.html#cb25-116" tabindex="-1"></a>) <span class="sc">+</span></span>
+<span id="cb25-117"><a href="cellular-automata-and-the-game-of-life.html#cb25-117" tabindex="-1"></a></span>
+<span id="cb25-118"><a href="cellular-automata-and-the-game-of-life.html#cb25-118" tabindex="-1"></a>  <span class="fu">geom_tile</span>(</span>
+<span id="cb25-119"><a href="cellular-automata-and-the-game-of-life.html#cb25-119" tabindex="-1"></a>    <span class="at">width =</span> <span class="dv">1</span>,</span>
+<span id="cb25-120"><a href="cellular-automata-and-the-game-of-life.html#cb25-120" tabindex="-1"></a>    <span class="at">height =</span> <span class="dv">1</span>,</span>
+<span id="cb25-121"><a href="cellular-automata-and-the-game-of-life.html#cb25-121" tabindex="-1"></a>    <span class="at">fill =</span> <span class="st">&quot;#00FF66&quot;</span></span>
+<span id="cb25-122"><a href="cellular-automata-and-the-game-of-life.html#cb25-122" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb25-123"><a href="cellular-automata-and-the-game-of-life.html#cb25-123" tabindex="-1"></a></span>
+<span id="cb25-124"><a href="cellular-automata-and-the-game-of-life.html#cb25-124" tabindex="-1"></a>  <span class="fu">coord_fixed</span>() <span class="sc">+</span></span>
+<span id="cb25-125"><a href="cellular-automata-and-the-game-of-life.html#cb25-125" tabindex="-1"></a></span>
+<span id="cb25-126"><a href="cellular-automata-and-the-game-of-life.html#cb25-126" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(</span>
+<span id="cb25-127"><a href="cellular-automata-and-the-game-of-life.html#cb25-127" tabindex="-1"></a>    <span class="at">limits =</span> <span class="fu">c</span>(<span class="fl">0.5</span>, grid_size <span class="sc">+</span> <span class="fl">0.5</span>),</span>
+<span id="cb25-128"><a href="cellular-automata-and-the-game-of-life.html#cb25-128" tabindex="-1"></a>    <span class="at">expand =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>)</span>
+<span id="cb25-129"><a href="cellular-automata-and-the-game-of-life.html#cb25-129" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb25-130"><a href="cellular-automata-and-the-game-of-life.html#cb25-130" tabindex="-1"></a></span>
+<span id="cb25-131"><a href="cellular-automata-and-the-game-of-life.html#cb25-131" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(</span>
+<span id="cb25-132"><a href="cellular-automata-and-the-game-of-life.html#cb25-132" tabindex="-1"></a>    <span class="at">limits =</span> <span class="fu">c</span>(<span class="fl">0.5</span>, grid_size <span class="sc">+</span> <span class="fl">0.5</span>),</span>
+<span id="cb25-133"><a href="cellular-automata-and-the-game-of-life.html#cb25-133" tabindex="-1"></a>    <span class="at">expand =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>)</span>
+<span id="cb25-134"><a href="cellular-automata-and-the-game-of-life.html#cb25-134" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb25-135"><a href="cellular-automata-and-the-game-of-life.html#cb25-135" tabindex="-1"></a></span>
+<span id="cb25-136"><a href="cellular-automata-and-the-game-of-life.html#cb25-136" tabindex="-1"></a>  <span class="fu">theme_void</span>() <span class="sc">+</span></span>
+<span id="cb25-137"><a href="cellular-automata-and-the-game-of-life.html#cb25-137" tabindex="-1"></a></span>
+<span id="cb25-138"><a href="cellular-automata-and-the-game-of-life.html#cb25-138" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb25-139"><a href="cellular-automata-and-the-game-of-life.html#cb25-139" tabindex="-1"></a>    <span class="at">plot.background =</span> <span class="fu">element_rect</span>(</span>
+<span id="cb25-140"><a href="cellular-automata-and-the-game-of-life.html#cb25-140" tabindex="-1"></a>      <span class="at">fill =</span> <span class="st">&quot;black&quot;</span>,</span>
+<span id="cb25-141"><a href="cellular-automata-and-the-game-of-life.html#cb25-141" tabindex="-1"></a>      <span class="at">colour =</span> <span class="cn">NA</span></span>
+<span id="cb25-142"><a href="cellular-automata-and-the-game-of-life.html#cb25-142" tabindex="-1"></a>    ),</span>
+<span id="cb25-143"><a href="cellular-automata-and-the-game-of-life.html#cb25-143" tabindex="-1"></a></span>
+<span id="cb25-144"><a href="cellular-automata-and-the-game-of-life.html#cb25-144" tabindex="-1"></a>    <span class="at">panel.background =</span> <span class="fu">element_rect</span>(</span>
+<span id="cb25-145"><a href="cellular-automata-and-the-game-of-life.html#cb25-145" tabindex="-1"></a>      <span class="at">fill =</span> <span class="st">&quot;black&quot;</span>,</span>
+<span id="cb25-146"><a href="cellular-automata-and-the-game-of-life.html#cb25-146" tabindex="-1"></a>      <span class="at">colour =</span> <span class="cn">NA</span></span>
+<span id="cb25-147"><a href="cellular-automata-and-the-game-of-life.html#cb25-147" tabindex="-1"></a>    ),</span>
+<span id="cb25-148"><a href="cellular-automata-and-the-game-of-life.html#cb25-148" tabindex="-1"></a></span>
+<span id="cb25-149"><a href="cellular-automata-and-the-game-of-life.html#cb25-149" tabindex="-1"></a>    <span class="at">plot.title =</span> <span class="fu">element_text</span>(</span>
+<span id="cb25-150"><a href="cellular-automata-and-the-game-of-life.html#cb25-150" tabindex="-1"></a>      <span class="at">colour =</span> <span class="st">&quot;white&quot;</span>,</span>
+<span id="cb25-151"><a href="cellular-automata-and-the-game-of-life.html#cb25-151" tabindex="-1"></a>      <span class="at">hjust =</span> <span class="fl">0.5</span>,</span>
+<span id="cb25-152"><a href="cellular-automata-and-the-game-of-life.html#cb25-152" tabindex="-1"></a>      <span class="at">size =</span> <span class="dv">18</span></span>
+<span id="cb25-153"><a href="cellular-automata-and-the-game-of-life.html#cb25-153" tabindex="-1"></a>    )</span>
+<span id="cb25-154"><a href="cellular-automata-and-the-game-of-life.html#cb25-154" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb25-155"><a href="cellular-automata-and-the-game-of-life.html#cb25-155" tabindex="-1"></a></span>
+<span id="cb25-156"><a href="cellular-automata-and-the-game-of-life.html#cb25-156" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb25-157"><a href="cellular-automata-and-the-game-of-life.html#cb25-157" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Conway&#39;s Game of Life</span><span class="sc">\n</span><span class="st">Generation: {frame_time}&quot;</span></span>
+<span id="cb25-158"><a href="cellular-automata-and-the-game-of-life.html#cb25-158" tabindex="-1"></a>  ) <span class="sc">+</span> <span class="fu">transition_time</span>(generation)</span></code></pre></div>
 </details>
 </div>
 </div>
 <div id="animate" class="section level3 hasAnchor" number="7.3.2">
 <h3><span class="header-section-number">7.3.2</span> Animate<a href="cellular-automata-and-the-game-of-life.html#animate" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
-<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="cellular-automata-and-the-game-of-life.html#cb23-1" tabindex="-1"></a></span>
-<span id="cb23-2"><a href="cellular-automata-and-the-game-of-life.html#cb23-2" tabindex="-1"></a>anim<span class="ot">&lt;-</span><span class="fu">animate</span>(</span>
-<span id="cb23-3"><a href="cellular-automata-and-the-game-of-life.html#cb23-3" tabindex="-1"></a>  animation_plot,</span>
-<span id="cb23-4"><a href="cellular-automata-and-the-game-of-life.html#cb23-4" tabindex="-1"></a>  <span class="at">fps =</span> <span class="dv">10</span>,</span>
-<span id="cb23-5"><a href="cellular-automata-and-the-game-of-life.html#cb23-5" tabindex="-1"></a>  <span class="at">nframes =</span> generations,</span>
-<span id="cb23-6"><a href="cellular-automata-and-the-game-of-life.html#cb23-6" tabindex="-1"></a>  <span class="at">width =</span> <span class="dv">800</span>,</span>
-<span id="cb23-7"><a href="cellular-automata-and-the-game-of-life.html#cb23-7" tabindex="-1"></a>  <span class="at">height =</span> <span class="dv">800</span>,</span>
-<span id="cb23-8"><a href="cellular-automata-and-the-game-of-life.html#cb23-8" tabindex="-1"></a>  <span class="at">renderer =</span> <span class="fu">gifski_renderer</span>()</span>
-<span id="cb23-9"><a href="cellular-automata-and-the-game-of-life.html#cb23-9" tabindex="-1"></a>)</span>
-<span id="cb23-10"><a href="cellular-automata-and-the-game-of-life.html#cb23-10" tabindex="-1"></a></span>
-<span id="cb23-11"><a href="cellular-automata-and-the-game-of-life.html#cb23-11" tabindex="-1"></a><span class="fu">anim_save</span>(<span class="st">&quot;game_of_life.gif&quot;</span>, anim)</span></code></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="cellular-automata-and-the-game-of-life.html#cb26-1" tabindex="-1"></a></span>
+<span id="cb26-2"><a href="cellular-automata-and-the-game-of-life.html#cb26-2" tabindex="-1"></a>anim<span class="ot">&lt;-</span><span class="fu">animate</span>(</span>
+<span id="cb26-3"><a href="cellular-automata-and-the-game-of-life.html#cb26-3" tabindex="-1"></a>  animation_plot,</span>
+<span id="cb26-4"><a href="cellular-automata-and-the-game-of-life.html#cb26-4" tabindex="-1"></a>  <span class="at">fps =</span> <span class="dv">10</span>,</span>
+<span id="cb26-5"><a href="cellular-automata-and-the-game-of-life.html#cb26-5" tabindex="-1"></a>  <span class="at">nframes =</span> generations,</span>
+<span id="cb26-6"><a href="cellular-automata-and-the-game-of-life.html#cb26-6" tabindex="-1"></a>  <span class="at">width =</span> <span class="dv">800</span>,</span>
+<span id="cb26-7"><a href="cellular-automata-and-the-game-of-life.html#cb26-7" tabindex="-1"></a>  <span class="at">height =</span> <span class="dv">800</span>,</span>
+<span id="cb26-8"><a href="cellular-automata-and-the-game-of-life.html#cb26-8" tabindex="-1"></a>  <span class="at">renderer =</span> <span class="fu">gifski_renderer</span>()</span>
+<span id="cb26-9"><a href="cellular-automata-and-the-game-of-life.html#cb26-9" tabindex="-1"></a>)</span>
+<span id="cb26-10"><a href="cellular-automata-and-the-game-of-life.html#cb26-10" tabindex="-1"></a></span>
+<span id="cb26-11"><a href="cellular-automata-and-the-game-of-life.html#cb26-11" tabindex="-1"></a><span class="fu">anim_save</span>(<span class="st">&quot;game_of_life.gif&quot;</span>, anim)</span></code></pre></div>
 </details>
 <details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="cellular-automata-and-the-game-of-life.html#cb24-1" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">include_graphics</span>(<span class="st">&quot;game_of_life1000.gif&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="cellular-automata-and-the-game-of-life.html#cb27-1" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">include_graphics</span>(<span class="st">&quot;game_of_life1000.gif&quot;</span>)</span></code></pre></div>
 </details>
 <p><img src="game_of_life1000.gif" width="80%" /></p>
 </div>
@@ -895,27 +892,27 @@ making the data suitable for visualization and animation.</p>
 <h3><span class="header-section-number">7.3.3</span> Population Trend<a href="cellular-automata-and-the-game-of-life.html#population-trend" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>The following population curve shows an initial rapid decline in the number of living cells as unstable configurations are eliminated. Following this transient phase, the system exhibits sustained fluctuations in population size, indicating ongoing cycles of cell birth and death. Rather than converging to a homogeneous or periodic state, the automaton maintains a dynamic equilibrium characterized by interacting structures and persistent activity. This behaviour is consistent with the complex dynamics typically associated with Wolfram’s Class IV cellular automata.</p>
 <details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="cellular-automata-and-the-game-of-life.html#cb25-1" tabindex="-1"></a><span class="fu">library</span>(plotly)</span>
-<span id="cb25-2"><a href="cellular-automata-and-the-game-of-life.html#cb25-2" tabindex="-1"></a>population <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb25-3"><a href="cellular-automata-and-the-game-of-life.html#cb25-3" tabindex="-1"></a>  <span class="at">generation =</span> <span class="fu">seq_along</span>(frames),</span>
-<span id="cb25-4"><a href="cellular-automata-and-the-game-of-life.html#cb25-4" tabindex="-1"></a>  <span class="at">live_cells =</span> <span class="fu">sapply</span>(frames, nrow)</span>
-<span id="cb25-5"><a href="cellular-automata-and-the-game-of-life.html#cb25-5" tabindex="-1"></a>)</span>
-<span id="cb25-6"><a href="cellular-automata-and-the-game-of-life.html#cb25-6" tabindex="-1"></a></span>
-<span id="cb25-7"><a href="cellular-automata-and-the-game-of-life.html#cb25-7" tabindex="-1"></a><span class="fu">plot_ly</span>(</span>
-<span id="cb25-8"><a href="cellular-automata-and-the-game-of-life.html#cb25-8" tabindex="-1"></a>  population,</span>
-<span id="cb25-9"><a href="cellular-automata-and-the-game-of-life.html#cb25-9" tabindex="-1"></a>  <span class="at">x =</span> <span class="sc">~</span>generation,</span>
-<span id="cb25-10"><a href="cellular-automata-and-the-game-of-life.html#cb25-10" tabindex="-1"></a>  <span class="at">y =</span> <span class="sc">~</span>live_cells,</span>
-<span id="cb25-11"><a href="cellular-automata-and-the-game-of-life.html#cb25-11" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">&quot;scatter&quot;</span>,</span>
-<span id="cb25-12"><a href="cellular-automata-and-the-game-of-life.html#cb25-12" tabindex="-1"></a>  <span class="at">mode =</span> <span class="st">&quot;lines&quot;</span></span>
-<span id="cb25-13"><a href="cellular-automata-and-the-game-of-life.html#cb25-13" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
-<span id="cb25-14"><a href="cellular-automata-and-the-game-of-life.html#cb25-14" tabindex="-1"></a>  <span class="fu">layout</span>(</span>
-<span id="cb25-15"><a href="cellular-automata-and-the-game-of-life.html#cb25-15" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Living Cells by Generation&quot;</span>,</span>
-<span id="cb25-16"><a href="cellular-automata-and-the-game-of-life.html#cb25-16" tabindex="-1"></a>    <span class="at">xaxis =</span> <span class="fu">list</span>(<span class="at">title =</span> <span class="st">&quot;Generation&quot;</span>),</span>
-<span id="cb25-17"><a href="cellular-automata-and-the-game-of-life.html#cb25-17" tabindex="-1"></a>    <span class="at">yaxis =</span> <span class="fu">list</span>(<span class="at">title =</span> <span class="st">&quot;Live Cells&quot;</span>)</span>
-<span id="cb25-18"><a href="cellular-automata-and-the-game-of-life.html#cb25-18" tabindex="-1"></a>  )</span></code></pre></div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="cellular-automata-and-the-game-of-life.html#cb28-1" tabindex="-1"></a><span class="fu">library</span>(plotly)</span>
+<span id="cb28-2"><a href="cellular-automata-and-the-game-of-life.html#cb28-2" tabindex="-1"></a>population <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb28-3"><a href="cellular-automata-and-the-game-of-life.html#cb28-3" tabindex="-1"></a>  <span class="at">generation =</span> <span class="fu">seq_along</span>(frames),</span>
+<span id="cb28-4"><a href="cellular-automata-and-the-game-of-life.html#cb28-4" tabindex="-1"></a>  <span class="at">live_cells =</span> <span class="fu">sapply</span>(frames, nrow)</span>
+<span id="cb28-5"><a href="cellular-automata-and-the-game-of-life.html#cb28-5" tabindex="-1"></a>)</span>
+<span id="cb28-6"><a href="cellular-automata-and-the-game-of-life.html#cb28-6" tabindex="-1"></a></span>
+<span id="cb28-7"><a href="cellular-automata-and-the-game-of-life.html#cb28-7" tabindex="-1"></a><span class="fu">plot_ly</span>(</span>
+<span id="cb28-8"><a href="cellular-automata-and-the-game-of-life.html#cb28-8" tabindex="-1"></a>  population,</span>
+<span id="cb28-9"><a href="cellular-automata-and-the-game-of-life.html#cb28-9" tabindex="-1"></a>  <span class="at">x =</span> <span class="sc">~</span>generation,</span>
+<span id="cb28-10"><a href="cellular-automata-and-the-game-of-life.html#cb28-10" tabindex="-1"></a>  <span class="at">y =</span> <span class="sc">~</span>live_cells,</span>
+<span id="cb28-11"><a href="cellular-automata-and-the-game-of-life.html#cb28-11" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">&quot;scatter&quot;</span>,</span>
+<span id="cb28-12"><a href="cellular-automata-and-the-game-of-life.html#cb28-12" tabindex="-1"></a>  <span class="at">mode =</span> <span class="st">&quot;lines&quot;</span></span>
+<span id="cb28-13"><a href="cellular-automata-and-the-game-of-life.html#cb28-13" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb28-14"><a href="cellular-automata-and-the-game-of-life.html#cb28-14" tabindex="-1"></a>  <span class="fu">layout</span>(</span>
+<span id="cb28-15"><a href="cellular-automata-and-the-game-of-life.html#cb28-15" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Living Cells by Generation&quot;</span>,</span>
+<span id="cb28-16"><a href="cellular-automata-and-the-game-of-life.html#cb28-16" tabindex="-1"></a>    <span class="at">xaxis =</span> <span class="fu">list</span>(<span class="at">title =</span> <span class="st">&quot;Generation&quot;</span>),</span>
+<span id="cb28-17"><a href="cellular-automata-and-the-game-of-life.html#cb28-17" tabindex="-1"></a>    <span class="at">yaxis =</span> <span class="fu">list</span>(<span class="at">title =</span> <span class="st">&quot;Live Cells&quot;</span>)</span>
+<span id="cb28-18"><a href="cellular-automata-and-the-game-of-life.html#cb28-18" tabindex="-1"></a>  )</span></code></pre></div>
 </details>
-<div class="plotly html-widget html-fill-item" id="htmlwidget-898a45aa9a37cfaebd82" style="width:80%;height:960px;"></div>
-<script type="application/json" data-for="htmlwidget-898a45aa9a37cfaebd82">{"x":{"visdat":{"7a0849f62c2f":["function () ","plotlyVisDat"]},"cur_data":"7a0849f62c2f","attrs":{"7a0849f62c2f":{"x":{},"y":{},"mode":"lines","alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"scatter"}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"title":"Living Cells by Generation","xaxis":{"domain":[0,1],"automargin":true,"title":"Generation"},"yaxis":{"domain":[0,1],"automargin":true,"title":"Live Cells"},"hovermode":"closest","showlegend":false},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"data":[{"x":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100],"y":[487,498,430,460,421,406,400,427,394,377,366,391,352,327,328,318,316,314,308,291,299,294,314,308,310,321,281,239,223,227,230,249,238,233,213,193,204,191,201,167,181,179,196,183,208,212,220,213,234,209,224,200,212,215,230,217,224,230,224,221,211,215,219,221,214,223,211,215,215,184,190,163,164,147,154,161,153,135,147,130,144,136,134,131,126,125,122,130,129,125,143,127,130,131,126,125,128,121,122,123],"mode":"lines","type":"scatter","marker":{"color":"rgba(31,119,180,1)","line":{"color":"rgba(31,119,180,1)"}},"error_y":{"color":"rgba(31,119,180,1)"},"error_x":{"color":"rgba(31,119,180,1)"},"line":{"color":"rgba(31,119,180,1)"},"xaxis":"x","yaxis":"y","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+<div class="plotly html-widget html-fill-item" id="htmlwidget-fb30325ddfe76ba47ac7" style="width:80%;height:960px;"></div>
+<script type="application/json" data-for="htmlwidget-fb30325ddfe76ba47ac7">{"x":{"visdat":{"2d0074ec2494":["function () ","plotlyVisDat"]},"cur_data":"2d0074ec2494","attrs":{"2d0074ec2494":{"x":{},"y":{},"mode":"lines","alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"scatter"}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"title":"Living Cells by Generation","xaxis":{"domain":[0,1],"automargin":true,"title":"Generation"},"yaxis":{"domain":[0,1],"automargin":true,"title":"Live Cells"},"hovermode":"closest","showlegend":false},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"data":[{"x":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100],"y":[487,498,430,460,421,406,400,427,394,377,366,391,352,327,328,318,316,314,308,291,299,294,314,308,310,321,281,239,223,227,230,249,238,233,213,193,204,191,201,167,181,179,196,183,208,212,220,213,234,209,224,200,212,215,230,217,224,230,224,221,211,215,219,221,214,223,211,215,215,184,190,163,164,147,154,161,153,135,147,130,144,136,134,131,126,125,122,130,129,125,143,127,130,131,126,125,128,121,122,123],"mode":"lines","type":"scatter","marker":{"color":"rgba(31,119,180,1)","line":{"color":"rgba(31,119,180,1)"}},"error_y":{"color":"rgba(31,119,180,1)"},"error_x":{"color":"rgba(31,119,180,1)"},"line":{"color":"rgba(31,119,180,1)"},"xaxis":"x","yaxis":"y","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
 
 </div>
 </div>

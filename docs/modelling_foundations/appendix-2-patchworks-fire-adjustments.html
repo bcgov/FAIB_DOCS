@@ -23,7 +23,7 @@
 <meta name="author" content="A collaborative effort between a Human (Kelly Izzard) and AI" />
 
 
-<meta name="date" content="2026-07-31" />
+<meta name="date" content="2026-08-01" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -305,10 +305,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="11.1" data-path="spatial-data-accuracy-and-precision-in-strategic-modelling.html"><a href="spatial-data-accuracy-and-precision-in-strategic-modelling.html#introduction-10"><i class="fa fa-check"></i><b>11.1</b> Introduction</a></li>
 <li class="chapter" data-level="11.2" data-path="spatial-data-accuracy-and-precision-in-strategic-modelling.html"><a href="spatial-data-accuracy-and-precision-in-strategic-modelling.html#precision-and-the-grid"><i class="fa fa-check"></i><b>11.2</b> Precision and the grid</a></li>
 <li class="chapter" data-level="11.3" data-path="spatial-data-accuracy-and-precision-in-strategic-modelling.html"><a href="spatial-data-accuracy-and-precision-in-strategic-modelling.html#the-weakest-link-principle-in-spatial-analysis"><i class="fa fa-check"></i><b>11.3</b> The Weakest Link Principle in Spatial Analysis</a></li>
-<li class="chapter" data-level="11.4" data-path="spatial-data-accuracy-and-precision-in-strategic-modelling.html"><a href="spatial-data-accuracy-and-precision-in-strategic-modelling.html#fitness-for-purpose"><i class="fa fa-check"></i><b>11.4</b> Fitness for Purpose</a>
-<ul>
-<li class="chapter" data-level="11.4.1" data-path="spatial-data-accuracy-and-precision-in-strategic-modelling.html"><a href="spatial-data-accuracy-and-precision-in-strategic-modelling.html#raster-versus-vector-redux"><i class="fa fa-check"></i><b>11.4.1</b> Raster versus Vector Redux</a></li>
-</ul></li>
+<li class="chapter" data-level="11.4" data-path="spatial-data-accuracy-and-precision-in-strategic-modelling.html"><a href="spatial-data-accuracy-and-precision-in-strategic-modelling.html#fitness-for-purpose"><i class="fa fa-check"></i><b>11.4</b> Fitness for Purpose</a></li>
 <li class="chapter" data-level="11.5" data-path="spatial-data-accuracy-and-precision-in-strategic-modelling.html"><a href="spatial-data-accuracy-and-precision-in-strategic-modelling.html#path-dependency-and-the-illusion-of-precision"><i class="fa fa-check"></i><b>11.5</b> Path Dependency and the Illusion of Precision</a>
 <ul>
 <li class="chapter" data-level="11.5.1" data-path="spatial-data-accuracy-and-precision-in-strategic-modelling.html"><a href="spatial-data-accuracy-and-precision-in-strategic-modelling.html#precision-becomes-a-proxy-for-quality"><i class="fa fa-check"></i><b>11.5.1</b> Precision Becomes a Proxy for Quality</a></li>
@@ -464,343 +461,343 @@ impacted stands). Adjustments for MPB impacted stands will be the focus of the s
 <h3><span class="header-section-number">15.2.1</span> Step 1: Calculate CMAI<a href="appendix-2-patchworks-fire-adjustments.html#step-1-calculate-cmai" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>The first step is to derive the CMAI for each feature in the inventory. CMAI will be used to identify <strong>representative analysis units</strong> for substitution within the fires. The following code chunk reads the yield table into a dataframe, then calculates a CMAI value for each row by dividing all columns (except <code>au</code> and <code>0</code>) by the numeric portion of their column names (each column is identified by decade) and storing the results in new <code>_modified</code> columns. It then finds the maximum of these modified values per row (<code>CMAI</code>) and identifies which column (age decade) produced that maximum (<code>CMAI_decade</code>). Finally, it keeps only <code>au</code>, <code>CMAI</code>, and <code>CMAI_decade</code> for later use.</p>
 <details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
-<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="appendix-2-patchworks-fire-adjustments.html#cb58-1" tabindex="-1"></a></span>
-<span id="cb58-2"><a href="appendix-2-patchworks-fire-adjustments.html#cb58-2" tabindex="-1"></a>yield_query<span class="ot">&lt;-</span><span class="st">&quot;select * from tsa05_yield;&quot;</span></span>
-<span id="cb58-3"><a href="appendix-2-patchworks-fire-adjustments.html#cb58-3" tabindex="-1"></a>yield<span class="ot">&lt;-</span><span class="fu">dbGetQuery</span>(db,yield_query)</span>
-<span id="cb58-4"><a href="appendix-2-patchworks-fire-adjustments.html#cb58-4" tabindex="-1"></a></span>
-<span id="cb58-5"><a href="appendix-2-patchworks-fire-adjustments.html#cb58-5" tabindex="-1"></a>yield <span class="ot">&lt;-</span> yield <span class="sc">%&gt;%</span></span>
-<span id="cb58-6"><a href="appendix-2-patchworks-fire-adjustments.html#cb58-6" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">where</span>(is.numeric), <span class="sc">~</span><span class="fu">replace_na</span>(., <span class="dv">0</span>)))</span>
-<span id="cb58-7"><a href="appendix-2-patchworks-fire-adjustments.html#cb58-7" tabindex="-1"></a></span>
-<span id="cb58-8"><a href="appendix-2-patchworks-fire-adjustments.html#cb58-8" tabindex="-1"></a><span class="co">#The following creates new columns (MVtotal_*) by adding each MVcon_* column to its corresponding MVdec_* column (matched by the same numeric suffix).</span></span>
-<span id="cb58-9"><a href="appendix-2-patchworks-fire-adjustments.html#cb58-9" tabindex="-1"></a>yield <span class="ot">&lt;-</span> yield <span class="sc">%&gt;%</span></span>
-<span id="cb58-10"><a href="appendix-2-patchworks-fire-adjustments.html#cb58-10" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb58-11"><a href="appendix-2-patchworks-fire-adjustments.html#cb58-11" tabindex="-1"></a>    <span class="fu">across</span>(</span>
-<span id="cb58-12"><a href="appendix-2-patchworks-fire-adjustments.html#cb58-12" tabindex="-1"></a>      <span class="at">.cols =</span> <span class="fu">matches</span>(<span class="st">&quot;^MVcon_</span><span class="sc">\\</span><span class="st">d+$&quot;</span>),</span>
-<span id="cb58-13"><a href="appendix-2-patchworks-fire-adjustments.html#cb58-13" tabindex="-1"></a>      <span class="at">.fns =</span> <span class="sc">~</span> . <span class="sc">+</span> <span class="fu">get</span>(<span class="fu">str_replace</span>(<span class="fu">cur_column</span>(), <span class="st">&quot;con&quot;</span>, <span class="st">&quot;dec&quot;</span>)),</span>
-<span id="cb58-14"><a href="appendix-2-patchworks-fire-adjustments.html#cb58-14" tabindex="-1"></a>      <span class="at">.names =</span> <span class="st">&quot;MVtotal_{str_extract(.col, &#39;</span><span class="sc">\\\\</span><span class="st">d+$&#39;)}&quot;</span></span>
-<span id="cb58-15"><a href="appendix-2-patchworks-fire-adjustments.html#cb58-15" tabindex="-1"></a>    )</span>
-<span id="cb58-16"><a href="appendix-2-patchworks-fire-adjustments.html#cb58-16" tabindex="-1"></a>  )</span>
-<span id="cb58-17"><a href="appendix-2-patchworks-fire-adjustments.html#cb58-17" tabindex="-1"></a></span>
-<span id="cb58-18"><a href="appendix-2-patchworks-fire-adjustments.html#cb58-18" tabindex="-1"></a><span class="co">#subset</span></span>
-<span id="cb58-19"><a href="appendix-2-patchworks-fire-adjustments.html#cb58-19" tabindex="-1"></a>yield_totals <span class="ot">&lt;-</span> yield <span class="sc">%&gt;%</span></span>
-<span id="cb58-20"><a href="appendix-2-patchworks-fire-adjustments.html#cb58-20" tabindex="-1"></a>  <span class="fu">select</span>(</span>
-<span id="cb58-21"><a href="appendix-2-patchworks-fire-adjustments.html#cb58-21" tabindex="-1"></a>    au,</span>
-<span id="cb58-22"><a href="appendix-2-patchworks-fire-adjustments.html#cb58-22" tabindex="-1"></a>    feature_id,</span>
-<span id="cb58-23"><a href="appendix-2-patchworks-fire-adjustments.html#cb58-23" tabindex="-1"></a>    <span class="fu">starts_with</span>(<span class="st">&quot;MVtotal_&quot;</span>)</span>
-<span id="cb58-24"><a href="appendix-2-patchworks-fire-adjustments.html#cb58-24" tabindex="-1"></a>  )</span>
-<span id="cb58-25"><a href="appendix-2-patchworks-fire-adjustments.html#cb58-25" tabindex="-1"></a></span>
-<span id="cb58-26"><a href="appendix-2-patchworks-fire-adjustments.html#cb58-26" tabindex="-1"></a><span class="co"># calculate decadal cmai</span></span>
-<span id="cb58-27"><a href="appendix-2-patchworks-fire-adjustments.html#cb58-27" tabindex="-1"></a> cmai <span class="ot">&lt;-</span> yield_totals <span class="sc">%&gt;%</span></span>
-<span id="cb58-28"><a href="appendix-2-patchworks-fire-adjustments.html#cb58-28" tabindex="-1"></a>   <span class="fu">mutate</span>(<span class="fu">across</span>(</span>
-<span id="cb58-29"><a href="appendix-2-patchworks-fire-adjustments.html#cb58-29" tabindex="-1"></a>     <span class="at">.cols =</span> <span class="sc">-</span><span class="fu">c</span>(au, feature_id, MVtotal_0),<span class="co">#ignore the au and 0 column</span></span>
-<span id="cb58-30"><a href="appendix-2-patchworks-fire-adjustments.html#cb58-30" tabindex="-1"></a>     <span class="at">.fns =</span> <span class="sc">~</span> . <span class="sc">/</span> <span class="fu">as.numeric</span>(<span class="fu">gsub</span>(<span class="st">&quot;</span><span class="sc">\\</span><span class="st">D&quot;</span>, <span class="st">&quot;&quot;</span>, <span class="fu">cur_column</span>())),<span class="co">#extract the numeric portion of the field name as the denominator</span></span>
-<span id="cb58-31"><a href="appendix-2-patchworks-fire-adjustments.html#cb58-31" tabindex="-1"></a>     <span class="at">.names =</span> <span class="st">&quot;{col}_modified&quot;</span><span class="co"># add modification suffix</span></span>
-<span id="cb58-32"><a href="appendix-2-patchworks-fire-adjustments.html#cb58-32" tabindex="-1"></a>  )) <span class="sc">%&gt;%</span></span>
-<span id="cb58-33"><a href="appendix-2-patchworks-fire-adjustments.html#cb58-33" tabindex="-1"></a>   <span class="fu">rowwise</span>() <span class="sc">%&gt;%</span> <span class="co">#switch to rowwise function</span></span>
-<span id="cb58-34"><a href="appendix-2-patchworks-fire-adjustments.html#cb58-34" tabindex="-1"></a>   <span class="fu">mutate</span>(</span>
-<span id="cb58-35"><a href="appendix-2-patchworks-fire-adjustments.html#cb58-35" tabindex="-1"></a>     <span class="at">CMAI =</span> <span class="fu">max</span>(<span class="fu">c_across</span>(<span class="fu">ends_with</span>(<span class="st">&quot;_modified&quot;</span>)), <span class="at">na.rm =</span> <span class="cn">TRUE</span>),<span class="co">#select the max CMAI from across the records columns</span></span>
-<span id="cb58-36"><a href="appendix-2-patchworks-fire-adjustments.html#cb58-36" tabindex="-1"></a>     <span class="at">CMAI_decade =</span> <span class="fu">which.max</span>(<span class="fu">c_across</span>(<span class="fu">ends_with</span>(<span class="st">&quot;_modified&quot;</span>))) <span class="co"># Get index of the column with max CMAI = age decade</span></span>
-<span id="cb58-37"><a href="appendix-2-patchworks-fire-adjustments.html#cb58-37" tabindex="-1"></a>   ) <span class="sc">%&gt;%</span></span>
-<span id="cb58-38"><a href="appendix-2-patchworks-fire-adjustments.html#cb58-38" tabindex="-1"></a>   <span class="fu">ungroup</span>()</span>
-<span id="cb58-39"><a href="appendix-2-patchworks-fire-adjustments.html#cb58-39" tabindex="-1"></a> </span>
-<span id="cb58-40"><a href="appendix-2-patchworks-fire-adjustments.html#cb58-40" tabindex="-1"></a><span class="do">##################################################################################</span></span>
-<span id="cb58-41"><a href="appendix-2-patchworks-fire-adjustments.html#cb58-41" tabindex="-1"></a><span class="co"># #create AU join table with CMAI which will be used for aggregation</span></span>
-<span id="cb58-42"><a href="appendix-2-patchworks-fire-adjustments.html#cb58-42" tabindex="-1"></a> cmai <span class="ot">&lt;-</span> cmai <span class="sc">%&gt;%</span></span>
-<span id="cb58-43"><a href="appendix-2-patchworks-fire-adjustments.html#cb58-43" tabindex="-1"></a>   <span class="fu">select</span>(au, CMAI, CMAI_decade)<span class="sc">%&gt;%</span><span class="fu">arrange</span>(au)</span>
-<span id="cb58-44"><a href="appendix-2-patchworks-fire-adjustments.html#cb58-44" tabindex="-1"></a></span>
-<span id="cb58-45"><a href="appendix-2-patchworks-fire-adjustments.html#cb58-45" tabindex="-1"></a><span class="fu">pretty_table</span>(<span class="fu">head</span>(cmai))</span></code></pre></div>
+<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="appendix-2-patchworks-fire-adjustments.html#cb61-1" tabindex="-1"></a></span>
+<span id="cb61-2"><a href="appendix-2-patchworks-fire-adjustments.html#cb61-2" tabindex="-1"></a>yield_query<span class="ot">&lt;-</span><span class="st">&quot;select * from tsa05_yield;&quot;</span></span>
+<span id="cb61-3"><a href="appendix-2-patchworks-fire-adjustments.html#cb61-3" tabindex="-1"></a>yield<span class="ot">&lt;-</span><span class="fu">dbGetQuery</span>(db,yield_query)</span>
+<span id="cb61-4"><a href="appendix-2-patchworks-fire-adjustments.html#cb61-4" tabindex="-1"></a></span>
+<span id="cb61-5"><a href="appendix-2-patchworks-fire-adjustments.html#cb61-5" tabindex="-1"></a>yield <span class="ot">&lt;-</span> yield <span class="sc">%&gt;%</span></span>
+<span id="cb61-6"><a href="appendix-2-patchworks-fire-adjustments.html#cb61-6" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">where</span>(is.numeric), <span class="sc">~</span><span class="fu">replace_na</span>(., <span class="dv">0</span>)))</span>
+<span id="cb61-7"><a href="appendix-2-patchworks-fire-adjustments.html#cb61-7" tabindex="-1"></a></span>
+<span id="cb61-8"><a href="appendix-2-patchworks-fire-adjustments.html#cb61-8" tabindex="-1"></a><span class="co">#The following creates new columns (MVtotal_*) by adding each MVcon_* column to its corresponding MVdec_* column (matched by the same numeric suffix).</span></span>
+<span id="cb61-9"><a href="appendix-2-patchworks-fire-adjustments.html#cb61-9" tabindex="-1"></a>yield <span class="ot">&lt;-</span> yield <span class="sc">%&gt;%</span></span>
+<span id="cb61-10"><a href="appendix-2-patchworks-fire-adjustments.html#cb61-10" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb61-11"><a href="appendix-2-patchworks-fire-adjustments.html#cb61-11" tabindex="-1"></a>    <span class="fu">across</span>(</span>
+<span id="cb61-12"><a href="appendix-2-patchworks-fire-adjustments.html#cb61-12" tabindex="-1"></a>      <span class="at">.cols =</span> <span class="fu">matches</span>(<span class="st">&quot;^MVcon_</span><span class="sc">\\</span><span class="st">d+$&quot;</span>),</span>
+<span id="cb61-13"><a href="appendix-2-patchworks-fire-adjustments.html#cb61-13" tabindex="-1"></a>      <span class="at">.fns =</span> <span class="sc">~</span> . <span class="sc">+</span> <span class="fu">get</span>(<span class="fu">str_replace</span>(<span class="fu">cur_column</span>(), <span class="st">&quot;con&quot;</span>, <span class="st">&quot;dec&quot;</span>)),</span>
+<span id="cb61-14"><a href="appendix-2-patchworks-fire-adjustments.html#cb61-14" tabindex="-1"></a>      <span class="at">.names =</span> <span class="st">&quot;MVtotal_{str_extract(.col, &#39;</span><span class="sc">\\\\</span><span class="st">d+$&#39;)}&quot;</span></span>
+<span id="cb61-15"><a href="appendix-2-patchworks-fire-adjustments.html#cb61-15" tabindex="-1"></a>    )</span>
+<span id="cb61-16"><a href="appendix-2-patchworks-fire-adjustments.html#cb61-16" tabindex="-1"></a>  )</span>
+<span id="cb61-17"><a href="appendix-2-patchworks-fire-adjustments.html#cb61-17" tabindex="-1"></a></span>
+<span id="cb61-18"><a href="appendix-2-patchworks-fire-adjustments.html#cb61-18" tabindex="-1"></a><span class="co">#subset</span></span>
+<span id="cb61-19"><a href="appendix-2-patchworks-fire-adjustments.html#cb61-19" tabindex="-1"></a>yield_totals <span class="ot">&lt;-</span> yield <span class="sc">%&gt;%</span></span>
+<span id="cb61-20"><a href="appendix-2-patchworks-fire-adjustments.html#cb61-20" tabindex="-1"></a>  <span class="fu">select</span>(</span>
+<span id="cb61-21"><a href="appendix-2-patchworks-fire-adjustments.html#cb61-21" tabindex="-1"></a>    au,</span>
+<span id="cb61-22"><a href="appendix-2-patchworks-fire-adjustments.html#cb61-22" tabindex="-1"></a>    feature_id,</span>
+<span id="cb61-23"><a href="appendix-2-patchworks-fire-adjustments.html#cb61-23" tabindex="-1"></a>    <span class="fu">starts_with</span>(<span class="st">&quot;MVtotal_&quot;</span>)</span>
+<span id="cb61-24"><a href="appendix-2-patchworks-fire-adjustments.html#cb61-24" tabindex="-1"></a>  )</span>
+<span id="cb61-25"><a href="appendix-2-patchworks-fire-adjustments.html#cb61-25" tabindex="-1"></a></span>
+<span id="cb61-26"><a href="appendix-2-patchworks-fire-adjustments.html#cb61-26" tabindex="-1"></a><span class="co"># calculate decadal cmai</span></span>
+<span id="cb61-27"><a href="appendix-2-patchworks-fire-adjustments.html#cb61-27" tabindex="-1"></a> cmai <span class="ot">&lt;-</span> yield_totals <span class="sc">%&gt;%</span></span>
+<span id="cb61-28"><a href="appendix-2-patchworks-fire-adjustments.html#cb61-28" tabindex="-1"></a>   <span class="fu">mutate</span>(<span class="fu">across</span>(</span>
+<span id="cb61-29"><a href="appendix-2-patchworks-fire-adjustments.html#cb61-29" tabindex="-1"></a>     <span class="at">.cols =</span> <span class="sc">-</span><span class="fu">c</span>(au, feature_id, MVtotal_0),<span class="co">#ignore the au and 0 column</span></span>
+<span id="cb61-30"><a href="appendix-2-patchworks-fire-adjustments.html#cb61-30" tabindex="-1"></a>     <span class="at">.fns =</span> <span class="sc">~</span> . <span class="sc">/</span> <span class="fu">as.numeric</span>(<span class="fu">gsub</span>(<span class="st">&quot;</span><span class="sc">\\</span><span class="st">D&quot;</span>, <span class="st">&quot;&quot;</span>, <span class="fu">cur_column</span>())),<span class="co">#extract the numeric portion of the field name as the denominator</span></span>
+<span id="cb61-31"><a href="appendix-2-patchworks-fire-adjustments.html#cb61-31" tabindex="-1"></a>     <span class="at">.names =</span> <span class="st">&quot;{col}_modified&quot;</span><span class="co"># add modification suffix</span></span>
+<span id="cb61-32"><a href="appendix-2-patchworks-fire-adjustments.html#cb61-32" tabindex="-1"></a>  )) <span class="sc">%&gt;%</span></span>
+<span id="cb61-33"><a href="appendix-2-patchworks-fire-adjustments.html#cb61-33" tabindex="-1"></a>   <span class="fu">rowwise</span>() <span class="sc">%&gt;%</span> <span class="co">#switch to rowwise function</span></span>
+<span id="cb61-34"><a href="appendix-2-patchworks-fire-adjustments.html#cb61-34" tabindex="-1"></a>   <span class="fu">mutate</span>(</span>
+<span id="cb61-35"><a href="appendix-2-patchworks-fire-adjustments.html#cb61-35" tabindex="-1"></a>     <span class="at">CMAI =</span> <span class="fu">max</span>(<span class="fu">c_across</span>(<span class="fu">ends_with</span>(<span class="st">&quot;_modified&quot;</span>)), <span class="at">na.rm =</span> <span class="cn">TRUE</span>),<span class="co">#select the max CMAI from across the records columns</span></span>
+<span id="cb61-36"><a href="appendix-2-patchworks-fire-adjustments.html#cb61-36" tabindex="-1"></a>     <span class="at">CMAI_decade =</span> <span class="fu">which.max</span>(<span class="fu">c_across</span>(<span class="fu">ends_with</span>(<span class="st">&quot;_modified&quot;</span>))) <span class="co"># Get index of the column with max CMAI = age decade</span></span>
+<span id="cb61-37"><a href="appendix-2-patchworks-fire-adjustments.html#cb61-37" tabindex="-1"></a>   ) <span class="sc">%&gt;%</span></span>
+<span id="cb61-38"><a href="appendix-2-patchworks-fire-adjustments.html#cb61-38" tabindex="-1"></a>   <span class="fu">ungroup</span>()</span>
+<span id="cb61-39"><a href="appendix-2-patchworks-fire-adjustments.html#cb61-39" tabindex="-1"></a> </span>
+<span id="cb61-40"><a href="appendix-2-patchworks-fire-adjustments.html#cb61-40" tabindex="-1"></a><span class="do">##################################################################################</span></span>
+<span id="cb61-41"><a href="appendix-2-patchworks-fire-adjustments.html#cb61-41" tabindex="-1"></a><span class="co"># #create AU join table with CMAI which will be used for aggregation</span></span>
+<span id="cb61-42"><a href="appendix-2-patchworks-fire-adjustments.html#cb61-42" tabindex="-1"></a> cmai <span class="ot">&lt;-</span> cmai <span class="sc">%&gt;%</span></span>
+<span id="cb61-43"><a href="appendix-2-patchworks-fire-adjustments.html#cb61-43" tabindex="-1"></a>   <span class="fu">select</span>(au, CMAI, CMAI_decade)<span class="sc">%&gt;%</span><span class="fu">arrange</span>(au)</span>
+<span id="cb61-44"><a href="appendix-2-patchworks-fire-adjustments.html#cb61-44" tabindex="-1"></a></span>
+<span id="cb61-45"><a href="appendix-2-patchworks-fire-adjustments.html#cb61-45" tabindex="-1"></a><span class="fu">pretty_table</span>(<span class="fu">head</span>(cmai))</span></code></pre></div>
 </details>
 </div>
 <div id="step-2-master-dataframe" class="section level3 hasAnchor" number="15.2.2">
 <h3><span class="header-section-number">15.2.2</span> Step 2: Master Dataframe<a href="appendix-2-patchworks-fire-adjustments.html#step-2-master-dataframe" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>The following code chunk builds a master spatial key (skey_df) table by extracting AU, geographic reference spatial key (gr_skey), and age values from provincial age table, and joining them together along with previously calculated cmai values. It then filters the dataset to forested cells using an the proxy AFLB from the AR resultant in postgres (users can substitute their netdown AFLB if its available but the proxy is a suitable substitute until the landbase is finalized). Next, the script queries extracts the historic and current burn severity data for the specified TSA from the BC Data warehouse, combines the datasets, converts categorical burn severity ratings to numeric percentages, and finally joins this burn severity information to the skey table by gr_skey. Although the burn severity variables are also included in the analysis ready dataset they lack the Objectid field necessary to assign values to individual burn polygons rather than each hectare. Each approach is demonstrated below. In order to utilize the units boundary to “clip” the burn severity data using data in the warehouse you need the org unit code (in the case TSA05 falls within the Rocky Mountain Resource District (DRM)). Alternatively, you could create a sf object using the ‘bnd’ layer in your AR gdb and use that as the cookiecutter to extract the burn severity from the warehouse.</p>
 <details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
-<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="appendix-2-patchworks-fire-adjustments.html#cb59-1" tabindex="-1"></a></span>
-<span id="cb59-2"><a href="appendix-2-patchworks-fire-adjustments.html#cb59-2" tabindex="-1"></a><span class="do">################################### get AU/skey############################################</span></span>
-<span id="cb59-3"><a href="appendix-2-patchworks-fire-adjustments.html#cb59-3" tabindex="-1"></a><span class="co">#start the skey master table using existing rasters derived from unit&#39;s postgres db (resultant)</span></span>
-<span id="cb59-4"><a href="appendix-2-patchworks-fire-adjustments.html#cb59-4" tabindex="-1"></a><span class="do">#########################################################################################</span></span>
-<span id="cb59-5"><a href="appendix-2-patchworks-fire-adjustments.html#cb59-5" tabindex="-1"></a></span>
-<span id="cb59-6"><a href="appendix-2-patchworks-fire-adjustments.html#cb59-6" tabindex="-1"></a>skey_query<span class="ot">&lt;-</span><span class="st">&quot;select * from tsa_05_gr_skey;&quot;</span></span>
-<span id="cb59-7"><a href="appendix-2-patchworks-fire-adjustments.html#cb59-7" tabindex="-1"></a>skey<span class="ot">&lt;-</span><span class="fu">st_read</span>(db,<span class="at">query =</span> skey_query)</span>
-<span id="cb59-8"><a href="appendix-2-patchworks-fire-adjustments.html#cb59-8" tabindex="-1"></a></span>
-<span id="cb59-9"><a href="appendix-2-patchworks-fire-adjustments.html#cb59-9" tabindex="-1"></a>skey_df<span class="ot">&lt;-</span><span class="fu">st_drop_geometry</span>(skey)</span>
-<span id="cb59-10"><a href="appendix-2-patchworks-fire-adjustments.html#cb59-10" tabindex="-1"></a>ar_query<span class="ot">&lt;-</span><span class="st">&quot;select gr_skey, feature_id,proxy_aflb,bec_zone, open_id, site_index, spec_cd_1, dvltot_125 from tsa_05_resultant where proxy_aflb is not null;&quot;</span></span>
-<span id="cb59-11"><a href="appendix-2-patchworks-fire-adjustments.html#cb59-11" tabindex="-1"></a>ar<span class="ot">&lt;-</span><span class="fu">dbGetQuery</span>(db,ar_query)</span>
-<span id="cb59-12"><a href="appendix-2-patchworks-fire-adjustments.html#cb59-12" tabindex="-1"></a> </span>
-<span id="cb59-13"><a href="appendix-2-patchworks-fire-adjustments.html#cb59-13" tabindex="-1"></a>skey_df<span class="ot">&lt;-</span>ar<span class="sc">%&gt;%</span></span>
-<span id="cb59-14"><a href="appendix-2-patchworks-fire-adjustments.html#cb59-14" tabindex="-1"></a>   <span class="fu">inner_join</span>(skey_df,</span>
-<span id="cb59-15"><a href="appendix-2-patchworks-fire-adjustments.html#cb59-15" tabindex="-1"></a>              <span class="fu">join_by</span>(<span class="st">&quot;gr_skey&quot;</span>))</span>
-<span id="cb59-16"><a href="appendix-2-patchworks-fire-adjustments.html#cb59-16" tabindex="-1"></a></span>
-<span id="cb59-17"><a href="appendix-2-patchworks-fire-adjustments.html#cb59-17" tabindex="-1"></a> skey_df<span class="ot">&lt;-</span>yield<span class="sc">%&gt;%</span></span>
-<span id="cb59-18"><a href="appendix-2-patchworks-fire-adjustments.html#cb59-18" tabindex="-1"></a>  <span class="fu">select</span>(feature_id,au,source)<span class="sc">%&gt;%</span></span>
-<span id="cb59-19"><a href="appendix-2-patchworks-fire-adjustments.html#cb59-19" tabindex="-1"></a>   <span class="fu">inner_join</span>(skey_df,</span>
-<span id="cb59-20"><a href="appendix-2-patchworks-fire-adjustments.html#cb59-20" tabindex="-1"></a>              <span class="fu">join_by</span>(<span class="st">&quot;feature_id&quot;</span>))</span>
-<span id="cb59-21"><a href="appendix-2-patchworks-fire-adjustments.html#cb59-21" tabindex="-1"></a> skey_df<span class="ot">&lt;-</span>cmai<span class="sc">%&gt;%</span></span>
-<span id="cb59-22"><a href="appendix-2-patchworks-fire-adjustments.html#cb59-22" tabindex="-1"></a>   <span class="fu">inner_join</span>(skey_df,</span>
-<span id="cb59-23"><a href="appendix-2-patchworks-fire-adjustments.html#cb59-23" tabindex="-1"></a>              <span class="fu">join_by</span>(<span class="st">&quot;au&quot;</span>))</span>
-<span id="cb59-24"><a href="appendix-2-patchworks-fire-adjustments.html#cb59-24" tabindex="-1"></a> </span>
-<span id="cb59-25"><a href="appendix-2-patchworks-fire-adjustments.html#cb59-25" tabindex="-1"></a> age_query<span class="ot">&lt;-</span> <span class="st">&quot;select * from tsa05_age;&quot;</span></span>
-<span id="cb59-26"><a href="appendix-2-patchworks-fire-adjustments.html#cb59-26" tabindex="-1"></a> age<span class="ot">&lt;-</span><span class="fu">dbGetQuery</span>(db,age_query)</span>
-<span id="cb59-27"><a href="appendix-2-patchworks-fire-adjustments.html#cb59-27" tabindex="-1"></a> </span>
-<span id="cb59-28"><a href="appendix-2-patchworks-fire-adjustments.html#cb59-28" tabindex="-1"></a> skey_df<span class="ot">&lt;-</span>age<span class="sc">%&gt;%</span></span>
-<span id="cb59-29"><a href="appendix-2-patchworks-fire-adjustments.html#cb59-29" tabindex="-1"></a>   <span class="fu">select</span>(gr_skey,age2026)<span class="sc">%&gt;%</span></span>
-<span id="cb59-30"><a href="appendix-2-patchworks-fire-adjustments.html#cb59-30" tabindex="-1"></a>   <span class="fu">inner_join</span>(skey_df,</span>
-<span id="cb59-31"><a href="appendix-2-patchworks-fire-adjustments.html#cb59-31" tabindex="-1"></a>              <span class="fu">join_by</span>(<span class="st">&quot;gr_skey&quot;</span>))<span class="co">#1484893</span></span>
-<span id="cb59-32"><a href="appendix-2-patchworks-fire-adjustments.html#cb59-32" tabindex="-1"></a></span>
-<span id="cb59-33"><a href="appendix-2-patchworks-fire-adjustments.html#cb59-33" tabindex="-1"></a><span class="do">######################################################################################</span></span>
-<span id="cb59-34"><a href="appendix-2-patchworks-fire-adjustments.html#cb59-34" tabindex="-1"></a><span class="co"># add burn severity</span></span>
-<span id="cb59-35"><a href="appendix-2-patchworks-fire-adjustments.html#cb59-35" tabindex="-1"></a><span class="do">####################################################################################</span></span>
-<span id="cb59-36"><a href="appendix-2-patchworks-fire-adjustments.html#cb59-36" tabindex="-1"></a> <span class="co"># This snippet pulls the historic and current year burn severity data for a specific district (DRM) from the data warehouse using the bcdata package, then intersects it with the skey sf object to assign fire attributes to each gr_skey.It resolves overlapping fire polygons by keeping the highest burn severity per key, and repeats the process for a second burn severity dataset before combining both sources; it then converts categorical burn severity ratings into numeric percentage values (bs_pct) based on predefined assumptions and finally joins this aggregated burn severity information back into the main dataset (skey_df) for further analysis.</span></span>
-<span id="cb59-37"><a href="appendix-2-patchworks-fire-adjustments.html#cb59-37" tabindex="-1"></a> </span>
-<span id="cb59-38"><a href="appendix-2-patchworks-fire-adjustments.html#cb59-38" tabindex="-1"></a><span class="co"># get cookie cutter for the unit from data warehouse</span></span>
-<span id="cb59-39"><a href="appendix-2-patchworks-fire-adjustments.html#cb59-39" tabindex="-1"></a> </span>
-<span id="cb59-40"><a href="appendix-2-patchworks-fire-adjustments.html#cb59-40" tabindex="-1"></a>drm <span class="ot">&lt;-</span> <span class="fu">bcdc_query_geodata</span>(<span class="st">&quot;natural-resource-nr-district&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb59-41"><a href="appendix-2-patchworks-fire-adjustments.html#cb59-41" tabindex="-1"></a>   <span class="fu">filter</span>(ORG_UNIT<span class="sc">==</span><span class="st">&quot;DRM&quot;</span>) <span class="sc">%&gt;%</span> <span class="co"># filter for District</span></span>
-<span id="cb59-42"><a href="appendix-2-patchworks-fire-adjustments.html#cb59-42" tabindex="-1"></a>   <span class="fu">collect</span>()</span>
-<span id="cb59-43"><a href="appendix-2-patchworks-fire-adjustments.html#cb59-43" tabindex="-1"></a> <span class="co">#check cookie cutter</span></span>
-<span id="cb59-44"><a href="appendix-2-patchworks-fire-adjustments.html#cb59-44" tabindex="-1"></a> drm <span class="sc">%&gt;%</span></span>
-<span id="cb59-45"><a href="appendix-2-patchworks-fire-adjustments.html#cb59-45" tabindex="-1"></a>   <span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb59-46"><a href="appendix-2-patchworks-fire-adjustments.html#cb59-46" tabindex="-1"></a>   <span class="fu">geom_sf</span>() <span class="sc">+</span></span>
-<span id="cb59-47"><a href="appendix-2-patchworks-fire-adjustments.html#cb59-47" tabindex="-1"></a>   <span class="fu">theme_minimal</span>()</span>
-<span id="cb59-48"><a href="appendix-2-patchworks-fire-adjustments.html#cb59-48" tabindex="-1"></a> drm</span>
-<span id="cb59-49"><a href="appendix-2-patchworks-fire-adjustments.html#cb59-49" tabindex="-1"></a> </span>
-<span id="cb59-50"><a href="appendix-2-patchworks-fire-adjustments.html#cb59-50" tabindex="-1"></a>bs<span class="ot">&lt;-</span></span>
-<span id="cb59-51"><a href="appendix-2-patchworks-fire-adjustments.html#cb59-51" tabindex="-1"></a>  <span class="fu">bcdc_query_geodata</span>(<span class="st">&quot;c58a54e5-76b7-4921-94a7-b5998484e697&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb59-52"><a href="appendix-2-patchworks-fire-adjustments.html#cb59-52" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">INTERSECTS</span>(drm))<span class="sc">%&gt;%</span></span>
-<span id="cb59-53"><a href="appendix-2-patchworks-fire-adjustments.html#cb59-53" tabindex="-1"></a>  <span class="fu">select</span>(FIRE_NUMBER,FIRE_YEAR,BURN_SEVERITY_RATING,OBJECTID)<span class="sc">%&gt;%</span></span>
-<span id="cb59-54"><a href="appendix-2-patchworks-fire-adjustments.html#cb59-54" tabindex="-1"></a>  <span class="fu">collect</span>()<span class="sc">%&gt;%</span></span>
-<span id="cb59-55"><a href="appendix-2-patchworks-fire-adjustments.html#cb59-55" tabindex="-1"></a>  <span class="fu">clean_names</span>()</span>
-<span id="cb59-56"><a href="appendix-2-patchworks-fire-adjustments.html#cb59-56" tabindex="-1"></a>  </span>
-<span id="cb59-57"><a href="appendix-2-patchworks-fire-adjustments.html#cb59-57" tabindex="-1"></a>bs_skey<span class="ot">&lt;-</span><span class="fu">st_intersection</span>(bs,skey)<span class="sc">%&gt;%</span></span>
-<span id="cb59-58"><a href="appendix-2-patchworks-fire-adjustments.html#cb59-58" tabindex="-1"></a>  <span class="fu">st_drop_geometry</span>()<span class="sc">%&gt;%</span></span>
-<span id="cb59-59"><a href="appendix-2-patchworks-fire-adjustments.html#cb59-59" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>veg_fs_sysid)</span>
-<span id="cb59-60"><a href="appendix-2-patchworks-fire-adjustments.html#cb59-60" tabindex="-1"></a><span class="co">#clean overlaps  </span></span>
-<span id="cb59-61"><a href="appendix-2-patchworks-fire-adjustments.html#cb59-61" tabindex="-1"></a>bs_skey<span class="ot">&lt;-</span> bs_skey <span class="sc">%&gt;%</span></span>
-<span id="cb59-62"><a href="appendix-2-patchworks-fire-adjustments.html#cb59-62" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">burn_severity_rating =</span> <span class="fu">factor</span>(burn_severity_rating, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&quot;Low&quot;</span>, <span class="st">&quot;Medium&quot;</span>, <span class="st">&quot;High&quot;</span>, <span class="st">&quot;Unburned&quot;</span>), <span class="at">ordered =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb59-63"><a href="appendix-2-patchworks-fire-adjustments.html#cb59-63" tabindex="-1"></a>    <span class="fu">group_by</span>(gr_skey) <span class="sc">%&gt;%</span></span>
-<span id="cb59-64"><a href="appendix-2-patchworks-fire-adjustments.html#cb59-64" tabindex="-1"></a>    <span class="fu">slice_max</span>(burn_severity_rating) <span class="sc">%&gt;%</span></span>
-<span id="cb59-65"><a href="appendix-2-patchworks-fire-adjustments.html#cb59-65" tabindex="-1"></a>    <span class="fu">ungroup</span>()</span>
-<span id="cb59-66"><a href="appendix-2-patchworks-fire-adjustments.html#cb59-66" tabindex="-1"></a></span>
-<span id="cb59-67"><a href="appendix-2-patchworks-fire-adjustments.html#cb59-67" tabindex="-1"></a>bs_skey<span class="ot">&lt;-</span> bs_skey <span class="sc">%&gt;%</span></span>
-<span id="cb59-68"><a href="appendix-2-patchworks-fire-adjustments.html#cb59-68" tabindex="-1"></a>  <span class="fu">distinct</span>(gr_skey, <span class="at">.keep_all =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb59-69"><a href="appendix-2-patchworks-fire-adjustments.html#cb59-69" tabindex="-1"></a><span class="co">#-------------------------------------------------------------------------------  </span></span>
-<span id="cb59-70"><a href="appendix-2-patchworks-fire-adjustments.html#cb59-70" tabindex="-1"></a>bssy <span class="ot">&lt;-</span></span>
-<span id="cb59-71"><a href="appendix-2-patchworks-fire-adjustments.html#cb59-71" tabindex="-1"></a>  <span class="fu">bcdc_query_geodata</span>(<span class="st">&quot;04c5ad28-d8eb-4c49-90c5-48b9b98fdfe9&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb59-72"><a href="appendix-2-patchworks-fire-adjustments.html#cb59-72" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">INTERSECTS</span>(drm))<span class="sc">%&gt;%</span></span>
-<span id="cb59-73"><a href="appendix-2-patchworks-fire-adjustments.html#cb59-73" tabindex="-1"></a>  <span class="fu">select</span>(FIRE_NUMBER,FIRE_YEAR,BURN_SEVERITY_RATING,OBJECTID)<span class="sc">%&gt;%</span></span>
-<span id="cb59-74"><a href="appendix-2-patchworks-fire-adjustments.html#cb59-74" tabindex="-1"></a>  <span class="fu">collect</span>()<span class="sc">%&gt;%</span></span>
-<span id="cb59-75"><a href="appendix-2-patchworks-fire-adjustments.html#cb59-75" tabindex="-1"></a>  <span class="fu">clean_names</span>()</span>
-<span id="cb59-76"><a href="appendix-2-patchworks-fire-adjustments.html#cb59-76" tabindex="-1"></a></span>
-<span id="cb59-77"><a href="appendix-2-patchworks-fire-adjustments.html#cb59-77" tabindex="-1"></a></span>
-<span id="cb59-78"><a href="appendix-2-patchworks-fire-adjustments.html#cb59-78" tabindex="-1"></a>bssy_skey<span class="ot">&lt;-</span><span class="fu">st_intersection</span>(bssy,skey)<span class="sc">%&gt;%</span></span>
-<span id="cb59-79"><a href="appendix-2-patchworks-fire-adjustments.html#cb59-79" tabindex="-1"></a>  <span class="fu">st_drop_geometry</span>()<span class="sc">%&gt;%</span></span>
-<span id="cb59-80"><a href="appendix-2-patchworks-fire-adjustments.html#cb59-80" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>brn_svy_sy_sysid)</span>
-<span id="cb59-81"><a href="appendix-2-patchworks-fire-adjustments.html#cb59-81" tabindex="-1"></a></span>
-<span id="cb59-82"><a href="appendix-2-patchworks-fire-adjustments.html#cb59-82" tabindex="-1"></a>bssy_skey<span class="ot">&lt;-</span> bssy_skey <span class="sc">%&gt;%</span></span>
-<span id="cb59-83"><a href="appendix-2-patchworks-fire-adjustments.html#cb59-83" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">burn_severity_rating =</span> <span class="fu">factor</span>(burn_severity_rating, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&quot;Low&quot;</span>, <span class="st">&quot;Medium&quot;</span>, <span class="st">&quot;High&quot;</span>, <span class="st">&quot;Unburned&quot;</span>), <span class="at">ordered =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb59-84"><a href="appendix-2-patchworks-fire-adjustments.html#cb59-84" tabindex="-1"></a>  <span class="fu">group_by</span>(gr_skey) <span class="sc">%&gt;%</span></span>
-<span id="cb59-85"><a href="appendix-2-patchworks-fire-adjustments.html#cb59-85" tabindex="-1"></a>  <span class="fu">slice_max</span>(burn_severity_rating) <span class="sc">%&gt;%</span></span>
-<span id="cb59-86"><a href="appendix-2-patchworks-fire-adjustments.html#cb59-86" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span>
-<span id="cb59-87"><a href="appendix-2-patchworks-fire-adjustments.html#cb59-87" tabindex="-1"></a></span>
-<span id="cb59-88"><a href="appendix-2-patchworks-fire-adjustments.html#cb59-88" tabindex="-1"></a>bssy_skey<span class="ot">&lt;-</span> bssy_skey <span class="sc">%&gt;%</span></span>
-<span id="cb59-89"><a href="appendix-2-patchworks-fire-adjustments.html#cb59-89" tabindex="-1"></a>  <span class="fu">distinct</span>(gr_skey, <span class="at">.keep_all =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb59-90"><a href="appendix-2-patchworks-fire-adjustments.html#cb59-90" tabindex="-1"></a></span>
-<span id="cb59-91"><a href="appendix-2-patchworks-fire-adjustments.html#cb59-91" tabindex="-1"></a>bs_agg<span class="ot">&lt;-</span><span class="fu">rbind</span>(bs_skey,bssy_skey)</span>
-<span id="cb59-92"><a href="appendix-2-patchworks-fire-adjustments.html#cb59-92" tabindex="-1"></a><span class="co">#deal with any overlap</span></span>
-<span id="cb59-93"><a href="appendix-2-patchworks-fire-adjustments.html#cb59-93" tabindex="-1"></a></span>
-<span id="cb59-94"><a href="appendix-2-patchworks-fire-adjustments.html#cb59-94" tabindex="-1"></a><span class="co">#severity class assumptions</span></span>
-<span id="cb59-95"><a href="appendix-2-patchworks-fire-adjustments.html#cb59-95" tabindex="-1"></a>bs_agg<span class="ot">&lt;-</span>bs_agg<span class="sc">%&gt;%</span><span class="fu">mutate</span>(<span class="at">bs_pct =</span> <span class="fu">case_when</span>(</span>
-<span id="cb59-96"><a href="appendix-2-patchworks-fire-adjustments.html#cb59-96" tabindex="-1"></a>  burn_severity_rating <span class="sc">==</span> <span class="st">&#39;Unburned&#39;</span> <span class="sc">~</span> <span class="dv">10</span>,</span>
-<span id="cb59-97"><a href="appendix-2-patchworks-fire-adjustments.html#cb59-97" tabindex="-1"></a>  burn_severity_rating <span class="sc">==</span> <span class="st">&#39;Low&#39;</span> <span class="sc">~</span> <span class="dv">25</span>,</span>
-<span id="cb59-98"><a href="appendix-2-patchworks-fire-adjustments.html#cb59-98" tabindex="-1"></a>  burn_severity_rating <span class="sc">==</span><span class="st">&#39;Medium&#39;</span> <span class="sc">~</span> <span class="dv">50</span>,</span>
-<span id="cb59-99"><a href="appendix-2-patchworks-fire-adjustments.html#cb59-99" tabindex="-1"></a>  burn_severity_rating <span class="sc">==</span> <span class="st">&#39;High&#39;</span> <span class="sc">~</span> <span class="dv">80</span>,</span>
-<span id="cb59-100"><a href="appendix-2-patchworks-fire-adjustments.html#cb59-100" tabindex="-1"></a>  <span class="cn">TRUE</span> <span class="sc">~</span> <span class="dv">0</span></span>
-<span id="cb59-101"><a href="appendix-2-patchworks-fire-adjustments.html#cb59-101" tabindex="-1"></a>))</span>
-<span id="cb59-102"><a href="appendix-2-patchworks-fire-adjustments.html#cb59-102" tabindex="-1"></a></span>
-<span id="cb59-103"><a href="appendix-2-patchworks-fire-adjustments.html#cb59-103" tabindex="-1"></a><span class="co">#join to master df</span></span>
-<span id="cb59-104"><a href="appendix-2-patchworks-fire-adjustments.html#cb59-104" tabindex="-1"></a>skey_df <span class="ot">&lt;-</span> <span class="fu">left_join</span>(skey_df, bs_agg, <span class="fu">join_by</span>(<span class="st">&quot;gr_skey&quot;</span>)) </span>
-<span id="cb59-105"><a href="appendix-2-patchworks-fire-adjustments.html#cb59-105" tabindex="-1"></a> </span>
-<span id="cb59-106"><a href="appendix-2-patchworks-fire-adjustments.html#cb59-106" tabindex="-1"></a> </span>
-<span id="cb59-107"><a href="appendix-2-patchworks-fire-adjustments.html#cb59-107" tabindex="-1"></a></span>
-<span id="cb59-108"><a href="appendix-2-patchworks-fire-adjustments.html#cb59-108" tabindex="-1"></a><span class="fu">pretty_table</span>(<span class="fu">head</span>(skey_df))</span></code></pre></div>
+<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-1" tabindex="-1"></a></span>
+<span id="cb62-2"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-2" tabindex="-1"></a><span class="do">################################### get AU/skey############################################</span></span>
+<span id="cb62-3"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-3" tabindex="-1"></a><span class="co">#start the skey master table using existing rasters derived from unit&#39;s postgres db (resultant)</span></span>
+<span id="cb62-4"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-4" tabindex="-1"></a><span class="do">#########################################################################################</span></span>
+<span id="cb62-5"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-5" tabindex="-1"></a></span>
+<span id="cb62-6"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-6" tabindex="-1"></a>skey_query<span class="ot">&lt;-</span><span class="st">&quot;select * from tsa_05_gr_skey;&quot;</span></span>
+<span id="cb62-7"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-7" tabindex="-1"></a>skey<span class="ot">&lt;-</span><span class="fu">st_read</span>(db,<span class="at">query =</span> skey_query)</span>
+<span id="cb62-8"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-8" tabindex="-1"></a></span>
+<span id="cb62-9"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-9" tabindex="-1"></a>skey_df<span class="ot">&lt;-</span><span class="fu">st_drop_geometry</span>(skey)</span>
+<span id="cb62-10"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-10" tabindex="-1"></a>ar_query<span class="ot">&lt;-</span><span class="st">&quot;select gr_skey, feature_id,proxy_aflb,bec_zone, open_id, site_index, spec_cd_1, dvltot_125 from tsa_05_resultant where proxy_aflb is not null;&quot;</span></span>
+<span id="cb62-11"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-11" tabindex="-1"></a>ar<span class="ot">&lt;-</span><span class="fu">dbGetQuery</span>(db,ar_query)</span>
+<span id="cb62-12"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-12" tabindex="-1"></a> </span>
+<span id="cb62-13"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-13" tabindex="-1"></a>skey_df<span class="ot">&lt;-</span>ar<span class="sc">%&gt;%</span></span>
+<span id="cb62-14"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-14" tabindex="-1"></a>   <span class="fu">inner_join</span>(skey_df,</span>
+<span id="cb62-15"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-15" tabindex="-1"></a>              <span class="fu">join_by</span>(<span class="st">&quot;gr_skey&quot;</span>))</span>
+<span id="cb62-16"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-16" tabindex="-1"></a></span>
+<span id="cb62-17"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-17" tabindex="-1"></a> skey_df<span class="ot">&lt;-</span>yield<span class="sc">%&gt;%</span></span>
+<span id="cb62-18"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-18" tabindex="-1"></a>  <span class="fu">select</span>(feature_id,au,source)<span class="sc">%&gt;%</span></span>
+<span id="cb62-19"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-19" tabindex="-1"></a>   <span class="fu">inner_join</span>(skey_df,</span>
+<span id="cb62-20"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-20" tabindex="-1"></a>              <span class="fu">join_by</span>(<span class="st">&quot;feature_id&quot;</span>))</span>
+<span id="cb62-21"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-21" tabindex="-1"></a> skey_df<span class="ot">&lt;-</span>cmai<span class="sc">%&gt;%</span></span>
+<span id="cb62-22"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-22" tabindex="-1"></a>   <span class="fu">inner_join</span>(skey_df,</span>
+<span id="cb62-23"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-23" tabindex="-1"></a>              <span class="fu">join_by</span>(<span class="st">&quot;au&quot;</span>))</span>
+<span id="cb62-24"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-24" tabindex="-1"></a> </span>
+<span id="cb62-25"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-25" tabindex="-1"></a> age_query<span class="ot">&lt;-</span> <span class="st">&quot;select * from tsa05_age;&quot;</span></span>
+<span id="cb62-26"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-26" tabindex="-1"></a> age<span class="ot">&lt;-</span><span class="fu">dbGetQuery</span>(db,age_query)</span>
+<span id="cb62-27"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-27" tabindex="-1"></a> </span>
+<span id="cb62-28"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-28" tabindex="-1"></a> skey_df<span class="ot">&lt;-</span>age<span class="sc">%&gt;%</span></span>
+<span id="cb62-29"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-29" tabindex="-1"></a>   <span class="fu">select</span>(gr_skey,age2026)<span class="sc">%&gt;%</span></span>
+<span id="cb62-30"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-30" tabindex="-1"></a>   <span class="fu">inner_join</span>(skey_df,</span>
+<span id="cb62-31"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-31" tabindex="-1"></a>              <span class="fu">join_by</span>(<span class="st">&quot;gr_skey&quot;</span>))<span class="co">#1484893</span></span>
+<span id="cb62-32"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-32" tabindex="-1"></a></span>
+<span id="cb62-33"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-33" tabindex="-1"></a><span class="do">######################################################################################</span></span>
+<span id="cb62-34"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-34" tabindex="-1"></a><span class="co"># add burn severity</span></span>
+<span id="cb62-35"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-35" tabindex="-1"></a><span class="do">####################################################################################</span></span>
+<span id="cb62-36"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-36" tabindex="-1"></a> <span class="co"># This snippet pulls the historic and current year burn severity data for a specific district (DRM) from the data warehouse using the bcdata package, then intersects it with the skey sf object to assign fire attributes to each gr_skey.It resolves overlapping fire polygons by keeping the highest burn severity per key, and repeats the process for a second burn severity dataset before combining both sources; it then converts categorical burn severity ratings into numeric percentage values (bs_pct) based on predefined assumptions and finally joins this aggregated burn severity information back into the main dataset (skey_df) for further analysis.</span></span>
+<span id="cb62-37"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-37" tabindex="-1"></a> </span>
+<span id="cb62-38"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-38" tabindex="-1"></a><span class="co"># get cookie cutter for the unit from data warehouse</span></span>
+<span id="cb62-39"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-39" tabindex="-1"></a> </span>
+<span id="cb62-40"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-40" tabindex="-1"></a>drm <span class="ot">&lt;-</span> <span class="fu">bcdc_query_geodata</span>(<span class="st">&quot;natural-resource-nr-district&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb62-41"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-41" tabindex="-1"></a>   <span class="fu">filter</span>(ORG_UNIT<span class="sc">==</span><span class="st">&quot;DRM&quot;</span>) <span class="sc">%&gt;%</span> <span class="co"># filter for District</span></span>
+<span id="cb62-42"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-42" tabindex="-1"></a>   <span class="fu">collect</span>()</span>
+<span id="cb62-43"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-43" tabindex="-1"></a> <span class="co">#check cookie cutter</span></span>
+<span id="cb62-44"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-44" tabindex="-1"></a> drm <span class="sc">%&gt;%</span></span>
+<span id="cb62-45"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-45" tabindex="-1"></a>   <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb62-46"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-46" tabindex="-1"></a>   <span class="fu">geom_sf</span>() <span class="sc">+</span></span>
+<span id="cb62-47"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-47" tabindex="-1"></a>   <span class="fu">theme_minimal</span>()</span>
+<span id="cb62-48"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-48" tabindex="-1"></a> drm</span>
+<span id="cb62-49"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-49" tabindex="-1"></a> </span>
+<span id="cb62-50"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-50" tabindex="-1"></a>bs<span class="ot">&lt;-</span></span>
+<span id="cb62-51"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-51" tabindex="-1"></a>  <span class="fu">bcdc_query_geodata</span>(<span class="st">&quot;c58a54e5-76b7-4921-94a7-b5998484e697&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb62-52"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-52" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">INTERSECTS</span>(drm))<span class="sc">%&gt;%</span></span>
+<span id="cb62-53"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-53" tabindex="-1"></a>  <span class="fu">select</span>(FIRE_NUMBER,FIRE_YEAR,BURN_SEVERITY_RATING,OBJECTID)<span class="sc">%&gt;%</span></span>
+<span id="cb62-54"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-54" tabindex="-1"></a>  <span class="fu">collect</span>()<span class="sc">%&gt;%</span></span>
+<span id="cb62-55"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-55" tabindex="-1"></a>  <span class="fu">clean_names</span>()</span>
+<span id="cb62-56"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-56" tabindex="-1"></a>  </span>
+<span id="cb62-57"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-57" tabindex="-1"></a>bs_skey<span class="ot">&lt;-</span><span class="fu">st_intersection</span>(bs,skey)<span class="sc">%&gt;%</span></span>
+<span id="cb62-58"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-58" tabindex="-1"></a>  <span class="fu">st_drop_geometry</span>()<span class="sc">%&gt;%</span></span>
+<span id="cb62-59"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-59" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>veg_fs_sysid)</span>
+<span id="cb62-60"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-60" tabindex="-1"></a><span class="co">#clean overlaps  </span></span>
+<span id="cb62-61"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-61" tabindex="-1"></a>bs_skey<span class="ot">&lt;-</span> bs_skey <span class="sc">%&gt;%</span></span>
+<span id="cb62-62"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-62" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">burn_severity_rating =</span> <span class="fu">factor</span>(burn_severity_rating, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&quot;Low&quot;</span>, <span class="st">&quot;Medium&quot;</span>, <span class="st">&quot;High&quot;</span>, <span class="st">&quot;Unburned&quot;</span>), <span class="at">ordered =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb62-63"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-63" tabindex="-1"></a>    <span class="fu">group_by</span>(gr_skey) <span class="sc">%&gt;%</span></span>
+<span id="cb62-64"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-64" tabindex="-1"></a>    <span class="fu">slice_max</span>(burn_severity_rating) <span class="sc">%&gt;%</span></span>
+<span id="cb62-65"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-65" tabindex="-1"></a>    <span class="fu">ungroup</span>()</span>
+<span id="cb62-66"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-66" tabindex="-1"></a></span>
+<span id="cb62-67"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-67" tabindex="-1"></a>bs_skey<span class="ot">&lt;-</span> bs_skey <span class="sc">%&gt;%</span></span>
+<span id="cb62-68"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-68" tabindex="-1"></a>  <span class="fu">distinct</span>(gr_skey, <span class="at">.keep_all =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb62-69"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-69" tabindex="-1"></a><span class="co">#-------------------------------------------------------------------------------  </span></span>
+<span id="cb62-70"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-70" tabindex="-1"></a>bssy <span class="ot">&lt;-</span></span>
+<span id="cb62-71"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-71" tabindex="-1"></a>  <span class="fu">bcdc_query_geodata</span>(<span class="st">&quot;04c5ad28-d8eb-4c49-90c5-48b9b98fdfe9&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb62-72"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-72" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">INTERSECTS</span>(drm))<span class="sc">%&gt;%</span></span>
+<span id="cb62-73"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-73" tabindex="-1"></a>  <span class="fu">select</span>(FIRE_NUMBER,FIRE_YEAR,BURN_SEVERITY_RATING,OBJECTID)<span class="sc">%&gt;%</span></span>
+<span id="cb62-74"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-74" tabindex="-1"></a>  <span class="fu">collect</span>()<span class="sc">%&gt;%</span></span>
+<span id="cb62-75"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-75" tabindex="-1"></a>  <span class="fu">clean_names</span>()</span>
+<span id="cb62-76"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-76" tabindex="-1"></a></span>
+<span id="cb62-77"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-77" tabindex="-1"></a></span>
+<span id="cb62-78"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-78" tabindex="-1"></a>bssy_skey<span class="ot">&lt;-</span><span class="fu">st_intersection</span>(bssy,skey)<span class="sc">%&gt;%</span></span>
+<span id="cb62-79"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-79" tabindex="-1"></a>  <span class="fu">st_drop_geometry</span>()<span class="sc">%&gt;%</span></span>
+<span id="cb62-80"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-80" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>brn_svy_sy_sysid)</span>
+<span id="cb62-81"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-81" tabindex="-1"></a></span>
+<span id="cb62-82"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-82" tabindex="-1"></a>bssy_skey<span class="ot">&lt;-</span> bssy_skey <span class="sc">%&gt;%</span></span>
+<span id="cb62-83"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-83" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">burn_severity_rating =</span> <span class="fu">factor</span>(burn_severity_rating, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&quot;Low&quot;</span>, <span class="st">&quot;Medium&quot;</span>, <span class="st">&quot;High&quot;</span>, <span class="st">&quot;Unburned&quot;</span>), <span class="at">ordered =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb62-84"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-84" tabindex="-1"></a>  <span class="fu">group_by</span>(gr_skey) <span class="sc">%&gt;%</span></span>
+<span id="cb62-85"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-85" tabindex="-1"></a>  <span class="fu">slice_max</span>(burn_severity_rating) <span class="sc">%&gt;%</span></span>
+<span id="cb62-86"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-86" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span>
+<span id="cb62-87"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-87" tabindex="-1"></a></span>
+<span id="cb62-88"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-88" tabindex="-1"></a>bssy_skey<span class="ot">&lt;-</span> bssy_skey <span class="sc">%&gt;%</span></span>
+<span id="cb62-89"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-89" tabindex="-1"></a>  <span class="fu">distinct</span>(gr_skey, <span class="at">.keep_all =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb62-90"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-90" tabindex="-1"></a></span>
+<span id="cb62-91"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-91" tabindex="-1"></a>bs_agg<span class="ot">&lt;-</span><span class="fu">rbind</span>(bs_skey,bssy_skey)</span>
+<span id="cb62-92"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-92" tabindex="-1"></a><span class="co">#deal with any overlap</span></span>
+<span id="cb62-93"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-93" tabindex="-1"></a></span>
+<span id="cb62-94"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-94" tabindex="-1"></a><span class="co">#severity class assumptions</span></span>
+<span id="cb62-95"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-95" tabindex="-1"></a>bs_agg<span class="ot">&lt;-</span>bs_agg<span class="sc">%&gt;%</span><span class="fu">mutate</span>(<span class="at">bs_pct =</span> <span class="fu">case_when</span>(</span>
+<span id="cb62-96"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-96" tabindex="-1"></a>  burn_severity_rating <span class="sc">==</span> <span class="st">&#39;Unburned&#39;</span> <span class="sc">~</span> <span class="dv">10</span>,</span>
+<span id="cb62-97"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-97" tabindex="-1"></a>  burn_severity_rating <span class="sc">==</span> <span class="st">&#39;Low&#39;</span> <span class="sc">~</span> <span class="dv">25</span>,</span>
+<span id="cb62-98"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-98" tabindex="-1"></a>  burn_severity_rating <span class="sc">==</span><span class="st">&#39;Medium&#39;</span> <span class="sc">~</span> <span class="dv">50</span>,</span>
+<span id="cb62-99"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-99" tabindex="-1"></a>  burn_severity_rating <span class="sc">==</span> <span class="st">&#39;High&#39;</span> <span class="sc">~</span> <span class="dv">80</span>,</span>
+<span id="cb62-100"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-100" tabindex="-1"></a>  <span class="cn">TRUE</span> <span class="sc">~</span> <span class="dv">0</span></span>
+<span id="cb62-101"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-101" tabindex="-1"></a>))</span>
+<span id="cb62-102"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-102" tabindex="-1"></a></span>
+<span id="cb62-103"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-103" tabindex="-1"></a><span class="co">#join to master df</span></span>
+<span id="cb62-104"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-104" tabindex="-1"></a>skey_df <span class="ot">&lt;-</span> <span class="fu">left_join</span>(skey_df, bs_agg, <span class="fu">join_by</span>(<span class="st">&quot;gr_skey&quot;</span>)) </span>
+<span id="cb62-105"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-105" tabindex="-1"></a> </span>
+<span id="cb62-106"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-106" tabindex="-1"></a> </span>
+<span id="cb62-107"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-107" tabindex="-1"></a></span>
+<span id="cb62-108"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-108" tabindex="-1"></a><span class="fu">pretty_table</span>(<span class="fu">head</span>(skey_df))</span></code></pre></div>
 </details>
 </div>
 <div id="step-3-species-and-si" class="section level3 hasAnchor" number="15.2.3">
 <h3><span class="header-section-number">15.2.3</span> Step 3: Species and SI<a href="appendix-2-patchworks-fire-adjustments.html#step-3-species-and-si" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>The following code chunk prepares species and site index fields for aggregation. It reads managed stand data, then for planted openings determines the lead planted species, dynamically retrieves its corresponding site index column, filters to planted records, and standardizes species labels into broader species groups. It repeats the same process for natural (non-planted) openings. It then queries a database to identify openings that are not free-to-grow, and separately retrieves VRI aggregation fields (e.g., BEC zone, site index, leading species) by gr_skey. Finally, it joins these VRI attributes and opening status information to the master skey dataset for later aggregation.</p>
 <details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
-<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="appendix-2-patchworks-fire-adjustments.html#cb60-1" tabindex="-1"></a><span class="do">##################################################################################</span></span>
-<span id="cb60-2"><a href="appendix-2-patchworks-fire-adjustments.html#cb60-2" tabindex="-1"></a><span class="do">################# managed fields for aggregation###################################</span></span>
-<span id="cb60-3"><a href="appendix-2-patchworks-fire-adjustments.html#cb60-3" tabindex="-1"></a><span class="do">###################################################################################</span></span>
-<span id="cb60-4"><a href="appendix-2-patchworks-fire-adjustments.html#cb60-4" tabindex="-1"></a> <span class="co"># managed fields for aggregation#</span></span>
-<span id="cb60-5"><a href="appendix-2-patchworks-fire-adjustments.html#cb60-5" tabindex="-1"></a> <span class="co">#</span></span>
-<span id="cb60-6"><a href="appendix-2-patchworks-fire-adjustments.html#cb60-6" tabindex="-1"></a> <span class="co">#opening species and si</span></span>
-<span id="cb60-7"><a href="appendix-2-patchworks-fire-adjustments.html#cb60-7" tabindex="-1"></a> managed <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;C:</span><span class="sc">\\</span><span class="st">Data</span><span class="sc">\\</span><span class="st">temp</span><span class="sc">\\</span><span class="st">tsa05</span><span class="sc">\\</span><span class="st">tsa5</span><span class="sc">\\</span><span class="st">MSYT_current_input.csv&quot;</span>)</span>
-<span id="cb60-8"><a href="appendix-2-patchworks-fire-adjustments.html#cb60-8" tabindex="-1"></a> <span class="co">#determine lead species and its associated si</span></span>
-<span id="cb60-9"><a href="appendix-2-patchworks-fire-adjustments.html#cb60-9" tabindex="-1"></a> planted <span class="ot">&lt;-</span> managed <span class="sc">%&gt;%</span></span>
-<span id="cb60-10"><a href="appendix-2-patchworks-fire-adjustments.html#cb60-10" tabindex="-1"></a>   <span class="fu">rowwise</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb60-11"><a href="appendix-2-patchworks-fire-adjustments.html#cb60-11" tabindex="-1"></a>   <span class="fu">mutate</span>(</span>
-<span id="cb60-12"><a href="appendix-2-patchworks-fire-adjustments.html#cb60-12" tabindex="-1"></a>     <span class="at">planted_species1_si =</span> <span class="cf">if</span> (<span class="fu">is.na</span>(planted_species1)) {</span>
-<span id="cb60-13"><a href="appendix-2-patchworks-fire-adjustments.html#cb60-13" tabindex="-1"></a>       <span class="cn">NA_real_</span> <span class="co">#return NA</span></span>
-<span id="cb60-14"><a href="appendix-2-patchworks-fire-adjustments.html#cb60-14" tabindex="-1"></a>     } <span class="cf">else</span> {</span>
-<span id="cb60-15"><a href="appendix-2-patchworks-fire-adjustments.html#cb60-15" tabindex="-1"></a>       col <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="fu">tolower</span>(planted_species1), <span class="st">&quot;_si&quot;</span>)<span class="co">#convert to matching si column header for if</span></span>
-<span id="cb60-16"><a href="appendix-2-patchworks-fire-adjustments.html#cb60-16" tabindex="-1"></a>       <span class="cf">if</span> (col <span class="sc">%in%</span> <span class="fu">names</span>(<span class="fu">cur_data</span>())) <span class="fu">cur_data</span>()[[col]] <span class="cf">else</span> <span class="cn">NA_real_</span> <span class="co"># if the label matches then get the value</span></span>
-<span id="cb60-17"><a href="appendix-2-patchworks-fire-adjustments.html#cb60-17" tabindex="-1"></a>     }</span>
-<span id="cb60-18"><a href="appendix-2-patchworks-fire-adjustments.html#cb60-18" tabindex="-1"></a>   ) <span class="sc">%&gt;%</span></span>
-<span id="cb60-19"><a href="appendix-2-patchworks-fire-adjustments.html#cb60-19" tabindex="-1"></a>   <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb60-20"><a href="appendix-2-patchworks-fire-adjustments.html#cb60-20" tabindex="-1"></a>   <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(planted_species1)) <span class="sc">%&gt;%</span> <span class="co">#just planted</span></span>
-<span id="cb60-21"><a href="appendix-2-patchworks-fire-adjustments.html#cb60-21" tabindex="-1"></a>   <span class="fu">select</span>(feature_id, planted_species1, planted_species1_si) <span class="sc">%&gt;%</span></span>
-<span id="cb60-22"><a href="appendix-2-patchworks-fire-adjustments.html#cb60-22" tabindex="-1"></a>   <span class="fu">mutate</span>(</span>
-<span id="cb60-23"><a href="appendix-2-patchworks-fire-adjustments.html#cb60-23" tabindex="-1"></a>     <span class="at">spc_lbl_pl =</span> <span class="fu">case_when</span>( <span class="co">#relabel and consolidate</span></span>
-<span id="cb60-24"><a href="appendix-2-patchworks-fire-adjustments.html#cb60-24" tabindex="-1"></a>       <span class="fu">grepl</span>(<span class="st">&quot;A.&quot;</span>, planted_species1) <span class="sc">~</span> <span class="st">&quot;sAt&quot;</span>,</span>
-<span id="cb60-25"><a href="appendix-2-patchworks-fire-adjustments.html#cb60-25" tabindex="-1"></a>       <span class="fu">grepl</span>(<span class="st">&quot;P.&quot;</span>, planted_species1) <span class="sc">~</span> <span class="st">&quot;sPl&quot;</span>,</span>
-<span id="cb60-26"><a href="appendix-2-patchworks-fire-adjustments.html#cb60-26" tabindex="-1"></a>       <span class="fu">grepl</span>(<span class="st">&quot;S.&quot;</span>, planted_species1) <span class="sc">~</span> <span class="st">&quot;sS&quot;</span>,</span>
-<span id="cb60-27"><a href="appendix-2-patchworks-fire-adjustments.html#cb60-27" tabindex="-1"></a>       <span class="fu">grepl</span>(<span class="st">&quot;F.&quot;</span>, planted_species1) <span class="sc">~</span> <span class="st">&quot;sFd&quot;</span>,</span>
-<span id="cb60-28"><a href="appendix-2-patchworks-fire-adjustments.html#cb60-28" tabindex="-1"></a>       <span class="fu">grepl</span>(<span class="st">&quot;L.&quot;</span>, planted_species1) <span class="sc">~</span> <span class="st">&quot;sFd&quot;</span>,</span>
-<span id="cb60-29"><a href="appendix-2-patchworks-fire-adjustments.html#cb60-29" tabindex="-1"></a>       <span class="fu">grepl</span>(<span class="st">&quot;B.&quot;</span>, planted_species1) <span class="sc">~</span> <span class="st">&quot;sB&quot;</span>,</span>
-<span id="cb60-30"><a href="appendix-2-patchworks-fire-adjustments.html#cb60-30" tabindex="-1"></a>       <span class="fu">grepl</span>(<span class="st">&quot;C.&quot;</span>, planted_species1) <span class="sc">~</span> <span class="st">&quot;sCw&quot;</span>,</span>
-<span id="cb60-31"><a href="appendix-2-patchworks-fire-adjustments.html#cb60-31" tabindex="-1"></a>       <span class="fu">grepl</span>(<span class="st">&quot;H.&quot;</span>, planted_species1) <span class="sc">~</span> <span class="st">&quot;sH&quot;</span>,</span>
-<span id="cb60-32"><a href="appendix-2-patchworks-fire-adjustments.html#cb60-32" tabindex="-1"></a>       <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">&quot;sDecid&quot;</span></span>
-<span id="cb60-33"><a href="appendix-2-patchworks-fire-adjustments.html#cb60-33" tabindex="-1"></a>       <span class="co"># TRUE ~ &quot;unknown&quot;</span></span>
-<span id="cb60-34"><a href="appendix-2-patchworks-fire-adjustments.html#cb60-34" tabindex="-1"></a>     )</span>
-<span id="cb60-35"><a href="appendix-2-patchworks-fire-adjustments.html#cb60-35" tabindex="-1"></a>   )</span>
-<span id="cb60-36"><a href="appendix-2-patchworks-fire-adjustments.html#cb60-36" tabindex="-1"></a> </span>
-<span id="cb60-37"><a href="appendix-2-patchworks-fire-adjustments.html#cb60-37" tabindex="-1"></a> <span class="co"># do the same for features in openings identified as naturals</span></span>
-<span id="cb60-38"><a href="appendix-2-patchworks-fire-adjustments.html#cb60-38" tabindex="-1"></a> natural <span class="ot">&lt;-</span> managed <span class="sc">%&gt;%</span></span>
-<span id="cb60-39"><a href="appendix-2-patchworks-fire-adjustments.html#cb60-39" tabindex="-1"></a>   <span class="fu">filter</span>(planted_percent <span class="sc">==</span> <span class="dv">0</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb60-40"><a href="appendix-2-patchworks-fire-adjustments.html#cb60-40" tabindex="-1"></a>   <span class="fu">rowwise</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb60-41"><a href="appendix-2-patchworks-fire-adjustments.html#cb60-41" tabindex="-1"></a>   <span class="fu">mutate</span>(</span>
-<span id="cb60-42"><a href="appendix-2-patchworks-fire-adjustments.html#cb60-42" tabindex="-1"></a>     <span class="at">natural_species1_si =</span> <span class="cf">if</span> (<span class="fu">is.na</span>(natural_species1)) {</span>
-<span id="cb60-43"><a href="appendix-2-patchworks-fire-adjustments.html#cb60-43" tabindex="-1"></a>       <span class="cn">NA_real_</span></span>
-<span id="cb60-44"><a href="appendix-2-patchworks-fire-adjustments.html#cb60-44" tabindex="-1"></a>     } <span class="cf">else</span> {</span>
-<span id="cb60-45"><a href="appendix-2-patchworks-fire-adjustments.html#cb60-45" tabindex="-1"></a>       col <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="fu">tolower</span>(natural_species1), <span class="st">&quot;_si&quot;</span>)</span>
-<span id="cb60-46"><a href="appendix-2-patchworks-fire-adjustments.html#cb60-46" tabindex="-1"></a>       <span class="cf">if</span> (col <span class="sc">%in%</span> <span class="fu">names</span>(<span class="fu">cur_data</span>())) <span class="fu">cur_data</span>()[[col]] <span class="cf">else</span> <span class="cn">NA_real_</span></span>
-<span id="cb60-47"><a href="appendix-2-patchworks-fire-adjustments.html#cb60-47" tabindex="-1"></a>     }</span>
-<span id="cb60-48"><a href="appendix-2-patchworks-fire-adjustments.html#cb60-48" tabindex="-1"></a>   ) <span class="sc">%&gt;%</span></span>
-<span id="cb60-49"><a href="appendix-2-patchworks-fire-adjustments.html#cb60-49" tabindex="-1"></a>   <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb60-50"><a href="appendix-2-patchworks-fire-adjustments.html#cb60-50" tabindex="-1"></a>   <span class="fu">select</span>(feature_id, natural_species1, natural_species1_si) <span class="sc">%&gt;%</span></span>
-<span id="cb60-51"><a href="appendix-2-patchworks-fire-adjustments.html#cb60-51" tabindex="-1"></a>   <span class="fu">mutate</span>(</span>
-<span id="cb60-52"><a href="appendix-2-patchworks-fire-adjustments.html#cb60-52" tabindex="-1"></a>     <span class="at">spc_lbl_nat =</span> <span class="fu">case_when</span>(<span class="co">#re-label and consolidate</span></span>
-<span id="cb60-53"><a href="appendix-2-patchworks-fire-adjustments.html#cb60-53" tabindex="-1"></a>       <span class="fu">grepl</span>(<span class="st">&quot;A.&quot;</span>, natural_species1) <span class="sc">~</span> <span class="st">&quot;sAt&quot;</span>,</span>
-<span id="cb60-54"><a href="appendix-2-patchworks-fire-adjustments.html#cb60-54" tabindex="-1"></a>       <span class="fu">grepl</span>(<span class="st">&quot;P.&quot;</span>, natural_species1) <span class="sc">~</span> <span class="st">&quot;sPl&quot;</span>,</span>
-<span id="cb60-55"><a href="appendix-2-patchworks-fire-adjustments.html#cb60-55" tabindex="-1"></a>       <span class="fu">grepl</span>(<span class="st">&quot;S.&quot;</span>, natural_species1) <span class="sc">~</span> <span class="st">&quot;sS&quot;</span>,</span>
-<span id="cb60-56"><a href="appendix-2-patchworks-fire-adjustments.html#cb60-56" tabindex="-1"></a>       <span class="fu">grepl</span>(<span class="st">&quot;F.&quot;</span>, natural_species1) <span class="sc">~</span> <span class="st">&quot;sFd&quot;</span>,</span>
-<span id="cb60-57"><a href="appendix-2-patchworks-fire-adjustments.html#cb60-57" tabindex="-1"></a>       <span class="fu">grepl</span>(<span class="st">&quot;L.&quot;</span>, natural_species1) <span class="sc">~</span> <span class="st">&quot;sFd&quot;</span>,</span>
-<span id="cb60-58"><a href="appendix-2-patchworks-fire-adjustments.html#cb60-58" tabindex="-1"></a>       <span class="fu">grepl</span>(<span class="st">&quot;B.&quot;</span>, natural_species1) <span class="sc">~</span> <span class="st">&quot;sB&quot;</span>,</span>
-<span id="cb60-59"><a href="appendix-2-patchworks-fire-adjustments.html#cb60-59" tabindex="-1"></a>       <span class="fu">grepl</span>(<span class="st">&quot;C.&quot;</span>, natural_species1) <span class="sc">~</span> <span class="st">&quot;sCw&quot;</span>,</span>
-<span id="cb60-60"><a href="appendix-2-patchworks-fire-adjustments.html#cb60-60" tabindex="-1"></a>       <span class="fu">grepl</span>(<span class="st">&quot;H.&quot;</span>, natural_species1) <span class="sc">~</span> <span class="st">&quot;sH&quot;</span>,</span>
-<span id="cb60-61"><a href="appendix-2-patchworks-fire-adjustments.html#cb60-61" tabindex="-1"></a>       <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">&quot;sDecid&quot;</span></span>
-<span id="cb60-62"><a href="appendix-2-patchworks-fire-adjustments.html#cb60-62" tabindex="-1"></a>       <span class="co"># TRUE ~ &quot;unknown&quot;</span></span>
-<span id="cb60-63"><a href="appendix-2-patchworks-fire-adjustments.html#cb60-63" tabindex="-1"></a>     )</span>
-<span id="cb60-64"><a href="appendix-2-patchworks-fire-adjustments.html#cb60-64" tabindex="-1"></a>   )</span>
-<span id="cb60-65"><a href="appendix-2-patchworks-fire-adjustments.html#cb60-65" tabindex="-1"></a> </span>
-<span id="cb60-66"><a href="appendix-2-patchworks-fire-adjustments.html#cb60-66" tabindex="-1"></a>  openings <span class="ot">&lt;-</span></span>
-<span id="cb60-67"><a href="appendix-2-patchworks-fire-adjustments.html#cb60-67" tabindex="-1"></a>   <span class="fu">bcdc_query_geodata</span>(<span class="st">&quot;53a17fec-e9ad-4ac0-95e6-f5106a97e677&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb60-68"><a href="appendix-2-patchworks-fire-adjustments.html#cb60-68" tabindex="-1"></a>   <span class="fu">filter</span>(<span class="fu">INTERSECTS</span>(drm))<span class="sc">%&gt;%</span></span>
-<span id="cb60-69"><a href="appendix-2-patchworks-fire-adjustments.html#cb60-69" tabindex="-1"></a>   <span class="fu">select</span>(OPENING_ID,OPENING_CATEGORY_CODE,MGMT_UNIT_DESCRIPTION)<span class="sc">%&gt;%</span></span>
-<span id="cb60-70"><a href="appendix-2-patchworks-fire-adjustments.html#cb60-70" tabindex="-1"></a>   <span class="fu">collect</span>()<span class="sc">%&gt;%</span></span>
-<span id="cb60-71"><a href="appendix-2-patchworks-fire-adjustments.html#cb60-71" tabindex="-1"></a>   <span class="fu">st_drop_geometry</span>()<span class="sc">%&gt;%</span></span>
-<span id="cb60-72"><a href="appendix-2-patchworks-fire-adjustments.html#cb60-72" tabindex="-1"></a>   <span class="fu">filter</span>(OPENING_CATEGORY_CODE <span class="sc">%notin%</span> <span class="fu">c</span>(<span class="st">&quot;FG&quot;</span>,<span class="st">&quot;RET&quot;</span>))<span class="sc">%&gt;%</span></span>
-<span id="cb60-73"><a href="appendix-2-patchworks-fire-adjustments.html#cb60-73" tabindex="-1"></a>   <span class="fu">select</span>(<span class="at">open_id =</span> OPENING_ID,<span class="at">open_cat =</span> OPENING_CATEGORY_CODE)</span>
-<span id="cb60-74"><a href="appendix-2-patchworks-fire-adjustments.html#cb60-74" tabindex="-1"></a> </span>
-<span id="cb60-75"><a href="appendix-2-patchworks-fire-adjustments.html#cb60-75" tabindex="-1"></a></span>
-<span id="cb60-76"><a href="appendix-2-patchworks-fire-adjustments.html#cb60-76" tabindex="-1"></a>skey_df<span class="ot">&lt;-</span><span class="fu">left_join</span>(skey_df, openings, <span class="fu">join_by</span>(<span class="st">&quot;open_id&quot;</span>))<span class="co">#1484893</span></span>
-<span id="cb60-77"><a href="appendix-2-patchworks-fire-adjustments.html#cb60-77" tabindex="-1"></a></span>
-<span id="cb60-78"><a href="appendix-2-patchworks-fire-adjustments.html#cb60-78" tabindex="-1"></a><span class="do">##################################################################################</span></span></code></pre></div>
+<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="appendix-2-patchworks-fire-adjustments.html#cb63-1" tabindex="-1"></a><span class="do">##################################################################################</span></span>
+<span id="cb63-2"><a href="appendix-2-patchworks-fire-adjustments.html#cb63-2" tabindex="-1"></a><span class="do">################# managed fields for aggregation###################################</span></span>
+<span id="cb63-3"><a href="appendix-2-patchworks-fire-adjustments.html#cb63-3" tabindex="-1"></a><span class="do">###################################################################################</span></span>
+<span id="cb63-4"><a href="appendix-2-patchworks-fire-adjustments.html#cb63-4" tabindex="-1"></a> <span class="co"># managed fields for aggregation#</span></span>
+<span id="cb63-5"><a href="appendix-2-patchworks-fire-adjustments.html#cb63-5" tabindex="-1"></a> <span class="co">#</span></span>
+<span id="cb63-6"><a href="appendix-2-patchworks-fire-adjustments.html#cb63-6" tabindex="-1"></a> <span class="co">#opening species and si</span></span>
+<span id="cb63-7"><a href="appendix-2-patchworks-fire-adjustments.html#cb63-7" tabindex="-1"></a> managed <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;C:</span><span class="sc">\\</span><span class="st">Data</span><span class="sc">\\</span><span class="st">temp</span><span class="sc">\\</span><span class="st">tsa05</span><span class="sc">\\</span><span class="st">tsa5</span><span class="sc">\\</span><span class="st">MSYT_current_input.csv&quot;</span>)</span>
+<span id="cb63-8"><a href="appendix-2-patchworks-fire-adjustments.html#cb63-8" tabindex="-1"></a> <span class="co">#determine lead species and its associated si</span></span>
+<span id="cb63-9"><a href="appendix-2-patchworks-fire-adjustments.html#cb63-9" tabindex="-1"></a> planted <span class="ot">&lt;-</span> managed <span class="sc">%&gt;%</span></span>
+<span id="cb63-10"><a href="appendix-2-patchworks-fire-adjustments.html#cb63-10" tabindex="-1"></a>   <span class="fu">rowwise</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb63-11"><a href="appendix-2-patchworks-fire-adjustments.html#cb63-11" tabindex="-1"></a>   <span class="fu">mutate</span>(</span>
+<span id="cb63-12"><a href="appendix-2-patchworks-fire-adjustments.html#cb63-12" tabindex="-1"></a>     <span class="at">planted_species1_si =</span> <span class="cf">if</span> (<span class="fu">is.na</span>(planted_species1)) {</span>
+<span id="cb63-13"><a href="appendix-2-patchworks-fire-adjustments.html#cb63-13" tabindex="-1"></a>       <span class="cn">NA_real_</span> <span class="co">#return NA</span></span>
+<span id="cb63-14"><a href="appendix-2-patchworks-fire-adjustments.html#cb63-14" tabindex="-1"></a>     } <span class="cf">else</span> {</span>
+<span id="cb63-15"><a href="appendix-2-patchworks-fire-adjustments.html#cb63-15" tabindex="-1"></a>       col <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="fu">tolower</span>(planted_species1), <span class="st">&quot;_si&quot;</span>)<span class="co">#convert to matching si column header for if</span></span>
+<span id="cb63-16"><a href="appendix-2-patchworks-fire-adjustments.html#cb63-16" tabindex="-1"></a>       <span class="cf">if</span> (col <span class="sc">%in%</span> <span class="fu">names</span>(<span class="fu">cur_data</span>())) <span class="fu">cur_data</span>()[[col]] <span class="cf">else</span> <span class="cn">NA_real_</span> <span class="co"># if the label matches then get the value</span></span>
+<span id="cb63-17"><a href="appendix-2-patchworks-fire-adjustments.html#cb63-17" tabindex="-1"></a>     }</span>
+<span id="cb63-18"><a href="appendix-2-patchworks-fire-adjustments.html#cb63-18" tabindex="-1"></a>   ) <span class="sc">%&gt;%</span></span>
+<span id="cb63-19"><a href="appendix-2-patchworks-fire-adjustments.html#cb63-19" tabindex="-1"></a>   <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb63-20"><a href="appendix-2-patchworks-fire-adjustments.html#cb63-20" tabindex="-1"></a>   <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(planted_species1)) <span class="sc">%&gt;%</span> <span class="co">#just planted</span></span>
+<span id="cb63-21"><a href="appendix-2-patchworks-fire-adjustments.html#cb63-21" tabindex="-1"></a>   <span class="fu">select</span>(feature_id, planted_species1, planted_species1_si) <span class="sc">%&gt;%</span></span>
+<span id="cb63-22"><a href="appendix-2-patchworks-fire-adjustments.html#cb63-22" tabindex="-1"></a>   <span class="fu">mutate</span>(</span>
+<span id="cb63-23"><a href="appendix-2-patchworks-fire-adjustments.html#cb63-23" tabindex="-1"></a>     <span class="at">spc_lbl_pl =</span> <span class="fu">case_when</span>( <span class="co">#relabel and consolidate</span></span>
+<span id="cb63-24"><a href="appendix-2-patchworks-fire-adjustments.html#cb63-24" tabindex="-1"></a>       <span class="fu">grepl</span>(<span class="st">&quot;A.&quot;</span>, planted_species1) <span class="sc">~</span> <span class="st">&quot;sAt&quot;</span>,</span>
+<span id="cb63-25"><a href="appendix-2-patchworks-fire-adjustments.html#cb63-25" tabindex="-1"></a>       <span class="fu">grepl</span>(<span class="st">&quot;P.&quot;</span>, planted_species1) <span class="sc">~</span> <span class="st">&quot;sPl&quot;</span>,</span>
+<span id="cb63-26"><a href="appendix-2-patchworks-fire-adjustments.html#cb63-26" tabindex="-1"></a>       <span class="fu">grepl</span>(<span class="st">&quot;S.&quot;</span>, planted_species1) <span class="sc">~</span> <span class="st">&quot;sS&quot;</span>,</span>
+<span id="cb63-27"><a href="appendix-2-patchworks-fire-adjustments.html#cb63-27" tabindex="-1"></a>       <span class="fu">grepl</span>(<span class="st">&quot;F.&quot;</span>, planted_species1) <span class="sc">~</span> <span class="st">&quot;sFd&quot;</span>,</span>
+<span id="cb63-28"><a href="appendix-2-patchworks-fire-adjustments.html#cb63-28" tabindex="-1"></a>       <span class="fu">grepl</span>(<span class="st">&quot;L.&quot;</span>, planted_species1) <span class="sc">~</span> <span class="st">&quot;sFd&quot;</span>,</span>
+<span id="cb63-29"><a href="appendix-2-patchworks-fire-adjustments.html#cb63-29" tabindex="-1"></a>       <span class="fu">grepl</span>(<span class="st">&quot;B.&quot;</span>, planted_species1) <span class="sc">~</span> <span class="st">&quot;sB&quot;</span>,</span>
+<span id="cb63-30"><a href="appendix-2-patchworks-fire-adjustments.html#cb63-30" tabindex="-1"></a>       <span class="fu">grepl</span>(<span class="st">&quot;C.&quot;</span>, planted_species1) <span class="sc">~</span> <span class="st">&quot;sCw&quot;</span>,</span>
+<span id="cb63-31"><a href="appendix-2-patchworks-fire-adjustments.html#cb63-31" tabindex="-1"></a>       <span class="fu">grepl</span>(<span class="st">&quot;H.&quot;</span>, planted_species1) <span class="sc">~</span> <span class="st">&quot;sH&quot;</span>,</span>
+<span id="cb63-32"><a href="appendix-2-patchworks-fire-adjustments.html#cb63-32" tabindex="-1"></a>       <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">&quot;sDecid&quot;</span></span>
+<span id="cb63-33"><a href="appendix-2-patchworks-fire-adjustments.html#cb63-33" tabindex="-1"></a>       <span class="co"># TRUE ~ &quot;unknown&quot;</span></span>
+<span id="cb63-34"><a href="appendix-2-patchworks-fire-adjustments.html#cb63-34" tabindex="-1"></a>     )</span>
+<span id="cb63-35"><a href="appendix-2-patchworks-fire-adjustments.html#cb63-35" tabindex="-1"></a>   )</span>
+<span id="cb63-36"><a href="appendix-2-patchworks-fire-adjustments.html#cb63-36" tabindex="-1"></a> </span>
+<span id="cb63-37"><a href="appendix-2-patchworks-fire-adjustments.html#cb63-37" tabindex="-1"></a> <span class="co"># do the same for features in openings identified as naturals</span></span>
+<span id="cb63-38"><a href="appendix-2-patchworks-fire-adjustments.html#cb63-38" tabindex="-1"></a> natural <span class="ot">&lt;-</span> managed <span class="sc">%&gt;%</span></span>
+<span id="cb63-39"><a href="appendix-2-patchworks-fire-adjustments.html#cb63-39" tabindex="-1"></a>   <span class="fu">filter</span>(planted_percent <span class="sc">==</span> <span class="dv">0</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb63-40"><a href="appendix-2-patchworks-fire-adjustments.html#cb63-40" tabindex="-1"></a>   <span class="fu">rowwise</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb63-41"><a href="appendix-2-patchworks-fire-adjustments.html#cb63-41" tabindex="-1"></a>   <span class="fu">mutate</span>(</span>
+<span id="cb63-42"><a href="appendix-2-patchworks-fire-adjustments.html#cb63-42" tabindex="-1"></a>     <span class="at">natural_species1_si =</span> <span class="cf">if</span> (<span class="fu">is.na</span>(natural_species1)) {</span>
+<span id="cb63-43"><a href="appendix-2-patchworks-fire-adjustments.html#cb63-43" tabindex="-1"></a>       <span class="cn">NA_real_</span></span>
+<span id="cb63-44"><a href="appendix-2-patchworks-fire-adjustments.html#cb63-44" tabindex="-1"></a>     } <span class="cf">else</span> {</span>
+<span id="cb63-45"><a href="appendix-2-patchworks-fire-adjustments.html#cb63-45" tabindex="-1"></a>       col <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="fu">tolower</span>(natural_species1), <span class="st">&quot;_si&quot;</span>)</span>
+<span id="cb63-46"><a href="appendix-2-patchworks-fire-adjustments.html#cb63-46" tabindex="-1"></a>       <span class="cf">if</span> (col <span class="sc">%in%</span> <span class="fu">names</span>(<span class="fu">cur_data</span>())) <span class="fu">cur_data</span>()[[col]] <span class="cf">else</span> <span class="cn">NA_real_</span></span>
+<span id="cb63-47"><a href="appendix-2-patchworks-fire-adjustments.html#cb63-47" tabindex="-1"></a>     }</span>
+<span id="cb63-48"><a href="appendix-2-patchworks-fire-adjustments.html#cb63-48" tabindex="-1"></a>   ) <span class="sc">%&gt;%</span></span>
+<span id="cb63-49"><a href="appendix-2-patchworks-fire-adjustments.html#cb63-49" tabindex="-1"></a>   <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb63-50"><a href="appendix-2-patchworks-fire-adjustments.html#cb63-50" tabindex="-1"></a>   <span class="fu">select</span>(feature_id, natural_species1, natural_species1_si) <span class="sc">%&gt;%</span></span>
+<span id="cb63-51"><a href="appendix-2-patchworks-fire-adjustments.html#cb63-51" tabindex="-1"></a>   <span class="fu">mutate</span>(</span>
+<span id="cb63-52"><a href="appendix-2-patchworks-fire-adjustments.html#cb63-52" tabindex="-1"></a>     <span class="at">spc_lbl_nat =</span> <span class="fu">case_when</span>(<span class="co">#re-label and consolidate</span></span>
+<span id="cb63-53"><a href="appendix-2-patchworks-fire-adjustments.html#cb63-53" tabindex="-1"></a>       <span class="fu">grepl</span>(<span class="st">&quot;A.&quot;</span>, natural_species1) <span class="sc">~</span> <span class="st">&quot;sAt&quot;</span>,</span>
+<span id="cb63-54"><a href="appendix-2-patchworks-fire-adjustments.html#cb63-54" tabindex="-1"></a>       <span class="fu">grepl</span>(<span class="st">&quot;P.&quot;</span>, natural_species1) <span class="sc">~</span> <span class="st">&quot;sPl&quot;</span>,</span>
+<span id="cb63-55"><a href="appendix-2-patchworks-fire-adjustments.html#cb63-55" tabindex="-1"></a>       <span class="fu">grepl</span>(<span class="st">&quot;S.&quot;</span>, natural_species1) <span class="sc">~</span> <span class="st">&quot;sS&quot;</span>,</span>
+<span id="cb63-56"><a href="appendix-2-patchworks-fire-adjustments.html#cb63-56" tabindex="-1"></a>       <span class="fu">grepl</span>(<span class="st">&quot;F.&quot;</span>, natural_species1) <span class="sc">~</span> <span class="st">&quot;sFd&quot;</span>,</span>
+<span id="cb63-57"><a href="appendix-2-patchworks-fire-adjustments.html#cb63-57" tabindex="-1"></a>       <span class="fu">grepl</span>(<span class="st">&quot;L.&quot;</span>, natural_species1) <span class="sc">~</span> <span class="st">&quot;sFd&quot;</span>,</span>
+<span id="cb63-58"><a href="appendix-2-patchworks-fire-adjustments.html#cb63-58" tabindex="-1"></a>       <span class="fu">grepl</span>(<span class="st">&quot;B.&quot;</span>, natural_species1) <span class="sc">~</span> <span class="st">&quot;sB&quot;</span>,</span>
+<span id="cb63-59"><a href="appendix-2-patchworks-fire-adjustments.html#cb63-59" tabindex="-1"></a>       <span class="fu">grepl</span>(<span class="st">&quot;C.&quot;</span>, natural_species1) <span class="sc">~</span> <span class="st">&quot;sCw&quot;</span>,</span>
+<span id="cb63-60"><a href="appendix-2-patchworks-fire-adjustments.html#cb63-60" tabindex="-1"></a>       <span class="fu">grepl</span>(<span class="st">&quot;H.&quot;</span>, natural_species1) <span class="sc">~</span> <span class="st">&quot;sH&quot;</span>,</span>
+<span id="cb63-61"><a href="appendix-2-patchworks-fire-adjustments.html#cb63-61" tabindex="-1"></a>       <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">&quot;sDecid&quot;</span></span>
+<span id="cb63-62"><a href="appendix-2-patchworks-fire-adjustments.html#cb63-62" tabindex="-1"></a>       <span class="co"># TRUE ~ &quot;unknown&quot;</span></span>
+<span id="cb63-63"><a href="appendix-2-patchworks-fire-adjustments.html#cb63-63" tabindex="-1"></a>     )</span>
+<span id="cb63-64"><a href="appendix-2-patchworks-fire-adjustments.html#cb63-64" tabindex="-1"></a>   )</span>
+<span id="cb63-65"><a href="appendix-2-patchworks-fire-adjustments.html#cb63-65" tabindex="-1"></a> </span>
+<span id="cb63-66"><a href="appendix-2-patchworks-fire-adjustments.html#cb63-66" tabindex="-1"></a>  openings <span class="ot">&lt;-</span></span>
+<span id="cb63-67"><a href="appendix-2-patchworks-fire-adjustments.html#cb63-67" tabindex="-1"></a>   <span class="fu">bcdc_query_geodata</span>(<span class="st">&quot;53a17fec-e9ad-4ac0-95e6-f5106a97e677&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb63-68"><a href="appendix-2-patchworks-fire-adjustments.html#cb63-68" tabindex="-1"></a>   <span class="fu">filter</span>(<span class="fu">INTERSECTS</span>(drm))<span class="sc">%&gt;%</span></span>
+<span id="cb63-69"><a href="appendix-2-patchworks-fire-adjustments.html#cb63-69" tabindex="-1"></a>   <span class="fu">select</span>(OPENING_ID,OPENING_CATEGORY_CODE,MGMT_UNIT_DESCRIPTION)<span class="sc">%&gt;%</span></span>
+<span id="cb63-70"><a href="appendix-2-patchworks-fire-adjustments.html#cb63-70" tabindex="-1"></a>   <span class="fu">collect</span>()<span class="sc">%&gt;%</span></span>
+<span id="cb63-71"><a href="appendix-2-patchworks-fire-adjustments.html#cb63-71" tabindex="-1"></a>   <span class="fu">st_drop_geometry</span>()<span class="sc">%&gt;%</span></span>
+<span id="cb63-72"><a href="appendix-2-patchworks-fire-adjustments.html#cb63-72" tabindex="-1"></a>   <span class="fu">filter</span>(OPENING_CATEGORY_CODE <span class="sc">%notin%</span> <span class="fu">c</span>(<span class="st">&quot;FG&quot;</span>,<span class="st">&quot;RET&quot;</span>))<span class="sc">%&gt;%</span></span>
+<span id="cb63-73"><a href="appendix-2-patchworks-fire-adjustments.html#cb63-73" tabindex="-1"></a>   <span class="fu">select</span>(<span class="at">open_id =</span> OPENING_ID,<span class="at">open_cat =</span> OPENING_CATEGORY_CODE)</span>
+<span id="cb63-74"><a href="appendix-2-patchworks-fire-adjustments.html#cb63-74" tabindex="-1"></a> </span>
+<span id="cb63-75"><a href="appendix-2-patchworks-fire-adjustments.html#cb63-75" tabindex="-1"></a></span>
+<span id="cb63-76"><a href="appendix-2-patchworks-fire-adjustments.html#cb63-76" tabindex="-1"></a>skey_df<span class="ot">&lt;-</span><span class="fu">left_join</span>(skey_df, openings, <span class="fu">join_by</span>(<span class="st">&quot;open_id&quot;</span>))<span class="co">#1484893</span></span>
+<span id="cb63-77"><a href="appendix-2-patchworks-fire-adjustments.html#cb63-77" tabindex="-1"></a></span>
+<span id="cb63-78"><a href="appendix-2-patchworks-fire-adjustments.html#cb63-78" tabindex="-1"></a><span class="do">##################################################################################</span></span></code></pre></div>
 </details>
 </div>
 <div id="step-4-aggregation-fields" class="section level3 hasAnchor" number="15.2.4">
 <h3><span class="header-section-number">15.2.4</span> Step 4: Aggregation Fields<a href="appendix-2-patchworks-fire-adjustments.html#step-4-aggregation-fields" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>The following code chunk finalizes aggregation fields in the skey dataset by classifying site index (SI) values and determining leading species. It first replaces missing VRI site index values with 0 and groups them into 10-point SI classes. It then joins planted and natural species data, similarly replacing missing SI values and assigning SI classes for each. VRI leading species codes are consolidated into broader species groups. Finally, it creates unified fields: si_class, which prioritizes planted SI class, then natural, then VRI; and lead_spp, which similarly prioritizes planted species, then natural, then VRI. The result is a harmonized dataset ready for aggregation by species and site productivity class.</p>
 <details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
-<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="appendix-2-patchworks-fire-adjustments.html#cb61-1" tabindex="-1"></a></span>
-<span id="cb61-2"><a href="appendix-2-patchworks-fire-adjustments.html#cb61-2" tabindex="-1"></a><span class="do">##############################################################################</span></span>
-<span id="cb61-3"><a href="appendix-2-patchworks-fire-adjustments.html#cb61-3" tabindex="-1"></a><span class="do">############## bring it all together and create aggregate classes###############</span></span>
-<span id="cb61-4"><a href="appendix-2-patchworks-fire-adjustments.html#cb61-4" tabindex="-1"></a><span class="do">################################################################################</span></span>
-<span id="cb61-5"><a href="appendix-2-patchworks-fire-adjustments.html#cb61-5" tabindex="-1"></a></span>
-<span id="cb61-6"><a href="appendix-2-patchworks-fire-adjustments.html#cb61-6" tabindex="-1"></a><span class="co">#classify si</span></span>
-<span id="cb61-7"><a href="appendix-2-patchworks-fire-adjustments.html#cb61-7" tabindex="-1"></a>skey_df <span class="ot">&lt;-</span> skey_df <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(</span>
-<span id="cb61-8"><a href="appendix-2-patchworks-fire-adjustments.html#cb61-8" tabindex="-1"></a>  <span class="at">site_index =</span> <span class="fu">case_when</span>(</span>
-<span id="cb61-9"><a href="appendix-2-patchworks-fire-adjustments.html#cb61-9" tabindex="-1"></a>    <span class="fu">is.na</span>(site_index) <span class="sc">~</span> <span class="dv">0</span>,</span>
-<span id="cb61-10"><a href="appendix-2-patchworks-fire-adjustments.html#cb61-10" tabindex="-1"></a>    <span class="cn">TRUE</span> <span class="sc">~</span> site_index</span>
-<span id="cb61-11"><a href="appendix-2-patchworks-fire-adjustments.html#cb61-11" tabindex="-1"></a>  ),</span>
-<span id="cb61-12"><a href="appendix-2-patchworks-fire-adjustments.html#cb61-12" tabindex="-1"></a>  <span class="at">si_class10_vri =</span> <span class="fu">case_when</span>(</span>
-<span id="cb61-13"><a href="appendix-2-patchworks-fire-adjustments.html#cb61-13" tabindex="-1"></a>    <span class="fu">between</span>(site_index, <span class="dv">1</span>, <span class="dv">10</span>) <span class="sc">~</span> <span class="dv">1</span>,</span>
-<span id="cb61-14"><a href="appendix-2-patchworks-fire-adjustments.html#cb61-14" tabindex="-1"></a>    <span class="fu">between</span>(site_index, <span class="dv">11</span>, <span class="dv">20</span>) <span class="sc">~</span> <span class="dv">2</span>,</span>
-<span id="cb61-15"><a href="appendix-2-patchworks-fire-adjustments.html#cb61-15" tabindex="-1"></a>    <span class="fu">between</span>(site_index, <span class="dv">21</span>, <span class="dv">30</span>) <span class="sc">~</span> <span class="dv">3</span>,</span>
-<span id="cb61-16"><a href="appendix-2-patchworks-fire-adjustments.html#cb61-16" tabindex="-1"></a>    site_index <span class="sc">&gt;</span> <span class="dv">30</span> <span class="sc">~</span> <span class="dv">4</span>,</span>
-<span id="cb61-17"><a href="appendix-2-patchworks-fire-adjustments.html#cb61-17" tabindex="-1"></a>    <span class="cn">TRUE</span> <span class="sc">~</span> <span class="dv">0</span></span>
-<span id="cb61-18"><a href="appendix-2-patchworks-fire-adjustments.html#cb61-18" tabindex="-1"></a>  )</span>
-<span id="cb61-19"><a href="appendix-2-patchworks-fire-adjustments.html#cb61-19" tabindex="-1"></a>)</span>
-<span id="cb61-20"><a href="appendix-2-patchworks-fire-adjustments.html#cb61-20" tabindex="-1"></a></span>
-<span id="cb61-21"><a href="appendix-2-patchworks-fire-adjustments.html#cb61-21" tabindex="-1"></a><span class="co">#join master df</span></span>
-<span id="cb61-22"><a href="appendix-2-patchworks-fire-adjustments.html#cb61-22" tabindex="-1"></a>skey_df <span class="ot">&lt;-</span> <span class="fu">left_join</span>(skey_df, planted, <span class="fu">join_by</span>(<span class="st">&quot;feature_id&quot;</span>))</span>
-<span id="cb61-23"><a href="appendix-2-patchworks-fire-adjustments.html#cb61-23" tabindex="-1"></a></span>
-<span id="cb61-24"><a href="appendix-2-patchworks-fire-adjustments.html#cb61-24" tabindex="-1"></a><span class="co">#classify planted si</span></span>
-<span id="cb61-25"><a href="appendix-2-patchworks-fire-adjustments.html#cb61-25" tabindex="-1"></a>skey_df <span class="ot">&lt;-</span> skey_df <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(</span>
-<span id="cb61-26"><a href="appendix-2-patchworks-fire-adjustments.html#cb61-26" tabindex="-1"></a>  <span class="at">planted_species1_si =</span> <span class="fu">case_when</span>(</span>
-<span id="cb61-27"><a href="appendix-2-patchworks-fire-adjustments.html#cb61-27" tabindex="-1"></a>    <span class="fu">is.na</span>(planted_species1_si) <span class="sc">~</span> <span class="dv">0</span>,</span>
-<span id="cb61-28"><a href="appendix-2-patchworks-fire-adjustments.html#cb61-28" tabindex="-1"></a>    <span class="cn">TRUE</span> <span class="sc">~</span> planted_species1_si</span>
-<span id="cb61-29"><a href="appendix-2-patchworks-fire-adjustments.html#cb61-29" tabindex="-1"></a>  ),</span>
-<span id="cb61-30"><a href="appendix-2-patchworks-fire-adjustments.html#cb61-30" tabindex="-1"></a>  <span class="at">si_class10_pl =</span> <span class="fu">case_when</span>(</span>
-<span id="cb61-31"><a href="appendix-2-patchworks-fire-adjustments.html#cb61-31" tabindex="-1"></a>    <span class="fu">between</span>(planted_species1_si, <span class="dv">1</span>, <span class="dv">10</span>) <span class="sc">~</span> <span class="dv">1</span>,</span>
-<span id="cb61-32"><a href="appendix-2-patchworks-fire-adjustments.html#cb61-32" tabindex="-1"></a>    <span class="fu">between</span>(planted_species1_si, <span class="dv">11</span>, <span class="dv">20</span>) <span class="sc">~</span> <span class="dv">2</span>,</span>
-<span id="cb61-33"><a href="appendix-2-patchworks-fire-adjustments.html#cb61-33" tabindex="-1"></a>    <span class="fu">between</span>(planted_species1_si, <span class="dv">21</span>, <span class="dv">30</span>) <span class="sc">~</span> <span class="dv">3</span>,</span>
-<span id="cb61-34"><a href="appendix-2-patchworks-fire-adjustments.html#cb61-34" tabindex="-1"></a>    site_index <span class="sc">&gt;</span> <span class="dv">30</span> <span class="sc">~</span> <span class="dv">4</span>,</span>
-<span id="cb61-35"><a href="appendix-2-patchworks-fire-adjustments.html#cb61-35" tabindex="-1"></a>    <span class="cn">TRUE</span> <span class="sc">~</span> <span class="dv">0</span></span>
-<span id="cb61-36"><a href="appendix-2-patchworks-fire-adjustments.html#cb61-36" tabindex="-1"></a>  )</span>
-<span id="cb61-37"><a href="appendix-2-patchworks-fire-adjustments.html#cb61-37" tabindex="-1"></a>)</span>
-<span id="cb61-38"><a href="appendix-2-patchworks-fire-adjustments.html#cb61-38" tabindex="-1"></a><span class="co">#join master df</span></span>
-<span id="cb61-39"><a href="appendix-2-patchworks-fire-adjustments.html#cb61-39" tabindex="-1"></a>skey_df <span class="ot">&lt;-</span> <span class="fu">left_join</span>(skey_df, natural, <span class="fu">join_by</span>(<span class="st">&quot;feature_id&quot;</span>))</span>
-<span id="cb61-40"><a href="appendix-2-patchworks-fire-adjustments.html#cb61-40" tabindex="-1"></a></span>
-<span id="cb61-41"><a href="appendix-2-patchworks-fire-adjustments.html#cb61-41" tabindex="-1"></a><span class="co">#classify natural si</span></span>
-<span id="cb61-42"><a href="appendix-2-patchworks-fire-adjustments.html#cb61-42" tabindex="-1"></a>skey_df <span class="ot">&lt;-</span> skey_df <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(</span>
-<span id="cb61-43"><a href="appendix-2-patchworks-fire-adjustments.html#cb61-43" tabindex="-1"></a>  <span class="at">natural_species1_si =</span> <span class="fu">case_when</span>(</span>
-<span id="cb61-44"><a href="appendix-2-patchworks-fire-adjustments.html#cb61-44" tabindex="-1"></a>    <span class="fu">is.na</span>(natural_species1_si) <span class="sc">~</span> <span class="dv">0</span>,</span>
-<span id="cb61-45"><a href="appendix-2-patchworks-fire-adjustments.html#cb61-45" tabindex="-1"></a>    <span class="cn">TRUE</span> <span class="sc">~</span> natural_species1_si</span>
-<span id="cb61-46"><a href="appendix-2-patchworks-fire-adjustments.html#cb61-46" tabindex="-1"></a>  ),</span>
-<span id="cb61-47"><a href="appendix-2-patchworks-fire-adjustments.html#cb61-47" tabindex="-1"></a>  <span class="at">si_class10_nat =</span> <span class="fu">case_when</span>(</span>
-<span id="cb61-48"><a href="appendix-2-patchworks-fire-adjustments.html#cb61-48" tabindex="-1"></a>    <span class="fu">between</span>(natural_species1_si, <span class="dv">1</span>, <span class="dv">10</span>) <span class="sc">~</span> <span class="dv">1</span>,</span>
-<span id="cb61-49"><a href="appendix-2-patchworks-fire-adjustments.html#cb61-49" tabindex="-1"></a>    <span class="fu">between</span>(natural_species1_si, <span class="dv">11</span>, <span class="dv">20</span>) <span class="sc">~</span> <span class="dv">2</span>,</span>
-<span id="cb61-50"><a href="appendix-2-patchworks-fire-adjustments.html#cb61-50" tabindex="-1"></a>    <span class="fu">between</span>(natural_species1_si, <span class="dv">21</span>, <span class="dv">30</span>) <span class="sc">~</span> <span class="dv">3</span>,</span>
-<span id="cb61-51"><a href="appendix-2-patchworks-fire-adjustments.html#cb61-51" tabindex="-1"></a>    site_index <span class="sc">&gt;</span> <span class="dv">30</span> <span class="sc">~</span> <span class="dv">4</span>,</span>
-<span id="cb61-52"><a href="appendix-2-patchworks-fire-adjustments.html#cb61-52" tabindex="-1"></a>    <span class="cn">TRUE</span> <span class="sc">~</span> <span class="dv">0</span></span>
-<span id="cb61-53"><a href="appendix-2-patchworks-fire-adjustments.html#cb61-53" tabindex="-1"></a>  )</span>
-<span id="cb61-54"><a href="appendix-2-patchworks-fire-adjustments.html#cb61-54" tabindex="-1"></a>)</span>
-<span id="cb61-55"><a href="appendix-2-patchworks-fire-adjustments.html#cb61-55" tabindex="-1"></a></span>
-<span id="cb61-56"><a href="appendix-2-patchworks-fire-adjustments.html#cb61-56" tabindex="-1"></a><span class="co">#re-label and consolidate vri spec_cd_1</span></span>
-<span id="cb61-57"><a href="appendix-2-patchworks-fire-adjustments.html#cb61-57" tabindex="-1"></a>skey_df <span class="ot">&lt;-</span> skey_df <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(</span>
-<span id="cb61-58"><a href="appendix-2-patchworks-fire-adjustments.html#cb61-58" tabindex="-1"></a>  <span class="at">spc_lbl_vri =</span> <span class="fu">case_when</span>(</span>
-<span id="cb61-59"><a href="appendix-2-patchworks-fire-adjustments.html#cb61-59" tabindex="-1"></a>    <span class="fu">grepl</span>(<span class="st">&quot;A.&quot;</span>, spec_cd_1) <span class="sc">~</span> <span class="st">&quot;sAt&quot;</span>,</span>
-<span id="cb61-60"><a href="appendix-2-patchworks-fire-adjustments.html#cb61-60" tabindex="-1"></a>    <span class="fu">grepl</span>(<span class="st">&quot;E.&quot;</span>, spec_cd_1) <span class="sc">~</span> <span class="st">&quot;sDecid&quot;</span>,</span>
-<span id="cb61-61"><a href="appendix-2-patchworks-fire-adjustments.html#cb61-61" tabindex="-1"></a>    <span class="fu">grepl</span>(<span class="st">&quot;E&quot;</span>, spec_cd_1) <span class="sc">~</span> <span class="st">&quot;sDecid&quot;</span>,</span>
-<span id="cb61-62"><a href="appendix-2-patchworks-fire-adjustments.html#cb61-62" tabindex="-1"></a>    <span class="fu">grepl</span>(<span class="st">&quot;B.&quot;</span>, spec_cd_1) <span class="sc">~</span> <span class="st">&quot;sB&quot;</span>,</span>
-<span id="cb61-63"><a href="appendix-2-patchworks-fire-adjustments.html#cb61-63" tabindex="-1"></a>    <span class="fu">grepl</span>(<span class="st">&quot;B&quot;</span>, spec_cd_1) <span class="sc">~</span> <span class="st">&quot;sB&quot;</span>,</span>
-<span id="cb61-64"><a href="appendix-2-patchworks-fire-adjustments.html#cb61-64" tabindex="-1"></a>    <span class="fu">grepl</span>(<span class="st">&quot;C.&quot;</span>, spec_cd_1) <span class="sc">~</span> <span class="st">&quot;sCw&quot;</span>,</span>
-<span id="cb61-65"><a href="appendix-2-patchworks-fire-adjustments.html#cb61-65" tabindex="-1"></a>    <span class="fu">grepl</span>(<span class="st">&quot;F.&quot;</span>, spec_cd_1) <span class="sc">~</span> <span class="st">&quot;sFd&quot;</span>,</span>
-<span id="cb61-66"><a href="appendix-2-patchworks-fire-adjustments.html#cb61-66" tabindex="-1"></a>    <span class="fu">grepl</span>(<span class="st">&quot;L.&quot;</span>, spec_cd_1) <span class="sc">~</span> <span class="st">&quot;sFd&quot;</span>,</span>
-<span id="cb61-67"><a href="appendix-2-patchworks-fire-adjustments.html#cb61-67" tabindex="-1"></a>    <span class="fu">grepl</span>(<span class="st">&quot;H.&quot;</span>, spec_cd_1) <span class="sc">~</span> <span class="st">&quot;sH&quot;</span>,</span>
-<span id="cb61-68"><a href="appendix-2-patchworks-fire-adjustments.html#cb61-68" tabindex="-1"></a>    <span class="fu">grepl</span>(<span class="st">&quot;H&quot;</span>, spec_cd_1) <span class="sc">~</span> <span class="st">&quot;sH&quot;</span>,</span>
-<span id="cb61-69"><a href="appendix-2-patchworks-fire-adjustments.html#cb61-69" tabindex="-1"></a>    <span class="fu">grepl</span>(<span class="st">&quot;P.&quot;</span>, spec_cd_1) <span class="sc">~</span> <span class="st">&quot;sPl&quot;</span>,</span>
-<span id="cb61-70"><a href="appendix-2-patchworks-fire-adjustments.html#cb61-70" tabindex="-1"></a>    <span class="fu">grepl</span>(<span class="st">&quot;S.&quot;</span>, spec_cd_1) <span class="sc">~</span> <span class="st">&quot;sS&quot;</span>,</span>
-<span id="cb61-71"><a href="appendix-2-patchworks-fire-adjustments.html#cb61-71" tabindex="-1"></a>    <span class="fu">grepl</span>(<span class="st">&quot;S&quot;</span>, spec_cd_1) <span class="sc">~</span> <span class="st">&quot;sS&quot;</span>,</span>
-<span id="cb61-72"><a href="appendix-2-patchworks-fire-adjustments.html#cb61-72" tabindex="-1"></a>    <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">&quot;sDecid&quot;</span></span>
-<span id="cb61-73"><a href="appendix-2-patchworks-fire-adjustments.html#cb61-73" tabindex="-1"></a>    <span class="co"># TRUE ~ &quot;unknown&quot;</span></span>
-<span id="cb61-74"><a href="appendix-2-patchworks-fire-adjustments.html#cb61-74" tabindex="-1"></a>  )</span>
-<span id="cb61-75"><a href="appendix-2-patchworks-fire-adjustments.html#cb61-75" tabindex="-1"></a>)</span>
-<span id="cb61-76"><a href="appendix-2-patchworks-fire-adjustments.html#cb61-76" tabindex="-1"></a></span>
-<span id="cb61-77"><a href="appendix-2-patchworks-fire-adjustments.html#cb61-77" tabindex="-1"></a>skey_df <span class="ot">&lt;-</span> skey_df <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(</span>
-<span id="cb61-78"><a href="appendix-2-patchworks-fire-adjustments.html#cb61-78" tabindex="-1"></a>  <span class="at">si_class =</span> <span class="fu">case_when</span>(</span>
-<span id="cb61-79"><a href="appendix-2-patchworks-fire-adjustments.html#cb61-79" tabindex="-1"></a>    <span class="sc">!</span><span class="fu">is.na</span>(planted_species1) <span class="sc">~</span> si_class10_pl,</span>
-<span id="cb61-80"><a href="appendix-2-patchworks-fire-adjustments.html#cb61-80" tabindex="-1"></a>    <span class="sc">!</span><span class="fu">is.na</span>(natural_species1) <span class="sc">~</span> si_class10_nat,</span>
-<span id="cb61-81"><a href="appendix-2-patchworks-fire-adjustments.html#cb61-81" tabindex="-1"></a>    <span class="cn">TRUE</span> <span class="sc">~</span> si_class10_vri</span>
-<span id="cb61-82"><a href="appendix-2-patchworks-fire-adjustments.html#cb61-82" tabindex="-1"></a>  ),</span>
-<span id="cb61-83"><a href="appendix-2-patchworks-fire-adjustments.html#cb61-83" tabindex="-1"></a>  <span class="at">lead_spp =</span> <span class="fu">case_when</span>(</span>
-<span id="cb61-84"><a href="appendix-2-patchworks-fire-adjustments.html#cb61-84" tabindex="-1"></a>    <span class="sc">!</span><span class="fu">is.na</span>(planted_species1) <span class="sc">~</span> spc_lbl_pl,</span>
-<span id="cb61-85"><a href="appendix-2-patchworks-fire-adjustments.html#cb61-85" tabindex="-1"></a>    <span class="sc">!</span><span class="fu">is.na</span>(natural_species1) <span class="sc">~</span> spc_lbl_nat,</span>
-<span id="cb61-86"><a href="appendix-2-patchworks-fire-adjustments.html#cb61-86" tabindex="-1"></a>    <span class="cn">TRUE</span> <span class="sc">~</span> spc_lbl_vri</span>
-<span id="cb61-87"><a href="appendix-2-patchworks-fire-adjustments.html#cb61-87" tabindex="-1"></a>  )</span>
-<span id="cb61-88"><a href="appendix-2-patchworks-fire-adjustments.html#cb61-88" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="appendix-2-patchworks-fire-adjustments.html#cb64-1" tabindex="-1"></a></span>
+<span id="cb64-2"><a href="appendix-2-patchworks-fire-adjustments.html#cb64-2" tabindex="-1"></a><span class="do">##############################################################################</span></span>
+<span id="cb64-3"><a href="appendix-2-patchworks-fire-adjustments.html#cb64-3" tabindex="-1"></a><span class="do">############## bring it all together and create aggregate classes###############</span></span>
+<span id="cb64-4"><a href="appendix-2-patchworks-fire-adjustments.html#cb64-4" tabindex="-1"></a><span class="do">################################################################################</span></span>
+<span id="cb64-5"><a href="appendix-2-patchworks-fire-adjustments.html#cb64-5" tabindex="-1"></a></span>
+<span id="cb64-6"><a href="appendix-2-patchworks-fire-adjustments.html#cb64-6" tabindex="-1"></a><span class="co">#classify si</span></span>
+<span id="cb64-7"><a href="appendix-2-patchworks-fire-adjustments.html#cb64-7" tabindex="-1"></a>skey_df <span class="ot">&lt;-</span> skey_df <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(</span>
+<span id="cb64-8"><a href="appendix-2-patchworks-fire-adjustments.html#cb64-8" tabindex="-1"></a>  <span class="at">site_index =</span> <span class="fu">case_when</span>(</span>
+<span id="cb64-9"><a href="appendix-2-patchworks-fire-adjustments.html#cb64-9" tabindex="-1"></a>    <span class="fu">is.na</span>(site_index) <span class="sc">~</span> <span class="dv">0</span>,</span>
+<span id="cb64-10"><a href="appendix-2-patchworks-fire-adjustments.html#cb64-10" tabindex="-1"></a>    <span class="cn">TRUE</span> <span class="sc">~</span> site_index</span>
+<span id="cb64-11"><a href="appendix-2-patchworks-fire-adjustments.html#cb64-11" tabindex="-1"></a>  ),</span>
+<span id="cb64-12"><a href="appendix-2-patchworks-fire-adjustments.html#cb64-12" tabindex="-1"></a>  <span class="at">si_class10_vri =</span> <span class="fu">case_when</span>(</span>
+<span id="cb64-13"><a href="appendix-2-patchworks-fire-adjustments.html#cb64-13" tabindex="-1"></a>    <span class="fu">between</span>(site_index, <span class="dv">1</span>, <span class="dv">10</span>) <span class="sc">~</span> <span class="dv">1</span>,</span>
+<span id="cb64-14"><a href="appendix-2-patchworks-fire-adjustments.html#cb64-14" tabindex="-1"></a>    <span class="fu">between</span>(site_index, <span class="dv">11</span>, <span class="dv">20</span>) <span class="sc">~</span> <span class="dv">2</span>,</span>
+<span id="cb64-15"><a href="appendix-2-patchworks-fire-adjustments.html#cb64-15" tabindex="-1"></a>    <span class="fu">between</span>(site_index, <span class="dv">21</span>, <span class="dv">30</span>) <span class="sc">~</span> <span class="dv">3</span>,</span>
+<span id="cb64-16"><a href="appendix-2-patchworks-fire-adjustments.html#cb64-16" tabindex="-1"></a>    site_index <span class="sc">&gt;</span> <span class="dv">30</span> <span class="sc">~</span> <span class="dv">4</span>,</span>
+<span id="cb64-17"><a href="appendix-2-patchworks-fire-adjustments.html#cb64-17" tabindex="-1"></a>    <span class="cn">TRUE</span> <span class="sc">~</span> <span class="dv">0</span></span>
+<span id="cb64-18"><a href="appendix-2-patchworks-fire-adjustments.html#cb64-18" tabindex="-1"></a>  )</span>
+<span id="cb64-19"><a href="appendix-2-patchworks-fire-adjustments.html#cb64-19" tabindex="-1"></a>)</span>
+<span id="cb64-20"><a href="appendix-2-patchworks-fire-adjustments.html#cb64-20" tabindex="-1"></a></span>
+<span id="cb64-21"><a href="appendix-2-patchworks-fire-adjustments.html#cb64-21" tabindex="-1"></a><span class="co">#join master df</span></span>
+<span id="cb64-22"><a href="appendix-2-patchworks-fire-adjustments.html#cb64-22" tabindex="-1"></a>skey_df <span class="ot">&lt;-</span> <span class="fu">left_join</span>(skey_df, planted, <span class="fu">join_by</span>(<span class="st">&quot;feature_id&quot;</span>))</span>
+<span id="cb64-23"><a href="appendix-2-patchworks-fire-adjustments.html#cb64-23" tabindex="-1"></a></span>
+<span id="cb64-24"><a href="appendix-2-patchworks-fire-adjustments.html#cb64-24" tabindex="-1"></a><span class="co">#classify planted si</span></span>
+<span id="cb64-25"><a href="appendix-2-patchworks-fire-adjustments.html#cb64-25" tabindex="-1"></a>skey_df <span class="ot">&lt;-</span> skey_df <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(</span>
+<span id="cb64-26"><a href="appendix-2-patchworks-fire-adjustments.html#cb64-26" tabindex="-1"></a>  <span class="at">planted_species1_si =</span> <span class="fu">case_when</span>(</span>
+<span id="cb64-27"><a href="appendix-2-patchworks-fire-adjustments.html#cb64-27" tabindex="-1"></a>    <span class="fu">is.na</span>(planted_species1_si) <span class="sc">~</span> <span class="dv">0</span>,</span>
+<span id="cb64-28"><a href="appendix-2-patchworks-fire-adjustments.html#cb64-28" tabindex="-1"></a>    <span class="cn">TRUE</span> <span class="sc">~</span> planted_species1_si</span>
+<span id="cb64-29"><a href="appendix-2-patchworks-fire-adjustments.html#cb64-29" tabindex="-1"></a>  ),</span>
+<span id="cb64-30"><a href="appendix-2-patchworks-fire-adjustments.html#cb64-30" tabindex="-1"></a>  <span class="at">si_class10_pl =</span> <span class="fu">case_when</span>(</span>
+<span id="cb64-31"><a href="appendix-2-patchworks-fire-adjustments.html#cb64-31" tabindex="-1"></a>    <span class="fu">between</span>(planted_species1_si, <span class="dv">1</span>, <span class="dv">10</span>) <span class="sc">~</span> <span class="dv">1</span>,</span>
+<span id="cb64-32"><a href="appendix-2-patchworks-fire-adjustments.html#cb64-32" tabindex="-1"></a>    <span class="fu">between</span>(planted_species1_si, <span class="dv">11</span>, <span class="dv">20</span>) <span class="sc">~</span> <span class="dv">2</span>,</span>
+<span id="cb64-33"><a href="appendix-2-patchworks-fire-adjustments.html#cb64-33" tabindex="-1"></a>    <span class="fu">between</span>(planted_species1_si, <span class="dv">21</span>, <span class="dv">30</span>) <span class="sc">~</span> <span class="dv">3</span>,</span>
+<span id="cb64-34"><a href="appendix-2-patchworks-fire-adjustments.html#cb64-34" tabindex="-1"></a>    site_index <span class="sc">&gt;</span> <span class="dv">30</span> <span class="sc">~</span> <span class="dv">4</span>,</span>
+<span id="cb64-35"><a href="appendix-2-patchworks-fire-adjustments.html#cb64-35" tabindex="-1"></a>    <span class="cn">TRUE</span> <span class="sc">~</span> <span class="dv">0</span></span>
+<span id="cb64-36"><a href="appendix-2-patchworks-fire-adjustments.html#cb64-36" tabindex="-1"></a>  )</span>
+<span id="cb64-37"><a href="appendix-2-patchworks-fire-adjustments.html#cb64-37" tabindex="-1"></a>)</span>
+<span id="cb64-38"><a href="appendix-2-patchworks-fire-adjustments.html#cb64-38" tabindex="-1"></a><span class="co">#join master df</span></span>
+<span id="cb64-39"><a href="appendix-2-patchworks-fire-adjustments.html#cb64-39" tabindex="-1"></a>skey_df <span class="ot">&lt;-</span> <span class="fu">left_join</span>(skey_df, natural, <span class="fu">join_by</span>(<span class="st">&quot;feature_id&quot;</span>))</span>
+<span id="cb64-40"><a href="appendix-2-patchworks-fire-adjustments.html#cb64-40" tabindex="-1"></a></span>
+<span id="cb64-41"><a href="appendix-2-patchworks-fire-adjustments.html#cb64-41" tabindex="-1"></a><span class="co">#classify natural si</span></span>
+<span id="cb64-42"><a href="appendix-2-patchworks-fire-adjustments.html#cb64-42" tabindex="-1"></a>skey_df <span class="ot">&lt;-</span> skey_df <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(</span>
+<span id="cb64-43"><a href="appendix-2-patchworks-fire-adjustments.html#cb64-43" tabindex="-1"></a>  <span class="at">natural_species1_si =</span> <span class="fu">case_when</span>(</span>
+<span id="cb64-44"><a href="appendix-2-patchworks-fire-adjustments.html#cb64-44" tabindex="-1"></a>    <span class="fu">is.na</span>(natural_species1_si) <span class="sc">~</span> <span class="dv">0</span>,</span>
+<span id="cb64-45"><a href="appendix-2-patchworks-fire-adjustments.html#cb64-45" tabindex="-1"></a>    <span class="cn">TRUE</span> <span class="sc">~</span> natural_species1_si</span>
+<span id="cb64-46"><a href="appendix-2-patchworks-fire-adjustments.html#cb64-46" tabindex="-1"></a>  ),</span>
+<span id="cb64-47"><a href="appendix-2-patchworks-fire-adjustments.html#cb64-47" tabindex="-1"></a>  <span class="at">si_class10_nat =</span> <span class="fu">case_when</span>(</span>
+<span id="cb64-48"><a href="appendix-2-patchworks-fire-adjustments.html#cb64-48" tabindex="-1"></a>    <span class="fu">between</span>(natural_species1_si, <span class="dv">1</span>, <span class="dv">10</span>) <span class="sc">~</span> <span class="dv">1</span>,</span>
+<span id="cb64-49"><a href="appendix-2-patchworks-fire-adjustments.html#cb64-49" tabindex="-1"></a>    <span class="fu">between</span>(natural_species1_si, <span class="dv">11</span>, <span class="dv">20</span>) <span class="sc">~</span> <span class="dv">2</span>,</span>
+<span id="cb64-50"><a href="appendix-2-patchworks-fire-adjustments.html#cb64-50" tabindex="-1"></a>    <span class="fu">between</span>(natural_species1_si, <span class="dv">21</span>, <span class="dv">30</span>) <span class="sc">~</span> <span class="dv">3</span>,</span>
+<span id="cb64-51"><a href="appendix-2-patchworks-fire-adjustments.html#cb64-51" tabindex="-1"></a>    site_index <span class="sc">&gt;</span> <span class="dv">30</span> <span class="sc">~</span> <span class="dv">4</span>,</span>
+<span id="cb64-52"><a href="appendix-2-patchworks-fire-adjustments.html#cb64-52" tabindex="-1"></a>    <span class="cn">TRUE</span> <span class="sc">~</span> <span class="dv">0</span></span>
+<span id="cb64-53"><a href="appendix-2-patchworks-fire-adjustments.html#cb64-53" tabindex="-1"></a>  )</span>
+<span id="cb64-54"><a href="appendix-2-patchworks-fire-adjustments.html#cb64-54" tabindex="-1"></a>)</span>
+<span id="cb64-55"><a href="appendix-2-patchworks-fire-adjustments.html#cb64-55" tabindex="-1"></a></span>
+<span id="cb64-56"><a href="appendix-2-patchworks-fire-adjustments.html#cb64-56" tabindex="-1"></a><span class="co">#re-label and consolidate vri spec_cd_1</span></span>
+<span id="cb64-57"><a href="appendix-2-patchworks-fire-adjustments.html#cb64-57" tabindex="-1"></a>skey_df <span class="ot">&lt;-</span> skey_df <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(</span>
+<span id="cb64-58"><a href="appendix-2-patchworks-fire-adjustments.html#cb64-58" tabindex="-1"></a>  <span class="at">spc_lbl_vri =</span> <span class="fu">case_when</span>(</span>
+<span id="cb64-59"><a href="appendix-2-patchworks-fire-adjustments.html#cb64-59" tabindex="-1"></a>    <span class="fu">grepl</span>(<span class="st">&quot;A.&quot;</span>, spec_cd_1) <span class="sc">~</span> <span class="st">&quot;sAt&quot;</span>,</span>
+<span id="cb64-60"><a href="appendix-2-patchworks-fire-adjustments.html#cb64-60" tabindex="-1"></a>    <span class="fu">grepl</span>(<span class="st">&quot;E.&quot;</span>, spec_cd_1) <span class="sc">~</span> <span class="st">&quot;sDecid&quot;</span>,</span>
+<span id="cb64-61"><a href="appendix-2-patchworks-fire-adjustments.html#cb64-61" tabindex="-1"></a>    <span class="fu">grepl</span>(<span class="st">&quot;E&quot;</span>, spec_cd_1) <span class="sc">~</span> <span class="st">&quot;sDecid&quot;</span>,</span>
+<span id="cb64-62"><a href="appendix-2-patchworks-fire-adjustments.html#cb64-62" tabindex="-1"></a>    <span class="fu">grepl</span>(<span class="st">&quot;B.&quot;</span>, spec_cd_1) <span class="sc">~</span> <span class="st">&quot;sB&quot;</span>,</span>
+<span id="cb64-63"><a href="appendix-2-patchworks-fire-adjustments.html#cb64-63" tabindex="-1"></a>    <span class="fu">grepl</span>(<span class="st">&quot;B&quot;</span>, spec_cd_1) <span class="sc">~</span> <span class="st">&quot;sB&quot;</span>,</span>
+<span id="cb64-64"><a href="appendix-2-patchworks-fire-adjustments.html#cb64-64" tabindex="-1"></a>    <span class="fu">grepl</span>(<span class="st">&quot;C.&quot;</span>, spec_cd_1) <span class="sc">~</span> <span class="st">&quot;sCw&quot;</span>,</span>
+<span id="cb64-65"><a href="appendix-2-patchworks-fire-adjustments.html#cb64-65" tabindex="-1"></a>    <span class="fu">grepl</span>(<span class="st">&quot;F.&quot;</span>, spec_cd_1) <span class="sc">~</span> <span class="st">&quot;sFd&quot;</span>,</span>
+<span id="cb64-66"><a href="appendix-2-patchworks-fire-adjustments.html#cb64-66" tabindex="-1"></a>    <span class="fu">grepl</span>(<span class="st">&quot;L.&quot;</span>, spec_cd_1) <span class="sc">~</span> <span class="st">&quot;sFd&quot;</span>,</span>
+<span id="cb64-67"><a href="appendix-2-patchworks-fire-adjustments.html#cb64-67" tabindex="-1"></a>    <span class="fu">grepl</span>(<span class="st">&quot;H.&quot;</span>, spec_cd_1) <span class="sc">~</span> <span class="st">&quot;sH&quot;</span>,</span>
+<span id="cb64-68"><a href="appendix-2-patchworks-fire-adjustments.html#cb64-68" tabindex="-1"></a>    <span class="fu">grepl</span>(<span class="st">&quot;H&quot;</span>, spec_cd_1) <span class="sc">~</span> <span class="st">&quot;sH&quot;</span>,</span>
+<span id="cb64-69"><a href="appendix-2-patchworks-fire-adjustments.html#cb64-69" tabindex="-1"></a>    <span class="fu">grepl</span>(<span class="st">&quot;P.&quot;</span>, spec_cd_1) <span class="sc">~</span> <span class="st">&quot;sPl&quot;</span>,</span>
+<span id="cb64-70"><a href="appendix-2-patchworks-fire-adjustments.html#cb64-70" tabindex="-1"></a>    <span class="fu">grepl</span>(<span class="st">&quot;S.&quot;</span>, spec_cd_1) <span class="sc">~</span> <span class="st">&quot;sS&quot;</span>,</span>
+<span id="cb64-71"><a href="appendix-2-patchworks-fire-adjustments.html#cb64-71" tabindex="-1"></a>    <span class="fu">grepl</span>(<span class="st">&quot;S&quot;</span>, spec_cd_1) <span class="sc">~</span> <span class="st">&quot;sS&quot;</span>,</span>
+<span id="cb64-72"><a href="appendix-2-patchworks-fire-adjustments.html#cb64-72" tabindex="-1"></a>    <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">&quot;sDecid&quot;</span></span>
+<span id="cb64-73"><a href="appendix-2-patchworks-fire-adjustments.html#cb64-73" tabindex="-1"></a>    <span class="co"># TRUE ~ &quot;unknown&quot;</span></span>
+<span id="cb64-74"><a href="appendix-2-patchworks-fire-adjustments.html#cb64-74" tabindex="-1"></a>  )</span>
+<span id="cb64-75"><a href="appendix-2-patchworks-fire-adjustments.html#cb64-75" tabindex="-1"></a>)</span>
+<span id="cb64-76"><a href="appendix-2-patchworks-fire-adjustments.html#cb64-76" tabindex="-1"></a></span>
+<span id="cb64-77"><a href="appendix-2-patchworks-fire-adjustments.html#cb64-77" tabindex="-1"></a>skey_df <span class="ot">&lt;-</span> skey_df <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(</span>
+<span id="cb64-78"><a href="appendix-2-patchworks-fire-adjustments.html#cb64-78" tabindex="-1"></a>  <span class="at">si_class =</span> <span class="fu">case_when</span>(</span>
+<span id="cb64-79"><a href="appendix-2-patchworks-fire-adjustments.html#cb64-79" tabindex="-1"></a>    <span class="sc">!</span><span class="fu">is.na</span>(planted_species1) <span class="sc">~</span> si_class10_pl,</span>
+<span id="cb64-80"><a href="appendix-2-patchworks-fire-adjustments.html#cb64-80" tabindex="-1"></a>    <span class="sc">!</span><span class="fu">is.na</span>(natural_species1) <span class="sc">~</span> si_class10_nat,</span>
+<span id="cb64-81"><a href="appendix-2-patchworks-fire-adjustments.html#cb64-81" tabindex="-1"></a>    <span class="cn">TRUE</span> <span class="sc">~</span> si_class10_vri</span>
+<span id="cb64-82"><a href="appendix-2-patchworks-fire-adjustments.html#cb64-82" tabindex="-1"></a>  ),</span>
+<span id="cb64-83"><a href="appendix-2-patchworks-fire-adjustments.html#cb64-83" tabindex="-1"></a>  <span class="at">lead_spp =</span> <span class="fu">case_when</span>(</span>
+<span id="cb64-84"><a href="appendix-2-patchworks-fire-adjustments.html#cb64-84" tabindex="-1"></a>    <span class="sc">!</span><span class="fu">is.na</span>(planted_species1) <span class="sc">~</span> spc_lbl_pl,</span>
+<span id="cb64-85"><a href="appendix-2-patchworks-fire-adjustments.html#cb64-85" tabindex="-1"></a>    <span class="sc">!</span><span class="fu">is.na</span>(natural_species1) <span class="sc">~</span> spc_lbl_nat,</span>
+<span id="cb64-86"><a href="appendix-2-patchworks-fire-adjustments.html#cb64-86" tabindex="-1"></a>    <span class="cn">TRUE</span> <span class="sc">~</span> spc_lbl_vri</span>
+<span id="cb64-87"><a href="appendix-2-patchworks-fire-adjustments.html#cb64-87" tabindex="-1"></a>  )</span>
+<span id="cb64-88"><a href="appendix-2-patchworks-fire-adjustments.html#cb64-88" tabindex="-1"></a>)</span></code></pre></div>
 </details>
 </div>
 <div id="step-5-find-aggregates" class="section level3 hasAnchor" number="15.2.5">
@@ -815,138 +812,138 @@ BEC-level median. This selected median (agg_med_cmai) is then used to identify t
 whose CMAI is closest to the reference value. That AU becomes the representative or
 replacement condition for the aggregate, allowing burned areas to be reassigned productivity and age characteristics based on comparable unburned forest conditions.</p>
 <details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
-<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-1" tabindex="-1"></a></span>
-<span id="cb62-2"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-2" tabindex="-1"></a><span class="do">################################################################################</span></span>
-<span id="cb62-3"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-3" tabindex="-1"></a><span class="co">#  Create aggregate ID</span></span>
-<span id="cb62-4"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-4" tabindex="-1"></a><span class="do">################################################################################</span></span>
-<span id="cb62-5"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-5" tabindex="-1"></a></span>
-<span id="cb62-6"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-6" tabindex="-1"></a>nb <span class="ot">&lt;-</span> skey_df <span class="sc">%&gt;%</span></span>
-<span id="cb62-7"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-7" tabindex="-1"></a>  <span class="fu">group_by</span>(bec_zone, si_class, lead_spp) <span class="sc">%&gt;%</span></span>
-<span id="cb62-8"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-8" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">agg_id =</span> <span class="fu">cur_group_id</span>()) <span class="sc">%&gt;%</span></span>
-<span id="cb62-9"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-9" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span>
-<span id="cb62-10"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-10" tabindex="-1"></a></span>
-<span id="cb62-11"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-11" tabindex="-1"></a> nb_mpb<span class="ot">&lt;-</span>nb<span class="sc">%&gt;%</span></span>
-<span id="cb62-12"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-12" tabindex="-1"></a>   <span class="fu">filter</span>(<span class="fu">is.na</span>(fire_year)<span class="sc">&amp;</span> <span class="fu">is.na</span>(dvltot_125))</span>
-<span id="cb62-13"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-13" tabindex="-1"></a></span>
-<span id="cb62-14"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-14" tabindex="-1"></a><span class="do">################################################################################</span></span>
-<span id="cb62-15"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-15" tabindex="-1"></a><span class="co">#  Compute medians</span></span>
-<span id="cb62-16"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-16" tabindex="-1"></a><span class="do">################################################################################</span></span>
-<span id="cb62-17"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-17" tabindex="-1"></a></span>
-<span id="cb62-18"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-18" tabindex="-1"></a><span class="co"># Primary: unburned  and nonMPB only</span></span>
-<span id="cb62-19"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-19" tabindex="-1"></a>med_unburned <span class="ot">&lt;-</span> nb_mpb <span class="sc">%&gt;%</span></span>
-<span id="cb62-20"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-20" tabindex="-1"></a>  <span class="fu">group_by</span>(agg_id) <span class="sc">%&gt;%</span></span>
-<span id="cb62-21"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-21" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
-<span id="cb62-22"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-22" tabindex="-1"></a>    <span class="at">med_unburned =</span> <span class="fu">median</span>(CMAI, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb62-23"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-23" tabindex="-1"></a>    <span class="at">.groups =</span> <span class="st">&quot;drop&quot;</span></span>
-<span id="cb62-24"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-24" tabindex="-1"></a>  )</span>
-<span id="cb62-25"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-25" tabindex="-1"></a></span>
-<span id="cb62-26"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-26" tabindex="-1"></a><span class="co"># Fallback 1: all records</span></span>
-<span id="cb62-27"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-27" tabindex="-1"></a>med_all <span class="ot">&lt;-</span> nb <span class="sc">%&gt;%</span></span>
-<span id="cb62-28"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-28" tabindex="-1"></a>  <span class="fu">group_by</span>(agg_id) <span class="sc">%&gt;%</span></span>
-<span id="cb62-29"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-29" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
-<span id="cb62-30"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-30" tabindex="-1"></a>    <span class="at">med_all =</span> <span class="fu">median</span>(CMAI, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb62-31"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-31" tabindex="-1"></a>    <span class="at">.groups =</span> <span class="st">&quot;drop&quot;</span></span>
-<span id="cb62-32"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-32" tabindex="-1"></a>  )</span>
-<span id="cb62-33"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-33" tabindex="-1"></a></span>
-<span id="cb62-34"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-34" tabindex="-1"></a><span class="co"># Fallback 2: BEC-level (unburned and nonMPB)</span></span>
-<span id="cb62-35"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-35" tabindex="-1"></a>med_bec <span class="ot">&lt;-</span> nb_mpb <span class="sc">%&gt;%</span></span>
-<span id="cb62-36"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-36" tabindex="-1"></a>  <span class="fu">group_by</span>(bec_zone) <span class="sc">%&gt;%</span></span>
-<span id="cb62-37"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-37" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
-<span id="cb62-38"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-38" tabindex="-1"></a>    <span class="at">med_bec =</span> <span class="fu">median</span>(CMAI, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb62-39"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-39" tabindex="-1"></a>    <span class="at">.groups =</span> <span class="st">&quot;drop&quot;</span></span>
-<span id="cb62-40"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-40" tabindex="-1"></a>  )</span>
-<span id="cb62-41"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-41" tabindex="-1"></a></span>
-<span id="cb62-42"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-42" tabindex="-1"></a><span class="do">################################################################################</span></span>
-<span id="cb62-43"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-43" tabindex="-1"></a><span class="co">#Join and apply fallback logic</span></span>
-<span id="cb62-44"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-44" tabindex="-1"></a><span class="do">################################################################################</span></span>
-<span id="cb62-45"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-45" tabindex="-1"></a><span class="co">#Use the unburned median if it exists.</span></span>
-<span id="cb62-46"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-46" tabindex="-1"></a><span class="co">#If not, use the full aggregate median.</span></span>
-<span id="cb62-47"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-47" tabindex="-1"></a><span class="co">#If that’s also missing, use the BEC-level median.</span></span>
-<span id="cb62-48"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-48" tabindex="-1"></a></span>
-<span id="cb62-49"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-49" tabindex="-1"></a>skey_df <span class="ot">&lt;-</span> nb <span class="sc">%&gt;%</span></span>
-<span id="cb62-50"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-50" tabindex="-1"></a>  <span class="fu">left_join</span>(med_unburned, <span class="at">by =</span> <span class="st">&quot;agg_id&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb62-51"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-51" tabindex="-1"></a>  <span class="fu">left_join</span>(med_all, <span class="at">by =</span> <span class="st">&quot;agg_id&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb62-52"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-52" tabindex="-1"></a>  <span class="fu">left_join</span>(med_bec, <span class="at">by =</span> <span class="st">&quot;bec_zone&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb62-53"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-53" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb62-54"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-54" tabindex="-1"></a>    <span class="at">agg_med_cmai =</span> <span class="fu">coalesce</span>(med_unburned, med_all, med_bec)<span class="co">#coalesce() returns the first non-NA value from left to right</span></span>
-<span id="cb62-55"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-55" tabindex="-1"></a>  )</span>
-<span id="cb62-56"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-56" tabindex="-1"></a></span>
-<span id="cb62-57"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-57" tabindex="-1"></a><span class="do">################################################################################</span></span>
-<span id="cb62-58"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-58" tabindex="-1"></a><span class="co">#  Find AU closest to chosen median</span></span>
-<span id="cb62-59"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-59" tabindex="-1"></a><span class="do">################################################################################</span></span>
-<span id="cb62-60"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-60" tabindex="-1"></a></span>
-<span id="cb62-61"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-61" tabindex="-1"></a>closest_au <span class="ot">&lt;-</span> skey_df <span class="sc">%&gt;%</span></span>
-<span id="cb62-62"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-62" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(agg_med_cmai)) <span class="sc">%&gt;%</span></span>
-<span id="cb62-63"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-63" tabindex="-1"></a>  <span class="fu">group_by</span>(agg_id) <span class="sc">%&gt;%</span></span>
-<span id="cb62-64"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-64" tabindex="-1"></a>  <span class="fu">slice_min</span>(<span class="fu">abs</span>(CMAI <span class="sc">-</span> agg_med_cmai), <span class="at">n =</span> <span class="dv">1</span>, <span class="at">with_ties =</span> <span class="cn">FALSE</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb62-65"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-65" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb62-66"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-66" tabindex="-1"></a>  <span class="fu">select</span>(agg_id, <span class="at">agg_au =</span> au, <span class="at">CMAI_closest_to_med =</span> CMAI)</span>
-<span id="cb62-67"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-67" tabindex="-1"></a></span>
-<span id="cb62-68"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-68" tabindex="-1"></a>skey_df <span class="ot">&lt;-</span> skey_df <span class="sc">%&gt;%</span></span>
-<span id="cb62-69"><a href="appendix-2-patchworks-fire-adjustments.html#cb62-69" tabindex="-1"></a>  <span class="fu">left_join</span>(closest_au, <span class="at">by =</span> <span class="st">&quot;agg_id&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="appendix-2-patchworks-fire-adjustments.html#cb65-1" tabindex="-1"></a></span>
+<span id="cb65-2"><a href="appendix-2-patchworks-fire-adjustments.html#cb65-2" tabindex="-1"></a><span class="do">################################################################################</span></span>
+<span id="cb65-3"><a href="appendix-2-patchworks-fire-adjustments.html#cb65-3" tabindex="-1"></a><span class="co">#  Create aggregate ID</span></span>
+<span id="cb65-4"><a href="appendix-2-patchworks-fire-adjustments.html#cb65-4" tabindex="-1"></a><span class="do">################################################################################</span></span>
+<span id="cb65-5"><a href="appendix-2-patchworks-fire-adjustments.html#cb65-5" tabindex="-1"></a></span>
+<span id="cb65-6"><a href="appendix-2-patchworks-fire-adjustments.html#cb65-6" tabindex="-1"></a>nb <span class="ot">&lt;-</span> skey_df <span class="sc">%&gt;%</span></span>
+<span id="cb65-7"><a href="appendix-2-patchworks-fire-adjustments.html#cb65-7" tabindex="-1"></a>  <span class="fu">group_by</span>(bec_zone, si_class, lead_spp) <span class="sc">%&gt;%</span></span>
+<span id="cb65-8"><a href="appendix-2-patchworks-fire-adjustments.html#cb65-8" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">agg_id =</span> <span class="fu">cur_group_id</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb65-9"><a href="appendix-2-patchworks-fire-adjustments.html#cb65-9" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span>
+<span id="cb65-10"><a href="appendix-2-patchworks-fire-adjustments.html#cb65-10" tabindex="-1"></a></span>
+<span id="cb65-11"><a href="appendix-2-patchworks-fire-adjustments.html#cb65-11" tabindex="-1"></a> nb_mpb<span class="ot">&lt;-</span>nb<span class="sc">%&gt;%</span></span>
+<span id="cb65-12"><a href="appendix-2-patchworks-fire-adjustments.html#cb65-12" tabindex="-1"></a>   <span class="fu">filter</span>(<span class="fu">is.na</span>(fire_year)<span class="sc">&amp;</span> <span class="fu">is.na</span>(dvltot_125))</span>
+<span id="cb65-13"><a href="appendix-2-patchworks-fire-adjustments.html#cb65-13" tabindex="-1"></a></span>
+<span id="cb65-14"><a href="appendix-2-patchworks-fire-adjustments.html#cb65-14" tabindex="-1"></a><span class="do">################################################################################</span></span>
+<span id="cb65-15"><a href="appendix-2-patchworks-fire-adjustments.html#cb65-15" tabindex="-1"></a><span class="co">#  Compute medians</span></span>
+<span id="cb65-16"><a href="appendix-2-patchworks-fire-adjustments.html#cb65-16" tabindex="-1"></a><span class="do">################################################################################</span></span>
+<span id="cb65-17"><a href="appendix-2-patchworks-fire-adjustments.html#cb65-17" tabindex="-1"></a></span>
+<span id="cb65-18"><a href="appendix-2-patchworks-fire-adjustments.html#cb65-18" tabindex="-1"></a><span class="co"># Primary: unburned  and nonMPB only</span></span>
+<span id="cb65-19"><a href="appendix-2-patchworks-fire-adjustments.html#cb65-19" tabindex="-1"></a>med_unburned <span class="ot">&lt;-</span> nb_mpb <span class="sc">%&gt;%</span></span>
+<span id="cb65-20"><a href="appendix-2-patchworks-fire-adjustments.html#cb65-20" tabindex="-1"></a>  <span class="fu">group_by</span>(agg_id) <span class="sc">%&gt;%</span></span>
+<span id="cb65-21"><a href="appendix-2-patchworks-fire-adjustments.html#cb65-21" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb65-22"><a href="appendix-2-patchworks-fire-adjustments.html#cb65-22" tabindex="-1"></a>    <span class="at">med_unburned =</span> <span class="fu">median</span>(CMAI, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb65-23"><a href="appendix-2-patchworks-fire-adjustments.html#cb65-23" tabindex="-1"></a>    <span class="at">.groups =</span> <span class="st">&quot;drop&quot;</span></span>
+<span id="cb65-24"><a href="appendix-2-patchworks-fire-adjustments.html#cb65-24" tabindex="-1"></a>  )</span>
+<span id="cb65-25"><a href="appendix-2-patchworks-fire-adjustments.html#cb65-25" tabindex="-1"></a></span>
+<span id="cb65-26"><a href="appendix-2-patchworks-fire-adjustments.html#cb65-26" tabindex="-1"></a><span class="co"># Fallback 1: all records</span></span>
+<span id="cb65-27"><a href="appendix-2-patchworks-fire-adjustments.html#cb65-27" tabindex="-1"></a>med_all <span class="ot">&lt;-</span> nb <span class="sc">%&gt;%</span></span>
+<span id="cb65-28"><a href="appendix-2-patchworks-fire-adjustments.html#cb65-28" tabindex="-1"></a>  <span class="fu">group_by</span>(agg_id) <span class="sc">%&gt;%</span></span>
+<span id="cb65-29"><a href="appendix-2-patchworks-fire-adjustments.html#cb65-29" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb65-30"><a href="appendix-2-patchworks-fire-adjustments.html#cb65-30" tabindex="-1"></a>    <span class="at">med_all =</span> <span class="fu">median</span>(CMAI, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb65-31"><a href="appendix-2-patchworks-fire-adjustments.html#cb65-31" tabindex="-1"></a>    <span class="at">.groups =</span> <span class="st">&quot;drop&quot;</span></span>
+<span id="cb65-32"><a href="appendix-2-patchworks-fire-adjustments.html#cb65-32" tabindex="-1"></a>  )</span>
+<span id="cb65-33"><a href="appendix-2-patchworks-fire-adjustments.html#cb65-33" tabindex="-1"></a></span>
+<span id="cb65-34"><a href="appendix-2-patchworks-fire-adjustments.html#cb65-34" tabindex="-1"></a><span class="co"># Fallback 2: BEC-level (unburned and nonMPB)</span></span>
+<span id="cb65-35"><a href="appendix-2-patchworks-fire-adjustments.html#cb65-35" tabindex="-1"></a>med_bec <span class="ot">&lt;-</span> nb_mpb <span class="sc">%&gt;%</span></span>
+<span id="cb65-36"><a href="appendix-2-patchworks-fire-adjustments.html#cb65-36" tabindex="-1"></a>  <span class="fu">group_by</span>(bec_zone) <span class="sc">%&gt;%</span></span>
+<span id="cb65-37"><a href="appendix-2-patchworks-fire-adjustments.html#cb65-37" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb65-38"><a href="appendix-2-patchworks-fire-adjustments.html#cb65-38" tabindex="-1"></a>    <span class="at">med_bec =</span> <span class="fu">median</span>(CMAI, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb65-39"><a href="appendix-2-patchworks-fire-adjustments.html#cb65-39" tabindex="-1"></a>    <span class="at">.groups =</span> <span class="st">&quot;drop&quot;</span></span>
+<span id="cb65-40"><a href="appendix-2-patchworks-fire-adjustments.html#cb65-40" tabindex="-1"></a>  )</span>
+<span id="cb65-41"><a href="appendix-2-patchworks-fire-adjustments.html#cb65-41" tabindex="-1"></a></span>
+<span id="cb65-42"><a href="appendix-2-patchworks-fire-adjustments.html#cb65-42" tabindex="-1"></a><span class="do">################################################################################</span></span>
+<span id="cb65-43"><a href="appendix-2-patchworks-fire-adjustments.html#cb65-43" tabindex="-1"></a><span class="co">#Join and apply fallback logic</span></span>
+<span id="cb65-44"><a href="appendix-2-patchworks-fire-adjustments.html#cb65-44" tabindex="-1"></a><span class="do">################################################################################</span></span>
+<span id="cb65-45"><a href="appendix-2-patchworks-fire-adjustments.html#cb65-45" tabindex="-1"></a><span class="co">#Use the unburned median if it exists.</span></span>
+<span id="cb65-46"><a href="appendix-2-patchworks-fire-adjustments.html#cb65-46" tabindex="-1"></a><span class="co">#If not, use the full aggregate median.</span></span>
+<span id="cb65-47"><a href="appendix-2-patchworks-fire-adjustments.html#cb65-47" tabindex="-1"></a><span class="co">#If that’s also missing, use the BEC-level median.</span></span>
+<span id="cb65-48"><a href="appendix-2-patchworks-fire-adjustments.html#cb65-48" tabindex="-1"></a></span>
+<span id="cb65-49"><a href="appendix-2-patchworks-fire-adjustments.html#cb65-49" tabindex="-1"></a>skey_df <span class="ot">&lt;-</span> nb <span class="sc">%&gt;%</span></span>
+<span id="cb65-50"><a href="appendix-2-patchworks-fire-adjustments.html#cb65-50" tabindex="-1"></a>  <span class="fu">left_join</span>(med_unburned, <span class="at">by =</span> <span class="st">&quot;agg_id&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb65-51"><a href="appendix-2-patchworks-fire-adjustments.html#cb65-51" tabindex="-1"></a>  <span class="fu">left_join</span>(med_all, <span class="at">by =</span> <span class="st">&quot;agg_id&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb65-52"><a href="appendix-2-patchworks-fire-adjustments.html#cb65-52" tabindex="-1"></a>  <span class="fu">left_join</span>(med_bec, <span class="at">by =</span> <span class="st">&quot;bec_zone&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb65-53"><a href="appendix-2-patchworks-fire-adjustments.html#cb65-53" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb65-54"><a href="appendix-2-patchworks-fire-adjustments.html#cb65-54" tabindex="-1"></a>    <span class="at">agg_med_cmai =</span> <span class="fu">coalesce</span>(med_unburned, med_all, med_bec)<span class="co">#coalesce() returns the first non-NA value from left to right</span></span>
+<span id="cb65-55"><a href="appendix-2-patchworks-fire-adjustments.html#cb65-55" tabindex="-1"></a>  )</span>
+<span id="cb65-56"><a href="appendix-2-patchworks-fire-adjustments.html#cb65-56" tabindex="-1"></a></span>
+<span id="cb65-57"><a href="appendix-2-patchworks-fire-adjustments.html#cb65-57" tabindex="-1"></a><span class="do">################################################################################</span></span>
+<span id="cb65-58"><a href="appendix-2-patchworks-fire-adjustments.html#cb65-58" tabindex="-1"></a><span class="co">#  Find AU closest to chosen median</span></span>
+<span id="cb65-59"><a href="appendix-2-patchworks-fire-adjustments.html#cb65-59" tabindex="-1"></a><span class="do">################################################################################</span></span>
+<span id="cb65-60"><a href="appendix-2-patchworks-fire-adjustments.html#cb65-60" tabindex="-1"></a></span>
+<span id="cb65-61"><a href="appendix-2-patchworks-fire-adjustments.html#cb65-61" tabindex="-1"></a>closest_au <span class="ot">&lt;-</span> skey_df <span class="sc">%&gt;%</span></span>
+<span id="cb65-62"><a href="appendix-2-patchworks-fire-adjustments.html#cb65-62" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(agg_med_cmai)) <span class="sc">%&gt;%</span></span>
+<span id="cb65-63"><a href="appendix-2-patchworks-fire-adjustments.html#cb65-63" tabindex="-1"></a>  <span class="fu">group_by</span>(agg_id) <span class="sc">%&gt;%</span></span>
+<span id="cb65-64"><a href="appendix-2-patchworks-fire-adjustments.html#cb65-64" tabindex="-1"></a>  <span class="fu">slice_min</span>(<span class="fu">abs</span>(CMAI <span class="sc">-</span> agg_med_cmai), <span class="at">n =</span> <span class="dv">1</span>, <span class="at">with_ties =</span> <span class="cn">FALSE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb65-65"><a href="appendix-2-patchworks-fire-adjustments.html#cb65-65" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb65-66"><a href="appendix-2-patchworks-fire-adjustments.html#cb65-66" tabindex="-1"></a>  <span class="fu">select</span>(agg_id, <span class="at">agg_au =</span> au, <span class="at">CMAI_closest_to_med =</span> CMAI)</span>
+<span id="cb65-67"><a href="appendix-2-patchworks-fire-adjustments.html#cb65-67" tabindex="-1"></a></span>
+<span id="cb65-68"><a href="appendix-2-patchworks-fire-adjustments.html#cb65-68" tabindex="-1"></a>skey_df <span class="ot">&lt;-</span> skey_df <span class="sc">%&gt;%</span></span>
+<span id="cb65-69"><a href="appendix-2-patchworks-fire-adjustments.html#cb65-69" tabindex="-1"></a>  <span class="fu">left_join</span>(closest_au, <span class="at">by =</span> <span class="st">&quot;agg_id&quot;</span>)</span></code></pre></div>
 </details>
 </div>
 <div id="step-6-reset-ages-and-aus" class="section level3 hasAnchor" number="15.2.6">
 <h3><span class="header-section-number">15.2.6</span> Step 6: Reset Ages and AUs<a href="appendix-2-patchworks-fire-adjustments.html#step-6-reset-ages-and-aus" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>The next steps adjusts AU and age values for areas affected by fire. It first assigns a final_au, resetting to an aggregate AU where a fire occurred and the stand is not free-to-grow, and initializes fire-related adjustment fields. It then isolates fire-affected records, calculates the mean burn severity per fire polygon, and applies a Bernoulli trial (based on mean burn severity percentage) to randomly determine whether each cell’s age should be adjusted. Fire records are temporarily removed and then reattached to the master dataset, and a final_age is calculated—reducing age to (2025 − fire_year − 10) where the adjustment is triggered, otherwise keeping the original age.</p>
 <details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
-<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="appendix-2-patchworks-fire-adjustments.html#cb63-1" tabindex="-1"></a></span>
-<span id="cb63-2"><a href="appendix-2-patchworks-fire-adjustments.html#cb63-2" tabindex="-1"></a><span class="co"># Reset AUs to aggregate where there is fire and managed stands &gt; free to grow</span></span>
-<span id="cb63-3"><a href="appendix-2-patchworks-fire-adjustments.html#cb63-3" tabindex="-1"></a>skey_df<span class="ot">&lt;-</span>skey_df<span class="sc">%&gt;%</span><span class="fu">mutate</span>(</span>
-<span id="cb63-4"><a href="appendix-2-patchworks-fire-adjustments.html#cb63-4" tabindex="-1"></a>  <span class="at">final_au =</span> <span class="fu">case_when</span>(</span>
-<span id="cb63-5"><a href="appendix-2-patchworks-fire-adjustments.html#cb63-5" tabindex="-1"></a>    <span class="sc">!</span><span class="fu">is.na</span>(fire_number) <span class="sc">&amp;</span> <span class="fu">is.na</span>(open_cat) <span class="sc">~</span> agg_au,</span>
-<span id="cb63-6"><a href="appendix-2-patchworks-fire-adjustments.html#cb63-6" tabindex="-1"></a>    <span class="cn">TRUE</span> <span class="sc">~</span> au),</span>
-<span id="cb63-7"><a href="appendix-2-patchworks-fire-adjustments.html#cb63-7" tabindex="-1"></a><span class="at">mean_adjust =</span> <span class="dv">0</span>,<span class="co">#default no age adjustment</span></span>
-<span id="cb63-8"><a href="appendix-2-patchworks-fire-adjustments.html#cb63-8" tabindex="-1"></a><span class="at">fire_num_mean_pct =</span> <span class="dv">0</span> <span class="co"># default no fire pct</span></span>
-<span id="cb63-9"><a href="appendix-2-patchworks-fire-adjustments.html#cb63-9" tabindex="-1"></a>)</span>
-<span id="cb63-10"><a href="appendix-2-patchworks-fire-adjustments.html#cb63-10" tabindex="-1"></a></span>
-<span id="cb63-11"><a href="appendix-2-patchworks-fire-adjustments.html#cb63-11" tabindex="-1"></a></span>
-<span id="cb63-12"><a href="appendix-2-patchworks-fire-adjustments.html#cb63-12" tabindex="-1"></a><span class="co">#subset the fire records from the master df</span></span>
-<span id="cb63-13"><a href="appendix-2-patchworks-fire-adjustments.html#cb63-13" tabindex="-1"></a><span class="co">#reset ages in fires based on Bernoulli trial (size =1)</span></span>
-<span id="cb63-14"><a href="appendix-2-patchworks-fire-adjustments.html#cb63-14" tabindex="-1"></a>fires<span class="ot">&lt;-</span> skey_df<span class="sc">%&gt;%</span></span>
-<span id="cb63-15"><a href="appendix-2-patchworks-fire-adjustments.html#cb63-15" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(fire_number))<span class="sc">%&gt;%</span> <span class="co">#in a fire perimeter</span></span>
-<span id="cb63-16"><a href="appendix-2-patchworks-fire-adjustments.html#cb63-16" tabindex="-1"></a>  <span class="fu">group_by</span>(objectid) <span class="sc">%&gt;%</span> <span class="co">#individual burn severity polygons within the fire perimeter</span></span>
-<span id="cb63-17"><a href="appendix-2-patchworks-fire-adjustments.html#cb63-17" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">fire_num_mean_pct=</span> <span class="fu">mean</span>(bs_pct)) <span class="sc">%&gt;%</span></span>
-<span id="cb63-18"><a href="appendix-2-patchworks-fire-adjustments.html#cb63-18" tabindex="-1"></a>  <span class="fu">ungroup</span>()<span class="sc">%&gt;%</span></span>
-<span id="cb63-19"><a href="appendix-2-patchworks-fire-adjustments.html#cb63-19" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb63-20"><a href="appendix-2-patchworks-fire-adjustments.html#cb63-20" tabindex="-1"></a>    <span class="at">mean_adjust =</span> <span class="fu">rbinom</span>(<span class="at">n =</span> <span class="fu">n</span>(), </span>
-<span id="cb63-21"><a href="appendix-2-patchworks-fire-adjustments.html#cb63-21" tabindex="-1"></a>                    <span class="at">size =</span> <span class="dv">1</span>, </span>
-<span id="cb63-22"><a href="appendix-2-patchworks-fire-adjustments.html#cb63-22" tabindex="-1"></a>                    <span class="at">prob =</span> fire_num_mean_pct<span class="sc">/</span><span class="dv">100</span>))</span>
-<span id="cb63-23"><a href="appendix-2-patchworks-fire-adjustments.html#cb63-23" tabindex="-1"></a></span>
-<span id="cb63-24"><a href="appendix-2-patchworks-fire-adjustments.html#cb63-24" tabindex="-1"></a><span class="co">#antijoin - remove the records with fires from the master df</span></span>
-<span id="cb63-25"><a href="appendix-2-patchworks-fire-adjustments.html#cb63-25" tabindex="-1"></a>skey_df<span class="ot">&lt;-</span><span class="fu">anti_join</span>(skey_df,fires,<span class="fu">join_by</span>(gr_skey))</span>
-<span id="cb63-26"><a href="appendix-2-patchworks-fire-adjustments.html#cb63-26" tabindex="-1"></a><span class="co">#bind_rows - add the fires back into the master df</span></span>
-<span id="cb63-27"><a href="appendix-2-patchworks-fire-adjustments.html#cb63-27" tabindex="-1"></a>skey_df<span class="ot">&lt;-</span>(<span class="fu">bind_rows</span>(skey_df,fires))<span class="sc">%&gt;%</span></span>
-<span id="cb63-28"><a href="appendix-2-patchworks-fire-adjustments.html#cb63-28" tabindex="-1"></a>  <span class="fu">arrange</span>(gr_skey)</span>
-<span id="cb63-29"><a href="appendix-2-patchworks-fire-adjustments.html#cb63-29" tabindex="-1"></a><span class="co">#final age</span></span>
-<span id="cb63-30"><a href="appendix-2-patchworks-fire-adjustments.html#cb63-30" tabindex="-1"></a>skey_df<span class="ot">&lt;-</span>skey_df<span class="sc">%&gt;%</span><span class="fu">mutate</span>(</span>
-<span id="cb63-31"><a href="appendix-2-patchworks-fire-adjustments.html#cb63-31" tabindex="-1"></a>  <span class="at">final_age=</span> <span class="fu">case_when</span>(</span>
-<span id="cb63-32"><a href="appendix-2-patchworks-fire-adjustments.html#cb63-32" tabindex="-1"></a>    <span class="sc">!</span><span class="fu">is.na</span>(fire_year) <span class="sc">&amp;</span> <span class="sc">!</span><span class="fu">is.na</span>(open_cat) <span class="sc">~</span> <span class="dv">2026</span><span class="sc">-</span>fire_year <span class="sc">-</span> <span class="dv">2</span>, <span class="co">#2 year delay in non F2G blocks in fires</span></span>
-<span id="cb63-33"><a href="appendix-2-patchworks-fire-adjustments.html#cb63-33" tabindex="-1"></a>    mean_adjust <span class="sc">==</span> <span class="dv">1</span> <span class="sc">~</span> <span class="dv">2026</span><span class="sc">-</span>fire_year <span class="sc">-</span> <span class="dv">10</span>,<span class="co">#10 year regen delay for all other</span></span>
-<span id="cb63-34"><a href="appendix-2-patchworks-fire-adjustments.html#cb63-34" tabindex="-1"></a>    <span class="cn">TRUE</span> <span class="sc">~</span> age2026</span>
-<span id="cb63-35"><a href="appendix-2-patchworks-fire-adjustments.html#cb63-35" tabindex="-1"></a>  )</span>
-<span id="cb63-36"><a href="appendix-2-patchworks-fire-adjustments.html#cb63-36" tabindex="-1"></a>)</span>
-<span id="cb63-37"><a href="appendix-2-patchworks-fire-adjustments.html#cb63-37" tabindex="-1"></a></span>
-<span id="cb63-38"><a href="appendix-2-patchworks-fire-adjustments.html#cb63-38" tabindex="-1"></a>x <span class="ot">&lt;-</span> skey_df <span class="sc">%&gt;%</span> <span class="co"># display fires</span></span>
-<span id="cb63-39"><a href="appendix-2-patchworks-fire-adjustments.html#cb63-39" tabindex="-1"></a>  <span class="fu">ungroup</span>()<span class="sc">%&gt;%</span> </span>
-<span id="cb63-40"><a href="appendix-2-patchworks-fire-adjustments.html#cb63-40" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(fire_year))<span class="sc">%&gt;%</span></span>
-<span id="cb63-41"><a href="appendix-2-patchworks-fire-adjustments.html#cb63-41" tabindex="-1"></a>  <span class="fu">slice_sample</span>(<span class="at">n =</span> <span class="dv">25</span>)</span>
-<span id="cb63-42"><a href="appendix-2-patchworks-fire-adjustments.html#cb63-42" tabindex="-1"></a></span>
-<span id="cb63-43"><a href="appendix-2-patchworks-fire-adjustments.html#cb63-43" tabindex="-1"></a><span class="fu">pretty_table</span>(x)</span></code></pre></div>
+<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="appendix-2-patchworks-fire-adjustments.html#cb66-1" tabindex="-1"></a></span>
+<span id="cb66-2"><a href="appendix-2-patchworks-fire-adjustments.html#cb66-2" tabindex="-1"></a><span class="co"># Reset AUs to aggregate where there is fire and managed stands &gt; free to grow</span></span>
+<span id="cb66-3"><a href="appendix-2-patchworks-fire-adjustments.html#cb66-3" tabindex="-1"></a>skey_df<span class="ot">&lt;-</span>skey_df<span class="sc">%&gt;%</span><span class="fu">mutate</span>(</span>
+<span id="cb66-4"><a href="appendix-2-patchworks-fire-adjustments.html#cb66-4" tabindex="-1"></a>  <span class="at">final_au =</span> <span class="fu">case_when</span>(</span>
+<span id="cb66-5"><a href="appendix-2-patchworks-fire-adjustments.html#cb66-5" tabindex="-1"></a>    <span class="sc">!</span><span class="fu">is.na</span>(fire_number) <span class="sc">&amp;</span> <span class="fu">is.na</span>(open_cat) <span class="sc">~</span> agg_au,</span>
+<span id="cb66-6"><a href="appendix-2-patchworks-fire-adjustments.html#cb66-6" tabindex="-1"></a>    <span class="cn">TRUE</span> <span class="sc">~</span> au),</span>
+<span id="cb66-7"><a href="appendix-2-patchworks-fire-adjustments.html#cb66-7" tabindex="-1"></a><span class="at">mean_adjust =</span> <span class="dv">0</span>,<span class="co">#default no age adjustment</span></span>
+<span id="cb66-8"><a href="appendix-2-patchworks-fire-adjustments.html#cb66-8" tabindex="-1"></a><span class="at">fire_num_mean_pct =</span> <span class="dv">0</span> <span class="co"># default no fire pct</span></span>
+<span id="cb66-9"><a href="appendix-2-patchworks-fire-adjustments.html#cb66-9" tabindex="-1"></a>)</span>
+<span id="cb66-10"><a href="appendix-2-patchworks-fire-adjustments.html#cb66-10" tabindex="-1"></a></span>
+<span id="cb66-11"><a href="appendix-2-patchworks-fire-adjustments.html#cb66-11" tabindex="-1"></a></span>
+<span id="cb66-12"><a href="appendix-2-patchworks-fire-adjustments.html#cb66-12" tabindex="-1"></a><span class="co">#subset the fire records from the master df</span></span>
+<span id="cb66-13"><a href="appendix-2-patchworks-fire-adjustments.html#cb66-13" tabindex="-1"></a><span class="co">#reset ages in fires based on Bernoulli trial (size =1)</span></span>
+<span id="cb66-14"><a href="appendix-2-patchworks-fire-adjustments.html#cb66-14" tabindex="-1"></a>fires<span class="ot">&lt;-</span> skey_df<span class="sc">%&gt;%</span></span>
+<span id="cb66-15"><a href="appendix-2-patchworks-fire-adjustments.html#cb66-15" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(fire_number))<span class="sc">%&gt;%</span> <span class="co">#in a fire perimeter</span></span>
+<span id="cb66-16"><a href="appendix-2-patchworks-fire-adjustments.html#cb66-16" tabindex="-1"></a>  <span class="fu">group_by</span>(objectid) <span class="sc">%&gt;%</span> <span class="co">#individual burn severity polygons within the fire perimeter</span></span>
+<span id="cb66-17"><a href="appendix-2-patchworks-fire-adjustments.html#cb66-17" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">fire_num_mean_pct=</span> <span class="fu">mean</span>(bs_pct)) <span class="sc">%&gt;%</span></span>
+<span id="cb66-18"><a href="appendix-2-patchworks-fire-adjustments.html#cb66-18" tabindex="-1"></a>  <span class="fu">ungroup</span>()<span class="sc">%&gt;%</span></span>
+<span id="cb66-19"><a href="appendix-2-patchworks-fire-adjustments.html#cb66-19" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb66-20"><a href="appendix-2-patchworks-fire-adjustments.html#cb66-20" tabindex="-1"></a>    <span class="at">mean_adjust =</span> <span class="fu">rbinom</span>(<span class="at">n =</span> <span class="fu">n</span>(), </span>
+<span id="cb66-21"><a href="appendix-2-patchworks-fire-adjustments.html#cb66-21" tabindex="-1"></a>                    <span class="at">size =</span> <span class="dv">1</span>, </span>
+<span id="cb66-22"><a href="appendix-2-patchworks-fire-adjustments.html#cb66-22" tabindex="-1"></a>                    <span class="at">prob =</span> fire_num_mean_pct<span class="sc">/</span><span class="dv">100</span>))</span>
+<span id="cb66-23"><a href="appendix-2-patchworks-fire-adjustments.html#cb66-23" tabindex="-1"></a></span>
+<span id="cb66-24"><a href="appendix-2-patchworks-fire-adjustments.html#cb66-24" tabindex="-1"></a><span class="co">#antijoin - remove the records with fires from the master df</span></span>
+<span id="cb66-25"><a href="appendix-2-patchworks-fire-adjustments.html#cb66-25" tabindex="-1"></a>skey_df<span class="ot">&lt;-</span><span class="fu">anti_join</span>(skey_df,fires,<span class="fu">join_by</span>(gr_skey))</span>
+<span id="cb66-26"><a href="appendix-2-patchworks-fire-adjustments.html#cb66-26" tabindex="-1"></a><span class="co">#bind_rows - add the fires back into the master df</span></span>
+<span id="cb66-27"><a href="appendix-2-patchworks-fire-adjustments.html#cb66-27" tabindex="-1"></a>skey_df<span class="ot">&lt;-</span>(<span class="fu">bind_rows</span>(skey_df,fires))<span class="sc">%&gt;%</span></span>
+<span id="cb66-28"><a href="appendix-2-patchworks-fire-adjustments.html#cb66-28" tabindex="-1"></a>  <span class="fu">arrange</span>(gr_skey)</span>
+<span id="cb66-29"><a href="appendix-2-patchworks-fire-adjustments.html#cb66-29" tabindex="-1"></a><span class="co">#final age</span></span>
+<span id="cb66-30"><a href="appendix-2-patchworks-fire-adjustments.html#cb66-30" tabindex="-1"></a>skey_df<span class="ot">&lt;-</span>skey_df<span class="sc">%&gt;%</span><span class="fu">mutate</span>(</span>
+<span id="cb66-31"><a href="appendix-2-patchworks-fire-adjustments.html#cb66-31" tabindex="-1"></a>  <span class="at">final_age=</span> <span class="fu">case_when</span>(</span>
+<span id="cb66-32"><a href="appendix-2-patchworks-fire-adjustments.html#cb66-32" tabindex="-1"></a>    <span class="sc">!</span><span class="fu">is.na</span>(fire_year) <span class="sc">&amp;</span> <span class="sc">!</span><span class="fu">is.na</span>(open_cat) <span class="sc">~</span> <span class="dv">2026</span><span class="sc">-</span>fire_year <span class="sc">-</span> <span class="dv">2</span>, <span class="co">#2 year delay in non F2G blocks in fires</span></span>
+<span id="cb66-33"><a href="appendix-2-patchworks-fire-adjustments.html#cb66-33" tabindex="-1"></a>    mean_adjust <span class="sc">==</span> <span class="dv">1</span> <span class="sc">~</span> <span class="dv">2026</span><span class="sc">-</span>fire_year <span class="sc">-</span> <span class="dv">10</span>,<span class="co">#10 year regen delay for all other</span></span>
+<span id="cb66-34"><a href="appendix-2-patchworks-fire-adjustments.html#cb66-34" tabindex="-1"></a>    <span class="cn">TRUE</span> <span class="sc">~</span> age2026</span>
+<span id="cb66-35"><a href="appendix-2-patchworks-fire-adjustments.html#cb66-35" tabindex="-1"></a>  )</span>
+<span id="cb66-36"><a href="appendix-2-patchworks-fire-adjustments.html#cb66-36" tabindex="-1"></a>)</span>
+<span id="cb66-37"><a href="appendix-2-patchworks-fire-adjustments.html#cb66-37" tabindex="-1"></a></span>
+<span id="cb66-38"><a href="appendix-2-patchworks-fire-adjustments.html#cb66-38" tabindex="-1"></a>x <span class="ot">&lt;-</span> skey_df <span class="sc">%&gt;%</span> <span class="co"># display fires</span></span>
+<span id="cb66-39"><a href="appendix-2-patchworks-fire-adjustments.html#cb66-39" tabindex="-1"></a>  <span class="fu">ungroup</span>()<span class="sc">%&gt;%</span> </span>
+<span id="cb66-40"><a href="appendix-2-patchworks-fire-adjustments.html#cb66-40" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(fire_year))<span class="sc">%&gt;%</span></span>
+<span id="cb66-41"><a href="appendix-2-patchworks-fire-adjustments.html#cb66-41" tabindex="-1"></a>  <span class="fu">slice_sample</span>(<span class="at">n =</span> <span class="dv">25</span>)</span>
+<span id="cb66-42"><a href="appendix-2-patchworks-fire-adjustments.html#cb66-42" tabindex="-1"></a></span>
+<span id="cb66-43"><a href="appendix-2-patchworks-fire-adjustments.html#cb66-43" tabindex="-1"></a><span class="fu">pretty_table</span>(x)</span></code></pre></div>
 </details>
 </div>
 <div id="step-7-view-spatial" class="section level3 hasAnchor" number="15.2.7">
 <h3><span class="header-section-number">15.2.7</span> Step 7: View Spatial<a href="appendix-2-patchworks-fire-adjustments.html#step-7-view-spatial" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>The final step is the review the spatial output.</p>
 <details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
-<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="appendix-2-patchworks-fire-adjustments.html#cb64-1" tabindex="-1"></a></span>
-<span id="cb64-2"><a href="appendix-2-patchworks-fire-adjustments.html#cb64-2" tabindex="-1"></a>bs_att<span class="ot">&lt;-</span>skey_df<span class="sc">%&gt;%</span><span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(fire_number))</span>
-<span id="cb64-3"><a href="appendix-2-patchworks-fire-adjustments.html#cb64-3" tabindex="-1"></a> <span class="co"># spatial burn severity from step 2: point geometry</span></span>
-<span id="cb64-4"><a href="appendix-2-patchworks-fire-adjustments.html#cb64-4" tabindex="-1"></a>bssp<span class="ot">&lt;-</span><span class="fu">inner_join</span>(skey,bs_att,<span class="fu">join_by</span>(<span class="st">&quot;gr_skey&quot;</span>))<span class="co">#join geometry to attribution</span></span>
-<span id="cb64-5"><a href="appendix-2-patchworks-fire-adjustments.html#cb64-5" tabindex="-1"></a><span class="co">#sf object</span></span>
-<span id="cb64-6"><a href="appendix-2-patchworks-fire-adjustments.html#cb64-6" tabindex="-1"></a> </span>
-<span id="cb64-7"><a href="appendix-2-patchworks-fire-adjustments.html#cb64-7" tabindex="-1"></a> <span class="fu">st_write</span>(bssp,<span class="st">&quot;./data/shp/bssp_patches.gpkg&quot;</span>,</span>
-<span id="cb64-8"><a href="appendix-2-patchworks-fire-adjustments.html#cb64-8" tabindex="-1"></a>          <span class="at">overwrite =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="appendix-2-patchworks-fire-adjustments.html#cb67-1" tabindex="-1"></a></span>
+<span id="cb67-2"><a href="appendix-2-patchworks-fire-adjustments.html#cb67-2" tabindex="-1"></a>bs_att<span class="ot">&lt;-</span>skey_df<span class="sc">%&gt;%</span><span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(fire_number))</span>
+<span id="cb67-3"><a href="appendix-2-patchworks-fire-adjustments.html#cb67-3" tabindex="-1"></a> <span class="co"># spatial burn severity from step 2: point geometry</span></span>
+<span id="cb67-4"><a href="appendix-2-patchworks-fire-adjustments.html#cb67-4" tabindex="-1"></a>bssp<span class="ot">&lt;-</span><span class="fu">inner_join</span>(skey,bs_att,<span class="fu">join_by</span>(<span class="st">&quot;gr_skey&quot;</span>))<span class="co">#join geometry to attribution</span></span>
+<span id="cb67-5"><a href="appendix-2-patchworks-fire-adjustments.html#cb67-5" tabindex="-1"></a><span class="co">#sf object</span></span>
+<span id="cb67-6"><a href="appendix-2-patchworks-fire-adjustments.html#cb67-6" tabindex="-1"></a> </span>
+<span id="cb67-7"><a href="appendix-2-patchworks-fire-adjustments.html#cb67-7" tabindex="-1"></a> <span class="fu">st_write</span>(bssp,<span class="st">&quot;./data/shp/bssp_patches.gpkg&quot;</span>,</span>
+<span id="cb67-8"><a href="appendix-2-patchworks-fire-adjustments.html#cb67-8" tabindex="-1"></a>          <span class="at">overwrite =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 </details>
 <p>The following image contrast the non adjusted ages to adjusted ages in a specific fire in TSA41</p>
 <div class="float">
@@ -961,26 +958,26 @@ replacement condition for the aggregate, allowing burned areas to be reassigned 
 <p>As a first approximation the process does a reasonable job re-establishing appropriate yields and ages with fire perimeters. One limitation is the interior patch shapes tend to be more “randomized/speckled” rather than the preferred “clumped” shape.</p>
 <p>If desired more clumped shapes can be captured at the polygon level by recycling the original severity polygons rather than adjusting individual hectares within the polygon. The following workflow simulates fire occurrence at the polygon level and produces a spatial output of affected patches. First, <code>skey_fire</code> is grouped by <code>objectid</code> (fire polygon), and within each polygon the mean burn severity (<code>bs_pct</code>) is calculated and stored as <code>fire_num_mean_pct</code>; a unique polygon identifier (<code>fire_poly_id</code>) is assigned, a burn probability is derived by dividing the mean severity by 100 (<code>mean_prob</code>), and a single Bernoulli draw (<code>mean_adjust</code>) is generated per polygon to simulate whether that polygon burns. Based on this simulated outcome, <code>final_age</code> is updated so that burned polygons have their age reset to years since fire (2025 − fire_year − 10), while unburned polygons retain their original age.</p>
 <details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
-<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="appendix-2-patchworks-fire-adjustments.html#cb65-1" tabindex="-1"></a></span>
-<span id="cb65-2"><a href="appendix-2-patchworks-fire-adjustments.html#cb65-2" tabindex="-1"></a> skey_fire <span class="ot">&lt;-</span> bs_att <span class="sc">%&gt;%</span></span>
-<span id="cb65-3"><a href="appendix-2-patchworks-fire-adjustments.html#cb65-3" tabindex="-1"></a>   <span class="fu">select</span>(<span class="sc">-</span>mean_adjust,<span class="sc">-</span>fire_num_mean_pct,<span class="sc">-</span>final_age)<span class="sc">%&gt;%</span></span>
-<span id="cb65-4"><a href="appendix-2-patchworks-fire-adjustments.html#cb65-4" tabindex="-1"></a>   <span class="fu">group_by</span>(objectid) <span class="sc">%&gt;%</span></span>
-<span id="cb65-5"><a href="appendix-2-patchworks-fire-adjustments.html#cb65-5" tabindex="-1"></a>   <span class="fu">mutate</span>(</span>
-<span id="cb65-6"><a href="appendix-2-patchworks-fire-adjustments.html#cb65-6" tabindex="-1"></a>     <span class="at">fire_num_mean_pct=</span> <span class="fu">mean</span>(bs_pct),</span>
-<span id="cb65-7"><a href="appendix-2-patchworks-fire-adjustments.html#cb65-7" tabindex="-1"></a>     <span class="at">fire_poly_id =</span> <span class="fu">cur_group_id</span>(),<span class="co">#cur_group_id() returns an integer (1, 2, 3, …) identifying which group each row belongs to.</span></span>
-<span id="cb65-8"><a href="appendix-2-patchworks-fire-adjustments.html#cb65-8" tabindex="-1"></a>     <span class="at">mean_prob    =</span> <span class="fu">mean</span>(fire_num_mean_pct <span class="sc">/</span> <span class="dv">100</span>),</span>
-<span id="cb65-9"><a href="appendix-2-patchworks-fire-adjustments.html#cb65-9" tabindex="-1"></a>     <span class="at">mean_adjust =</span> <span class="fu">rbinom</span>(<span class="dv">1</span>, <span class="at">size =</span> <span class="dv">1</span>, <span class="at">prob =</span> mean_prob),</span>
-<span id="cb65-10"><a href="appendix-2-patchworks-fire-adjustments.html#cb65-10" tabindex="-1"></a>     <span class="at">final_age =</span> <span class="fu">case_when</span>(</span>
-<span id="cb65-11"><a href="appendix-2-patchworks-fire-adjustments.html#cb65-11" tabindex="-1"></a>       mean_adjust <span class="sc">==</span> <span class="dv">1</span> <span class="sc">~</span> <span class="dv">2026</span><span class="sc">-</span>fire_year <span class="sc">-</span> <span class="dv">10</span>,</span>
-<span id="cb65-12"><a href="appendix-2-patchworks-fire-adjustments.html#cb65-12" tabindex="-1"></a>   <span class="cn">TRUE</span> <span class="sc">~</span> age2026 )) <span class="sc">%&gt;%</span></span>
-<span id="cb65-13"><a href="appendix-2-patchworks-fire-adjustments.html#cb65-13" tabindex="-1"></a>   <span class="fu">ungroup</span>()</span>
-<span id="cb65-14"><a href="appendix-2-patchworks-fire-adjustments.html#cb65-14" tabindex="-1"></a> </span>
-<span id="cb65-15"><a href="appendix-2-patchworks-fire-adjustments.html#cb65-15" tabindex="-1"></a></span>
-<span id="cb65-16"><a href="appendix-2-patchworks-fire-adjustments.html#cb65-16" tabindex="-1"></a> bssp2<span class="ot">&lt;-</span><span class="fu">inner_join</span>(skey,skey_fire,<span class="fu">join_by</span>(<span class="st">&quot;gr_skey&quot;</span>))</span>
-<span id="cb65-17"><a href="appendix-2-patchworks-fire-adjustments.html#cb65-17" tabindex="-1"></a></span>
-<span id="cb65-18"><a href="appendix-2-patchworks-fire-adjustments.html#cb65-18" tabindex="-1"></a> </span>
-<span id="cb65-19"><a href="appendix-2-patchworks-fire-adjustments.html#cb65-19" tabindex="-1"></a> <span class="fu">st_write</span>(bssp2,<span class="st">&quot;./data/shp/bssp2_patches.gpkg&quot;</span>,</span>
-<span id="cb65-20"><a href="appendix-2-patchworks-fire-adjustments.html#cb65-20" tabindex="-1"></a>          <span class="at">overwrite =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="appendix-2-patchworks-fire-adjustments.html#cb68-1" tabindex="-1"></a></span>
+<span id="cb68-2"><a href="appendix-2-patchworks-fire-adjustments.html#cb68-2" tabindex="-1"></a> skey_fire <span class="ot">&lt;-</span> bs_att <span class="sc">%&gt;%</span></span>
+<span id="cb68-3"><a href="appendix-2-patchworks-fire-adjustments.html#cb68-3" tabindex="-1"></a>   <span class="fu">select</span>(<span class="sc">-</span>mean_adjust,<span class="sc">-</span>fire_num_mean_pct,<span class="sc">-</span>final_age)<span class="sc">%&gt;%</span></span>
+<span id="cb68-4"><a href="appendix-2-patchworks-fire-adjustments.html#cb68-4" tabindex="-1"></a>   <span class="fu">group_by</span>(objectid) <span class="sc">%&gt;%</span></span>
+<span id="cb68-5"><a href="appendix-2-patchworks-fire-adjustments.html#cb68-5" tabindex="-1"></a>   <span class="fu">mutate</span>(</span>
+<span id="cb68-6"><a href="appendix-2-patchworks-fire-adjustments.html#cb68-6" tabindex="-1"></a>     <span class="at">fire_num_mean_pct=</span> <span class="fu">mean</span>(bs_pct),</span>
+<span id="cb68-7"><a href="appendix-2-patchworks-fire-adjustments.html#cb68-7" tabindex="-1"></a>     <span class="at">fire_poly_id =</span> <span class="fu">cur_group_id</span>(),<span class="co">#cur_group_id() returns an integer (1, 2, 3, …) identifying which group each row belongs to.</span></span>
+<span id="cb68-8"><a href="appendix-2-patchworks-fire-adjustments.html#cb68-8" tabindex="-1"></a>     <span class="at">mean_prob    =</span> <span class="fu">mean</span>(fire_num_mean_pct <span class="sc">/</span> <span class="dv">100</span>),</span>
+<span id="cb68-9"><a href="appendix-2-patchworks-fire-adjustments.html#cb68-9" tabindex="-1"></a>     <span class="at">mean_adjust =</span> <span class="fu">rbinom</span>(<span class="dv">1</span>, <span class="at">size =</span> <span class="dv">1</span>, <span class="at">prob =</span> mean_prob),</span>
+<span id="cb68-10"><a href="appendix-2-patchworks-fire-adjustments.html#cb68-10" tabindex="-1"></a>     <span class="at">final_age =</span> <span class="fu">case_when</span>(</span>
+<span id="cb68-11"><a href="appendix-2-patchworks-fire-adjustments.html#cb68-11" tabindex="-1"></a>       mean_adjust <span class="sc">==</span> <span class="dv">1</span> <span class="sc">~</span> <span class="dv">2026</span><span class="sc">-</span>fire_year <span class="sc">-</span> <span class="dv">10</span>,</span>
+<span id="cb68-12"><a href="appendix-2-patchworks-fire-adjustments.html#cb68-12" tabindex="-1"></a>   <span class="cn">TRUE</span> <span class="sc">~</span> age2026 )) <span class="sc">%&gt;%</span></span>
+<span id="cb68-13"><a href="appendix-2-patchworks-fire-adjustments.html#cb68-13" tabindex="-1"></a>   <span class="fu">ungroup</span>()</span>
+<span id="cb68-14"><a href="appendix-2-patchworks-fire-adjustments.html#cb68-14" tabindex="-1"></a> </span>
+<span id="cb68-15"><a href="appendix-2-patchworks-fire-adjustments.html#cb68-15" tabindex="-1"></a></span>
+<span id="cb68-16"><a href="appendix-2-patchworks-fire-adjustments.html#cb68-16" tabindex="-1"></a> bssp2<span class="ot">&lt;-</span><span class="fu">inner_join</span>(skey,skey_fire,<span class="fu">join_by</span>(<span class="st">&quot;gr_skey&quot;</span>))</span>
+<span id="cb68-17"><a href="appendix-2-patchworks-fire-adjustments.html#cb68-17" tabindex="-1"></a></span>
+<span id="cb68-18"><a href="appendix-2-patchworks-fire-adjustments.html#cb68-18" tabindex="-1"></a> </span>
+<span id="cb68-19"><a href="appendix-2-patchworks-fire-adjustments.html#cb68-19" tabindex="-1"></a> <span class="fu">st_write</span>(bssp2,<span class="st">&quot;./data/shp/bssp2_patches.gpkg&quot;</span>,</span>
+<span id="cb68-20"><a href="appendix-2-patchworks-fire-adjustments.html#cb68-20" tabindex="-1"></a>          <span class="at">overwrite =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 </details>
 <div class="float">
 <img src="bssp4.png" alt="clumped fire" />

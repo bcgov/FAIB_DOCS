@@ -23,7 +23,7 @@
 <meta name="author" content="A collaborative effort between a Human (Kelly Izzard) and AI" />
 
 
-<meta name="date" content="2026-07-31" />
+<meta name="date" content="2026-08-01" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -305,10 +305,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="11.1" data-path="spatial-data-accuracy-and-precision-in-strategic-modelling.html"><a href="spatial-data-accuracy-and-precision-in-strategic-modelling.html#introduction-10"><i class="fa fa-check"></i><b>11.1</b> Introduction</a></li>
 <li class="chapter" data-level="11.2" data-path="spatial-data-accuracy-and-precision-in-strategic-modelling.html"><a href="spatial-data-accuracy-and-precision-in-strategic-modelling.html#precision-and-the-grid"><i class="fa fa-check"></i><b>11.2</b> Precision and the grid</a></li>
 <li class="chapter" data-level="11.3" data-path="spatial-data-accuracy-and-precision-in-strategic-modelling.html"><a href="spatial-data-accuracy-and-precision-in-strategic-modelling.html#the-weakest-link-principle-in-spatial-analysis"><i class="fa fa-check"></i><b>11.3</b> The Weakest Link Principle in Spatial Analysis</a></li>
-<li class="chapter" data-level="11.4" data-path="spatial-data-accuracy-and-precision-in-strategic-modelling.html"><a href="spatial-data-accuracy-and-precision-in-strategic-modelling.html#fitness-for-purpose"><i class="fa fa-check"></i><b>11.4</b> Fitness for Purpose</a>
-<ul>
-<li class="chapter" data-level="11.4.1" data-path="spatial-data-accuracy-and-precision-in-strategic-modelling.html"><a href="spatial-data-accuracy-and-precision-in-strategic-modelling.html#raster-versus-vector-redux"><i class="fa fa-check"></i><b>11.4.1</b> Raster versus Vector Redux</a></li>
-</ul></li>
+<li class="chapter" data-level="11.4" data-path="spatial-data-accuracy-and-precision-in-strategic-modelling.html"><a href="spatial-data-accuracy-and-precision-in-strategic-modelling.html#fitness-for-purpose"><i class="fa fa-check"></i><b>11.4</b> Fitness for Purpose</a></li>
 <li class="chapter" data-level="11.5" data-path="spatial-data-accuracy-and-precision-in-strategic-modelling.html"><a href="spatial-data-accuracy-and-precision-in-strategic-modelling.html#path-dependency-and-the-illusion-of-precision"><i class="fa fa-check"></i><b>11.5</b> Path Dependency and the Illusion of Precision</a>
 <ul>
 <li class="chapter" data-level="11.5.1" data-path="spatial-data-accuracy-and-precision-in-strategic-modelling.html"><a href="spatial-data-accuracy-and-precision-in-strategic-modelling.html#precision-becomes-a-proxy-for-quality"><i class="fa fa-check"></i><b>11.5.1</b> Precision Becomes a Proxy for Quality</a></li>
@@ -500,143 +497,143 @@ use.</p>
 <p><strong><em>Degree centrality is a fundamental graph theory metric that measures the importance or influence of a node based on the number of direct connections it has to other nodes within a network. In an undirected graph, degree centrality is simply the count of edges connected to a node, whereas in a directed graph it can be separated into in-degree (incoming connections) and out-degree (outgoing connections). Nodes with high degree centrality are often considered highly connected and can play critical roles in facilitating movement, communication, or resource flow throughout the network. In transportation networks, for example, intersections with high degree centrality connect multiple roads and may serve as important hubs for movement. Because it is easy to compute and interpret, degree centrality is widely used to assess local connectivity and identify key nodes in social, ecological, transportation, and communication networks.</em></strong></p>
 </div>
 <details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
-<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb54-1" tabindex="-1"></a></span>
-<span id="cb54-2"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb54-2" tabindex="-1"></a><span class="fu">library</span>(sfnetworks)</span>
-<span id="cb54-3"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb54-3" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
-<span id="cb54-4"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb54-4" tabindex="-1"></a><span class="fu">library</span>(terra)</span>
-<span id="cb54-5"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb54-5" tabindex="-1"></a><span class="fu">library</span>(tidygraph)</span>
-<span id="cb54-6"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb54-6" tabindex="-1"></a><span class="fu">library</span>(igraph)</span>
-<span id="cb54-7"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb54-7" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb54-8"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb54-8" tabindex="-1"></a><span class="fu">library</span>(qgisprocess)</span>
-<span id="cb54-9"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb54-9" tabindex="-1"></a><span class="fu">library</span>(ggraph)</span>
-<span id="cb54-10"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb54-10" tabindex="-1"></a><span class="fu">library</span>(dlookr)</span>
-<span id="cb54-11"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb54-11" tabindex="-1"></a><span class="fu">library</span>(glue)</span>
-<span id="cb54-12"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb54-12" tabindex="-1"></a><span class="fu">library</span>(janitor)</span>
-<span id="cb54-13"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb54-13" tabindex="-1"></a></span>
-<span id="cb54-14"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb54-14" tabindex="-1"></a>path2rd <span class="ot">&lt;-</span> <span class="st">&quot;.</span><span class="sc">\\</span><span class="st">data</span><span class="sc">\\</span><span class="st">WL</span><span class="sc">\\</span><span class="st">tsa41_2024.gdb&quot;</span></span>
-<span id="cb54-15"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb54-15" tabindex="-1"></a><span class="co">#get integrated roads linework</span></span>
-<span id="cb54-16"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb54-16" tabindex="-1"></a>rds <span class="ot">&lt;-</span> <span class="fu">st_read</span>(path2rd, <span class="at">layer =</span> <span class="st">&quot;IntegratedRoads&quot;</span>)</span>
-<span id="cb54-17"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb54-17" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">st_geometry</span>(rds))</span>
-<span id="cb54-18"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb54-18" tabindex="-1"></a><span class="co">#dump extraneous fields, clean field names and remove trails</span></span>
-<span id="cb54-19"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb54-19" tabindex="-1"></a>rds<span class="ot">&lt;-</span>rds<span class="sc">%&gt;%</span><span class="fu">select</span>(</span>
-<span id="cb54-20"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb54-20" tabindex="-1"></a>  DRA_ROAD_CLASS,</span>
-<span id="cb54-21"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb54-21" tabindex="-1"></a>  INTEGRATED_ROADS_ID,</span>
-<span id="cb54-22"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb54-22" tabindex="-1"></a>  Integrated_Road_Class_Num,</span>
-<span id="cb54-23"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb54-23" tabindex="-1"></a>  Integrated_Road_Class_Descr</span>
-<span id="cb54-24"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb54-24" tabindex="-1"></a>)<span class="sc">%&gt;%</span></span>
-<span id="cb54-25"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb54-25" tabindex="-1"></a>  <span class="fu">clean_names</span>()<span class="sc">%&gt;%</span></span>
-<span id="cb54-26"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb54-26" tabindex="-1"></a>  <span class="fu">filter</span>(integrated_road_class_num <span class="sc">!=</span> <span class="dv">5</span>)</span>
-<span id="cb54-27"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb54-27" tabindex="-1"></a></span>
-<span id="cb54-28"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb54-28" tabindex="-1"></a><span class="do">###### convert from multiline for sfnetworks and dump any empty linework</span></span>
-<span id="cb54-29"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb54-29" tabindex="-1"></a>rds <span class="ot">&lt;-</span> <span class="fu">st_cast</span>(rds, <span class="st">&quot;LINESTRING&quot;</span>)</span>
-<span id="cb54-30"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb54-30" tabindex="-1"></a>rds <span class="ot">&lt;-</span> rds <span class="sc">%&gt;%</span> <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">st_is_empty</span>(.))</span>
-<span id="cb54-31"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb54-31" tabindex="-1"></a></span>
-<span id="cb54-32"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb54-32" tabindex="-1"></a><span class="do">###### convert to undirected network</span></span>
-<span id="cb54-33"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb54-33" tabindex="-1"></a>rd_net <span class="ot">&lt;-</span> <span class="fu">as_sfnetwork</span>(rds, <span class="at">directed =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb54-34"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb54-34" tabindex="-1"></a><span class="do">#### visualize</span></span>
-<span id="cb54-35"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb54-35" tabindex="-1"></a><span class="co">#plot(st_geometry(rd_net, &quot;nodes&quot;), pch = 5, cex = .2, add = TRUE)</span></span>
-<span id="cb54-36"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb54-36" tabindex="-1"></a><span class="co"># simplify: reduce the number of pseudo-nodes</span></span>
-<span id="cb54-37"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb54-37" tabindex="-1"></a><span class="co"># simplify and create .tidygraph_node_index</span></span>
-<span id="cb54-38"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb54-38" tabindex="-1"></a>simple_net_smooth <span class="ot">&lt;-</span> <span class="fu">convert</span>(rd_net, to_spatial_smooth)</span>
-<span id="cb54-39"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb54-39" tabindex="-1"></a><span class="co"># create a membership list to identify primary components</span></span>
-<span id="cb54-40"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb54-40" tabindex="-1"></a>components_result <span class="ot">&lt;-</span> <span class="fu">components</span>(simple_net_smooth)</span>
-<span id="cb54-41"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb54-41" tabindex="-1"></a><span class="co"># create component table to review</span></span>
-<span id="cb54-42"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb54-42" tabindex="-1"></a><span class="co"># table will itemize disconnected components within network and assign</span></span>
-<span id="cb54-43"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb54-43" tabindex="-1"></a><span class="co"># membership id to each connected subnetwork</span></span>
-<span id="cb54-44"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb54-44" tabindex="-1"></a><span class="co">#</span></span>
-<span id="cb54-45"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb54-45" tabindex="-1"></a>component_tibble <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
-<span id="cb54-46"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb54-46" tabindex="-1"></a>  <span class="at">node =</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(components_result<span class="sc">$</span>membership),</span>
-<span id="cb54-47"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb54-47" tabindex="-1"></a>  <span class="at">membership =</span> components_result<span class="sc">$</span>membership,</span>
-<span id="cb54-48"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb54-48" tabindex="-1"></a>  <span class="at">csize =</span> components_result<span class="sc">$</span>csize[components_result<span class="sc">$</span>membership]</span>
-<span id="cb54-49"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb54-49" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
-<span id="cb54-50"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb54-50" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(csize))</span>
-<span id="cb54-51"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb54-51" tabindex="-1"></a></span>
-<span id="cb54-52"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb54-52" tabindex="-1"></a><span class="fu">View</span>(component_tibble)</span>
-<span id="cb54-53"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb54-53" tabindex="-1"></a></span>
-<span id="cb54-54"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb54-54" tabindex="-1"></a><span class="co"># Identify primary components....any member with more that 50 components</span></span>
-<span id="cb54-55"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb54-55" tabindex="-1"></a>members <span class="ot">&lt;-</span> component_tibble <span class="sc">%&gt;%</span></span>
-<span id="cb54-56"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb54-56" tabindex="-1"></a>  <span class="fu">group_by</span>(membership) <span class="sc">%&gt;%</span></span>
-<span id="cb54-57"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb54-57" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">size =</span> <span class="fu">mean</span>(csize))<span class="sc">%&gt;%</span></span>
-<span id="cb54-58"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb54-58" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(size))</span>
-<span id="cb54-59"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb54-59" tabindex="-1"></a></span>
-<span id="cb54-60"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb54-60" tabindex="-1"></a><span class="fu">View</span>(members)</span>
-<span id="cb54-61"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb54-61" tabindex="-1"></a></span>
-<span id="cb54-62"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb54-62" tabindex="-1"></a><span class="do">### select the subnet with the largest membership</span></span>
-<span id="cb54-63"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb54-63" tabindex="-1"></a></span>
-<span id="cb54-64"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb54-64" tabindex="-1"></a>p <span class="ot">&lt;-</span> simple_net_smooth <span class="sc">%&gt;%</span></span>
-<span id="cb54-65"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb54-65" tabindex="-1"></a>  <span class="fu">activate</span>(<span class="st">&quot;nodes&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb54-66"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb54-66" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">components</span>(simple_net_smooth)<span class="sc">$</span>membership <span class="sc">==</span> <span class="dv">1</span>)</span>
-<span id="cb54-67"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb54-67" tabindex="-1"></a></span>
-<span id="cb54-68"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb54-68" tabindex="-1"></a><span class="do">#####################################################################################</span></span>
-<span id="cb54-69"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb54-69" tabindex="-1"></a><span class="co">#The centrality_degree() function comes from the tidygraph package (which powers sfnetworks) </span></span>
-<span id="cb54-70"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb54-70" tabindex="-1"></a><span class="co">#and is used to calculate degree centrality for each node in a graph.</span></span>
-<span id="cb54-71"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb54-71" tabindex="-1"></a><span class="co">#Degree centrality measures how many direct connections (edges) a node has.</span></span>
-<span id="cb54-72"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb54-72" tabindex="-1"></a><span class="co">#In an undirected graph like &quot;p&quot; it counts all edges connected to a node.</span></span>
-<span id="cb54-73"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb54-73" tabindex="-1"></a></span>
-<span id="cb54-74"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb54-74" tabindex="-1"></a>p<span class="ot">&lt;-</span> p <span class="sc">%&gt;%</span> </span>
-<span id="cb54-75"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb54-75" tabindex="-1"></a>  <span class="fu">activate</span>(nodes) <span class="sc">%&gt;%</span> </span>
-<span id="cb54-76"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb54-76" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">degree =</span> <span class="fu">centrality_degree</span>())</span>
-<span id="cb54-77"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb54-77" tabindex="-1"></a></span>
-<span id="cb54-78"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb54-78" tabindex="-1"></a>coords <span class="ot">&lt;-</span> <span class="fu">st_coordinates</span>(p <span class="sc">%&gt;%</span> <span class="fu">activate</span>(<span class="st">&quot;nodes&quot;</span>))</span>
-<span id="cb54-79"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb54-79" tabindex="-1"></a><span class="co">#layout = coords is now set to a matrix of node coordinates extracted from the network.</span></span>
-<span id="cb54-80"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb54-80" tabindex="-1"></a></span>
-<span id="cb54-81"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb54-81" tabindex="-1"></a><span class="co">#When using ggrpah this approach ensures nodes are plotted based on their </span></span>
-<span id="cb54-82"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb54-82" tabindex="-1"></a><span class="co">#spatial positions without passing unsupported arguments.</span></span>
-<span id="cb54-83"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb54-83" tabindex="-1"></a><span class="co">#geom_node_point(aes(colour = degree)) maps node colour to the degree column.</span></span>
-<span id="cb54-84"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb54-84" tabindex="-1"></a></span>
-<span id="cb54-85"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb54-85" tabindex="-1"></a></span>
-<span id="cb54-86"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb54-86" tabindex="-1"></a><span class="co"># Plot</span></span>
-<span id="cb54-87"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb54-87" tabindex="-1"></a><span class="fu">ggraph</span>(p, <span class="at">layout =</span> coords) <span class="sc">+</span></span>
-<span id="cb54-88"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb54-88" tabindex="-1"></a>  <span class="fu">geom_edge_link</span>(<span class="at">color =</span> <span class="st">&quot;gray80&quot;</span>) <span class="sc">+</span></span>
-<span id="cb54-89"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb54-89" tabindex="-1"></a>  <span class="fu">geom_node_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> degree), <span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb54-90"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb54-90" tabindex="-1"></a>  <span class="fu">scale_color_viridis_c</span>(<span class="at">option =</span> <span class="st">&quot;plasma&quot;</span>) <span class="sc">+</span></span>
-<span id="cb54-91"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb54-91" tabindex="-1"></a>  <span class="fu">theme_graph</span>() <span class="sc">+</span></span>
-<span id="cb54-92"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb54-92" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">color =</span> <span class="st">&quot;Node Degree&quot;</span>)</span>
-<span id="cb54-93"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb54-93" tabindex="-1"></a></span>
-<span id="cb54-94"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb54-94" tabindex="-1"></a></span>
-<span id="cb54-95"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb54-95" tabindex="-1"></a><span class="co"># Compute average degree for each edge</span></span>
-<span id="cb54-96"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb54-96" tabindex="-1"></a>p <span class="ot">&lt;-</span> p <span class="sc">%&gt;%</span></span>
-<span id="cb54-97"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb54-97" tabindex="-1"></a>  <span class="fu">activate</span>(edges) <span class="sc">%&gt;%</span></span>
-<span id="cb54-98"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb54-98" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb54-99"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb54-99" tabindex="-1"></a>    <span class="at">avg_node_degree =</span> (<span class="fu">.N</span>()<span class="sc">$</span>degree[from] <span class="sc">+</span> <span class="fu">.N</span>()<span class="sc">$</span>degree[to]) <span class="sc">/</span> <span class="dv">2</span></span>
-<span id="cb54-100"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb54-100" tabindex="-1"></a>  )</span>
-<span id="cb54-101"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb54-101" tabindex="-1"></a><span class="co">#plot edges</span></span>
-<span id="cb54-102"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb54-102" tabindex="-1"></a><span class="fu">ggraph</span>(p, <span class="at">layout =</span> coords) <span class="sc">+</span></span>
-<span id="cb54-103"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb54-103" tabindex="-1"></a>  <span class="fu">geom_edge_link</span>(<span class="fu">aes</span>(<span class="at">color =</span> avg_node_degree), <span class="at">width =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb54-104"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb54-104" tabindex="-1"></a>  <span class="fu">scale_color_viridis_c</span>(<span class="at">option =</span> <span class="st">&quot;plasma&quot;</span>) <span class="sc">+</span></span>
-<span id="cb54-105"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb54-105" tabindex="-1"></a>  <span class="fu">theme_graph</span>() <span class="sc">+</span></span>
-<span id="cb54-106"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb54-106" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">color =</span> <span class="st">&quot;Edge Value&quot;</span>)</span>
-<span id="cb54-107"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb54-107" tabindex="-1"></a><span class="co">#convert to sf_object</span></span>
-<span id="cb54-108"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb54-108" tabindex="-1"></a>p<span class="ot">&lt;-</span>p<span class="sc">%&gt;%</span></span>
-<span id="cb54-109"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb54-109" tabindex="-1"></a>  <span class="fu">activate</span>(<span class="st">&quot;edges&quot;</span>)<span class="sc">%&gt;%</span></span>
-<span id="cb54-110"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb54-110" tabindex="-1"></a>  <span class="fu">st_as_sf</span>()</span>
-<span id="cb54-111"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb54-111" tabindex="-1"></a><span class="co">#reclassify</span></span>
-<span id="cb54-112"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb54-112" tabindex="-1"></a>p<span class="ot">&lt;-</span>p<span class="sc">%&gt;%</span></span>
-<span id="cb54-113"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb54-113" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">class =</span> <span class="fu">case_when</span>(</span>
-<span id="cb54-114"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb54-114" tabindex="-1"></a>    avg_node_degree <span class="sc">&lt;</span> <span class="dv">3</span> <span class="sc">~</span> <span class="st">&quot;secondary&quot;</span>,</span>
-<span id="cb54-115"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb54-115" tabindex="-1"></a>    <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">&quot;primary&quot;</span></span>
-<span id="cb54-116"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb54-116" tabindex="-1"></a>  ))</span>
-<span id="cb54-117"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb54-117" tabindex="-1"></a></span>
-<span id="cb54-118"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb54-118" tabindex="-1"></a><span class="co">#dump index list and old fid field to covert to .gpkg</span></span>
-<span id="cb54-119"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb54-119" tabindex="-1"></a>p<span class="ot">&lt;-</span>p<span class="sc">%&gt;%</span><span class="fu">select</span>(<span class="sc">-</span>.tidygraph_edge_index)</span>
-<span id="cb54-120"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb54-120" tabindex="-1"></a><span class="co">#output geopackage path</span></span>
-<span id="cb54-121"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb54-121" tabindex="-1"></a> out_path<span class="ot">&lt;-</span><span class="st">&quot;./data/WL/tsa41_network1.gpkg&quot;</span></span>
-<span id="cb54-122"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb54-122" tabindex="-1"></a><span class="co">#clean the linework using QGIS fix geometry function</span></span>
-<span id="cb54-123"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb54-123" tabindex="-1"></a> clean<span class="ot">&lt;-</span> <span class="fu">qgis_run_algorithm</span>(</span>
-<span id="cb54-124"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb54-124" tabindex="-1"></a>  <span class="st">&quot;native:fixgeometries&quot;</span>,</span>
-<span id="cb54-125"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb54-125" tabindex="-1"></a>  <span class="at">INPUT =</span> p,</span>
-<span id="cb54-126"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb54-126" tabindex="-1"></a>  <span class="at">OUTPUT =</span>out_path )</span>
-<span id="cb54-127"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb54-127" tabindex="-1"></a>tmp1 <span class="ot">&lt;-</span> <span class="fu">read_sf</span>(<span class="fu">qgis_extract_output</span>(clean, <span class="st">&quot;OUTPUT&quot;</span>))<span class="co">#clean</span></span>
-<span id="cb54-128"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb54-128" tabindex="-1"></a></span>
-<span id="cb54-129"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb54-129" tabindex="-1"></a><span class="fu">st_write</span>(p,<span class="st">&quot;./data/WL/tsa41_network1.gpkg&quot;</span>,</span>
-<span id="cb54-130"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb54-130" tabindex="-1"></a>         <span class="at">overwrite =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb54-131"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb54-131" tabindex="-1"></a>         <span class="at">append =</span> <span class="cn">FALSE</span></span>
-<span id="cb54-132"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb54-132" tabindex="-1"></a>)</span>
-<span id="cb54-133"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb54-133" tabindex="-1"></a></span>
-<span id="cb54-134"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb54-134" tabindex="-1"></a><span class="co">#remove large objects and clean garbage</span></span>
-<span id="cb54-135"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb54-135" tabindex="-1"></a><span class="fu">rm</span>(tmp1)</span>
-<span id="cb54-136"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb54-136" tabindex="-1"></a><span class="fu">rm</span>(p)</span>
-<span id="cb54-137"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb54-137" tabindex="-1"></a><span class="fu">gc</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb57-1" tabindex="-1"></a></span>
+<span id="cb57-2"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb57-2" tabindex="-1"></a><span class="fu">library</span>(sfnetworks)</span>
+<span id="cb57-3"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb57-3" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
+<span id="cb57-4"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb57-4" tabindex="-1"></a><span class="fu">library</span>(terra)</span>
+<span id="cb57-5"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb57-5" tabindex="-1"></a><span class="fu">library</span>(tidygraph)</span>
+<span id="cb57-6"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb57-6" tabindex="-1"></a><span class="fu">library</span>(igraph)</span>
+<span id="cb57-7"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb57-7" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb57-8"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb57-8" tabindex="-1"></a><span class="fu">library</span>(qgisprocess)</span>
+<span id="cb57-9"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb57-9" tabindex="-1"></a><span class="fu">library</span>(ggraph)</span>
+<span id="cb57-10"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb57-10" tabindex="-1"></a><span class="fu">library</span>(dlookr)</span>
+<span id="cb57-11"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb57-11" tabindex="-1"></a><span class="fu">library</span>(glue)</span>
+<span id="cb57-12"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb57-12" tabindex="-1"></a><span class="fu">library</span>(janitor)</span>
+<span id="cb57-13"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb57-13" tabindex="-1"></a></span>
+<span id="cb57-14"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb57-14" tabindex="-1"></a>path2rd <span class="ot">&lt;-</span> <span class="st">&quot;.</span><span class="sc">\\</span><span class="st">data</span><span class="sc">\\</span><span class="st">WL</span><span class="sc">\\</span><span class="st">tsa41_2024.gdb&quot;</span></span>
+<span id="cb57-15"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb57-15" tabindex="-1"></a><span class="co">#get integrated roads linework</span></span>
+<span id="cb57-16"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb57-16" tabindex="-1"></a>rds <span class="ot">&lt;-</span> <span class="fu">st_read</span>(path2rd, <span class="at">layer =</span> <span class="st">&quot;IntegratedRoads&quot;</span>)</span>
+<span id="cb57-17"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb57-17" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">st_geometry</span>(rds))</span>
+<span id="cb57-18"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb57-18" tabindex="-1"></a><span class="co">#dump extraneous fields, clean field names and remove trails</span></span>
+<span id="cb57-19"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb57-19" tabindex="-1"></a>rds<span class="ot">&lt;-</span>rds<span class="sc">%&gt;%</span><span class="fu">select</span>(</span>
+<span id="cb57-20"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb57-20" tabindex="-1"></a>  DRA_ROAD_CLASS,</span>
+<span id="cb57-21"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb57-21" tabindex="-1"></a>  INTEGRATED_ROADS_ID,</span>
+<span id="cb57-22"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb57-22" tabindex="-1"></a>  Integrated_Road_Class_Num,</span>
+<span id="cb57-23"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb57-23" tabindex="-1"></a>  Integrated_Road_Class_Descr</span>
+<span id="cb57-24"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb57-24" tabindex="-1"></a>)<span class="sc">%&gt;%</span></span>
+<span id="cb57-25"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb57-25" tabindex="-1"></a>  <span class="fu">clean_names</span>()<span class="sc">%&gt;%</span></span>
+<span id="cb57-26"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb57-26" tabindex="-1"></a>  <span class="fu">filter</span>(integrated_road_class_num <span class="sc">!=</span> <span class="dv">5</span>)</span>
+<span id="cb57-27"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb57-27" tabindex="-1"></a></span>
+<span id="cb57-28"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb57-28" tabindex="-1"></a><span class="do">###### convert from multiline for sfnetworks and dump any empty linework</span></span>
+<span id="cb57-29"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb57-29" tabindex="-1"></a>rds <span class="ot">&lt;-</span> <span class="fu">st_cast</span>(rds, <span class="st">&quot;LINESTRING&quot;</span>)</span>
+<span id="cb57-30"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb57-30" tabindex="-1"></a>rds <span class="ot">&lt;-</span> rds <span class="sc">%&gt;%</span> <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">st_is_empty</span>(.))</span>
+<span id="cb57-31"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb57-31" tabindex="-1"></a></span>
+<span id="cb57-32"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb57-32" tabindex="-1"></a><span class="do">###### convert to undirected network</span></span>
+<span id="cb57-33"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb57-33" tabindex="-1"></a>rd_net <span class="ot">&lt;-</span> <span class="fu">as_sfnetwork</span>(rds, <span class="at">directed =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb57-34"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb57-34" tabindex="-1"></a><span class="do">#### visualize</span></span>
+<span id="cb57-35"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb57-35" tabindex="-1"></a><span class="co">#plot(st_geometry(rd_net, &quot;nodes&quot;), pch = 5, cex = .2, add = TRUE)</span></span>
+<span id="cb57-36"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb57-36" tabindex="-1"></a><span class="co"># simplify: reduce the number of pseudo-nodes</span></span>
+<span id="cb57-37"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb57-37" tabindex="-1"></a><span class="co"># simplify and create .tidygraph_node_index</span></span>
+<span id="cb57-38"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb57-38" tabindex="-1"></a>simple_net_smooth <span class="ot">&lt;-</span> <span class="fu">convert</span>(rd_net, to_spatial_smooth)</span>
+<span id="cb57-39"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb57-39" tabindex="-1"></a><span class="co"># create a membership list to identify primary components</span></span>
+<span id="cb57-40"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb57-40" tabindex="-1"></a>components_result <span class="ot">&lt;-</span> <span class="fu">components</span>(simple_net_smooth)</span>
+<span id="cb57-41"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb57-41" tabindex="-1"></a><span class="co"># create component table to review</span></span>
+<span id="cb57-42"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb57-42" tabindex="-1"></a><span class="co"># table will itemize disconnected components within network and assign</span></span>
+<span id="cb57-43"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb57-43" tabindex="-1"></a><span class="co"># membership id to each connected subnetwork</span></span>
+<span id="cb57-44"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb57-44" tabindex="-1"></a><span class="co">#</span></span>
+<span id="cb57-45"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb57-45" tabindex="-1"></a>component_tibble <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb57-46"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb57-46" tabindex="-1"></a>  <span class="at">node =</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(components_result<span class="sc">$</span>membership),</span>
+<span id="cb57-47"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb57-47" tabindex="-1"></a>  <span class="at">membership =</span> components_result<span class="sc">$</span>membership,</span>
+<span id="cb57-48"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb57-48" tabindex="-1"></a>  <span class="at">csize =</span> components_result<span class="sc">$</span>csize[components_result<span class="sc">$</span>membership]</span>
+<span id="cb57-49"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb57-49" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb57-50"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb57-50" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(csize))</span>
+<span id="cb57-51"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb57-51" tabindex="-1"></a></span>
+<span id="cb57-52"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb57-52" tabindex="-1"></a><span class="fu">View</span>(component_tibble)</span>
+<span id="cb57-53"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb57-53" tabindex="-1"></a></span>
+<span id="cb57-54"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb57-54" tabindex="-1"></a><span class="co"># Identify primary components....any member with more that 50 components</span></span>
+<span id="cb57-55"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb57-55" tabindex="-1"></a>members <span class="ot">&lt;-</span> component_tibble <span class="sc">%&gt;%</span></span>
+<span id="cb57-56"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb57-56" tabindex="-1"></a>  <span class="fu">group_by</span>(membership) <span class="sc">%&gt;%</span></span>
+<span id="cb57-57"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb57-57" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">size =</span> <span class="fu">mean</span>(csize))<span class="sc">%&gt;%</span></span>
+<span id="cb57-58"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb57-58" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(size))</span>
+<span id="cb57-59"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb57-59" tabindex="-1"></a></span>
+<span id="cb57-60"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb57-60" tabindex="-1"></a><span class="fu">View</span>(members)</span>
+<span id="cb57-61"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb57-61" tabindex="-1"></a></span>
+<span id="cb57-62"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb57-62" tabindex="-1"></a><span class="do">### select the subnet with the largest membership</span></span>
+<span id="cb57-63"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb57-63" tabindex="-1"></a></span>
+<span id="cb57-64"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb57-64" tabindex="-1"></a>p <span class="ot">&lt;-</span> simple_net_smooth <span class="sc">%&gt;%</span></span>
+<span id="cb57-65"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb57-65" tabindex="-1"></a>  <span class="fu">activate</span>(<span class="st">&quot;nodes&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb57-66"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb57-66" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">components</span>(simple_net_smooth)<span class="sc">$</span>membership <span class="sc">==</span> <span class="dv">1</span>)</span>
+<span id="cb57-67"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb57-67" tabindex="-1"></a></span>
+<span id="cb57-68"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb57-68" tabindex="-1"></a><span class="do">#####################################################################################</span></span>
+<span id="cb57-69"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb57-69" tabindex="-1"></a><span class="co">#The centrality_degree() function comes from the tidygraph package (which powers sfnetworks) </span></span>
+<span id="cb57-70"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb57-70" tabindex="-1"></a><span class="co">#and is used to calculate degree centrality for each node in a graph.</span></span>
+<span id="cb57-71"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb57-71" tabindex="-1"></a><span class="co">#Degree centrality measures how many direct connections (edges) a node has.</span></span>
+<span id="cb57-72"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb57-72" tabindex="-1"></a><span class="co">#In an undirected graph like &quot;p&quot; it counts all edges connected to a node.</span></span>
+<span id="cb57-73"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb57-73" tabindex="-1"></a></span>
+<span id="cb57-74"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb57-74" tabindex="-1"></a>p<span class="ot">&lt;-</span> p <span class="sc">%&gt;%</span> </span>
+<span id="cb57-75"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb57-75" tabindex="-1"></a>  <span class="fu">activate</span>(nodes) <span class="sc">%&gt;%</span> </span>
+<span id="cb57-76"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb57-76" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">degree =</span> <span class="fu">centrality_degree</span>())</span>
+<span id="cb57-77"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb57-77" tabindex="-1"></a></span>
+<span id="cb57-78"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb57-78" tabindex="-1"></a>coords <span class="ot">&lt;-</span> <span class="fu">st_coordinates</span>(p <span class="sc">%&gt;%</span> <span class="fu">activate</span>(<span class="st">&quot;nodes&quot;</span>))</span>
+<span id="cb57-79"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb57-79" tabindex="-1"></a><span class="co">#layout = coords is now set to a matrix of node coordinates extracted from the network.</span></span>
+<span id="cb57-80"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb57-80" tabindex="-1"></a></span>
+<span id="cb57-81"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb57-81" tabindex="-1"></a><span class="co">#When using ggrpah this approach ensures nodes are plotted based on their </span></span>
+<span id="cb57-82"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb57-82" tabindex="-1"></a><span class="co">#spatial positions without passing unsupported arguments.</span></span>
+<span id="cb57-83"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb57-83" tabindex="-1"></a><span class="co">#geom_node_point(aes(colour = degree)) maps node colour to the degree column.</span></span>
+<span id="cb57-84"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb57-84" tabindex="-1"></a></span>
+<span id="cb57-85"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb57-85" tabindex="-1"></a></span>
+<span id="cb57-86"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb57-86" tabindex="-1"></a><span class="co"># Plot</span></span>
+<span id="cb57-87"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb57-87" tabindex="-1"></a><span class="fu">ggraph</span>(p, <span class="at">layout =</span> coords) <span class="sc">+</span></span>
+<span id="cb57-88"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb57-88" tabindex="-1"></a>  <span class="fu">geom_edge_link</span>(<span class="at">color =</span> <span class="st">&quot;gray80&quot;</span>) <span class="sc">+</span></span>
+<span id="cb57-89"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb57-89" tabindex="-1"></a>  <span class="fu">geom_node_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> degree), <span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb57-90"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb57-90" tabindex="-1"></a>  <span class="fu">scale_color_viridis_c</span>(<span class="at">option =</span> <span class="st">&quot;plasma&quot;</span>) <span class="sc">+</span></span>
+<span id="cb57-91"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb57-91" tabindex="-1"></a>  <span class="fu">theme_graph</span>() <span class="sc">+</span></span>
+<span id="cb57-92"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb57-92" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">color =</span> <span class="st">&quot;Node Degree&quot;</span>)</span>
+<span id="cb57-93"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb57-93" tabindex="-1"></a></span>
+<span id="cb57-94"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb57-94" tabindex="-1"></a></span>
+<span id="cb57-95"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb57-95" tabindex="-1"></a><span class="co"># Compute average degree for each edge</span></span>
+<span id="cb57-96"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb57-96" tabindex="-1"></a>p <span class="ot">&lt;-</span> p <span class="sc">%&gt;%</span></span>
+<span id="cb57-97"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb57-97" tabindex="-1"></a>  <span class="fu">activate</span>(edges) <span class="sc">%&gt;%</span></span>
+<span id="cb57-98"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb57-98" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb57-99"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb57-99" tabindex="-1"></a>    <span class="at">avg_node_degree =</span> (<span class="fu">.N</span>()<span class="sc">$</span>degree[from] <span class="sc">+</span> <span class="fu">.N</span>()<span class="sc">$</span>degree[to]) <span class="sc">/</span> <span class="dv">2</span></span>
+<span id="cb57-100"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb57-100" tabindex="-1"></a>  )</span>
+<span id="cb57-101"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb57-101" tabindex="-1"></a><span class="co">#plot edges</span></span>
+<span id="cb57-102"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb57-102" tabindex="-1"></a><span class="fu">ggraph</span>(p, <span class="at">layout =</span> coords) <span class="sc">+</span></span>
+<span id="cb57-103"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb57-103" tabindex="-1"></a>  <span class="fu">geom_edge_link</span>(<span class="fu">aes</span>(<span class="at">color =</span> avg_node_degree), <span class="at">width =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb57-104"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb57-104" tabindex="-1"></a>  <span class="fu">scale_color_viridis_c</span>(<span class="at">option =</span> <span class="st">&quot;plasma&quot;</span>) <span class="sc">+</span></span>
+<span id="cb57-105"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb57-105" tabindex="-1"></a>  <span class="fu">theme_graph</span>() <span class="sc">+</span></span>
+<span id="cb57-106"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb57-106" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">color =</span> <span class="st">&quot;Edge Value&quot;</span>)</span>
+<span id="cb57-107"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb57-107" tabindex="-1"></a><span class="co">#convert to sf_object</span></span>
+<span id="cb57-108"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb57-108" tabindex="-1"></a>p<span class="ot">&lt;-</span>p<span class="sc">%&gt;%</span></span>
+<span id="cb57-109"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb57-109" tabindex="-1"></a>  <span class="fu">activate</span>(<span class="st">&quot;edges&quot;</span>)<span class="sc">%&gt;%</span></span>
+<span id="cb57-110"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb57-110" tabindex="-1"></a>  <span class="fu">st_as_sf</span>()</span>
+<span id="cb57-111"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb57-111" tabindex="-1"></a><span class="co">#reclassify</span></span>
+<span id="cb57-112"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb57-112" tabindex="-1"></a>p<span class="ot">&lt;-</span>p<span class="sc">%&gt;%</span></span>
+<span id="cb57-113"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb57-113" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">class =</span> <span class="fu">case_when</span>(</span>
+<span id="cb57-114"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb57-114" tabindex="-1"></a>    avg_node_degree <span class="sc">&lt;</span> <span class="dv">3</span> <span class="sc">~</span> <span class="st">&quot;secondary&quot;</span>,</span>
+<span id="cb57-115"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb57-115" tabindex="-1"></a>    <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">&quot;primary&quot;</span></span>
+<span id="cb57-116"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb57-116" tabindex="-1"></a>  ))</span>
+<span id="cb57-117"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb57-117" tabindex="-1"></a></span>
+<span id="cb57-118"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb57-118" tabindex="-1"></a><span class="co">#dump index list and old fid field to covert to .gpkg</span></span>
+<span id="cb57-119"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb57-119" tabindex="-1"></a>p<span class="ot">&lt;-</span>p<span class="sc">%&gt;%</span><span class="fu">select</span>(<span class="sc">-</span>.tidygraph_edge_index)</span>
+<span id="cb57-120"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb57-120" tabindex="-1"></a><span class="co">#output geopackage path</span></span>
+<span id="cb57-121"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb57-121" tabindex="-1"></a> out_path<span class="ot">&lt;-</span><span class="st">&quot;./data/WL/tsa41_network1.gpkg&quot;</span></span>
+<span id="cb57-122"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb57-122" tabindex="-1"></a><span class="co">#clean the linework using QGIS fix geometry function</span></span>
+<span id="cb57-123"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb57-123" tabindex="-1"></a> clean<span class="ot">&lt;-</span> <span class="fu">qgis_run_algorithm</span>(</span>
+<span id="cb57-124"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb57-124" tabindex="-1"></a>  <span class="st">&quot;native:fixgeometries&quot;</span>,</span>
+<span id="cb57-125"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb57-125" tabindex="-1"></a>  <span class="at">INPUT =</span> p,</span>
+<span id="cb57-126"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb57-126" tabindex="-1"></a>  <span class="at">OUTPUT =</span>out_path )</span>
+<span id="cb57-127"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb57-127" tabindex="-1"></a>tmp1 <span class="ot">&lt;-</span> <span class="fu">read_sf</span>(<span class="fu">qgis_extract_output</span>(clean, <span class="st">&quot;OUTPUT&quot;</span>))<span class="co">#clean</span></span>
+<span id="cb57-128"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb57-128" tabindex="-1"></a></span>
+<span id="cb57-129"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb57-129" tabindex="-1"></a><span class="fu">st_write</span>(p,<span class="st">&quot;./data/WL/tsa41_network1.gpkg&quot;</span>,</span>
+<span id="cb57-130"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb57-130" tabindex="-1"></a>         <span class="at">overwrite =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb57-131"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb57-131" tabindex="-1"></a>         <span class="at">append =</span> <span class="cn">FALSE</span></span>
+<span id="cb57-132"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb57-132" tabindex="-1"></a>)</span>
+<span id="cb57-133"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb57-133" tabindex="-1"></a></span>
+<span id="cb57-134"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb57-134" tabindex="-1"></a><span class="co">#remove large objects and clean garbage</span></span>
+<span id="cb57-135"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb57-135" tabindex="-1"></a><span class="fu">rm</span>(tmp1)</span>
+<span id="cb57-136"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb57-136" tabindex="-1"></a><span class="fu">rm</span>(p)</span>
+<span id="cb57-137"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb57-137" tabindex="-1"></a><span class="fu">gc</span>()</span></code></pre></div>
 </details>
 <p>The following image contrasts the integrated roads (green) overlain with the
 simplified modelled network (black) for TSA41</p>
@@ -697,77 +694,77 @@ goal of qgisprocess is to provide an R interface to the geoprocessing
 algorithms of QGIS, a popular and open source desktop geographic
 information system (GIS) program.</p>
 <details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
-<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb55-1" tabindex="-1"></a></span>
-<span id="cb55-2"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb55-2" tabindex="-1"></a><span class="do">#####################create FRN inputs############################################</span></span>
-<span id="cb55-3"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb55-3" tabindex="-1"></a><span class="co">#start with THLB...it may take many forms so you need to adjust the scripts accordingly</span></span>
-<span id="cb55-4"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb55-4" tabindex="-1"></a><span class="co"># we want to build road to THLB polygons &gt; 5 ha</span></span>
-<span id="cb55-5"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb55-5" tabindex="-1"></a><span class="co">#this example uses a gridded THLB</span></span>
-<span id="cb55-6"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb55-6" tabindex="-1"></a>t_path<span class="ot">&lt;-</span><span class="st">&#39;./data/WL/tsa41_thlb.gpkg&#39;</span></span>
-<span id="cb55-7"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb55-7" tabindex="-1"></a>out_path<span class="ot">&lt;-</span><span class="st">&#39;./data/WL/tsa41_thlb_clean5.gpkg&#39;</span></span>
-<span id="cb55-8"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb55-8" tabindex="-1"></a></span>
-<span id="cb55-9"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb55-9" tabindex="-1"></a>thlb<span class="ot">&lt;-</span><span class="fu">st_read</span>(t_path)</span>
-<span id="cb55-10"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb55-10" tabindex="-1"></a><span class="co"># raster example</span></span>
-<span id="cb55-11"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb55-11" tabindex="-1"></a><span class="co"># thlb&lt;-rast(t_path)</span></span>
-<span id="cb55-12"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb55-12" tabindex="-1"></a><span class="co"># thlb&lt;-as.polygons(thlb,aggregate = TRUE)</span></span>
-<span id="cb55-13"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb55-13" tabindex="-1"></a><span class="co"># thlb&lt;-as_sf(thlb)</span></span>
-<span id="cb55-14"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb55-14" tabindex="-1"></a>thlb<span class="ot">&lt;-</span>thlb<span class="sc">%&gt;%</span><span class="fu">filter</span>(THLB <span class="sc">&gt;</span> <span class="dv">0</span>)</span>
-<span id="cb55-15"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb55-15" tabindex="-1"></a><span class="co">#</span></span>
-<span id="cb55-16"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb55-16" tabindex="-1"></a><span class="co">#extract just THLB polygons (this is gridded)</span></span>
-<span id="cb55-17"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb55-17" tabindex="-1"></a><span class="co"># extract&lt;-qgis_run_algorithm(</span></span>
-<span id="cb55-18"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb55-18" tabindex="-1"></a><span class="co">#   &quot;native:extractbyattribute&quot;,</span></span>
-<span id="cb55-19"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb55-19" tabindex="-1"></a><span class="co">#   INPUT = thlb,</span></span>
-<span id="cb55-20"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb55-20" tabindex="-1"></a><span class="co">#   VALUE = &#39;Y&#39;,</span></span>
-<span id="cb55-21"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb55-21" tabindex="-1"></a><span class="co">#   FIELD = &#39;thlb&#39;)</span></span>
-<span id="cb55-22"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb55-22" tabindex="-1"></a><span class="co"># tmp1 &lt;- read_sf(qgis_extract_output(extract, &quot;OUTPUT&quot;))#clean</span></span>
-<span id="cb55-23"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb55-23" tabindex="-1"></a>tmp1<span class="ot">&lt;-</span>thlb</span>
-<span id="cb55-24"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb55-24" tabindex="-1"></a><span class="fu">rm</span>(thlb)</span>
-<span id="cb55-25"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb55-25" tabindex="-1"></a><span class="fu">gc</span>()</span>
-<span id="cb55-26"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb55-26" tabindex="-1"></a><span class="co">#since its gridded we need to dissolve into large polygon</span></span>
-<span id="cb55-27"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb55-27" tabindex="-1"></a><span class="co">#ne disjoint to avoid multipart polygons</span></span>
-<span id="cb55-28"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb55-28" tabindex="-1"></a></span>
-<span id="cb55-29"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb55-29" tabindex="-1"></a>tmp1<span class="ot">&lt;-</span>tmp1<span class="sc">%&gt;%</span></span>
-<span id="cb55-30"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb55-30" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">grid =</span> <span class="dv">1</span>)</span>
-<span id="cb55-31"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb55-31" tabindex="-1"></a><span class="co"># use the QGIS dissolve function</span></span>
-<span id="cb55-32"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb55-32" tabindex="-1"></a>dissolve<span class="ot">&lt;-</span> <span class="fu">qgis_run_algorithm</span>(</span>
-<span id="cb55-33"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb55-33" tabindex="-1"></a>  <span class="st">&quot;native:dissolve&quot;</span>,</span>
-<span id="cb55-34"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb55-34" tabindex="-1"></a>  <span class="at">INPUT =</span> tmp1,</span>
-<span id="cb55-35"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb55-35" tabindex="-1"></a>  <span class="at">FIELD =</span> <span class="st">&quot;grid&quot;</span>,</span>
-<span id="cb55-36"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb55-36" tabindex="-1"></a>  <span class="at">SEPARATE_DISJOINT =</span> <span class="dv">1</span>,</span>
-<span id="cb55-37"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb55-37" tabindex="-1"></a>  <span class="at">OUTPUT =</span> out_path</span>
-<span id="cb55-38"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb55-38" tabindex="-1"></a>)</span>
-<span id="cb55-39"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb55-39" tabindex="-1"></a><span class="co">#create sf object</span></span>
-<span id="cb55-40"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb55-40" tabindex="-1"></a>tmp1 <span class="ot">&lt;-</span> <span class="fu">read_sf</span>(<span class="fu">qgis_extract_output</span>(dissolve, <span class="st">&quot;OUTPUT&quot;</span>))<span class="co">#dissolve</span></span>
-<span id="cb55-41"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb55-41" tabindex="-1"></a><span class="co">#polygons 5 ha or greater</span></span>
-<span id="cb55-42"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb55-42" tabindex="-1"></a>tmp1<span class="ot">&lt;-</span>tmp1 <span class="sc">%&gt;%</span></span>
-<span id="cb55-43"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb55-43" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">area_ha =</span> <span class="fu">st_area</span>(geom)<span class="sc">/</span><span class="dv">10000</span>)<span class="sc">%&gt;%</span><span class="fu">filter</span>(</span>
-<span id="cb55-44"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb55-44" tabindex="-1"></a>  <span class="fu">as.numeric</span>(area_ha) <span class="sc">&gt;</span> <span class="dv">4</span>)</span>
-<span id="cb55-45"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb55-45" tabindex="-1"></a></span>
-<span id="cb55-46"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb55-46" tabindex="-1"></a><span class="co">#QGIS fix geometry function</span></span>
-<span id="cb55-47"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb55-47" tabindex="-1"></a>clean<span class="ot">&lt;-</span> <span class="fu">qgis_run_algorithm</span>(</span>
-<span id="cb55-48"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb55-48" tabindex="-1"></a>  <span class="st">&quot;native:fixgeometries&quot;</span>,</span>
-<span id="cb55-49"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb55-49" tabindex="-1"></a>  <span class="at">INPUT =</span> tmp1,</span>
-<span id="cb55-50"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb55-50" tabindex="-1"></a>  <span class="at">OUTPUT =</span>out_path )</span>
-<span id="cb55-51"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb55-51" tabindex="-1"></a><span class="co">#function writes tmp1 to disk</span></span>
-<span id="cb55-52"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb55-52" tabindex="-1"></a>tmp1 <span class="ot">&lt;-</span> <span class="fu">read_sf</span>(<span class="fu">qgis_extract_output</span>(clean, <span class="st">&quot;OUTPUT&quot;</span>))<span class="co">#clean</span></span>
-<span id="cb55-53"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb55-53" tabindex="-1"></a><span class="fu">plot</span>(tmp1)</span>
-<span id="cb55-54"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb55-54" tabindex="-1"></a></span>
-<span id="cb55-55"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb55-55" tabindex="-1"></a><span class="do">##############retrieve and update Cost Surface#############################</span></span>
-<span id="cb55-56"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb55-56" tabindex="-1"></a></span>
-<span id="cb55-57"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb55-57" tabindex="-1"></a>bnd<span class="ot">&lt;-</span><span class="fu">st_read</span>(path2rd, <span class="at">layer =</span> <span class="st">&#39;bnd&#39;</span>)</span>
-<span id="cb55-58"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb55-58" tabindex="-1"></a>cost_path<span class="ot">&lt;-</span><span class="st">&#39;./data/WL/AccessCostSurface.tif&#39;</span></span>
-<span id="cb55-59"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb55-59" tabindex="-1"></a>ras<span class="ot">&lt;-</span><span class="fu">rast</span>(cost_path)</span>
-<span id="cb55-60"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb55-60" tabindex="-1"></a><span class="do">### crop to boundary of unit####################################################</span></span>
-<span id="cb55-61"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb55-61" tabindex="-1"></a><span class="fu">crs</span>(ras)<span class="ot">&lt;-</span><span class="st">&quot;epsg:3005&quot;</span></span>
-<span id="cb55-62"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb55-62" tabindex="-1"></a>x<span class="ot">&lt;-</span><span class="fu">crop</span>(ras, bnd)</span>
-<span id="cb55-63"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb55-63" tabindex="-1"></a>x<span class="ot">&lt;-</span><span class="fu">mask</span>(x,bnd)</span>
-<span id="cb55-64"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb55-64" tabindex="-1"></a><span class="do">## create numeric raster of cost####################</span></span>
-<span id="cb55-65"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb55-65" tabindex="-1"></a><span class="co">#FRN requires floating point raster but STSM raster is integer so add numeric scale ()</span></span>
-<span id="cb55-66"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb55-66" tabindex="-1"></a>z<span class="ot">&lt;-</span>x<span class="sc">*</span><span class="fl">10.1</span></span>
-<span id="cb55-67"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb55-67" tabindex="-1"></a></span>
-<span id="cb55-68"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb55-68" tabindex="-1"></a><span class="fu">writeRaster</span>(z,</span>
-<span id="cb55-69"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb55-69" tabindex="-1"></a>            <span class="st">&#39;./data/WL/tsa41_cost.tif&#39;</span>,</span>
-<span id="cb55-70"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb55-70" tabindex="-1"></a>            <span class="at">datatype =</span> <span class="st">&quot;FLT4S&quot;</span>,</span>
-<span id="cb55-71"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb55-71" tabindex="-1"></a>            <span class="at">overwrite =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb58-1" tabindex="-1"></a></span>
+<span id="cb58-2"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb58-2" tabindex="-1"></a><span class="do">#####################create FRN inputs############################################</span></span>
+<span id="cb58-3"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb58-3" tabindex="-1"></a><span class="co">#start with THLB...it may take many forms so you need to adjust the scripts accordingly</span></span>
+<span id="cb58-4"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb58-4" tabindex="-1"></a><span class="co"># we want to build road to THLB polygons &gt; 5 ha</span></span>
+<span id="cb58-5"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb58-5" tabindex="-1"></a><span class="co">#this example uses a gridded THLB</span></span>
+<span id="cb58-6"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb58-6" tabindex="-1"></a>t_path<span class="ot">&lt;-</span><span class="st">&#39;./data/WL/tsa41_thlb.gpkg&#39;</span></span>
+<span id="cb58-7"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb58-7" tabindex="-1"></a>out_path<span class="ot">&lt;-</span><span class="st">&#39;./data/WL/tsa41_thlb_clean5.gpkg&#39;</span></span>
+<span id="cb58-8"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb58-8" tabindex="-1"></a></span>
+<span id="cb58-9"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb58-9" tabindex="-1"></a>thlb<span class="ot">&lt;-</span><span class="fu">st_read</span>(t_path)</span>
+<span id="cb58-10"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb58-10" tabindex="-1"></a><span class="co"># raster example</span></span>
+<span id="cb58-11"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb58-11" tabindex="-1"></a><span class="co"># thlb&lt;-rast(t_path)</span></span>
+<span id="cb58-12"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb58-12" tabindex="-1"></a><span class="co"># thlb&lt;-as.polygons(thlb,aggregate = TRUE)</span></span>
+<span id="cb58-13"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb58-13" tabindex="-1"></a><span class="co"># thlb&lt;-as_sf(thlb)</span></span>
+<span id="cb58-14"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb58-14" tabindex="-1"></a>thlb<span class="ot">&lt;-</span>thlb<span class="sc">%&gt;%</span><span class="fu">filter</span>(THLB <span class="sc">&gt;</span> <span class="dv">0</span>)</span>
+<span id="cb58-15"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb58-15" tabindex="-1"></a><span class="co">#</span></span>
+<span id="cb58-16"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb58-16" tabindex="-1"></a><span class="co">#extract just THLB polygons (this is gridded)</span></span>
+<span id="cb58-17"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb58-17" tabindex="-1"></a><span class="co"># extract&lt;-qgis_run_algorithm(</span></span>
+<span id="cb58-18"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb58-18" tabindex="-1"></a><span class="co">#   &quot;native:extractbyattribute&quot;,</span></span>
+<span id="cb58-19"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb58-19" tabindex="-1"></a><span class="co">#   INPUT = thlb,</span></span>
+<span id="cb58-20"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb58-20" tabindex="-1"></a><span class="co">#   VALUE = &#39;Y&#39;,</span></span>
+<span id="cb58-21"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb58-21" tabindex="-1"></a><span class="co">#   FIELD = &#39;thlb&#39;)</span></span>
+<span id="cb58-22"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb58-22" tabindex="-1"></a><span class="co"># tmp1 &lt;- read_sf(qgis_extract_output(extract, &quot;OUTPUT&quot;))#clean</span></span>
+<span id="cb58-23"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb58-23" tabindex="-1"></a>tmp1<span class="ot">&lt;-</span>thlb</span>
+<span id="cb58-24"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb58-24" tabindex="-1"></a><span class="fu">rm</span>(thlb)</span>
+<span id="cb58-25"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb58-25" tabindex="-1"></a><span class="fu">gc</span>()</span>
+<span id="cb58-26"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb58-26" tabindex="-1"></a><span class="co">#since its gridded we need to dissolve into large polygon</span></span>
+<span id="cb58-27"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb58-27" tabindex="-1"></a><span class="co">#ne disjoint to avoid multipart polygons</span></span>
+<span id="cb58-28"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb58-28" tabindex="-1"></a></span>
+<span id="cb58-29"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb58-29" tabindex="-1"></a>tmp1<span class="ot">&lt;-</span>tmp1<span class="sc">%&gt;%</span></span>
+<span id="cb58-30"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb58-30" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">grid =</span> <span class="dv">1</span>)</span>
+<span id="cb58-31"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb58-31" tabindex="-1"></a><span class="co"># use the QGIS dissolve function</span></span>
+<span id="cb58-32"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb58-32" tabindex="-1"></a>dissolve<span class="ot">&lt;-</span> <span class="fu">qgis_run_algorithm</span>(</span>
+<span id="cb58-33"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb58-33" tabindex="-1"></a>  <span class="st">&quot;native:dissolve&quot;</span>,</span>
+<span id="cb58-34"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb58-34" tabindex="-1"></a>  <span class="at">INPUT =</span> tmp1,</span>
+<span id="cb58-35"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb58-35" tabindex="-1"></a>  <span class="at">FIELD =</span> <span class="st">&quot;grid&quot;</span>,</span>
+<span id="cb58-36"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb58-36" tabindex="-1"></a>  <span class="at">SEPARATE_DISJOINT =</span> <span class="dv">1</span>,</span>
+<span id="cb58-37"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb58-37" tabindex="-1"></a>  <span class="at">OUTPUT =</span> out_path</span>
+<span id="cb58-38"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb58-38" tabindex="-1"></a>)</span>
+<span id="cb58-39"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb58-39" tabindex="-1"></a><span class="co">#create sf object</span></span>
+<span id="cb58-40"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb58-40" tabindex="-1"></a>tmp1 <span class="ot">&lt;-</span> <span class="fu">read_sf</span>(<span class="fu">qgis_extract_output</span>(dissolve, <span class="st">&quot;OUTPUT&quot;</span>))<span class="co">#dissolve</span></span>
+<span id="cb58-41"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb58-41" tabindex="-1"></a><span class="co">#polygons 5 ha or greater</span></span>
+<span id="cb58-42"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb58-42" tabindex="-1"></a>tmp1<span class="ot">&lt;-</span>tmp1 <span class="sc">%&gt;%</span></span>
+<span id="cb58-43"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb58-43" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">area_ha =</span> <span class="fu">st_area</span>(geom)<span class="sc">/</span><span class="dv">10000</span>)<span class="sc">%&gt;%</span><span class="fu">filter</span>(</span>
+<span id="cb58-44"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb58-44" tabindex="-1"></a>  <span class="fu">as.numeric</span>(area_ha) <span class="sc">&gt;</span> <span class="dv">4</span>)</span>
+<span id="cb58-45"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb58-45" tabindex="-1"></a></span>
+<span id="cb58-46"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb58-46" tabindex="-1"></a><span class="co">#QGIS fix geometry function</span></span>
+<span id="cb58-47"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb58-47" tabindex="-1"></a>clean<span class="ot">&lt;-</span> <span class="fu">qgis_run_algorithm</span>(</span>
+<span id="cb58-48"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb58-48" tabindex="-1"></a>  <span class="st">&quot;native:fixgeometries&quot;</span>,</span>
+<span id="cb58-49"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb58-49" tabindex="-1"></a>  <span class="at">INPUT =</span> tmp1,</span>
+<span id="cb58-50"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb58-50" tabindex="-1"></a>  <span class="at">OUTPUT =</span>out_path )</span>
+<span id="cb58-51"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb58-51" tabindex="-1"></a><span class="co">#function writes tmp1 to disk</span></span>
+<span id="cb58-52"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb58-52" tabindex="-1"></a>tmp1 <span class="ot">&lt;-</span> <span class="fu">read_sf</span>(<span class="fu">qgis_extract_output</span>(clean, <span class="st">&quot;OUTPUT&quot;</span>))<span class="co">#clean</span></span>
+<span id="cb58-53"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb58-53" tabindex="-1"></a><span class="fu">plot</span>(tmp1)</span>
+<span id="cb58-54"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb58-54" tabindex="-1"></a></span>
+<span id="cb58-55"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb58-55" tabindex="-1"></a><span class="do">##############retrieve and update Cost Surface#############################</span></span>
+<span id="cb58-56"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb58-56" tabindex="-1"></a></span>
+<span id="cb58-57"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb58-57" tabindex="-1"></a>bnd<span class="ot">&lt;-</span><span class="fu">st_read</span>(path2rd, <span class="at">layer =</span> <span class="st">&#39;bnd&#39;</span>)</span>
+<span id="cb58-58"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb58-58" tabindex="-1"></a>cost_path<span class="ot">&lt;-</span><span class="st">&#39;./data/WL/AccessCostSurface.tif&#39;</span></span>
+<span id="cb58-59"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb58-59" tabindex="-1"></a>ras<span class="ot">&lt;-</span><span class="fu">rast</span>(cost_path)</span>
+<span id="cb58-60"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb58-60" tabindex="-1"></a><span class="do">### crop to boundary of unit####################################################</span></span>
+<span id="cb58-61"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb58-61" tabindex="-1"></a><span class="fu">crs</span>(ras)<span class="ot">&lt;-</span><span class="st">&quot;epsg:3005&quot;</span></span>
+<span id="cb58-62"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb58-62" tabindex="-1"></a>x<span class="ot">&lt;-</span><span class="fu">crop</span>(ras, bnd)</span>
+<span id="cb58-63"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb58-63" tabindex="-1"></a>x<span class="ot">&lt;-</span><span class="fu">mask</span>(x,bnd)</span>
+<span id="cb58-64"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb58-64" tabindex="-1"></a><span class="do">## create numeric raster of cost####################</span></span>
+<span id="cb58-65"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb58-65" tabindex="-1"></a><span class="co">#FRN requires floating point raster but STSM raster is integer so add numeric scale ()</span></span>
+<span id="cb58-66"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb58-66" tabindex="-1"></a>z<span class="ot">&lt;-</span>x<span class="sc">*</span><span class="fl">10.1</span></span>
+<span id="cb58-67"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb58-67" tabindex="-1"></a></span>
+<span id="cb58-68"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb58-68" tabindex="-1"></a><span class="fu">writeRaster</span>(z,</span>
+<span id="cb58-69"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb58-69" tabindex="-1"></a>            <span class="st">&#39;./data/WL/tsa41_cost.tif&#39;</span>,</span>
+<span id="cb58-70"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb58-70" tabindex="-1"></a>            <span class="at">datatype =</span> <span class="st">&quot;FLT4S&quot;</span>,</span>
+<span id="cb58-71"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb58-71" tabindex="-1"></a>            <span class="at">overwrite =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 </details>
 <p>The following image depicts the modelled road network (black) and the
 FRN future roads (red) connecting the total network to the THLB (green)
@@ -812,212 +809,212 @@ either “current” (those intersecting the buffered areas) or “future”
 network using <code>ggplot</code> and exports the resulting data to a new
 GeoPackage for Patchworks deployment</p>
 <details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
-<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-1" tabindex="-1"></a><span class="do">#####Step 3: </span></span>
-<span id="cb56-2"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-2" tabindex="-1"></a><span class="do">#################################################################################</span></span>
-<span id="cb56-3"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-3" tabindex="-1"></a><span class="do">####################Bring Network Together#######################################</span></span>
-<span id="cb56-4"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-4" tabindex="-1"></a><span class="do">################################################################################</span></span>
-<span id="cb56-5"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-5" tabindex="-1"></a><span class="co">#SNAPPING</span></span>
-<span id="cb56-6"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-6" tabindex="-1"></a>x<span class="ot">&lt;-</span>(<span class="st">&quot;./data/WL/FRN.gpkg&quot;</span>)</span>
-<span id="cb56-7"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-7" tabindex="-1"></a>y<span class="ot">&lt;-</span>(<span class="st">&quot;./data/WL/tsa41_network1.gpkg&quot;</span>)</span>
-<span id="cb56-8"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-8" tabindex="-1"></a></span>
-<span id="cb56-9"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-9" tabindex="-1"></a><span class="co">#qgis_show_help(&quot;native:snapgeometries&quot;)</span></span>
-<span id="cb56-10"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-10" tabindex="-1"></a>snap<span class="ot">&lt;-</span> <span class="fu">qgis_run_algorithm</span>(</span>
-<span id="cb56-11"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-11" tabindex="-1"></a>  <span class="st">&quot;native:snapgeometries&quot;</span>,</span>
-<span id="cb56-12"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-12" tabindex="-1"></a>  <span class="at">INPUT =</span> x,</span>
-<span id="cb56-13"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-13" tabindex="-1"></a>  <span class="at">REFERENCE_LAYER =</span> y,</span>
-<span id="cb56-14"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-14" tabindex="-1"></a>  <span class="at">TOLERANCE=</span> <span class="fl">99.9</span></span>
-<span id="cb56-15"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-15" tabindex="-1"></a>)</span>
-<span id="cb56-16"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-16" tabindex="-1"></a></span>
-<span id="cb56-17"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-17" tabindex="-1"></a>tmp1 <span class="ot">&lt;-</span> <span class="fu">read_sf</span>(<span class="fu">qgis_extract_output</span>(snap, <span class="st">&quot;OUTPUT&quot;</span>))<span class="co">#clean</span></span>
-<span id="cb56-18"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-18" tabindex="-1"></a>tmp1</span>
-<span id="cb56-19"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-19" tabindex="-1"></a><span class="fu">write_sf</span>(tmp1,<span class="st">&quot;./data/WL/tmp1.gpkg&quot;</span>,</span>
-<span id="cb56-20"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-20" tabindex="-1"></a>         <span class="at">overwrite =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb56-21"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-21" tabindex="-1"></a></span>
-<span id="cb56-22"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-22" tabindex="-1"></a><span class="co">#Merge Layers</span></span>
-<span id="cb56-23"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-23" tabindex="-1"></a><span class="co">#View(qgis_search_algorithms(algorithm = &quot;merge&quot;, group = &quot;[Vv]ector&quot;))</span></span>
-<span id="cb56-24"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-24" tabindex="-1"></a><span class="co">#check help for parameter values</span></span>
-<span id="cb56-25"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-25" tabindex="-1"></a><span class="co">#qgis_show_help(&quot;native:mergevectorlayers&quot;)</span></span>
-<span id="cb56-26"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-26" tabindex="-1"></a></span>
-<span id="cb56-27"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-27" tabindex="-1"></a>merge<span class="ot">&lt;-</span> <span class="fu">qgis_run_algorithm</span>(</span>
-<span id="cb56-28"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-28" tabindex="-1"></a>  <span class="st">&quot;native:mergevectorlayers&quot;</span>,</span>
-<span id="cb56-29"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-29" tabindex="-1"></a>  <span class="at">LAYERS =</span> <span class="fu">c</span>(<span class="st">&quot;./data/WL/tmp1.gpkg&quot;</span>,</span>
-<span id="cb56-30"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-30" tabindex="-1"></a>             <span class="st">&quot;./data/WL/tsa41_network1.gpkg&quot;</span>)</span>
-<span id="cb56-31"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-31" tabindex="-1"></a>)</span>
-<span id="cb56-32"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-32" tabindex="-1"></a></span>
-<span id="cb56-33"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-33" tabindex="-1"></a>tmp1 <span class="ot">&lt;-</span> <span class="fu">read_sf</span>(<span class="fu">qgis_extract_output</span>(merge, <span class="st">&quot;OUTPUT&quot;</span>))<span class="co">#merge</span></span>
-<span id="cb56-34"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-34" tabindex="-1"></a><span class="fu">write_sf</span>(tmp1,<span class="st">&quot;./data/WL/tmp1.gpkg&quot;</span>,</span>
-<span id="cb56-35"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-35" tabindex="-1"></a>         <span class="at">overwrite =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb56-36"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-36" tabindex="-1"></a></span>
-<span id="cb56-37"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-37" tabindex="-1"></a><span class="co">#dissolve</span></span>
-<span id="cb56-38"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-38" tabindex="-1"></a>tmp1<span class="ot">&lt;-</span>tmp1<span class="sc">%&gt;%</span><span class="fu">mutate</span>(</span>
-<span id="cb56-39"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-39" tabindex="-1"></a>  <span class="at">grid =</span> <span class="dv">1</span></span>
-<span id="cb56-40"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-40" tabindex="-1"></a>)</span>
-<span id="cb56-41"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-41" tabindex="-1"></a></span>
-<span id="cb56-42"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-42" tabindex="-1"></a><span class="co">#check help for parameter values</span></span>
-<span id="cb56-43"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-43" tabindex="-1"></a><span class="fu">qgis_show_help</span>(<span class="st">&quot;native:dissolve&quot;</span>)</span>
-<span id="cb56-44"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-44" tabindex="-1"></a></span>
-<span id="cb56-45"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-45" tabindex="-1"></a>outpath<span class="ot">&lt;-</span><span class="st">&quot;./data/WL/tsa41_network_clean.gpkg&quot;</span></span>
-<span id="cb56-46"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-46" tabindex="-1"></a>dissolve<span class="ot">&lt;-</span> <span class="fu">qgis_run_algorithm</span>(</span>
-<span id="cb56-47"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-47" tabindex="-1"></a>  <span class="st">&quot;native:dissolve&quot;</span>,</span>
-<span id="cb56-48"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-48" tabindex="-1"></a>  <span class="at">INPUT =</span> tmp1,</span>
-<span id="cb56-49"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-49" tabindex="-1"></a>  <span class="at">FIELD =</span> <span class="st">&quot;grid&quot;</span>,</span>
-<span id="cb56-50"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-50" tabindex="-1"></a>  <span class="at">OUTPUT =</span> outpath</span>
-<span id="cb56-51"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-51" tabindex="-1"></a>)</span>
-<span id="cb56-52"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-52" tabindex="-1"></a></span>
-<span id="cb56-53"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-53" tabindex="-1"></a>tmp1 <span class="ot">&lt;-</span> <span class="fu">read_sf</span>(<span class="fu">qgis_extract_output</span>(dissolve, <span class="st">&quot;OUTPUT&quot;</span>))<span class="co">#dissolve</span></span>
-<span id="cb56-54"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-54" tabindex="-1"></a>tmp1</span>
-<span id="cb56-55"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-55" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">st_geometry</span>(tmp1))</span>
-<span id="cb56-56"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-56" tabindex="-1"></a></span>
-<span id="cb56-57"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-57" tabindex="-1"></a><span class="do">####################################rerun network##############################</span></span>
-<span id="cb56-58"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-58" tabindex="-1"></a><span class="do">###############################################################################</span></span>
-<span id="cb56-59"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-59" tabindex="-1"></a><span class="do">################################################################################</span></span>
-<span id="cb56-60"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-60" tabindex="-1"></a></span>
-<span id="cb56-61"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-61" tabindex="-1"></a>path2rd <span class="ot">&lt;-</span> <span class="st">&quot;.</span><span class="sc">\\</span><span class="st">data</span><span class="sc">\\</span><span class="st">WL</span><span class="sc">\\</span><span class="st">tsa41_network_clean.gpkg&quot;</span></span>
-<span id="cb56-62"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-62" tabindex="-1"></a><span class="co">#st_layers(path2rd)</span></span>
-<span id="cb56-63"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-63" tabindex="-1"></a>rds<span class="ot">&lt;-</span><span class="fu">st_read</span>(path2rd)</span>
-<span id="cb56-64"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-64" tabindex="-1"></a></span>
-<span id="cb56-65"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-65" tabindex="-1"></a><span class="do">###### convert from multiline for sfnetworks</span></span>
-<span id="cb56-66"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-66" tabindex="-1"></a>rds <span class="ot">&lt;-</span> <span class="fu">st_cast</span>(rds, <span class="st">&quot;LINESTRING&quot;</span>)</span>
-<span id="cb56-67"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-67" tabindex="-1"></a></span>
-<span id="cb56-68"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-68" tabindex="-1"></a><span class="do">###### convert to undirected network</span></span>
-<span id="cb56-69"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-69" tabindex="-1"></a>rd_net <span class="ot">&lt;-</span> <span class="fu">as_sfnetwork</span>(rds, <span class="at">directed =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb56-70"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-70" tabindex="-1"></a></span>
-<span id="cb56-71"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-71" tabindex="-1"></a><span class="co"># simplify: reduce the number of pseudo-nodes</span></span>
-<span id="cb56-72"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-72" tabindex="-1"></a><span class="co"># simplify and create .tidygraph_node_index</span></span>
-<span id="cb56-73"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-73" tabindex="-1"></a>simple_net_smooth <span class="ot">&lt;-</span> <span class="fu">convert</span>(rd_net, to_spatial_smooth)</span>
-<span id="cb56-74"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-74" tabindex="-1"></a><span class="co"># create a membership list to identify primary components</span></span>
-<span id="cb56-75"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-75" tabindex="-1"></a>components_result <span class="ot">&lt;-</span> <span class="fu">components</span>(simple_net_smooth)</span>
-<span id="cb56-76"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-76" tabindex="-1"></a><span class="co"># create component table to review</span></span>
-<span id="cb56-77"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-77" tabindex="-1"></a><span class="co"># table will itemize disconnected components within network and assign</span></span>
-<span id="cb56-78"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-78" tabindex="-1"></a><span class="co"># membership id to each connected subnetwork</span></span>
-<span id="cb56-79"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-79" tabindex="-1"></a><span class="co">#</span></span>
-<span id="cb56-80"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-80" tabindex="-1"></a>component_tibble <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
-<span id="cb56-81"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-81" tabindex="-1"></a>  <span class="at">node =</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(components_result<span class="sc">$</span>membership),</span>
-<span id="cb56-82"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-82" tabindex="-1"></a>  <span class="at">membership =</span> components_result<span class="sc">$</span>membership,</span>
-<span id="cb56-83"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-83" tabindex="-1"></a>  <span class="at">csize =</span> components_result<span class="sc">$</span>csize[components_result<span class="sc">$</span>membership]</span>
-<span id="cb56-84"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-84" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
-<span id="cb56-85"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-85" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(csize))</span>
-<span id="cb56-86"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-86" tabindex="-1"></a></span>
-<span id="cb56-87"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-87" tabindex="-1"></a><span class="fu">View</span>(component_tibble)</span>
-<span id="cb56-88"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-88" tabindex="-1"></a></span>
-<span id="cb56-89"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-89" tabindex="-1"></a><span class="co"># Identify primary components....any member with more that 50 components</span></span>
-<span id="cb56-90"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-90" tabindex="-1"></a>members <span class="ot">&lt;-</span> component_tibble <span class="sc">%&gt;%</span></span>
-<span id="cb56-91"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-91" tabindex="-1"></a>  <span class="fu">group_by</span>(membership) <span class="sc">%&gt;%</span></span>
-<span id="cb56-92"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-92" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">size =</span> <span class="fu">mean</span>(csize))<span class="sc">%&gt;%</span></span>
-<span id="cb56-93"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-93" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(size))</span>
-<span id="cb56-94"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-94" tabindex="-1"></a></span>
-<span id="cb56-95"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-95" tabindex="-1"></a><span class="fu">View</span>(members)</span>
-<span id="cb56-96"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-96" tabindex="-1"></a></span>
-<span id="cb56-97"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-97" tabindex="-1"></a><span class="do">### create a list of sub-setted networks based on component membership</span></span>
-<span id="cb56-98"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-98" tabindex="-1"></a></span>
-<span id="cb56-99"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-99" tabindex="-1"></a>p <span class="ot">&lt;-</span> simple_net_smooth <span class="sc">%&gt;%</span></span>
-<span id="cb56-100"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-100" tabindex="-1"></a>  <span class="fu">activate</span>(<span class="st">&quot;nodes&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb56-101"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-101" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">components</span>(simple_net_smooth)<span class="sc">$</span>membership <span class="sc">==</span> <span class="dv">1</span>)</span>
-<span id="cb56-102"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-102" tabindex="-1"></a></span>
-<span id="cb56-103"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-103" tabindex="-1"></a>p<span class="ot">&lt;-</span> p <span class="sc">%&gt;%</span> </span>
-<span id="cb56-104"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-104" tabindex="-1"></a>  <span class="fu">activate</span>(nodes) <span class="sc">%&gt;%</span> </span>
-<span id="cb56-105"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-105" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">degree =</span> <span class="fu">centrality_degree</span>())</span>
-<span id="cb56-106"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-106" tabindex="-1"></a></span>
-<span id="cb56-107"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-107" tabindex="-1"></a>coords <span class="ot">&lt;-</span> <span class="fu">st_coordinates</span>(p <span class="sc">%&gt;%</span> <span class="fu">activate</span>(<span class="st">&quot;nodes&quot;</span>))</span>
-<span id="cb56-108"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-108" tabindex="-1"></a></span>
-<span id="cb56-109"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-109" tabindex="-1"></a><span class="co"># Plot</span></span>
-<span id="cb56-110"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-110" tabindex="-1"></a><span class="fu">ggraph</span>(p, <span class="at">layout =</span> coords) <span class="sc">+</span></span>
-<span id="cb56-111"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-111" tabindex="-1"></a>  <span class="fu">geom_edge_link</span>(<span class="at">color =</span> <span class="st">&quot;gray80&quot;</span>) <span class="sc">+</span></span>
-<span id="cb56-112"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-112" tabindex="-1"></a>  <span class="fu">geom_node_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> degree), <span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb56-113"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-113" tabindex="-1"></a>  <span class="fu">scale_color_viridis_c</span>(<span class="at">option =</span> <span class="st">&quot;plasma&quot;</span>) <span class="sc">+</span></span>
-<span id="cb56-114"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-114" tabindex="-1"></a>  <span class="fu">theme_graph</span>() <span class="sc">+</span></span>
-<span id="cb56-115"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-115" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">color =</span> <span class="st">&quot;Node Degree&quot;</span>)</span>
-<span id="cb56-116"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-116" tabindex="-1"></a></span>
-<span id="cb56-117"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-117" tabindex="-1"></a><span class="co"># Compute average degree for each edge</span></span>
-<span id="cb56-118"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-118" tabindex="-1"></a>p <span class="ot">&lt;-</span> p <span class="sc">%&gt;%</span></span>
-<span id="cb56-119"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-119" tabindex="-1"></a>  <span class="fu">activate</span>(edges) <span class="sc">%&gt;%</span></span>
-<span id="cb56-120"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-120" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb56-121"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-121" tabindex="-1"></a>    <span class="at">avg_node_degree =</span> (<span class="fu">.N</span>()<span class="sc">$</span>degree[from] <span class="sc">+</span> <span class="fu">.N</span>()<span class="sc">$</span>degree[to]) <span class="sc">/</span> <span class="dv">2</span></span>
-<span id="cb56-122"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-122" tabindex="-1"></a>  )</span>
-<span id="cb56-123"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-123" tabindex="-1"></a><span class="co">#plot edges</span></span>
-<span id="cb56-124"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-124" tabindex="-1"></a><span class="fu">ggraph</span>(p, <span class="at">layout =</span> coords) <span class="sc">+</span></span>
-<span id="cb56-125"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-125" tabindex="-1"></a>  <span class="fu">geom_edge_link</span>(<span class="fu">aes</span>(<span class="at">color =</span> avg_node_degree), <span class="at">width =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb56-126"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-126" tabindex="-1"></a>  <span class="fu">scale_color_viridis_c</span>(<span class="at">option =</span> <span class="st">&quot;plasma&quot;</span>) <span class="sc">+</span></span>
-<span id="cb56-127"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-127" tabindex="-1"></a>  <span class="fu">theme_graph</span>() <span class="sc">+</span></span>
-<span id="cb56-128"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-128" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">color =</span> <span class="st">&quot;Edge Value&quot;</span>)</span>
-<span id="cb56-129"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-129" tabindex="-1"></a><span class="co">#convert to sf_object</span></span>
-<span id="cb56-130"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-130" tabindex="-1"></a>p<span class="ot">&lt;-</span>p<span class="sc">%&gt;%</span></span>
-<span id="cb56-131"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-131" tabindex="-1"></a>  <span class="fu">activate</span>(<span class="st">&quot;edges&quot;</span>)<span class="sc">%&gt;%</span></span>
-<span id="cb56-132"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-132" tabindex="-1"></a>  <span class="fu">st_as_sf</span>()</span>
-<span id="cb56-133"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-133" tabindex="-1"></a><span class="co">#reclassify</span></span>
-<span id="cb56-134"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-134" tabindex="-1"></a>p<span class="ot">&lt;-</span>p<span class="sc">%&gt;%</span></span>
-<span id="cb56-135"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-135" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">class =</span> <span class="fu">case_when</span>(</span>
-<span id="cb56-136"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-136" tabindex="-1"></a>    avg_node_degree <span class="sc">&lt;</span> <span class="dv">3</span> <span class="sc">~</span> <span class="st">&quot;secondary&quot;</span>,</span>
-<span id="cb56-137"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-137" tabindex="-1"></a>    <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">&quot;primary&quot;</span></span>
-<span id="cb56-138"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-138" tabindex="-1"></a>  ))</span>
-<span id="cb56-139"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-139" tabindex="-1"></a></span>
-<span id="cb56-140"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-140" tabindex="-1"></a><span class="co">#dump index list and old fid field to covert to .gpkg</span></span>
-<span id="cb56-141"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-141" tabindex="-1"></a>p<span class="ot">&lt;-</span>p<span class="sc">%&gt;%</span><span class="fu">select</span>(<span class="sc">-</span>.tidygraph_edge_index)</span>
-<span id="cb56-142"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-142" tabindex="-1"></a></span>
-<span id="cb56-143"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-143" tabindex="-1"></a><span class="fu">st_write</span>(p,<span class="st">&quot;./data/WL/tsa41_total_network_class.gpkg&quot;</span>,</span>
-<span id="cb56-144"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-144" tabindex="-1"></a>         <span class="at">overwrite =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb56-145"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-145" tabindex="-1"></a>         <span class="at">append =</span> <span class="cn">FALSE</span></span>
-<span id="cb56-146"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-146" tabindex="-1"></a>)</span>
-<span id="cb56-147"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-147" tabindex="-1"></a></span>
-<span id="cb56-148"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-148" tabindex="-1"></a><span class="do">##################################################################################</span></span>
-<span id="cb56-149"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-149" tabindex="-1"></a><span class="co">#make Patchworks ready: Simplify , Densify and Classify</span></span>
-<span id="cb56-150"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-150" tabindex="-1"></a><span class="do">#######################Make Patchworks ready######################################################</span></span>
-<span id="cb56-151"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-151" tabindex="-1"></a><span class="co">#Using QGIS simplify the line work to initially reduce the number of vertices</span></span>
-<span id="cb56-152"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-152" tabindex="-1"></a><span class="co">#Then densify the vertices at 100 metre intervals</span></span>
-<span id="cb56-153"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-153" tabindex="-1"></a></span>
-<span id="cb56-154"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-154" tabindex="-1"></a>in_path<span class="ot">&lt;-</span><span class="st">&quot;./data/WL/tsa41_total_network_class.gpkg&quot;</span></span>
-<span id="cb56-155"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-155" tabindex="-1"></a><span class="co">#qgis_show_help(&quot;native:simplifygeometries&quot;)</span></span>
-<span id="cb56-156"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-156" tabindex="-1"></a>out_path<span class="ot">&lt;-</span><span class="st">&quot;./data/WL/tsa41_total_network_class_simp10.gpkg&quot;</span></span>
-<span id="cb56-157"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-157" tabindex="-1"></a>simple<span class="ot">&lt;-</span> <span class="fu">qgis_run_algorithm</span>(</span>
-<span id="cb56-158"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-158" tabindex="-1"></a>  <span class="st">&quot;native:simplifygeometries&quot;</span>,</span>
-<span id="cb56-159"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-159" tabindex="-1"></a>  <span class="at">INPUT =</span> in_path,</span>
-<span id="cb56-160"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-160" tabindex="-1"></a>  <span class="at">TOLERANCE =</span> <span class="dv">10</span>,</span>
-<span id="cb56-161"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-161" tabindex="-1"></a>  <span class="at">OUTPUT =</span> out_path</span>
-<span id="cb56-162"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-162" tabindex="-1"></a>)</span>
-<span id="cb56-163"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-163" tabindex="-1"></a></span>
-<span id="cb56-164"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-164" tabindex="-1"></a>p_view <span class="ot">&lt;-</span> <span class="fu">read_sf</span>(<span class="fu">qgis_extract_output</span>(simple, <span class="st">&quot;OUTPUT&quot;</span>))</span>
-<span id="cb56-165"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-165" tabindex="-1"></a></span>
-<span id="cb56-166"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-166" tabindex="-1"></a><span class="co">#View(qgis_search_algorithms(algorithm = &quot;densify&quot;, group = &quot;[Vv]ector&quot;))</span></span>
-<span id="cb56-167"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-167" tabindex="-1"></a><span class="co">#qgis_show_help(&quot;native:densifygeometriesgivenaninterval&quot;)</span></span>
-<span id="cb56-168"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-168" tabindex="-1"></a></span>
-<span id="cb56-169"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-169" tabindex="-1"></a>out_path<span class="ot">&lt;-</span><span class="st">&quot;./data/WL/tsa41_total_network_class_simp10_dens100.gpkg&quot;</span></span>
-<span id="cb56-170"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-170" tabindex="-1"></a></span>
-<span id="cb56-171"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-171" tabindex="-1"></a>densify<span class="ot">&lt;-</span> <span class="fu">qgis_run_algorithm</span>(</span>
-<span id="cb56-172"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-172" tabindex="-1"></a>  <span class="st">&quot;native:densifygeometriesgivenaninterval&quot;</span>,</span>
-<span id="cb56-173"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-173" tabindex="-1"></a>  <span class="at">INPUT =</span> p_view,</span>
-<span id="cb56-174"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-174" tabindex="-1"></a>  <span class="at">INTERVAL =</span> <span class="dv">100</span>,</span>
-<span id="cb56-175"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-175" tabindex="-1"></a>  <span class="at">OUTPUT =</span> out_path</span>
-<span id="cb56-176"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-176" tabindex="-1"></a>)</span>
-<span id="cb56-177"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-177" tabindex="-1"></a></span>
-<span id="cb56-178"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-178" tabindex="-1"></a>p_view <span class="ot">&lt;-</span> <span class="fu">read_sf</span>(<span class="fu">qgis_extract_output</span>(densify, <span class="st">&quot;OUTPUT&quot;</span>))</span>
-<span id="cb56-179"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-179" tabindex="-1"></a>p_view</span>
-<span id="cb56-180"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-180" tabindex="-1"></a></span>
-<span id="cb56-181"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-181" tabindex="-1"></a>path2rd <span class="ot">&lt;-</span> <span class="st">&quot;./data/WL/tsa41_2024.gdb&quot;</span></span>
-<span id="cb56-182"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-182" tabindex="-1"></a>rds<span class="ot">&lt;-</span><span class="fu">st_read</span>(path2rd,<span class="at">layer =</span> <span class="st">&quot;IntegratedRoadsBuffers&quot;</span>)</span>
-<span id="cb56-183"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-183" tabindex="-1"></a></span>
-<span id="cb56-184"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-184" tabindex="-1"></a></span>
-<span id="cb56-185"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-185" tabindex="-1"></a><span class="co"># Convert MULTISURFACE -&gt; MULTIPOLYGON (required for spatial ops)</span></span>
-<span id="cb56-186"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-186" tabindex="-1"></a>rds_poly <span class="ot">&lt;-</span> rds <span class="sc">%&gt;%</span></span>
-<span id="cb56-187"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-187" tabindex="-1"></a>  <span class="fu">st_cast</span>(<span class="st">&quot;MULTIPOLYGON&quot;</span>, <span class="at">warn =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb56-188"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-188" tabindex="-1"></a></span>
-<span id="cb56-189"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-189" tabindex="-1"></a><span class="co"># Determine which network edges intersect buffered roads</span></span>
-<span id="cb56-190"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-190" tabindex="-1"></a>intersects_buffer <span class="ot">&lt;-</span> <span class="fu">lengths</span>(<span class="fu">st_intersects</span>(p_view, rds_poly)) <span class="sc">&gt;</span> <span class="dv">0</span></span>
-<span id="cb56-191"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-191" tabindex="-1"></a></span>
-<span id="cb56-192"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-192" tabindex="-1"></a><span class="co"># Add classification field</span></span>
-<span id="cb56-193"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-193" tabindex="-1"></a>p_view <span class="ot">&lt;-</span> p_view <span class="sc">%&gt;%</span></span>
-<span id="cb56-194"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-194" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">status =</span> <span class="fu">ifelse</span>(intersects_buffer, <span class="st">&quot;current&quot;</span>, <span class="st">&quot;future&quot;</span>))</span>
-<span id="cb56-195"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-195" tabindex="-1"></a></span>
-<span id="cb56-196"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-196" tabindex="-1"></a><span class="co"># Summary check</span></span>
-<span id="cb56-197"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-197" tabindex="-1"></a><span class="fu">table</span>(p_view<span class="sc">$</span>status)</span>
-<span id="cb56-198"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-198" tabindex="-1"></a></span>
-<span id="cb56-199"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-199" tabindex="-1"></a><span class="co"># Optional visualization</span></span>
-<span id="cb56-200"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-200" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb56-201"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-201" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> p_view, <span class="fu">aes</span>(<span class="at">color =</span> status), <span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb56-202"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-202" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> rds_poly, <span class="at">fill =</span> <span class="cn">NA</span>, <span class="at">color =</span> <span class="st">&quot;black&quot;</span>, <span class="at">linetype =</span> <span class="st">&quot;dashed&quot;</span>) <span class="sc">+</span></span>
-<span id="cb56-203"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-203" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span>
-<span id="cb56-204"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-204" tabindex="-1"></a></span>
-<span id="cb56-205"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-205" tabindex="-1"></a><span class="fu">table</span>(p_view<span class="sc">$</span>class)</span>
-<span id="cb56-206"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb56-206" tabindex="-1"></a><span class="fu">st_write</span>(p_view,<span class="st">&quot;.</span><span class="sc">\\</span><span class="st">data</span><span class="sc">\\</span><span class="st">WL</span><span class="sc">\\</span><span class="st">tsa41_total_network_class_simp10_dens100_reclass.gpkg&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-1" tabindex="-1"></a><span class="do">#####Step 3: </span></span>
+<span id="cb59-2"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-2" tabindex="-1"></a><span class="do">#################################################################################</span></span>
+<span id="cb59-3"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-3" tabindex="-1"></a><span class="do">####################Bring Network Together#######################################</span></span>
+<span id="cb59-4"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-4" tabindex="-1"></a><span class="do">################################################################################</span></span>
+<span id="cb59-5"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-5" tabindex="-1"></a><span class="co">#SNAPPING</span></span>
+<span id="cb59-6"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-6" tabindex="-1"></a>x<span class="ot">&lt;-</span>(<span class="st">&quot;./data/WL/FRN.gpkg&quot;</span>)</span>
+<span id="cb59-7"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-7" tabindex="-1"></a>y<span class="ot">&lt;-</span>(<span class="st">&quot;./data/WL/tsa41_network1.gpkg&quot;</span>)</span>
+<span id="cb59-8"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-8" tabindex="-1"></a></span>
+<span id="cb59-9"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-9" tabindex="-1"></a><span class="co">#qgis_show_help(&quot;native:snapgeometries&quot;)</span></span>
+<span id="cb59-10"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-10" tabindex="-1"></a>snap<span class="ot">&lt;-</span> <span class="fu">qgis_run_algorithm</span>(</span>
+<span id="cb59-11"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-11" tabindex="-1"></a>  <span class="st">&quot;native:snapgeometries&quot;</span>,</span>
+<span id="cb59-12"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-12" tabindex="-1"></a>  <span class="at">INPUT =</span> x,</span>
+<span id="cb59-13"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-13" tabindex="-1"></a>  <span class="at">REFERENCE_LAYER =</span> y,</span>
+<span id="cb59-14"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-14" tabindex="-1"></a>  <span class="at">TOLERANCE=</span> <span class="fl">99.9</span></span>
+<span id="cb59-15"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-15" tabindex="-1"></a>)</span>
+<span id="cb59-16"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-16" tabindex="-1"></a></span>
+<span id="cb59-17"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-17" tabindex="-1"></a>tmp1 <span class="ot">&lt;-</span> <span class="fu">read_sf</span>(<span class="fu">qgis_extract_output</span>(snap, <span class="st">&quot;OUTPUT&quot;</span>))<span class="co">#clean</span></span>
+<span id="cb59-18"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-18" tabindex="-1"></a>tmp1</span>
+<span id="cb59-19"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-19" tabindex="-1"></a><span class="fu">write_sf</span>(tmp1,<span class="st">&quot;./data/WL/tmp1.gpkg&quot;</span>,</span>
+<span id="cb59-20"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-20" tabindex="-1"></a>         <span class="at">overwrite =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb59-21"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-21" tabindex="-1"></a></span>
+<span id="cb59-22"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-22" tabindex="-1"></a><span class="co">#Merge Layers</span></span>
+<span id="cb59-23"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-23" tabindex="-1"></a><span class="co">#View(qgis_search_algorithms(algorithm = &quot;merge&quot;, group = &quot;[Vv]ector&quot;))</span></span>
+<span id="cb59-24"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-24" tabindex="-1"></a><span class="co">#check help for parameter values</span></span>
+<span id="cb59-25"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-25" tabindex="-1"></a><span class="co">#qgis_show_help(&quot;native:mergevectorlayers&quot;)</span></span>
+<span id="cb59-26"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-26" tabindex="-1"></a></span>
+<span id="cb59-27"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-27" tabindex="-1"></a>merge<span class="ot">&lt;-</span> <span class="fu">qgis_run_algorithm</span>(</span>
+<span id="cb59-28"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-28" tabindex="-1"></a>  <span class="st">&quot;native:mergevectorlayers&quot;</span>,</span>
+<span id="cb59-29"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-29" tabindex="-1"></a>  <span class="at">LAYERS =</span> <span class="fu">c</span>(<span class="st">&quot;./data/WL/tmp1.gpkg&quot;</span>,</span>
+<span id="cb59-30"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-30" tabindex="-1"></a>             <span class="st">&quot;./data/WL/tsa41_network1.gpkg&quot;</span>)</span>
+<span id="cb59-31"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-31" tabindex="-1"></a>)</span>
+<span id="cb59-32"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-32" tabindex="-1"></a></span>
+<span id="cb59-33"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-33" tabindex="-1"></a>tmp1 <span class="ot">&lt;-</span> <span class="fu">read_sf</span>(<span class="fu">qgis_extract_output</span>(merge, <span class="st">&quot;OUTPUT&quot;</span>))<span class="co">#merge</span></span>
+<span id="cb59-34"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-34" tabindex="-1"></a><span class="fu">write_sf</span>(tmp1,<span class="st">&quot;./data/WL/tmp1.gpkg&quot;</span>,</span>
+<span id="cb59-35"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-35" tabindex="-1"></a>         <span class="at">overwrite =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb59-36"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-36" tabindex="-1"></a></span>
+<span id="cb59-37"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-37" tabindex="-1"></a><span class="co">#dissolve</span></span>
+<span id="cb59-38"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-38" tabindex="-1"></a>tmp1<span class="ot">&lt;-</span>tmp1<span class="sc">%&gt;%</span><span class="fu">mutate</span>(</span>
+<span id="cb59-39"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-39" tabindex="-1"></a>  <span class="at">grid =</span> <span class="dv">1</span></span>
+<span id="cb59-40"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-40" tabindex="-1"></a>)</span>
+<span id="cb59-41"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-41" tabindex="-1"></a></span>
+<span id="cb59-42"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-42" tabindex="-1"></a><span class="co">#check help for parameter values</span></span>
+<span id="cb59-43"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-43" tabindex="-1"></a><span class="fu">qgis_show_help</span>(<span class="st">&quot;native:dissolve&quot;</span>)</span>
+<span id="cb59-44"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-44" tabindex="-1"></a></span>
+<span id="cb59-45"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-45" tabindex="-1"></a>outpath<span class="ot">&lt;-</span><span class="st">&quot;./data/WL/tsa41_network_clean.gpkg&quot;</span></span>
+<span id="cb59-46"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-46" tabindex="-1"></a>dissolve<span class="ot">&lt;-</span> <span class="fu">qgis_run_algorithm</span>(</span>
+<span id="cb59-47"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-47" tabindex="-1"></a>  <span class="st">&quot;native:dissolve&quot;</span>,</span>
+<span id="cb59-48"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-48" tabindex="-1"></a>  <span class="at">INPUT =</span> tmp1,</span>
+<span id="cb59-49"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-49" tabindex="-1"></a>  <span class="at">FIELD =</span> <span class="st">&quot;grid&quot;</span>,</span>
+<span id="cb59-50"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-50" tabindex="-1"></a>  <span class="at">OUTPUT =</span> outpath</span>
+<span id="cb59-51"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-51" tabindex="-1"></a>)</span>
+<span id="cb59-52"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-52" tabindex="-1"></a></span>
+<span id="cb59-53"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-53" tabindex="-1"></a>tmp1 <span class="ot">&lt;-</span> <span class="fu">read_sf</span>(<span class="fu">qgis_extract_output</span>(dissolve, <span class="st">&quot;OUTPUT&quot;</span>))<span class="co">#dissolve</span></span>
+<span id="cb59-54"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-54" tabindex="-1"></a>tmp1</span>
+<span id="cb59-55"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-55" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">st_geometry</span>(tmp1))</span>
+<span id="cb59-56"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-56" tabindex="-1"></a></span>
+<span id="cb59-57"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-57" tabindex="-1"></a><span class="do">####################################rerun network##############################</span></span>
+<span id="cb59-58"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-58" tabindex="-1"></a><span class="do">###############################################################################</span></span>
+<span id="cb59-59"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-59" tabindex="-1"></a><span class="do">################################################################################</span></span>
+<span id="cb59-60"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-60" tabindex="-1"></a></span>
+<span id="cb59-61"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-61" tabindex="-1"></a>path2rd <span class="ot">&lt;-</span> <span class="st">&quot;.</span><span class="sc">\\</span><span class="st">data</span><span class="sc">\\</span><span class="st">WL</span><span class="sc">\\</span><span class="st">tsa41_network_clean.gpkg&quot;</span></span>
+<span id="cb59-62"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-62" tabindex="-1"></a><span class="co">#st_layers(path2rd)</span></span>
+<span id="cb59-63"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-63" tabindex="-1"></a>rds<span class="ot">&lt;-</span><span class="fu">st_read</span>(path2rd)</span>
+<span id="cb59-64"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-64" tabindex="-1"></a></span>
+<span id="cb59-65"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-65" tabindex="-1"></a><span class="do">###### convert from multiline for sfnetworks</span></span>
+<span id="cb59-66"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-66" tabindex="-1"></a>rds <span class="ot">&lt;-</span> <span class="fu">st_cast</span>(rds, <span class="st">&quot;LINESTRING&quot;</span>)</span>
+<span id="cb59-67"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-67" tabindex="-1"></a></span>
+<span id="cb59-68"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-68" tabindex="-1"></a><span class="do">###### convert to undirected network</span></span>
+<span id="cb59-69"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-69" tabindex="-1"></a>rd_net <span class="ot">&lt;-</span> <span class="fu">as_sfnetwork</span>(rds, <span class="at">directed =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb59-70"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-70" tabindex="-1"></a></span>
+<span id="cb59-71"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-71" tabindex="-1"></a><span class="co"># simplify: reduce the number of pseudo-nodes</span></span>
+<span id="cb59-72"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-72" tabindex="-1"></a><span class="co"># simplify and create .tidygraph_node_index</span></span>
+<span id="cb59-73"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-73" tabindex="-1"></a>simple_net_smooth <span class="ot">&lt;-</span> <span class="fu">convert</span>(rd_net, to_spatial_smooth)</span>
+<span id="cb59-74"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-74" tabindex="-1"></a><span class="co"># create a membership list to identify primary components</span></span>
+<span id="cb59-75"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-75" tabindex="-1"></a>components_result <span class="ot">&lt;-</span> <span class="fu">components</span>(simple_net_smooth)</span>
+<span id="cb59-76"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-76" tabindex="-1"></a><span class="co"># create component table to review</span></span>
+<span id="cb59-77"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-77" tabindex="-1"></a><span class="co"># table will itemize disconnected components within network and assign</span></span>
+<span id="cb59-78"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-78" tabindex="-1"></a><span class="co"># membership id to each connected subnetwork</span></span>
+<span id="cb59-79"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-79" tabindex="-1"></a><span class="co">#</span></span>
+<span id="cb59-80"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-80" tabindex="-1"></a>component_tibble <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb59-81"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-81" tabindex="-1"></a>  <span class="at">node =</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(components_result<span class="sc">$</span>membership),</span>
+<span id="cb59-82"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-82" tabindex="-1"></a>  <span class="at">membership =</span> components_result<span class="sc">$</span>membership,</span>
+<span id="cb59-83"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-83" tabindex="-1"></a>  <span class="at">csize =</span> components_result<span class="sc">$</span>csize[components_result<span class="sc">$</span>membership]</span>
+<span id="cb59-84"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-84" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb59-85"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-85" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(csize))</span>
+<span id="cb59-86"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-86" tabindex="-1"></a></span>
+<span id="cb59-87"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-87" tabindex="-1"></a><span class="fu">View</span>(component_tibble)</span>
+<span id="cb59-88"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-88" tabindex="-1"></a></span>
+<span id="cb59-89"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-89" tabindex="-1"></a><span class="co"># Identify primary components....any member with more that 50 components</span></span>
+<span id="cb59-90"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-90" tabindex="-1"></a>members <span class="ot">&lt;-</span> component_tibble <span class="sc">%&gt;%</span></span>
+<span id="cb59-91"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-91" tabindex="-1"></a>  <span class="fu">group_by</span>(membership) <span class="sc">%&gt;%</span></span>
+<span id="cb59-92"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-92" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">size =</span> <span class="fu">mean</span>(csize))<span class="sc">%&gt;%</span></span>
+<span id="cb59-93"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-93" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(size))</span>
+<span id="cb59-94"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-94" tabindex="-1"></a></span>
+<span id="cb59-95"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-95" tabindex="-1"></a><span class="fu">View</span>(members)</span>
+<span id="cb59-96"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-96" tabindex="-1"></a></span>
+<span id="cb59-97"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-97" tabindex="-1"></a><span class="do">### create a list of sub-setted networks based on component membership</span></span>
+<span id="cb59-98"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-98" tabindex="-1"></a></span>
+<span id="cb59-99"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-99" tabindex="-1"></a>p <span class="ot">&lt;-</span> simple_net_smooth <span class="sc">%&gt;%</span></span>
+<span id="cb59-100"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-100" tabindex="-1"></a>  <span class="fu">activate</span>(<span class="st">&quot;nodes&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb59-101"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-101" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">components</span>(simple_net_smooth)<span class="sc">$</span>membership <span class="sc">==</span> <span class="dv">1</span>)</span>
+<span id="cb59-102"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-102" tabindex="-1"></a></span>
+<span id="cb59-103"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-103" tabindex="-1"></a>p<span class="ot">&lt;-</span> p <span class="sc">%&gt;%</span> </span>
+<span id="cb59-104"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-104" tabindex="-1"></a>  <span class="fu">activate</span>(nodes) <span class="sc">%&gt;%</span> </span>
+<span id="cb59-105"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-105" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">degree =</span> <span class="fu">centrality_degree</span>())</span>
+<span id="cb59-106"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-106" tabindex="-1"></a></span>
+<span id="cb59-107"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-107" tabindex="-1"></a>coords <span class="ot">&lt;-</span> <span class="fu">st_coordinates</span>(p <span class="sc">%&gt;%</span> <span class="fu">activate</span>(<span class="st">&quot;nodes&quot;</span>))</span>
+<span id="cb59-108"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-108" tabindex="-1"></a></span>
+<span id="cb59-109"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-109" tabindex="-1"></a><span class="co"># Plot</span></span>
+<span id="cb59-110"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-110" tabindex="-1"></a><span class="fu">ggraph</span>(p, <span class="at">layout =</span> coords) <span class="sc">+</span></span>
+<span id="cb59-111"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-111" tabindex="-1"></a>  <span class="fu">geom_edge_link</span>(<span class="at">color =</span> <span class="st">&quot;gray80&quot;</span>) <span class="sc">+</span></span>
+<span id="cb59-112"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-112" tabindex="-1"></a>  <span class="fu">geom_node_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> degree), <span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb59-113"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-113" tabindex="-1"></a>  <span class="fu">scale_color_viridis_c</span>(<span class="at">option =</span> <span class="st">&quot;plasma&quot;</span>) <span class="sc">+</span></span>
+<span id="cb59-114"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-114" tabindex="-1"></a>  <span class="fu">theme_graph</span>() <span class="sc">+</span></span>
+<span id="cb59-115"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-115" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">color =</span> <span class="st">&quot;Node Degree&quot;</span>)</span>
+<span id="cb59-116"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-116" tabindex="-1"></a></span>
+<span id="cb59-117"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-117" tabindex="-1"></a><span class="co"># Compute average degree for each edge</span></span>
+<span id="cb59-118"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-118" tabindex="-1"></a>p <span class="ot">&lt;-</span> p <span class="sc">%&gt;%</span></span>
+<span id="cb59-119"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-119" tabindex="-1"></a>  <span class="fu">activate</span>(edges) <span class="sc">%&gt;%</span></span>
+<span id="cb59-120"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-120" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb59-121"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-121" tabindex="-1"></a>    <span class="at">avg_node_degree =</span> (<span class="fu">.N</span>()<span class="sc">$</span>degree[from] <span class="sc">+</span> <span class="fu">.N</span>()<span class="sc">$</span>degree[to]) <span class="sc">/</span> <span class="dv">2</span></span>
+<span id="cb59-122"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-122" tabindex="-1"></a>  )</span>
+<span id="cb59-123"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-123" tabindex="-1"></a><span class="co">#plot edges</span></span>
+<span id="cb59-124"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-124" tabindex="-1"></a><span class="fu">ggraph</span>(p, <span class="at">layout =</span> coords) <span class="sc">+</span></span>
+<span id="cb59-125"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-125" tabindex="-1"></a>  <span class="fu">geom_edge_link</span>(<span class="fu">aes</span>(<span class="at">color =</span> avg_node_degree), <span class="at">width =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb59-126"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-126" tabindex="-1"></a>  <span class="fu">scale_color_viridis_c</span>(<span class="at">option =</span> <span class="st">&quot;plasma&quot;</span>) <span class="sc">+</span></span>
+<span id="cb59-127"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-127" tabindex="-1"></a>  <span class="fu">theme_graph</span>() <span class="sc">+</span></span>
+<span id="cb59-128"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-128" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">color =</span> <span class="st">&quot;Edge Value&quot;</span>)</span>
+<span id="cb59-129"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-129" tabindex="-1"></a><span class="co">#convert to sf_object</span></span>
+<span id="cb59-130"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-130" tabindex="-1"></a>p<span class="ot">&lt;-</span>p<span class="sc">%&gt;%</span></span>
+<span id="cb59-131"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-131" tabindex="-1"></a>  <span class="fu">activate</span>(<span class="st">&quot;edges&quot;</span>)<span class="sc">%&gt;%</span></span>
+<span id="cb59-132"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-132" tabindex="-1"></a>  <span class="fu">st_as_sf</span>()</span>
+<span id="cb59-133"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-133" tabindex="-1"></a><span class="co">#reclassify</span></span>
+<span id="cb59-134"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-134" tabindex="-1"></a>p<span class="ot">&lt;-</span>p<span class="sc">%&gt;%</span></span>
+<span id="cb59-135"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-135" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">class =</span> <span class="fu">case_when</span>(</span>
+<span id="cb59-136"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-136" tabindex="-1"></a>    avg_node_degree <span class="sc">&lt;</span> <span class="dv">3</span> <span class="sc">~</span> <span class="st">&quot;secondary&quot;</span>,</span>
+<span id="cb59-137"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-137" tabindex="-1"></a>    <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">&quot;primary&quot;</span></span>
+<span id="cb59-138"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-138" tabindex="-1"></a>  ))</span>
+<span id="cb59-139"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-139" tabindex="-1"></a></span>
+<span id="cb59-140"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-140" tabindex="-1"></a><span class="co">#dump index list and old fid field to covert to .gpkg</span></span>
+<span id="cb59-141"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-141" tabindex="-1"></a>p<span class="ot">&lt;-</span>p<span class="sc">%&gt;%</span><span class="fu">select</span>(<span class="sc">-</span>.tidygraph_edge_index)</span>
+<span id="cb59-142"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-142" tabindex="-1"></a></span>
+<span id="cb59-143"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-143" tabindex="-1"></a><span class="fu">st_write</span>(p,<span class="st">&quot;./data/WL/tsa41_total_network_class.gpkg&quot;</span>,</span>
+<span id="cb59-144"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-144" tabindex="-1"></a>         <span class="at">overwrite =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb59-145"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-145" tabindex="-1"></a>         <span class="at">append =</span> <span class="cn">FALSE</span></span>
+<span id="cb59-146"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-146" tabindex="-1"></a>)</span>
+<span id="cb59-147"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-147" tabindex="-1"></a></span>
+<span id="cb59-148"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-148" tabindex="-1"></a><span class="do">##################################################################################</span></span>
+<span id="cb59-149"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-149" tabindex="-1"></a><span class="co">#make Patchworks ready: Simplify , Densify and Classify</span></span>
+<span id="cb59-150"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-150" tabindex="-1"></a><span class="do">#######################Make Patchworks ready######################################################</span></span>
+<span id="cb59-151"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-151" tabindex="-1"></a><span class="co">#Using QGIS simplify the line work to initially reduce the number of vertices</span></span>
+<span id="cb59-152"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-152" tabindex="-1"></a><span class="co">#Then densify the vertices at 100 metre intervals</span></span>
+<span id="cb59-153"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-153" tabindex="-1"></a></span>
+<span id="cb59-154"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-154" tabindex="-1"></a>in_path<span class="ot">&lt;-</span><span class="st">&quot;./data/WL/tsa41_total_network_class.gpkg&quot;</span></span>
+<span id="cb59-155"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-155" tabindex="-1"></a><span class="co">#qgis_show_help(&quot;native:simplifygeometries&quot;)</span></span>
+<span id="cb59-156"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-156" tabindex="-1"></a>out_path<span class="ot">&lt;-</span><span class="st">&quot;./data/WL/tsa41_total_network_class_simp10.gpkg&quot;</span></span>
+<span id="cb59-157"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-157" tabindex="-1"></a>simple<span class="ot">&lt;-</span> <span class="fu">qgis_run_algorithm</span>(</span>
+<span id="cb59-158"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-158" tabindex="-1"></a>  <span class="st">&quot;native:simplifygeometries&quot;</span>,</span>
+<span id="cb59-159"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-159" tabindex="-1"></a>  <span class="at">INPUT =</span> in_path,</span>
+<span id="cb59-160"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-160" tabindex="-1"></a>  <span class="at">TOLERANCE =</span> <span class="dv">10</span>,</span>
+<span id="cb59-161"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-161" tabindex="-1"></a>  <span class="at">OUTPUT =</span> out_path</span>
+<span id="cb59-162"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-162" tabindex="-1"></a>)</span>
+<span id="cb59-163"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-163" tabindex="-1"></a></span>
+<span id="cb59-164"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-164" tabindex="-1"></a>p_view <span class="ot">&lt;-</span> <span class="fu">read_sf</span>(<span class="fu">qgis_extract_output</span>(simple, <span class="st">&quot;OUTPUT&quot;</span>))</span>
+<span id="cb59-165"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-165" tabindex="-1"></a></span>
+<span id="cb59-166"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-166" tabindex="-1"></a><span class="co">#View(qgis_search_algorithms(algorithm = &quot;densify&quot;, group = &quot;[Vv]ector&quot;))</span></span>
+<span id="cb59-167"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-167" tabindex="-1"></a><span class="co">#qgis_show_help(&quot;native:densifygeometriesgivenaninterval&quot;)</span></span>
+<span id="cb59-168"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-168" tabindex="-1"></a></span>
+<span id="cb59-169"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-169" tabindex="-1"></a>out_path<span class="ot">&lt;-</span><span class="st">&quot;./data/WL/tsa41_total_network_class_simp10_dens100.gpkg&quot;</span></span>
+<span id="cb59-170"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-170" tabindex="-1"></a></span>
+<span id="cb59-171"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-171" tabindex="-1"></a>densify<span class="ot">&lt;-</span> <span class="fu">qgis_run_algorithm</span>(</span>
+<span id="cb59-172"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-172" tabindex="-1"></a>  <span class="st">&quot;native:densifygeometriesgivenaninterval&quot;</span>,</span>
+<span id="cb59-173"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-173" tabindex="-1"></a>  <span class="at">INPUT =</span> p_view,</span>
+<span id="cb59-174"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-174" tabindex="-1"></a>  <span class="at">INTERVAL =</span> <span class="dv">100</span>,</span>
+<span id="cb59-175"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-175" tabindex="-1"></a>  <span class="at">OUTPUT =</span> out_path</span>
+<span id="cb59-176"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-176" tabindex="-1"></a>)</span>
+<span id="cb59-177"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-177" tabindex="-1"></a></span>
+<span id="cb59-178"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-178" tabindex="-1"></a>p_view <span class="ot">&lt;-</span> <span class="fu">read_sf</span>(<span class="fu">qgis_extract_output</span>(densify, <span class="st">&quot;OUTPUT&quot;</span>))</span>
+<span id="cb59-179"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-179" tabindex="-1"></a>p_view</span>
+<span id="cb59-180"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-180" tabindex="-1"></a></span>
+<span id="cb59-181"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-181" tabindex="-1"></a>path2rd <span class="ot">&lt;-</span> <span class="st">&quot;./data/WL/tsa41_2024.gdb&quot;</span></span>
+<span id="cb59-182"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-182" tabindex="-1"></a>rds<span class="ot">&lt;-</span><span class="fu">st_read</span>(path2rd,<span class="at">layer =</span> <span class="st">&quot;IntegratedRoadsBuffers&quot;</span>)</span>
+<span id="cb59-183"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-183" tabindex="-1"></a></span>
+<span id="cb59-184"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-184" tabindex="-1"></a></span>
+<span id="cb59-185"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-185" tabindex="-1"></a><span class="co"># Convert MULTISURFACE -&gt; MULTIPOLYGON (required for spatial ops)</span></span>
+<span id="cb59-186"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-186" tabindex="-1"></a>rds_poly <span class="ot">&lt;-</span> rds <span class="sc">%&gt;%</span></span>
+<span id="cb59-187"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-187" tabindex="-1"></a>  <span class="fu">st_cast</span>(<span class="st">&quot;MULTIPOLYGON&quot;</span>, <span class="at">warn =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb59-188"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-188" tabindex="-1"></a></span>
+<span id="cb59-189"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-189" tabindex="-1"></a><span class="co"># Determine which network edges intersect buffered roads</span></span>
+<span id="cb59-190"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-190" tabindex="-1"></a>intersects_buffer <span class="ot">&lt;-</span> <span class="fu">lengths</span>(<span class="fu">st_intersects</span>(p_view, rds_poly)) <span class="sc">&gt;</span> <span class="dv">0</span></span>
+<span id="cb59-191"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-191" tabindex="-1"></a></span>
+<span id="cb59-192"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-192" tabindex="-1"></a><span class="co"># Add classification field</span></span>
+<span id="cb59-193"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-193" tabindex="-1"></a>p_view <span class="ot">&lt;-</span> p_view <span class="sc">%&gt;%</span></span>
+<span id="cb59-194"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-194" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">status =</span> <span class="fu">ifelse</span>(intersects_buffer, <span class="st">&quot;current&quot;</span>, <span class="st">&quot;future&quot;</span>))</span>
+<span id="cb59-195"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-195" tabindex="-1"></a></span>
+<span id="cb59-196"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-196" tabindex="-1"></a><span class="co"># Summary check</span></span>
+<span id="cb59-197"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-197" tabindex="-1"></a><span class="fu">table</span>(p_view<span class="sc">$</span>status)</span>
+<span id="cb59-198"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-198" tabindex="-1"></a></span>
+<span id="cb59-199"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-199" tabindex="-1"></a><span class="co"># Optional visualization</span></span>
+<span id="cb59-200"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-200" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb59-201"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-201" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> p_view, <span class="fu">aes</span>(<span class="at">color =</span> status), <span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb59-202"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-202" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> rds_poly, <span class="at">fill =</span> <span class="cn">NA</span>, <span class="at">color =</span> <span class="st">&quot;black&quot;</span>, <span class="at">linetype =</span> <span class="st">&quot;dashed&quot;</span>) <span class="sc">+</span></span>
+<span id="cb59-203"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-203" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span>
+<span id="cb59-204"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-204" tabindex="-1"></a></span>
+<span id="cb59-205"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-205" tabindex="-1"></a><span class="fu">table</span>(p_view<span class="sc">$</span>class)</span>
+<span id="cb59-206"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb59-206" tabindex="-1"></a><span class="fu">st_write</span>(p_view,<span class="st">&quot;.</span><span class="sc">\\</span><span class="st">data</span><span class="sc">\\</span><span class="st">WL</span><span class="sc">\\</span><span class="st">tsa41_total_network_class_simp10_dens100_reclass.gpkg&quot;</span>)</span></code></pre></div>
 </details>
 <div id="implement-in-patchworks" class="section level4 hasAnchor" number="14.2.3.1">
 <h4><span class="header-section-number">14.2.3.1</span> Implement in Patchworks<a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#implement-in-patchworks" class="anchor-section" aria-label="Anchor link to header"></a></h4>
@@ -1124,24 +1121,24 @@ linked to. This code updates the linkage file to only join stands with
 THLB to roads. For large models, this saves on model size, memory needs,
 and run speed. It will create a file called ‘linkages_thlb.csv’.</p>
 <details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
-<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb57-1" tabindex="-1"></a></span>
-<span id="cb57-2"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb57-2" tabindex="-1"></a><span class="do">## After the Patchworks road builder is run, filter the linkage file for just the THLB </span></span>
-<span id="cb57-3"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb57-3" tabindex="-1"></a></span>
-<span id="cb57-4"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb57-4" tabindex="-1"></a><span class="fu">rm</span>(<span class="at">list=</span><span class="fu">ls</span>())</span>
-<span id="cb57-5"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb57-5" tabindex="-1"></a></span>
-<span id="cb57-6"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb57-6" tabindex="-1"></a><span class="co"># Read in linkages.csv file</span></span>
-<span id="cb57-7"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb57-7" tabindex="-1"></a>link <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;linkages.csv&quot;</span>)</span>
-<span id="cb57-8"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb57-8" tabindex="-1"></a></span>
-<span id="cb57-9"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb57-9" tabindex="-1"></a><span class="co"># Read in THLB</span></span>
-<span id="cb57-10"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb57-10" tabindex="-1"></a>thlb <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;../tracks/blocks.csv&quot;</span>) <span class="co"># ../v20251217/tracks/v07</span></span>
-<span id="cb57-11"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb57-11" tabindex="-1"></a>thlb <span class="ot">&lt;-</span> thlb[thlb<span class="sc">$</span>TYPE<span class="sc">==</span><span class="st">&quot;managed&quot;</span>,]</span>
-<span id="cb57-12"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb57-12" tabindex="-1"></a></span>
-<span id="cb57-13"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb57-13" tabindex="-1"></a><span class="co"># filter linkages to where there is a managed block (inner join)</span></span>
-<span id="cb57-14"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb57-14" tabindex="-1"></a>link2 <span class="ot">&lt;-</span> <span class="fu">merge</span>(link, thlb, <span class="at">by =</span> <span class="st">&quot;BLOCK&quot;</span>)</span>
-<span id="cb57-15"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb57-15" tabindex="-1"></a>link2 <span class="ot">&lt;-</span> link2[<span class="fu">c</span>(<span class="st">&quot;BLOCK&quot;</span>,<span class="st">&quot;NODE&quot;</span>)]</span>
-<span id="cb57-16"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb57-16" tabindex="-1"></a></span>
-<span id="cb57-17"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb57-17" tabindex="-1"></a><span class="co"># print out the filtered linkages file</span></span>
-<span id="cb57-18"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb57-18" tabindex="-1"></a><span class="fu">write.csv</span>(link2, <span class="at">file=</span><span class="st">&quot;linkages_thlb.csv&quot;</span>, <span class="at">row.names=</span><span class="cn">FALSE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb60-1" tabindex="-1"></a></span>
+<span id="cb60-2"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb60-2" tabindex="-1"></a><span class="do">## After the Patchworks road builder is run, filter the linkage file for just the THLB </span></span>
+<span id="cb60-3"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb60-3" tabindex="-1"></a></span>
+<span id="cb60-4"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb60-4" tabindex="-1"></a><span class="fu">rm</span>(<span class="at">list=</span><span class="fu">ls</span>())</span>
+<span id="cb60-5"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb60-5" tabindex="-1"></a></span>
+<span id="cb60-6"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb60-6" tabindex="-1"></a><span class="co"># Read in linkages.csv file</span></span>
+<span id="cb60-7"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb60-7" tabindex="-1"></a>link <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;linkages.csv&quot;</span>)</span>
+<span id="cb60-8"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb60-8" tabindex="-1"></a></span>
+<span id="cb60-9"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb60-9" tabindex="-1"></a><span class="co"># Read in THLB</span></span>
+<span id="cb60-10"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb60-10" tabindex="-1"></a>thlb <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;../tracks/blocks.csv&quot;</span>) <span class="co"># ../v20251217/tracks/v07</span></span>
+<span id="cb60-11"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb60-11" tabindex="-1"></a>thlb <span class="ot">&lt;-</span> thlb[thlb<span class="sc">$</span>TYPE<span class="sc">==</span><span class="st">&quot;managed&quot;</span>,]</span>
+<span id="cb60-12"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb60-12" tabindex="-1"></a></span>
+<span id="cb60-13"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb60-13" tabindex="-1"></a><span class="co"># filter linkages to where there is a managed block (inner join)</span></span>
+<span id="cb60-14"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb60-14" tabindex="-1"></a>link2 <span class="ot">&lt;-</span> <span class="fu">merge</span>(link, thlb, <span class="at">by =</span> <span class="st">&quot;BLOCK&quot;</span>)</span>
+<span id="cb60-15"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb60-15" tabindex="-1"></a>link2 <span class="ot">&lt;-</span> link2[<span class="fu">c</span>(<span class="st">&quot;BLOCK&quot;</span>,<span class="st">&quot;NODE&quot;</span>)]</span>
+<span id="cb60-16"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb60-16" tabindex="-1"></a></span>
+<span id="cb60-17"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb60-17" tabindex="-1"></a><span class="co"># print out the filtered linkages file</span></span>
+<span id="cb60-18"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#cb60-18" tabindex="-1"></a><span class="fu">write.csv</span>(link2, <span class="at">file=</span><span class="st">&quot;linkages_thlb.csv&quot;</span>, <span class="at">row.names=</span><span class="cn">FALSE</span>)</span></code></pre></div>
 </details>
 </div>
 <div id="step-4-update-the-pin-file" class="section level4 hasAnchor" number="14.2.3.3">

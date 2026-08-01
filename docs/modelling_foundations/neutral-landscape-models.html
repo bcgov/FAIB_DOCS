@@ -23,7 +23,7 @@
 <meta name="author" content="A collaborative effort between a Human (Kelly Izzard) and AI" />
 
 
-<meta name="date" content="2026-07-31" />
+<meta name="date" content="2026-08-01" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -305,10 +305,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="11.1" data-path="spatial-data-accuracy-and-precision-in-strategic-modelling.html"><a href="spatial-data-accuracy-and-precision-in-strategic-modelling.html#introduction-10"><i class="fa fa-check"></i><b>11.1</b> Introduction</a></li>
 <li class="chapter" data-level="11.2" data-path="spatial-data-accuracy-and-precision-in-strategic-modelling.html"><a href="spatial-data-accuracy-and-precision-in-strategic-modelling.html#precision-and-the-grid"><i class="fa fa-check"></i><b>11.2</b> Precision and the grid</a></li>
 <li class="chapter" data-level="11.3" data-path="spatial-data-accuracy-and-precision-in-strategic-modelling.html"><a href="spatial-data-accuracy-and-precision-in-strategic-modelling.html#the-weakest-link-principle-in-spatial-analysis"><i class="fa fa-check"></i><b>11.3</b> The Weakest Link Principle in Spatial Analysis</a></li>
-<li class="chapter" data-level="11.4" data-path="spatial-data-accuracy-and-precision-in-strategic-modelling.html"><a href="spatial-data-accuracy-and-precision-in-strategic-modelling.html#fitness-for-purpose"><i class="fa fa-check"></i><b>11.4</b> Fitness for Purpose</a>
-<ul>
-<li class="chapter" data-level="11.4.1" data-path="spatial-data-accuracy-and-precision-in-strategic-modelling.html"><a href="spatial-data-accuracy-and-precision-in-strategic-modelling.html#raster-versus-vector-redux"><i class="fa fa-check"></i><b>11.4.1</b> Raster versus Vector Redux</a></li>
-</ul></li>
+<li class="chapter" data-level="11.4" data-path="spatial-data-accuracy-and-precision-in-strategic-modelling.html"><a href="spatial-data-accuracy-and-precision-in-strategic-modelling.html#fitness-for-purpose"><i class="fa fa-check"></i><b>11.4</b> Fitness for Purpose</a></li>
 <li class="chapter" data-level="11.5" data-path="spatial-data-accuracy-and-precision-in-strategic-modelling.html"><a href="spatial-data-accuracy-and-precision-in-strategic-modelling.html#path-dependency-and-the-illusion-of-precision"><i class="fa fa-check"></i><b>11.5</b> Path Dependency and the Illusion of Precision</a>
 <ul>
 <li class="chapter" data-level="11.5.1" data-path="spatial-data-accuracy-and-precision-in-strategic-modelling.html"><a href="spatial-data-accuracy-and-precision-in-strategic-modelling.html#precision-becomes-a-proxy-for-quality"><i class="fa fa-check"></i><b>11.5.1</b> Precision Becomes a Proxy for Quality</a></li>
@@ -424,312 +421,312 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Fragmentation was quantified for each simulated landscape using four commonly applied landscape metrics: Number of Patches (NP), Largest Patch Index (LPI), Edge Density (ED), and the CLUMPY index. NP measures the degree to which forest is subdivided into discrete patches, while LPI quantifies the proportion of the landscape occupied by the largest forest patch and serves as an indicator of connectivity. Edge Density measures the amount of forest–non-forest boundary relative to landscape area and reflects the prevalence of edge habitat. The CLUMPY index evaluates the spatial aggregation of forest cells, ranging from dispersed to highly clustered configurations. Mean values and standard deviations were calculated across the 100 replicates at each forest-cover level, allowing both the average fragmentation response and the variability associated with stochastic landscape generation to be assessed.</p>
 <p>A key objective of the analysis was to identify the <strong>percolation threshold</strong>, defined as the critical level of forest cover at which isolated forest patches begin to merge into a landscape-spanning connected network. Percolation theory predicts that binary landscapes undergo a phase transition as habitat abundance increases: below the threshold, habitat occurs primarily as small, disconnected patches, whereas above the threshold a dominant connected cluster emerges. This transition is often abrupt, with relatively small increases in forest cover producing disproportionately large increases in connectivity. In the present experiment, changes in NP, LPI, ED, and CLUMPY were used to detect this transition. A rapid increase in LPI accompanied by a decline in patch numbers indicates that previously isolated patches have coalesced into a connected forest matrix. Identifying the percolation threshold is particularly important in forestry and conservation planning because it provides a quantitative benchmark for evaluating the level of forest retention necessary to maintain landscape connectivity, facilitate species movement, and support ecological processes across fragmented landscapes. Together, these analyses provide a comprehensive assessment of how landscape structure responds to declining forest cover and establish a neutral-model baseline against which observed forest landscapes can be evaluated.</p>
 <details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
-<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="neutral-landscape-models.html#cb26-1" tabindex="-1"></a><span class="do">###############################################################################</span></span>
-<span id="cb26-2"><a href="neutral-landscape-models.html#cb26-2" tabindex="-1"></a><span class="co"># Neutral Landscape Fragmentation Experiment</span></span>
-<span id="cb26-3"><a href="neutral-landscape-models.html#cb26-3" tabindex="-1"></a><span class="co">#</span></span>
-<span id="cb26-4"><a href="neutral-landscape-models.html#cb26-4" tabindex="-1"></a><span class="co"># Objective:</span></span>
-<span id="cb26-5"><a href="neutral-landscape-models.html#cb26-5" tabindex="-1"></a><span class="co"># Evaluate forest fragmentation as forest cover declines</span></span>
-<span id="cb26-6"><a href="neutral-landscape-models.html#cb26-6" tabindex="-1"></a><span class="co"># in a 100 x 100 neutral landscape.</span></span>
-<span id="cb26-7"><a href="neutral-landscape-models.html#cb26-7" tabindex="-1"></a><span class="co">#</span></span>
-<span id="cb26-8"><a href="neutral-landscape-models.html#cb26-8" tabindex="-1"></a><span class="co"># Metrics:</span></span>
-<span id="cb26-9"><a href="neutral-landscape-models.html#cb26-9" tabindex="-1"></a><span class="co">#   NP      = Number of Patches</span></span>
-<span id="cb26-10"><a href="neutral-landscape-models.html#cb26-10" tabindex="-1"></a><span class="co">#   LPI     = Largest Forest Patch Index (%)</span></span>
-<span id="cb26-11"><a href="neutral-landscape-models.html#cb26-11" tabindex="-1"></a><span class="co">#   ED      = Edge Density</span></span>
-<span id="cb26-12"><a href="neutral-landscape-models.html#cb26-12" tabindex="-1"></a><span class="co">#   CLUMPY  = Clumpiness Index</span></span>
-<span id="cb26-13"><a href="neutral-landscape-models.html#cb26-13" tabindex="-1"></a><span class="co">#</span></span>
-<span id="cb26-14"><a href="neutral-landscape-models.html#cb26-14" tabindex="-1"></a><span class="do">###############################################################################</span></span>
-<span id="cb26-15"><a href="neutral-landscape-models.html#cb26-15" tabindex="-1"></a></span>
-<span id="cb26-16"><a href="neutral-landscape-models.html#cb26-16" tabindex="-1"></a><span class="fu">library</span>(NLMR)</span>
-<span id="cb26-17"><a href="neutral-landscape-models.html#cb26-17" tabindex="-1"></a><span class="fu">library</span>(raster)</span>
-<span id="cb26-18"><a href="neutral-landscape-models.html#cb26-18" tabindex="-1"></a><span class="fu">library</span>(landscapemetrics)</span>
-<span id="cb26-19"><a href="neutral-landscape-models.html#cb26-19" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb26-20"><a href="neutral-landscape-models.html#cb26-20" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb26-21"><a href="neutral-landscape-models.html#cb26-21" tabindex="-1"></a></span>
-<span id="cb26-22"><a href="neutral-landscape-models.html#cb26-22" tabindex="-1"></a><span class="co">#----------------------------------------------------------------------------</span></span>
-<span id="cb26-23"><a href="neutral-landscape-models.html#cb26-23" tabindex="-1"></a><span class="co"># PARAMETERS</span></span>
-<span id="cb26-24"><a href="neutral-landscape-models.html#cb26-24" tabindex="-1"></a><span class="co">#----------------------------------------------------------------------------</span></span>
-<span id="cb26-25"><a href="neutral-landscape-models.html#cb26-25" tabindex="-1"></a></span>
-<span id="cb26-26"><a href="neutral-landscape-models.html#cb26-26" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
-<span id="cb26-27"><a href="neutral-landscape-models.html#cb26-27" tabindex="-1"></a></span>
-<span id="cb26-28"><a href="neutral-landscape-models.html#cb26-28" tabindex="-1"></a>nrow_landscape <span class="ot">&lt;-</span> <span class="dv">100</span></span>
-<span id="cb26-29"><a href="neutral-landscape-models.html#cb26-29" tabindex="-1"></a>ncol_landscape <span class="ot">&lt;-</span> <span class="dv">100</span></span>
-<span id="cb26-30"><a href="neutral-landscape-models.html#cb26-30" tabindex="-1"></a></span>
-<span id="cb26-31"><a href="neutral-landscape-models.html#cb26-31" tabindex="-1"></a>cover_levels <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="fl">0.9</span>, <span class="fl">0.1</span>, <span class="at">by =</span> <span class="sc">-</span><span class="fl">0.1</span>)</span>
-<span id="cb26-32"><a href="neutral-landscape-models.html#cb26-32" tabindex="-1"></a></span>
-<span id="cb26-33"><a href="neutral-landscape-models.html#cb26-33" tabindex="-1"></a>n_replicates <span class="ot">&lt;-</span> <span class="dv">100</span></span>
-<span id="cb26-34"><a href="neutral-landscape-models.html#cb26-34" tabindex="-1"></a></span>
-<span id="cb26-35"><a href="neutral-landscape-models.html#cb26-35" tabindex="-1"></a><span class="co">#----------------------------------------------------------------------------</span></span>
-<span id="cb26-36"><a href="neutral-landscape-models.html#cb26-36" tabindex="-1"></a><span class="co"># METRIC FUNCTION</span></span>
-<span id="cb26-37"><a href="neutral-landscape-models.html#cb26-37" tabindex="-1"></a><span class="co">#----------------------------------------------------------------------------</span></span>
-<span id="cb26-38"><a href="neutral-landscape-models.html#cb26-38" tabindex="-1"></a></span>
-<span id="cb26-39"><a href="neutral-landscape-models.html#cb26-39" tabindex="-1"></a>simulate_landscape <span class="ot">&lt;-</span> <span class="cf">function</span>(cover,</span>
-<span id="cb26-40"><a href="neutral-landscape-models.html#cb26-40" tabindex="-1"></a>                               <span class="at">nrow =</span> <span class="dv">100</span>,</span>
-<span id="cb26-41"><a href="neutral-landscape-models.html#cb26-41" tabindex="-1"></a>                               <span class="at">ncol =</span> <span class="dv">100</span>) {</span>
-<span id="cb26-42"><a href="neutral-landscape-models.html#cb26-42" tabindex="-1"></a></span>
-<span id="cb26-43"><a href="neutral-landscape-models.html#cb26-43" tabindex="-1"></a>  <span class="co"># Generate neutral landscape</span></span>
-<span id="cb26-44"><a href="neutral-landscape-models.html#cb26-44" tabindex="-1"></a>  nlm <span class="ot">&lt;-</span> <span class="fu">nlm_random</span>(</span>
-<span id="cb26-45"><a href="neutral-landscape-models.html#cb26-45" tabindex="-1"></a>    <span class="at">nrow =</span> nrow,</span>
-<span id="cb26-46"><a href="neutral-landscape-models.html#cb26-46" tabindex="-1"></a>    <span class="at">ncol =</span> ncol</span>
-<span id="cb26-47"><a href="neutral-landscape-models.html#cb26-47" tabindex="-1"></a>  )</span>
-<span id="cb26-48"><a href="neutral-landscape-models.html#cb26-48" tabindex="-1"></a></span>
-<span id="cb26-49"><a href="neutral-landscape-models.html#cb26-49" tabindex="-1"></a>  <span class="co"># Convert to binary forest/non-forest</span></span>
-<span id="cb26-50"><a href="neutral-landscape-models.html#cb26-50" tabindex="-1"></a>  <span class="co"># Forest = 1</span></span>
-<span id="cb26-51"><a href="neutral-landscape-models.html#cb26-51" tabindex="-1"></a>  <span class="co"># Non-Forest = 0</span></span>
-<span id="cb26-52"><a href="neutral-landscape-models.html#cb26-52" tabindex="-1"></a></span>
-<span id="cb26-53"><a href="neutral-landscape-models.html#cb26-53" tabindex="-1"></a>  forest <span class="ot">&lt;-</span> nlm</span>
-<span id="cb26-54"><a href="neutral-landscape-models.html#cb26-54" tabindex="-1"></a>  forest[] <span class="ot">&lt;-</span> <span class="fu">as.integer</span>(nlm[] <span class="sc">&lt;</span> cover)</span>
-<span id="cb26-55"><a href="neutral-landscape-models.html#cb26-55" tabindex="-1"></a></span>
-<span id="cb26-56"><a href="neutral-landscape-models.html#cb26-56" tabindex="-1"></a>  <span class="co"># Number of patches</span></span>
-<span id="cb26-57"><a href="neutral-landscape-models.html#cb26-57" tabindex="-1"></a>  np <span class="ot">&lt;-</span> <span class="fu">lsm_l_np</span>(forest)<span class="sc">$</span>value</span>
-<span id="cb26-58"><a href="neutral-landscape-models.html#cb26-58" tabindex="-1"></a></span>
-<span id="cb26-59"><a href="neutral-landscape-models.html#cb26-59" tabindex="-1"></a>  <span class="co"># Forest-specific Largest Patch Index</span></span>
-<span id="cb26-60"><a href="neutral-landscape-models.html#cb26-60" tabindex="-1"></a>  lpi_df <span class="ot">&lt;-</span> <span class="fu">lsm_c_lpi</span>(forest)</span>
-<span id="cb26-61"><a href="neutral-landscape-models.html#cb26-61" tabindex="-1"></a></span>
-<span id="cb26-62"><a href="neutral-landscape-models.html#cb26-62" tabindex="-1"></a>  lpi <span class="ot">&lt;-</span> lpi_df<span class="sc">$</span>value[</span>
-<span id="cb26-63"><a href="neutral-landscape-models.html#cb26-63" tabindex="-1"></a>    lpi_df<span class="sc">$</span>class <span class="sc">==</span> <span class="dv">1</span></span>
-<span id="cb26-64"><a href="neutral-landscape-models.html#cb26-64" tabindex="-1"></a>  ]</span>
-<span id="cb26-65"><a href="neutral-landscape-models.html#cb26-65" tabindex="-1"></a></span>
-<span id="cb26-66"><a href="neutral-landscape-models.html#cb26-66" tabindex="-1"></a>  <span class="co"># Forest-specific Edge Density</span></span>
-<span id="cb26-67"><a href="neutral-landscape-models.html#cb26-67" tabindex="-1"></a>  ed_df <span class="ot">&lt;-</span> <span class="fu">lsm_c_ed</span>(forest)</span>
-<span id="cb26-68"><a href="neutral-landscape-models.html#cb26-68" tabindex="-1"></a></span>
-<span id="cb26-69"><a href="neutral-landscape-models.html#cb26-69" tabindex="-1"></a>  ed <span class="ot">&lt;-</span> ed_df<span class="sc">$</span>value[</span>
-<span id="cb26-70"><a href="neutral-landscape-models.html#cb26-70" tabindex="-1"></a>    ed_df<span class="sc">$</span>class <span class="sc">==</span> <span class="dv">1</span></span>
-<span id="cb26-71"><a href="neutral-landscape-models.html#cb26-71" tabindex="-1"></a>  ]</span>
-<span id="cb26-72"><a href="neutral-landscape-models.html#cb26-72" tabindex="-1"></a></span>
-<span id="cb26-73"><a href="neutral-landscape-models.html#cb26-73" tabindex="-1"></a>  <span class="co"># Forest-specific Clumpiness</span></span>
-<span id="cb26-74"><a href="neutral-landscape-models.html#cb26-74" tabindex="-1"></a>  clumpy_df <span class="ot">&lt;-</span> <span class="fu">lsm_c_clumpy</span>(forest)</span>
-<span id="cb26-75"><a href="neutral-landscape-models.html#cb26-75" tabindex="-1"></a></span>
-<span id="cb26-76"><a href="neutral-landscape-models.html#cb26-76" tabindex="-1"></a>  clumpy <span class="ot">&lt;-</span> clumpy_df<span class="sc">$</span>value[</span>
-<span id="cb26-77"><a href="neutral-landscape-models.html#cb26-77" tabindex="-1"></a>    clumpy_df<span class="sc">$</span>class <span class="sc">==</span> <span class="dv">1</span></span>
-<span id="cb26-78"><a href="neutral-landscape-models.html#cb26-78" tabindex="-1"></a>  ]</span>
-<span id="cb26-79"><a href="neutral-landscape-models.html#cb26-79" tabindex="-1"></a></span>
-<span id="cb26-80"><a href="neutral-landscape-models.html#cb26-80" tabindex="-1"></a>  <span class="fu">data.frame</span>(</span>
-<span id="cb26-81"><a href="neutral-landscape-models.html#cb26-81" tabindex="-1"></a>    <span class="at">cover =</span> cover,</span>
-<span id="cb26-82"><a href="neutral-landscape-models.html#cb26-82" tabindex="-1"></a>    <span class="at">NP =</span> np,</span>
-<span id="cb26-83"><a href="neutral-landscape-models.html#cb26-83" tabindex="-1"></a>    <span class="at">LPI =</span> lpi,</span>
-<span id="cb26-84"><a href="neutral-landscape-models.html#cb26-84" tabindex="-1"></a>    <span class="at">ED =</span> ed,</span>
-<span id="cb26-85"><a href="neutral-landscape-models.html#cb26-85" tabindex="-1"></a>    <span class="at">CLUMPY =</span> clumpy</span>
-<span id="cb26-86"><a href="neutral-landscape-models.html#cb26-86" tabindex="-1"></a>  )</span>
-<span id="cb26-87"><a href="neutral-landscape-models.html#cb26-87" tabindex="-1"></a>}</span>
-<span id="cb26-88"><a href="neutral-landscape-models.html#cb26-88" tabindex="-1"></a></span>
-<span id="cb26-89"><a href="neutral-landscape-models.html#cb26-89" tabindex="-1"></a><span class="co">#----------------------------------------------------------------------------</span></span>
-<span id="cb26-90"><a href="neutral-landscape-models.html#cb26-90" tabindex="-1"></a><span class="co"># RUN SIMULATIONS</span></span>
-<span id="cb26-91"><a href="neutral-landscape-models.html#cb26-91" tabindex="-1"></a><span class="co">#----------------------------------------------------------------------------</span></span>
-<span id="cb26-92"><a href="neutral-landscape-models.html#cb26-92" tabindex="-1"></a></span>
-<span id="cb26-93"><a href="neutral-landscape-models.html#cb26-93" tabindex="-1"></a>results <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
-<span id="cb26-94"><a href="neutral-landscape-models.html#cb26-94" tabindex="-1"></a></span>
-<span id="cb26-95"><a href="neutral-landscape-models.html#cb26-95" tabindex="-1"></a>counter <span class="ot">&lt;-</span> <span class="dv">1</span></span>
-<span id="cb26-96"><a href="neutral-landscape-models.html#cb26-96" tabindex="-1"></a></span>
-<span id="cb26-97"><a href="neutral-landscape-models.html#cb26-97" tabindex="-1"></a><span class="cf">for</span> (cover <span class="cf">in</span> cover_levels) {</span>
-<span id="cb26-98"><a href="neutral-landscape-models.html#cb26-98" tabindex="-1"></a></span>
-<span id="cb26-99"><a href="neutral-landscape-models.html#cb26-99" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">&quot;Running cover level:&quot;</span>, cover, <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span>
-<span id="cb26-100"><a href="neutral-landscape-models.html#cb26-100" tabindex="-1"></a></span>
-<span id="cb26-101"><a href="neutral-landscape-models.html#cb26-101" tabindex="-1"></a>  <span class="cf">for</span> (rep <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>n_replicates) {</span>
-<span id="cb26-102"><a href="neutral-landscape-models.html#cb26-102" tabindex="-1"></a></span>
-<span id="cb26-103"><a href="neutral-landscape-models.html#cb26-103" tabindex="-1"></a>    temp <span class="ot">&lt;-</span> <span class="fu">simulate_landscape</span>(</span>
-<span id="cb26-104"><a href="neutral-landscape-models.html#cb26-104" tabindex="-1"></a>      <span class="at">cover =</span> cover,</span>
-<span id="cb26-105"><a href="neutral-landscape-models.html#cb26-105" tabindex="-1"></a>      <span class="at">nrow =</span> nrow_landscape,</span>
-<span id="cb26-106"><a href="neutral-landscape-models.html#cb26-106" tabindex="-1"></a>      <span class="at">ncol =</span> ncol_landscape</span>
-<span id="cb26-107"><a href="neutral-landscape-models.html#cb26-107" tabindex="-1"></a>    )</span>
-<span id="cb26-108"><a href="neutral-landscape-models.html#cb26-108" tabindex="-1"></a></span>
-<span id="cb26-109"><a href="neutral-landscape-models.html#cb26-109" tabindex="-1"></a>    temp<span class="sc">$</span>replicate <span class="ot">&lt;-</span> rep</span>
-<span id="cb26-110"><a href="neutral-landscape-models.html#cb26-110" tabindex="-1"></a></span>
-<span id="cb26-111"><a href="neutral-landscape-models.html#cb26-111" tabindex="-1"></a>    results[[counter]] <span class="ot">&lt;-</span> temp</span>
-<span id="cb26-112"><a href="neutral-landscape-models.html#cb26-112" tabindex="-1"></a></span>
-<span id="cb26-113"><a href="neutral-landscape-models.html#cb26-113" tabindex="-1"></a>    counter <span class="ot">&lt;-</span> counter <span class="sc">+</span> <span class="dv">1</span></span>
-<span id="cb26-114"><a href="neutral-landscape-models.html#cb26-114" tabindex="-1"></a>  }</span>
-<span id="cb26-115"><a href="neutral-landscape-models.html#cb26-115" tabindex="-1"></a>}</span>
-<span id="cb26-116"><a href="neutral-landscape-models.html#cb26-116" tabindex="-1"></a><span class="do">## Running cover level: 0.9 </span></span>
-<span id="cb26-117"><a href="neutral-landscape-models.html#cb26-117" tabindex="-1"></a><span class="do">## Running cover level: 0.8 </span></span>
-<span id="cb26-118"><a href="neutral-landscape-models.html#cb26-118" tabindex="-1"></a><span class="do">## Running cover level: 0.7 </span></span>
-<span id="cb26-119"><a href="neutral-landscape-models.html#cb26-119" tabindex="-1"></a><span class="do">## Running cover level: 0.6 </span></span>
-<span id="cb26-120"><a href="neutral-landscape-models.html#cb26-120" tabindex="-1"></a><span class="do">## Running cover level: 0.5 </span></span>
-<span id="cb26-121"><a href="neutral-landscape-models.html#cb26-121" tabindex="-1"></a><span class="do">## Running cover level: 0.4 </span></span>
-<span id="cb26-122"><a href="neutral-landscape-models.html#cb26-122" tabindex="-1"></a><span class="do">## Running cover level: 0.3 </span></span>
-<span id="cb26-123"><a href="neutral-landscape-models.html#cb26-123" tabindex="-1"></a><span class="do">## Running cover level: 0.2 </span></span>
-<span id="cb26-124"><a href="neutral-landscape-models.html#cb26-124" tabindex="-1"></a><span class="do">## Running cover level: 0.1</span></span>
-<span id="cb26-125"><a href="neutral-landscape-models.html#cb26-125" tabindex="-1"></a></span>
-<span id="cb26-126"><a href="neutral-landscape-models.html#cb26-126" tabindex="-1"></a>results <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(results)</span>
-<span id="cb26-127"><a href="neutral-landscape-models.html#cb26-127" tabindex="-1"></a></span>
-<span id="cb26-128"><a href="neutral-landscape-models.html#cb26-128" tabindex="-1"></a><span class="co">#----------------------------------------------------------------------------</span></span>
-<span id="cb26-129"><a href="neutral-landscape-models.html#cb26-129" tabindex="-1"></a><span class="co"># SUMMARY STATISTICS</span></span>
-<span id="cb26-130"><a href="neutral-landscape-models.html#cb26-130" tabindex="-1"></a><span class="co">#----------------------------------------------------------------------------</span></span>
-<span id="cb26-131"><a href="neutral-landscape-models.html#cb26-131" tabindex="-1"></a></span>
-<span id="cb26-132"><a href="neutral-landscape-models.html#cb26-132" tabindex="-1"></a>summary_results <span class="ot">&lt;-</span> results <span class="sc">%&gt;%</span></span>
-<span id="cb26-133"><a href="neutral-landscape-models.html#cb26-133" tabindex="-1"></a>  <span class="fu">group_by</span>(cover) <span class="sc">%&gt;%</span></span>
-<span id="cb26-134"><a href="neutral-landscape-models.html#cb26-134" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
-<span id="cb26-135"><a href="neutral-landscape-models.html#cb26-135" tabindex="-1"></a>    <span class="at">mean_NP =</span> <span class="fu">mean</span>(NP),</span>
-<span id="cb26-136"><a href="neutral-landscape-models.html#cb26-136" tabindex="-1"></a>    <span class="at">sd_NP =</span> <span class="fu">sd</span>(NP),</span>
-<span id="cb26-137"><a href="neutral-landscape-models.html#cb26-137" tabindex="-1"></a></span>
-<span id="cb26-138"><a href="neutral-landscape-models.html#cb26-138" tabindex="-1"></a>    <span class="at">mean_LPI =</span> <span class="fu">mean</span>(LPI),</span>
-<span id="cb26-139"><a href="neutral-landscape-models.html#cb26-139" tabindex="-1"></a>    <span class="at">sd_LPI =</span> <span class="fu">sd</span>(LPI),</span>
-<span id="cb26-140"><a href="neutral-landscape-models.html#cb26-140" tabindex="-1"></a></span>
-<span id="cb26-141"><a href="neutral-landscape-models.html#cb26-141" tabindex="-1"></a>    <span class="at">mean_ED =</span> <span class="fu">mean</span>(ED),</span>
-<span id="cb26-142"><a href="neutral-landscape-models.html#cb26-142" tabindex="-1"></a>    <span class="at">sd_ED =</span> <span class="fu">sd</span>(ED),</span>
-<span id="cb26-143"><a href="neutral-landscape-models.html#cb26-143" tabindex="-1"></a></span>
-<span id="cb26-144"><a href="neutral-landscape-models.html#cb26-144" tabindex="-1"></a>    <span class="at">mean_CLUMPY =</span> <span class="fu">mean</span>(CLUMPY),</span>
-<span id="cb26-145"><a href="neutral-landscape-models.html#cb26-145" tabindex="-1"></a>    <span class="at">sd_CLUMPY =</span> <span class="fu">sd</span>(CLUMPY),</span>
-<span id="cb26-146"><a href="neutral-landscape-models.html#cb26-146" tabindex="-1"></a></span>
-<span id="cb26-147"><a href="neutral-landscape-models.html#cb26-147" tabindex="-1"></a>    <span class="at">.groups =</span> <span class="st">&quot;drop&quot;</span></span>
-<span id="cb26-148"><a href="neutral-landscape-models.html#cb26-148" tabindex="-1"></a>  )</span>
-<span id="cb26-149"><a href="neutral-landscape-models.html#cb26-149" tabindex="-1"></a></span>
-<span id="cb26-150"><a href="neutral-landscape-models.html#cb26-150" tabindex="-1"></a><span class="co">#----------------------------------------------------------------------------</span></span>
-<span id="cb26-151"><a href="neutral-landscape-models.html#cb26-151" tabindex="-1"></a><span class="co"># PLOT 1: NUMBER OF PATCHES</span></span>
-<span id="cb26-152"><a href="neutral-landscape-models.html#cb26-152" tabindex="-1"></a><span class="co">#----------------------------------------------------------------------------</span></span>
-<span id="cb26-153"><a href="neutral-landscape-models.html#cb26-153" tabindex="-1"></a></span>
-<span id="cb26-154"><a href="neutral-landscape-models.html#cb26-154" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(</span>
-<span id="cb26-155"><a href="neutral-landscape-models.html#cb26-155" tabindex="-1"></a>  summary_results,</span>
-<span id="cb26-156"><a href="neutral-landscape-models.html#cb26-156" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> cover,</span>
-<span id="cb26-157"><a href="neutral-landscape-models.html#cb26-157" tabindex="-1"></a>      <span class="at">y =</span> mean_NP)</span>
-<span id="cb26-158"><a href="neutral-landscape-models.html#cb26-158" tabindex="-1"></a>) <span class="sc">+</span></span>
-<span id="cb26-159"><a href="neutral-landscape-models.html#cb26-159" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">linewidth =</span> <span class="fl">1.1</span>) <span class="sc">+</span></span>
-<span id="cb26-160"><a href="neutral-landscape-models.html#cb26-160" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
-<span id="cb26-161"><a href="neutral-landscape-models.html#cb26-161" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
-<span id="cb26-162"><a href="neutral-landscape-models.html#cb26-162" tabindex="-1"></a>   <span class="fu">theme</span>(</span>
-<span id="cb26-163"><a href="neutral-landscape-models.html#cb26-163" tabindex="-1"></a>  <span class="at">plot.title =</span> <span class="fu">element_text</span>(</span>
-<span id="cb26-164"><a href="neutral-landscape-models.html#cb26-164" tabindex="-1"></a>    <span class="at">size =</span> <span class="dv">18</span>,</span>
-<span id="cb26-165"><a href="neutral-landscape-models.html#cb26-165" tabindex="-1"></a>    <span class="at">face =</span> <span class="st">&quot;bold&quot;</span></span>
-<span id="cb26-166"><a href="neutral-landscape-models.html#cb26-166" tabindex="-1"></a>  ),</span>
-<span id="cb26-167"><a href="neutral-landscape-models.html#cb26-167" tabindex="-1"></a>  <span class="at">plot.subtitle =</span> <span class="fu">element_text</span>(</span>
-<span id="cb26-168"><a href="neutral-landscape-models.html#cb26-168" tabindex="-1"></a>    <span class="at">size =</span> <span class="dv">16</span></span>
-<span id="cb26-169"><a href="neutral-landscape-models.html#cb26-169" tabindex="-1"></a>  ),</span>
-<span id="cb26-170"><a href="neutral-landscape-models.html#cb26-170" tabindex="-1"></a>  <span class="at">axis.title =</span> <span class="fu">element_text</span>(</span>
-<span id="cb26-171"><a href="neutral-landscape-models.html#cb26-171" tabindex="-1"></a>    <span class="at">size =</span> <span class="dv">14</span></span>
-<span id="cb26-172"><a href="neutral-landscape-models.html#cb26-172" tabindex="-1"></a>  ),</span>
-<span id="cb26-173"><a href="neutral-landscape-models.html#cb26-173" tabindex="-1"></a>  <span class="at">axis.text =</span> <span class="fu">element_text</span>(</span>
-<span id="cb26-174"><a href="neutral-landscape-models.html#cb26-174" tabindex="-1"></a>    <span class="at">size =</span> <span class="dv">12</span></span>
-<span id="cb26-175"><a href="neutral-landscape-models.html#cb26-175" tabindex="-1"></a>  ),</span>
-<span id="cb26-176"><a href="neutral-landscape-models.html#cb26-176" tabindex="-1"></a>  <span class="at">legend.title =</span> <span class="fu">element_text</span>(</span>
-<span id="cb26-177"><a href="neutral-landscape-models.html#cb26-177" tabindex="-1"></a>    <span class="at">size =</span> <span class="dv">14</span></span>
-<span id="cb26-178"><a href="neutral-landscape-models.html#cb26-178" tabindex="-1"></a>  ),</span>
-<span id="cb26-179"><a href="neutral-landscape-models.html#cb26-179" tabindex="-1"></a>  <span class="at">legend.text =</span> <span class="fu">element_text</span>(</span>
-<span id="cb26-180"><a href="neutral-landscape-models.html#cb26-180" tabindex="-1"></a>    <span class="at">size =</span> <span class="dv">14</span></span>
-<span id="cb26-181"><a href="neutral-landscape-models.html#cb26-181" tabindex="-1"></a>  )</span>
-<span id="cb26-182"><a href="neutral-landscape-models.html#cb26-182" tabindex="-1"></a>)<span class="sc">+</span></span>
-<span id="cb26-183"><a href="neutral-landscape-models.html#cb26-183" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb26-184"><a href="neutral-landscape-models.html#cb26-184" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Number of Patches&quot;</span>,</span>
-<span id="cb26-185"><a href="neutral-landscape-models.html#cb26-185" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">&quot;Neutral Landscape Model&quot;</span>,</span>
-<span id="cb26-186"><a href="neutral-landscape-models.html#cb26-186" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;Forest Cover&quot;</span>,</span>
-<span id="cb26-187"><a href="neutral-landscape-models.html#cb26-187" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;Mean Number of Patches&quot;</span></span>
-<span id="cb26-188"><a href="neutral-landscape-models.html#cb26-188" tabindex="-1"></a>  )</span>
-<span id="cb26-189"><a href="neutral-landscape-models.html#cb26-189" tabindex="-1"></a><span class="co">#----------------------------------------------------------------------------</span></span>
-<span id="cb26-190"><a href="neutral-landscape-models.html#cb26-190" tabindex="-1"></a><span class="co"># PLOT 2: LARGEST PATCH INDEX</span></span>
-<span id="cb26-191"><a href="neutral-landscape-models.html#cb26-191" tabindex="-1"></a><span class="co">#----------------------------------------------------------------------------</span></span>
-<span id="cb26-192"><a href="neutral-landscape-models.html#cb26-192" tabindex="-1"></a></span>
-<span id="cb26-193"><a href="neutral-landscape-models.html#cb26-193" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(</span>
-<span id="cb26-194"><a href="neutral-landscape-models.html#cb26-194" tabindex="-1"></a>  summary_results,</span>
-<span id="cb26-195"><a href="neutral-landscape-models.html#cb26-195" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> cover,</span>
-<span id="cb26-196"><a href="neutral-landscape-models.html#cb26-196" tabindex="-1"></a>      <span class="at">y =</span> mean_LPI)</span>
-<span id="cb26-197"><a href="neutral-landscape-models.html#cb26-197" tabindex="-1"></a>) <span class="sc">+</span></span>
-<span id="cb26-198"><a href="neutral-landscape-models.html#cb26-198" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">linewidth =</span> <span class="fl">1.1</span>) <span class="sc">+</span></span>
-<span id="cb26-199"><a href="neutral-landscape-models.html#cb26-199" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
-<span id="cb26-200"><a href="neutral-landscape-models.html#cb26-200" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
-<span id="cb26-201"><a href="neutral-landscape-models.html#cb26-201" tabindex="-1"></a>   <span class="fu">theme</span>(</span>
-<span id="cb26-202"><a href="neutral-landscape-models.html#cb26-202" tabindex="-1"></a>  <span class="at">plot.title =</span> <span class="fu">element_text</span>(</span>
-<span id="cb26-203"><a href="neutral-landscape-models.html#cb26-203" tabindex="-1"></a>    <span class="at">size =</span> <span class="dv">18</span>,</span>
-<span id="cb26-204"><a href="neutral-landscape-models.html#cb26-204" tabindex="-1"></a>    <span class="at">face =</span> <span class="st">&quot;bold&quot;</span></span>
-<span id="cb26-205"><a href="neutral-landscape-models.html#cb26-205" tabindex="-1"></a>  ),</span>
-<span id="cb26-206"><a href="neutral-landscape-models.html#cb26-206" tabindex="-1"></a>  <span class="at">plot.subtitle =</span> <span class="fu">element_text</span>(</span>
-<span id="cb26-207"><a href="neutral-landscape-models.html#cb26-207" tabindex="-1"></a>    <span class="at">size =</span> <span class="dv">16</span></span>
-<span id="cb26-208"><a href="neutral-landscape-models.html#cb26-208" tabindex="-1"></a>  ),</span>
-<span id="cb26-209"><a href="neutral-landscape-models.html#cb26-209" tabindex="-1"></a>  <span class="at">axis.title =</span> <span class="fu">element_text</span>(</span>
-<span id="cb26-210"><a href="neutral-landscape-models.html#cb26-210" tabindex="-1"></a>    <span class="at">size =</span> <span class="dv">14</span></span>
-<span id="cb26-211"><a href="neutral-landscape-models.html#cb26-211" tabindex="-1"></a>  ),</span>
-<span id="cb26-212"><a href="neutral-landscape-models.html#cb26-212" tabindex="-1"></a>  <span class="at">axis.text =</span> <span class="fu">element_text</span>(</span>
-<span id="cb26-213"><a href="neutral-landscape-models.html#cb26-213" tabindex="-1"></a>    <span class="at">size =</span> <span class="dv">12</span></span>
-<span id="cb26-214"><a href="neutral-landscape-models.html#cb26-214" tabindex="-1"></a>  ),</span>
-<span id="cb26-215"><a href="neutral-landscape-models.html#cb26-215" tabindex="-1"></a>  <span class="at">legend.title =</span> <span class="fu">element_text</span>(</span>
-<span id="cb26-216"><a href="neutral-landscape-models.html#cb26-216" tabindex="-1"></a>    <span class="at">size =</span> <span class="dv">14</span></span>
-<span id="cb26-217"><a href="neutral-landscape-models.html#cb26-217" tabindex="-1"></a>  ),</span>
-<span id="cb26-218"><a href="neutral-landscape-models.html#cb26-218" tabindex="-1"></a>  <span class="at">legend.text =</span> <span class="fu">element_text</span>(</span>
-<span id="cb26-219"><a href="neutral-landscape-models.html#cb26-219" tabindex="-1"></a>    <span class="at">size =</span> <span class="dv">14</span></span>
-<span id="cb26-220"><a href="neutral-landscape-models.html#cb26-220" tabindex="-1"></a>  )</span>
-<span id="cb26-221"><a href="neutral-landscape-models.html#cb26-221" tabindex="-1"></a>)<span class="sc">+</span></span>
-<span id="cb26-222"><a href="neutral-landscape-models.html#cb26-222" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb26-223"><a href="neutral-landscape-models.html#cb26-223" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Largest Forest Patch Index&quot;</span>,</span>
-<span id="cb26-224"><a href="neutral-landscape-models.html#cb26-224" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">&quot;Neutral Landscape Model&quot;</span>,</span>
-<span id="cb26-225"><a href="neutral-landscape-models.html#cb26-225" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;Forest Cover&quot;</span>,</span>
-<span id="cb26-226"><a href="neutral-landscape-models.html#cb26-226" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;LPI (%)&quot;</span></span>
-<span id="cb26-227"><a href="neutral-landscape-models.html#cb26-227" tabindex="-1"></a>  )</span>
-<span id="cb26-228"><a href="neutral-landscape-models.html#cb26-228" tabindex="-1"></a></span>
-<span id="cb26-229"><a href="neutral-landscape-models.html#cb26-229" tabindex="-1"></a><span class="co">#----------------------------------------------------------------------------</span></span>
-<span id="cb26-230"><a href="neutral-landscape-models.html#cb26-230" tabindex="-1"></a><span class="co"># PLOT 3: EDGE DENSITY</span></span>
-<span id="cb26-231"><a href="neutral-landscape-models.html#cb26-231" tabindex="-1"></a><span class="co">#----------------------------------------------------------------------------</span></span>
-<span id="cb26-232"><a href="neutral-landscape-models.html#cb26-232" tabindex="-1"></a></span>
-<span id="cb26-233"><a href="neutral-landscape-models.html#cb26-233" tabindex="-1"></a>p3 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(</span>
-<span id="cb26-234"><a href="neutral-landscape-models.html#cb26-234" tabindex="-1"></a>  summary_results,</span>
-<span id="cb26-235"><a href="neutral-landscape-models.html#cb26-235" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> cover,</span>
-<span id="cb26-236"><a href="neutral-landscape-models.html#cb26-236" tabindex="-1"></a>      <span class="at">y =</span> mean_ED)</span>
-<span id="cb26-237"><a href="neutral-landscape-models.html#cb26-237" tabindex="-1"></a>) <span class="sc">+</span></span>
-<span id="cb26-238"><a href="neutral-landscape-models.html#cb26-238" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">linewidth =</span> <span class="fl">1.1</span>) <span class="sc">+</span></span>
-<span id="cb26-239"><a href="neutral-landscape-models.html#cb26-239" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
-<span id="cb26-240"><a href="neutral-landscape-models.html#cb26-240" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
-<span id="cb26-241"><a href="neutral-landscape-models.html#cb26-241" tabindex="-1"></a>   <span class="fu">theme</span>(</span>
-<span id="cb26-242"><a href="neutral-landscape-models.html#cb26-242" tabindex="-1"></a>  <span class="at">plot.title =</span> <span class="fu">element_text</span>(</span>
-<span id="cb26-243"><a href="neutral-landscape-models.html#cb26-243" tabindex="-1"></a>    <span class="at">size =</span> <span class="dv">18</span>,</span>
-<span id="cb26-244"><a href="neutral-landscape-models.html#cb26-244" tabindex="-1"></a>    <span class="at">face =</span> <span class="st">&quot;bold&quot;</span></span>
-<span id="cb26-245"><a href="neutral-landscape-models.html#cb26-245" tabindex="-1"></a>  ),</span>
-<span id="cb26-246"><a href="neutral-landscape-models.html#cb26-246" tabindex="-1"></a>  <span class="at">plot.subtitle =</span> <span class="fu">element_text</span>(</span>
-<span id="cb26-247"><a href="neutral-landscape-models.html#cb26-247" tabindex="-1"></a>    <span class="at">size =</span> <span class="dv">16</span></span>
-<span id="cb26-248"><a href="neutral-landscape-models.html#cb26-248" tabindex="-1"></a>  ),</span>
-<span id="cb26-249"><a href="neutral-landscape-models.html#cb26-249" tabindex="-1"></a>  <span class="at">axis.title =</span> <span class="fu">element_text</span>(</span>
-<span id="cb26-250"><a href="neutral-landscape-models.html#cb26-250" tabindex="-1"></a>    <span class="at">size =</span> <span class="dv">14</span></span>
-<span id="cb26-251"><a href="neutral-landscape-models.html#cb26-251" tabindex="-1"></a>  ),</span>
-<span id="cb26-252"><a href="neutral-landscape-models.html#cb26-252" tabindex="-1"></a>  <span class="at">axis.text =</span> <span class="fu">element_text</span>(</span>
-<span id="cb26-253"><a href="neutral-landscape-models.html#cb26-253" tabindex="-1"></a>    <span class="at">size =</span> <span class="dv">12</span></span>
-<span id="cb26-254"><a href="neutral-landscape-models.html#cb26-254" tabindex="-1"></a>  ),</span>
-<span id="cb26-255"><a href="neutral-landscape-models.html#cb26-255" tabindex="-1"></a>  <span class="at">legend.title =</span> <span class="fu">element_text</span>(</span>
-<span id="cb26-256"><a href="neutral-landscape-models.html#cb26-256" tabindex="-1"></a>    <span class="at">size =</span> <span class="dv">14</span></span>
-<span id="cb26-257"><a href="neutral-landscape-models.html#cb26-257" tabindex="-1"></a>  ),</span>
-<span id="cb26-258"><a href="neutral-landscape-models.html#cb26-258" tabindex="-1"></a>  <span class="at">legend.text =</span> <span class="fu">element_text</span>(</span>
-<span id="cb26-259"><a href="neutral-landscape-models.html#cb26-259" tabindex="-1"></a>    <span class="at">size =</span> <span class="dv">14</span></span>
-<span id="cb26-260"><a href="neutral-landscape-models.html#cb26-260" tabindex="-1"></a>  )</span>
-<span id="cb26-261"><a href="neutral-landscape-models.html#cb26-261" tabindex="-1"></a>)<span class="sc">+</span></span>
-<span id="cb26-262"><a href="neutral-landscape-models.html#cb26-262" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb26-263"><a href="neutral-landscape-models.html#cb26-263" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Edge Density&quot;</span>,</span>
-<span id="cb26-264"><a href="neutral-landscape-models.html#cb26-264" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">&quot;Neutral Landscape Model&quot;</span>,</span>
-<span id="cb26-265"><a href="neutral-landscape-models.html#cb26-265" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;Forest Cover&quot;</span>,</span>
-<span id="cb26-266"><a href="neutral-landscape-models.html#cb26-266" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;Edge Density&quot;</span></span>
-<span id="cb26-267"><a href="neutral-landscape-models.html#cb26-267" tabindex="-1"></a>  )</span>
-<span id="cb26-268"><a href="neutral-landscape-models.html#cb26-268" tabindex="-1"></a><span class="co">#----------------------------------------------------------------------------</span></span>
-<span id="cb26-269"><a href="neutral-landscape-models.html#cb26-269" tabindex="-1"></a><span class="co"># PLOT 4: CLUMPINESS</span></span>
-<span id="cb26-270"><a href="neutral-landscape-models.html#cb26-270" tabindex="-1"></a><span class="co">#----------------------------------------------------------------------------</span></span>
-<span id="cb26-271"><a href="neutral-landscape-models.html#cb26-271" tabindex="-1"></a></span>
-<span id="cb26-272"><a href="neutral-landscape-models.html#cb26-272" tabindex="-1"></a>p4 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(</span>
-<span id="cb26-273"><a href="neutral-landscape-models.html#cb26-273" tabindex="-1"></a>  summary_results,</span>
-<span id="cb26-274"><a href="neutral-landscape-models.html#cb26-274" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> cover,</span>
-<span id="cb26-275"><a href="neutral-landscape-models.html#cb26-275" tabindex="-1"></a>      <span class="at">y =</span> mean_CLUMPY)</span>
-<span id="cb26-276"><a href="neutral-landscape-models.html#cb26-276" tabindex="-1"></a>) <span class="sc">+</span></span>
-<span id="cb26-277"><a href="neutral-landscape-models.html#cb26-277" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">linewidth =</span> <span class="fl">1.1</span>) <span class="sc">+</span></span>
-<span id="cb26-278"><a href="neutral-landscape-models.html#cb26-278" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
-<span id="cb26-279"><a href="neutral-landscape-models.html#cb26-279" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
-<span id="cb26-280"><a href="neutral-landscape-models.html#cb26-280" tabindex="-1"></a>   <span class="fu">theme</span>(</span>
-<span id="cb26-281"><a href="neutral-landscape-models.html#cb26-281" tabindex="-1"></a>  <span class="at">plot.title =</span> <span class="fu">element_text</span>(</span>
-<span id="cb26-282"><a href="neutral-landscape-models.html#cb26-282" tabindex="-1"></a>    <span class="at">size =</span> <span class="dv">18</span>,</span>
-<span id="cb26-283"><a href="neutral-landscape-models.html#cb26-283" tabindex="-1"></a>    <span class="at">face =</span> <span class="st">&quot;bold&quot;</span></span>
-<span id="cb26-284"><a href="neutral-landscape-models.html#cb26-284" tabindex="-1"></a>  ),</span>
-<span id="cb26-285"><a href="neutral-landscape-models.html#cb26-285" tabindex="-1"></a>  <span class="at">plot.subtitle =</span> <span class="fu">element_text</span>(</span>
-<span id="cb26-286"><a href="neutral-landscape-models.html#cb26-286" tabindex="-1"></a>    <span class="at">size =</span> <span class="dv">16</span></span>
-<span id="cb26-287"><a href="neutral-landscape-models.html#cb26-287" tabindex="-1"></a>  ),</span>
-<span id="cb26-288"><a href="neutral-landscape-models.html#cb26-288" tabindex="-1"></a>  <span class="at">axis.title =</span> <span class="fu">element_text</span>(</span>
-<span id="cb26-289"><a href="neutral-landscape-models.html#cb26-289" tabindex="-1"></a>    <span class="at">size =</span> <span class="dv">14</span></span>
-<span id="cb26-290"><a href="neutral-landscape-models.html#cb26-290" tabindex="-1"></a>  ),</span>
-<span id="cb26-291"><a href="neutral-landscape-models.html#cb26-291" tabindex="-1"></a>  <span class="at">axis.text =</span> <span class="fu">element_text</span>(</span>
-<span id="cb26-292"><a href="neutral-landscape-models.html#cb26-292" tabindex="-1"></a>    <span class="at">size =</span> <span class="dv">12</span></span>
-<span id="cb26-293"><a href="neutral-landscape-models.html#cb26-293" tabindex="-1"></a>  ),</span>
-<span id="cb26-294"><a href="neutral-landscape-models.html#cb26-294" tabindex="-1"></a>  <span class="at">legend.title =</span> <span class="fu">element_text</span>(</span>
-<span id="cb26-295"><a href="neutral-landscape-models.html#cb26-295" tabindex="-1"></a>    <span class="at">size =</span> <span class="dv">14</span></span>
-<span id="cb26-296"><a href="neutral-landscape-models.html#cb26-296" tabindex="-1"></a>  ),</span>
-<span id="cb26-297"><a href="neutral-landscape-models.html#cb26-297" tabindex="-1"></a>  <span class="at">legend.text =</span> <span class="fu">element_text</span>(</span>
-<span id="cb26-298"><a href="neutral-landscape-models.html#cb26-298" tabindex="-1"></a>    <span class="at">size =</span> <span class="dv">14</span></span>
-<span id="cb26-299"><a href="neutral-landscape-models.html#cb26-299" tabindex="-1"></a>  )</span>
-<span id="cb26-300"><a href="neutral-landscape-models.html#cb26-300" tabindex="-1"></a>)<span class="sc">+</span></span>
-<span id="cb26-301"><a href="neutral-landscape-models.html#cb26-301" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb26-302"><a href="neutral-landscape-models.html#cb26-302" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Forest Clumpiness&quot;</span>,</span>
-<span id="cb26-303"><a href="neutral-landscape-models.html#cb26-303" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">&quot;Neutral Landscape Model&quot;</span>,</span>
-<span id="cb26-304"><a href="neutral-landscape-models.html#cb26-304" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;Forest Cover&quot;</span>,</span>
-<span id="cb26-305"><a href="neutral-landscape-models.html#cb26-305" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;CLUMPY&quot;</span></span>
-<span id="cb26-306"><a href="neutral-landscape-models.html#cb26-306" tabindex="-1"></a>  )</span></code></pre></div>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="neutral-landscape-models.html#cb29-1" tabindex="-1"></a><span class="do">###############################################################################</span></span>
+<span id="cb29-2"><a href="neutral-landscape-models.html#cb29-2" tabindex="-1"></a><span class="co"># Neutral Landscape Fragmentation Experiment</span></span>
+<span id="cb29-3"><a href="neutral-landscape-models.html#cb29-3" tabindex="-1"></a><span class="co">#</span></span>
+<span id="cb29-4"><a href="neutral-landscape-models.html#cb29-4" tabindex="-1"></a><span class="co"># Objective:</span></span>
+<span id="cb29-5"><a href="neutral-landscape-models.html#cb29-5" tabindex="-1"></a><span class="co"># Evaluate forest fragmentation as forest cover declines</span></span>
+<span id="cb29-6"><a href="neutral-landscape-models.html#cb29-6" tabindex="-1"></a><span class="co"># in a 100 x 100 neutral landscape.</span></span>
+<span id="cb29-7"><a href="neutral-landscape-models.html#cb29-7" tabindex="-1"></a><span class="co">#</span></span>
+<span id="cb29-8"><a href="neutral-landscape-models.html#cb29-8" tabindex="-1"></a><span class="co"># Metrics:</span></span>
+<span id="cb29-9"><a href="neutral-landscape-models.html#cb29-9" tabindex="-1"></a><span class="co">#   NP      = Number of Patches</span></span>
+<span id="cb29-10"><a href="neutral-landscape-models.html#cb29-10" tabindex="-1"></a><span class="co">#   LPI     = Largest Forest Patch Index (%)</span></span>
+<span id="cb29-11"><a href="neutral-landscape-models.html#cb29-11" tabindex="-1"></a><span class="co">#   ED      = Edge Density</span></span>
+<span id="cb29-12"><a href="neutral-landscape-models.html#cb29-12" tabindex="-1"></a><span class="co">#   CLUMPY  = Clumpiness Index</span></span>
+<span id="cb29-13"><a href="neutral-landscape-models.html#cb29-13" tabindex="-1"></a><span class="co">#</span></span>
+<span id="cb29-14"><a href="neutral-landscape-models.html#cb29-14" tabindex="-1"></a><span class="do">###############################################################################</span></span>
+<span id="cb29-15"><a href="neutral-landscape-models.html#cb29-15" tabindex="-1"></a></span>
+<span id="cb29-16"><a href="neutral-landscape-models.html#cb29-16" tabindex="-1"></a><span class="fu">library</span>(NLMR)</span>
+<span id="cb29-17"><a href="neutral-landscape-models.html#cb29-17" tabindex="-1"></a><span class="fu">library</span>(raster)</span>
+<span id="cb29-18"><a href="neutral-landscape-models.html#cb29-18" tabindex="-1"></a><span class="fu">library</span>(landscapemetrics)</span>
+<span id="cb29-19"><a href="neutral-landscape-models.html#cb29-19" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb29-20"><a href="neutral-landscape-models.html#cb29-20" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb29-21"><a href="neutral-landscape-models.html#cb29-21" tabindex="-1"></a></span>
+<span id="cb29-22"><a href="neutral-landscape-models.html#cb29-22" tabindex="-1"></a><span class="co">#----------------------------------------------------------------------------</span></span>
+<span id="cb29-23"><a href="neutral-landscape-models.html#cb29-23" tabindex="-1"></a><span class="co"># PARAMETERS</span></span>
+<span id="cb29-24"><a href="neutral-landscape-models.html#cb29-24" tabindex="-1"></a><span class="co">#----------------------------------------------------------------------------</span></span>
+<span id="cb29-25"><a href="neutral-landscape-models.html#cb29-25" tabindex="-1"></a></span>
+<span id="cb29-26"><a href="neutral-landscape-models.html#cb29-26" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb29-27"><a href="neutral-landscape-models.html#cb29-27" tabindex="-1"></a></span>
+<span id="cb29-28"><a href="neutral-landscape-models.html#cb29-28" tabindex="-1"></a>nrow_landscape <span class="ot">&lt;-</span> <span class="dv">100</span></span>
+<span id="cb29-29"><a href="neutral-landscape-models.html#cb29-29" tabindex="-1"></a>ncol_landscape <span class="ot">&lt;-</span> <span class="dv">100</span></span>
+<span id="cb29-30"><a href="neutral-landscape-models.html#cb29-30" tabindex="-1"></a></span>
+<span id="cb29-31"><a href="neutral-landscape-models.html#cb29-31" tabindex="-1"></a>cover_levels <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="fl">0.9</span>, <span class="fl">0.1</span>, <span class="at">by =</span> <span class="sc">-</span><span class="fl">0.1</span>)</span>
+<span id="cb29-32"><a href="neutral-landscape-models.html#cb29-32" tabindex="-1"></a></span>
+<span id="cb29-33"><a href="neutral-landscape-models.html#cb29-33" tabindex="-1"></a>n_replicates <span class="ot">&lt;-</span> <span class="dv">100</span></span>
+<span id="cb29-34"><a href="neutral-landscape-models.html#cb29-34" tabindex="-1"></a></span>
+<span id="cb29-35"><a href="neutral-landscape-models.html#cb29-35" tabindex="-1"></a><span class="co">#----------------------------------------------------------------------------</span></span>
+<span id="cb29-36"><a href="neutral-landscape-models.html#cb29-36" tabindex="-1"></a><span class="co"># METRIC FUNCTION</span></span>
+<span id="cb29-37"><a href="neutral-landscape-models.html#cb29-37" tabindex="-1"></a><span class="co">#----------------------------------------------------------------------------</span></span>
+<span id="cb29-38"><a href="neutral-landscape-models.html#cb29-38" tabindex="-1"></a></span>
+<span id="cb29-39"><a href="neutral-landscape-models.html#cb29-39" tabindex="-1"></a>simulate_landscape <span class="ot">&lt;-</span> <span class="cf">function</span>(cover,</span>
+<span id="cb29-40"><a href="neutral-landscape-models.html#cb29-40" tabindex="-1"></a>                               <span class="at">nrow =</span> <span class="dv">100</span>,</span>
+<span id="cb29-41"><a href="neutral-landscape-models.html#cb29-41" tabindex="-1"></a>                               <span class="at">ncol =</span> <span class="dv">100</span>) {</span>
+<span id="cb29-42"><a href="neutral-landscape-models.html#cb29-42" tabindex="-1"></a></span>
+<span id="cb29-43"><a href="neutral-landscape-models.html#cb29-43" tabindex="-1"></a>  <span class="co"># Generate neutral landscape</span></span>
+<span id="cb29-44"><a href="neutral-landscape-models.html#cb29-44" tabindex="-1"></a>  nlm <span class="ot">&lt;-</span> <span class="fu">nlm_random</span>(</span>
+<span id="cb29-45"><a href="neutral-landscape-models.html#cb29-45" tabindex="-1"></a>    <span class="at">nrow =</span> nrow,</span>
+<span id="cb29-46"><a href="neutral-landscape-models.html#cb29-46" tabindex="-1"></a>    <span class="at">ncol =</span> ncol</span>
+<span id="cb29-47"><a href="neutral-landscape-models.html#cb29-47" tabindex="-1"></a>  )</span>
+<span id="cb29-48"><a href="neutral-landscape-models.html#cb29-48" tabindex="-1"></a></span>
+<span id="cb29-49"><a href="neutral-landscape-models.html#cb29-49" tabindex="-1"></a>  <span class="co"># Convert to binary forest/non-forest</span></span>
+<span id="cb29-50"><a href="neutral-landscape-models.html#cb29-50" tabindex="-1"></a>  <span class="co"># Forest = 1</span></span>
+<span id="cb29-51"><a href="neutral-landscape-models.html#cb29-51" tabindex="-1"></a>  <span class="co"># Non-Forest = 0</span></span>
+<span id="cb29-52"><a href="neutral-landscape-models.html#cb29-52" tabindex="-1"></a></span>
+<span id="cb29-53"><a href="neutral-landscape-models.html#cb29-53" tabindex="-1"></a>  forest <span class="ot">&lt;-</span> nlm</span>
+<span id="cb29-54"><a href="neutral-landscape-models.html#cb29-54" tabindex="-1"></a>  forest[] <span class="ot">&lt;-</span> <span class="fu">as.integer</span>(nlm[] <span class="sc">&lt;</span> cover)</span>
+<span id="cb29-55"><a href="neutral-landscape-models.html#cb29-55" tabindex="-1"></a></span>
+<span id="cb29-56"><a href="neutral-landscape-models.html#cb29-56" tabindex="-1"></a>  <span class="co"># Number of patches</span></span>
+<span id="cb29-57"><a href="neutral-landscape-models.html#cb29-57" tabindex="-1"></a>  np <span class="ot">&lt;-</span> <span class="fu">lsm_l_np</span>(forest)<span class="sc">$</span>value</span>
+<span id="cb29-58"><a href="neutral-landscape-models.html#cb29-58" tabindex="-1"></a></span>
+<span id="cb29-59"><a href="neutral-landscape-models.html#cb29-59" tabindex="-1"></a>  <span class="co"># Forest-specific Largest Patch Index</span></span>
+<span id="cb29-60"><a href="neutral-landscape-models.html#cb29-60" tabindex="-1"></a>  lpi_df <span class="ot">&lt;-</span> <span class="fu">lsm_c_lpi</span>(forest)</span>
+<span id="cb29-61"><a href="neutral-landscape-models.html#cb29-61" tabindex="-1"></a></span>
+<span id="cb29-62"><a href="neutral-landscape-models.html#cb29-62" tabindex="-1"></a>  lpi <span class="ot">&lt;-</span> lpi_df<span class="sc">$</span>value[</span>
+<span id="cb29-63"><a href="neutral-landscape-models.html#cb29-63" tabindex="-1"></a>    lpi_df<span class="sc">$</span>class <span class="sc">==</span> <span class="dv">1</span></span>
+<span id="cb29-64"><a href="neutral-landscape-models.html#cb29-64" tabindex="-1"></a>  ]</span>
+<span id="cb29-65"><a href="neutral-landscape-models.html#cb29-65" tabindex="-1"></a></span>
+<span id="cb29-66"><a href="neutral-landscape-models.html#cb29-66" tabindex="-1"></a>  <span class="co"># Forest-specific Edge Density</span></span>
+<span id="cb29-67"><a href="neutral-landscape-models.html#cb29-67" tabindex="-1"></a>  ed_df <span class="ot">&lt;-</span> <span class="fu">lsm_c_ed</span>(forest)</span>
+<span id="cb29-68"><a href="neutral-landscape-models.html#cb29-68" tabindex="-1"></a></span>
+<span id="cb29-69"><a href="neutral-landscape-models.html#cb29-69" tabindex="-1"></a>  ed <span class="ot">&lt;-</span> ed_df<span class="sc">$</span>value[</span>
+<span id="cb29-70"><a href="neutral-landscape-models.html#cb29-70" tabindex="-1"></a>    ed_df<span class="sc">$</span>class <span class="sc">==</span> <span class="dv">1</span></span>
+<span id="cb29-71"><a href="neutral-landscape-models.html#cb29-71" tabindex="-1"></a>  ]</span>
+<span id="cb29-72"><a href="neutral-landscape-models.html#cb29-72" tabindex="-1"></a></span>
+<span id="cb29-73"><a href="neutral-landscape-models.html#cb29-73" tabindex="-1"></a>  <span class="co"># Forest-specific Clumpiness</span></span>
+<span id="cb29-74"><a href="neutral-landscape-models.html#cb29-74" tabindex="-1"></a>  clumpy_df <span class="ot">&lt;-</span> <span class="fu">lsm_c_clumpy</span>(forest)</span>
+<span id="cb29-75"><a href="neutral-landscape-models.html#cb29-75" tabindex="-1"></a></span>
+<span id="cb29-76"><a href="neutral-landscape-models.html#cb29-76" tabindex="-1"></a>  clumpy <span class="ot">&lt;-</span> clumpy_df<span class="sc">$</span>value[</span>
+<span id="cb29-77"><a href="neutral-landscape-models.html#cb29-77" tabindex="-1"></a>    clumpy_df<span class="sc">$</span>class <span class="sc">==</span> <span class="dv">1</span></span>
+<span id="cb29-78"><a href="neutral-landscape-models.html#cb29-78" tabindex="-1"></a>  ]</span>
+<span id="cb29-79"><a href="neutral-landscape-models.html#cb29-79" tabindex="-1"></a></span>
+<span id="cb29-80"><a href="neutral-landscape-models.html#cb29-80" tabindex="-1"></a>  <span class="fu">data.frame</span>(</span>
+<span id="cb29-81"><a href="neutral-landscape-models.html#cb29-81" tabindex="-1"></a>    <span class="at">cover =</span> cover,</span>
+<span id="cb29-82"><a href="neutral-landscape-models.html#cb29-82" tabindex="-1"></a>    <span class="at">NP =</span> np,</span>
+<span id="cb29-83"><a href="neutral-landscape-models.html#cb29-83" tabindex="-1"></a>    <span class="at">LPI =</span> lpi,</span>
+<span id="cb29-84"><a href="neutral-landscape-models.html#cb29-84" tabindex="-1"></a>    <span class="at">ED =</span> ed,</span>
+<span id="cb29-85"><a href="neutral-landscape-models.html#cb29-85" tabindex="-1"></a>    <span class="at">CLUMPY =</span> clumpy</span>
+<span id="cb29-86"><a href="neutral-landscape-models.html#cb29-86" tabindex="-1"></a>  )</span>
+<span id="cb29-87"><a href="neutral-landscape-models.html#cb29-87" tabindex="-1"></a>}</span>
+<span id="cb29-88"><a href="neutral-landscape-models.html#cb29-88" tabindex="-1"></a></span>
+<span id="cb29-89"><a href="neutral-landscape-models.html#cb29-89" tabindex="-1"></a><span class="co">#----------------------------------------------------------------------------</span></span>
+<span id="cb29-90"><a href="neutral-landscape-models.html#cb29-90" tabindex="-1"></a><span class="co"># RUN SIMULATIONS</span></span>
+<span id="cb29-91"><a href="neutral-landscape-models.html#cb29-91" tabindex="-1"></a><span class="co">#----------------------------------------------------------------------------</span></span>
+<span id="cb29-92"><a href="neutral-landscape-models.html#cb29-92" tabindex="-1"></a></span>
+<span id="cb29-93"><a href="neutral-landscape-models.html#cb29-93" tabindex="-1"></a>results <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
+<span id="cb29-94"><a href="neutral-landscape-models.html#cb29-94" tabindex="-1"></a></span>
+<span id="cb29-95"><a href="neutral-landscape-models.html#cb29-95" tabindex="-1"></a>counter <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb29-96"><a href="neutral-landscape-models.html#cb29-96" tabindex="-1"></a></span>
+<span id="cb29-97"><a href="neutral-landscape-models.html#cb29-97" tabindex="-1"></a><span class="cf">for</span> (cover <span class="cf">in</span> cover_levels) {</span>
+<span id="cb29-98"><a href="neutral-landscape-models.html#cb29-98" tabindex="-1"></a></span>
+<span id="cb29-99"><a href="neutral-landscape-models.html#cb29-99" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">&quot;Running cover level:&quot;</span>, cover, <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb29-100"><a href="neutral-landscape-models.html#cb29-100" tabindex="-1"></a></span>
+<span id="cb29-101"><a href="neutral-landscape-models.html#cb29-101" tabindex="-1"></a>  <span class="cf">for</span> (rep <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>n_replicates) {</span>
+<span id="cb29-102"><a href="neutral-landscape-models.html#cb29-102" tabindex="-1"></a></span>
+<span id="cb29-103"><a href="neutral-landscape-models.html#cb29-103" tabindex="-1"></a>    temp <span class="ot">&lt;-</span> <span class="fu">simulate_landscape</span>(</span>
+<span id="cb29-104"><a href="neutral-landscape-models.html#cb29-104" tabindex="-1"></a>      <span class="at">cover =</span> cover,</span>
+<span id="cb29-105"><a href="neutral-landscape-models.html#cb29-105" tabindex="-1"></a>      <span class="at">nrow =</span> nrow_landscape,</span>
+<span id="cb29-106"><a href="neutral-landscape-models.html#cb29-106" tabindex="-1"></a>      <span class="at">ncol =</span> ncol_landscape</span>
+<span id="cb29-107"><a href="neutral-landscape-models.html#cb29-107" tabindex="-1"></a>    )</span>
+<span id="cb29-108"><a href="neutral-landscape-models.html#cb29-108" tabindex="-1"></a></span>
+<span id="cb29-109"><a href="neutral-landscape-models.html#cb29-109" tabindex="-1"></a>    temp<span class="sc">$</span>replicate <span class="ot">&lt;-</span> rep</span>
+<span id="cb29-110"><a href="neutral-landscape-models.html#cb29-110" tabindex="-1"></a></span>
+<span id="cb29-111"><a href="neutral-landscape-models.html#cb29-111" tabindex="-1"></a>    results[[counter]] <span class="ot">&lt;-</span> temp</span>
+<span id="cb29-112"><a href="neutral-landscape-models.html#cb29-112" tabindex="-1"></a></span>
+<span id="cb29-113"><a href="neutral-landscape-models.html#cb29-113" tabindex="-1"></a>    counter <span class="ot">&lt;-</span> counter <span class="sc">+</span> <span class="dv">1</span></span>
+<span id="cb29-114"><a href="neutral-landscape-models.html#cb29-114" tabindex="-1"></a>  }</span>
+<span id="cb29-115"><a href="neutral-landscape-models.html#cb29-115" tabindex="-1"></a>}</span>
+<span id="cb29-116"><a href="neutral-landscape-models.html#cb29-116" tabindex="-1"></a><span class="do">## Running cover level: 0.9 </span></span>
+<span id="cb29-117"><a href="neutral-landscape-models.html#cb29-117" tabindex="-1"></a><span class="do">## Running cover level: 0.8 </span></span>
+<span id="cb29-118"><a href="neutral-landscape-models.html#cb29-118" tabindex="-1"></a><span class="do">## Running cover level: 0.7 </span></span>
+<span id="cb29-119"><a href="neutral-landscape-models.html#cb29-119" tabindex="-1"></a><span class="do">## Running cover level: 0.6 </span></span>
+<span id="cb29-120"><a href="neutral-landscape-models.html#cb29-120" tabindex="-1"></a><span class="do">## Running cover level: 0.5 </span></span>
+<span id="cb29-121"><a href="neutral-landscape-models.html#cb29-121" tabindex="-1"></a><span class="do">## Running cover level: 0.4 </span></span>
+<span id="cb29-122"><a href="neutral-landscape-models.html#cb29-122" tabindex="-1"></a><span class="do">## Running cover level: 0.3 </span></span>
+<span id="cb29-123"><a href="neutral-landscape-models.html#cb29-123" tabindex="-1"></a><span class="do">## Running cover level: 0.2 </span></span>
+<span id="cb29-124"><a href="neutral-landscape-models.html#cb29-124" tabindex="-1"></a><span class="do">## Running cover level: 0.1</span></span>
+<span id="cb29-125"><a href="neutral-landscape-models.html#cb29-125" tabindex="-1"></a></span>
+<span id="cb29-126"><a href="neutral-landscape-models.html#cb29-126" tabindex="-1"></a>results <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(results)</span>
+<span id="cb29-127"><a href="neutral-landscape-models.html#cb29-127" tabindex="-1"></a></span>
+<span id="cb29-128"><a href="neutral-landscape-models.html#cb29-128" tabindex="-1"></a><span class="co">#----------------------------------------------------------------------------</span></span>
+<span id="cb29-129"><a href="neutral-landscape-models.html#cb29-129" tabindex="-1"></a><span class="co"># SUMMARY STATISTICS</span></span>
+<span id="cb29-130"><a href="neutral-landscape-models.html#cb29-130" tabindex="-1"></a><span class="co">#----------------------------------------------------------------------------</span></span>
+<span id="cb29-131"><a href="neutral-landscape-models.html#cb29-131" tabindex="-1"></a></span>
+<span id="cb29-132"><a href="neutral-landscape-models.html#cb29-132" tabindex="-1"></a>summary_results <span class="ot">&lt;-</span> results <span class="sc">%&gt;%</span></span>
+<span id="cb29-133"><a href="neutral-landscape-models.html#cb29-133" tabindex="-1"></a>  <span class="fu">group_by</span>(cover) <span class="sc">%&gt;%</span></span>
+<span id="cb29-134"><a href="neutral-landscape-models.html#cb29-134" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb29-135"><a href="neutral-landscape-models.html#cb29-135" tabindex="-1"></a>    <span class="at">mean_NP =</span> <span class="fu">mean</span>(NP),</span>
+<span id="cb29-136"><a href="neutral-landscape-models.html#cb29-136" tabindex="-1"></a>    <span class="at">sd_NP =</span> <span class="fu">sd</span>(NP),</span>
+<span id="cb29-137"><a href="neutral-landscape-models.html#cb29-137" tabindex="-1"></a></span>
+<span id="cb29-138"><a href="neutral-landscape-models.html#cb29-138" tabindex="-1"></a>    <span class="at">mean_LPI =</span> <span class="fu">mean</span>(LPI),</span>
+<span id="cb29-139"><a href="neutral-landscape-models.html#cb29-139" tabindex="-1"></a>    <span class="at">sd_LPI =</span> <span class="fu">sd</span>(LPI),</span>
+<span id="cb29-140"><a href="neutral-landscape-models.html#cb29-140" tabindex="-1"></a></span>
+<span id="cb29-141"><a href="neutral-landscape-models.html#cb29-141" tabindex="-1"></a>    <span class="at">mean_ED =</span> <span class="fu">mean</span>(ED),</span>
+<span id="cb29-142"><a href="neutral-landscape-models.html#cb29-142" tabindex="-1"></a>    <span class="at">sd_ED =</span> <span class="fu">sd</span>(ED),</span>
+<span id="cb29-143"><a href="neutral-landscape-models.html#cb29-143" tabindex="-1"></a></span>
+<span id="cb29-144"><a href="neutral-landscape-models.html#cb29-144" tabindex="-1"></a>    <span class="at">mean_CLUMPY =</span> <span class="fu">mean</span>(CLUMPY),</span>
+<span id="cb29-145"><a href="neutral-landscape-models.html#cb29-145" tabindex="-1"></a>    <span class="at">sd_CLUMPY =</span> <span class="fu">sd</span>(CLUMPY),</span>
+<span id="cb29-146"><a href="neutral-landscape-models.html#cb29-146" tabindex="-1"></a></span>
+<span id="cb29-147"><a href="neutral-landscape-models.html#cb29-147" tabindex="-1"></a>    <span class="at">.groups =</span> <span class="st">&quot;drop&quot;</span></span>
+<span id="cb29-148"><a href="neutral-landscape-models.html#cb29-148" tabindex="-1"></a>  )</span>
+<span id="cb29-149"><a href="neutral-landscape-models.html#cb29-149" tabindex="-1"></a></span>
+<span id="cb29-150"><a href="neutral-landscape-models.html#cb29-150" tabindex="-1"></a><span class="co">#----------------------------------------------------------------------------</span></span>
+<span id="cb29-151"><a href="neutral-landscape-models.html#cb29-151" tabindex="-1"></a><span class="co"># PLOT 1: NUMBER OF PATCHES</span></span>
+<span id="cb29-152"><a href="neutral-landscape-models.html#cb29-152" tabindex="-1"></a><span class="co">#----------------------------------------------------------------------------</span></span>
+<span id="cb29-153"><a href="neutral-landscape-models.html#cb29-153" tabindex="-1"></a></span>
+<span id="cb29-154"><a href="neutral-landscape-models.html#cb29-154" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(</span>
+<span id="cb29-155"><a href="neutral-landscape-models.html#cb29-155" tabindex="-1"></a>  summary_results,</span>
+<span id="cb29-156"><a href="neutral-landscape-models.html#cb29-156" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> cover,</span>
+<span id="cb29-157"><a href="neutral-landscape-models.html#cb29-157" tabindex="-1"></a>      <span class="at">y =</span> mean_NP)</span>
+<span id="cb29-158"><a href="neutral-landscape-models.html#cb29-158" tabindex="-1"></a>) <span class="sc">+</span></span>
+<span id="cb29-159"><a href="neutral-landscape-models.html#cb29-159" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">linewidth =</span> <span class="fl">1.1</span>) <span class="sc">+</span></span>
+<span id="cb29-160"><a href="neutral-landscape-models.html#cb29-160" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb29-161"><a href="neutral-landscape-models.html#cb29-161" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb29-162"><a href="neutral-landscape-models.html#cb29-162" tabindex="-1"></a>   <span class="fu">theme</span>(</span>
+<span id="cb29-163"><a href="neutral-landscape-models.html#cb29-163" tabindex="-1"></a>  <span class="at">plot.title =</span> <span class="fu">element_text</span>(</span>
+<span id="cb29-164"><a href="neutral-landscape-models.html#cb29-164" tabindex="-1"></a>    <span class="at">size =</span> <span class="dv">18</span>,</span>
+<span id="cb29-165"><a href="neutral-landscape-models.html#cb29-165" tabindex="-1"></a>    <span class="at">face =</span> <span class="st">&quot;bold&quot;</span></span>
+<span id="cb29-166"><a href="neutral-landscape-models.html#cb29-166" tabindex="-1"></a>  ),</span>
+<span id="cb29-167"><a href="neutral-landscape-models.html#cb29-167" tabindex="-1"></a>  <span class="at">plot.subtitle =</span> <span class="fu">element_text</span>(</span>
+<span id="cb29-168"><a href="neutral-landscape-models.html#cb29-168" tabindex="-1"></a>    <span class="at">size =</span> <span class="dv">16</span></span>
+<span id="cb29-169"><a href="neutral-landscape-models.html#cb29-169" tabindex="-1"></a>  ),</span>
+<span id="cb29-170"><a href="neutral-landscape-models.html#cb29-170" tabindex="-1"></a>  <span class="at">axis.title =</span> <span class="fu">element_text</span>(</span>
+<span id="cb29-171"><a href="neutral-landscape-models.html#cb29-171" tabindex="-1"></a>    <span class="at">size =</span> <span class="dv">14</span></span>
+<span id="cb29-172"><a href="neutral-landscape-models.html#cb29-172" tabindex="-1"></a>  ),</span>
+<span id="cb29-173"><a href="neutral-landscape-models.html#cb29-173" tabindex="-1"></a>  <span class="at">axis.text =</span> <span class="fu">element_text</span>(</span>
+<span id="cb29-174"><a href="neutral-landscape-models.html#cb29-174" tabindex="-1"></a>    <span class="at">size =</span> <span class="dv">12</span></span>
+<span id="cb29-175"><a href="neutral-landscape-models.html#cb29-175" tabindex="-1"></a>  ),</span>
+<span id="cb29-176"><a href="neutral-landscape-models.html#cb29-176" tabindex="-1"></a>  <span class="at">legend.title =</span> <span class="fu">element_text</span>(</span>
+<span id="cb29-177"><a href="neutral-landscape-models.html#cb29-177" tabindex="-1"></a>    <span class="at">size =</span> <span class="dv">14</span></span>
+<span id="cb29-178"><a href="neutral-landscape-models.html#cb29-178" tabindex="-1"></a>  ),</span>
+<span id="cb29-179"><a href="neutral-landscape-models.html#cb29-179" tabindex="-1"></a>  <span class="at">legend.text =</span> <span class="fu">element_text</span>(</span>
+<span id="cb29-180"><a href="neutral-landscape-models.html#cb29-180" tabindex="-1"></a>    <span class="at">size =</span> <span class="dv">14</span></span>
+<span id="cb29-181"><a href="neutral-landscape-models.html#cb29-181" tabindex="-1"></a>  )</span>
+<span id="cb29-182"><a href="neutral-landscape-models.html#cb29-182" tabindex="-1"></a>)<span class="sc">+</span></span>
+<span id="cb29-183"><a href="neutral-landscape-models.html#cb29-183" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb29-184"><a href="neutral-landscape-models.html#cb29-184" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Number of Patches&quot;</span>,</span>
+<span id="cb29-185"><a href="neutral-landscape-models.html#cb29-185" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">&quot;Neutral Landscape Model&quot;</span>,</span>
+<span id="cb29-186"><a href="neutral-landscape-models.html#cb29-186" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;Forest Cover&quot;</span>,</span>
+<span id="cb29-187"><a href="neutral-landscape-models.html#cb29-187" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;Mean Number of Patches&quot;</span></span>
+<span id="cb29-188"><a href="neutral-landscape-models.html#cb29-188" tabindex="-1"></a>  )</span>
+<span id="cb29-189"><a href="neutral-landscape-models.html#cb29-189" tabindex="-1"></a><span class="co">#----------------------------------------------------------------------------</span></span>
+<span id="cb29-190"><a href="neutral-landscape-models.html#cb29-190" tabindex="-1"></a><span class="co"># PLOT 2: LARGEST PATCH INDEX</span></span>
+<span id="cb29-191"><a href="neutral-landscape-models.html#cb29-191" tabindex="-1"></a><span class="co">#----------------------------------------------------------------------------</span></span>
+<span id="cb29-192"><a href="neutral-landscape-models.html#cb29-192" tabindex="-1"></a></span>
+<span id="cb29-193"><a href="neutral-landscape-models.html#cb29-193" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(</span>
+<span id="cb29-194"><a href="neutral-landscape-models.html#cb29-194" tabindex="-1"></a>  summary_results,</span>
+<span id="cb29-195"><a href="neutral-landscape-models.html#cb29-195" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> cover,</span>
+<span id="cb29-196"><a href="neutral-landscape-models.html#cb29-196" tabindex="-1"></a>      <span class="at">y =</span> mean_LPI)</span>
+<span id="cb29-197"><a href="neutral-landscape-models.html#cb29-197" tabindex="-1"></a>) <span class="sc">+</span></span>
+<span id="cb29-198"><a href="neutral-landscape-models.html#cb29-198" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">linewidth =</span> <span class="fl">1.1</span>) <span class="sc">+</span></span>
+<span id="cb29-199"><a href="neutral-landscape-models.html#cb29-199" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb29-200"><a href="neutral-landscape-models.html#cb29-200" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb29-201"><a href="neutral-landscape-models.html#cb29-201" tabindex="-1"></a>   <span class="fu">theme</span>(</span>
+<span id="cb29-202"><a href="neutral-landscape-models.html#cb29-202" tabindex="-1"></a>  <span class="at">plot.title =</span> <span class="fu">element_text</span>(</span>
+<span id="cb29-203"><a href="neutral-landscape-models.html#cb29-203" tabindex="-1"></a>    <span class="at">size =</span> <span class="dv">18</span>,</span>
+<span id="cb29-204"><a href="neutral-landscape-models.html#cb29-204" tabindex="-1"></a>    <span class="at">face =</span> <span class="st">&quot;bold&quot;</span></span>
+<span id="cb29-205"><a href="neutral-landscape-models.html#cb29-205" tabindex="-1"></a>  ),</span>
+<span id="cb29-206"><a href="neutral-landscape-models.html#cb29-206" tabindex="-1"></a>  <span class="at">plot.subtitle =</span> <span class="fu">element_text</span>(</span>
+<span id="cb29-207"><a href="neutral-landscape-models.html#cb29-207" tabindex="-1"></a>    <span class="at">size =</span> <span class="dv">16</span></span>
+<span id="cb29-208"><a href="neutral-landscape-models.html#cb29-208" tabindex="-1"></a>  ),</span>
+<span id="cb29-209"><a href="neutral-landscape-models.html#cb29-209" tabindex="-1"></a>  <span class="at">axis.title =</span> <span class="fu">element_text</span>(</span>
+<span id="cb29-210"><a href="neutral-landscape-models.html#cb29-210" tabindex="-1"></a>    <span class="at">size =</span> <span class="dv">14</span></span>
+<span id="cb29-211"><a href="neutral-landscape-models.html#cb29-211" tabindex="-1"></a>  ),</span>
+<span id="cb29-212"><a href="neutral-landscape-models.html#cb29-212" tabindex="-1"></a>  <span class="at">axis.text =</span> <span class="fu">element_text</span>(</span>
+<span id="cb29-213"><a href="neutral-landscape-models.html#cb29-213" tabindex="-1"></a>    <span class="at">size =</span> <span class="dv">12</span></span>
+<span id="cb29-214"><a href="neutral-landscape-models.html#cb29-214" tabindex="-1"></a>  ),</span>
+<span id="cb29-215"><a href="neutral-landscape-models.html#cb29-215" tabindex="-1"></a>  <span class="at">legend.title =</span> <span class="fu">element_text</span>(</span>
+<span id="cb29-216"><a href="neutral-landscape-models.html#cb29-216" tabindex="-1"></a>    <span class="at">size =</span> <span class="dv">14</span></span>
+<span id="cb29-217"><a href="neutral-landscape-models.html#cb29-217" tabindex="-1"></a>  ),</span>
+<span id="cb29-218"><a href="neutral-landscape-models.html#cb29-218" tabindex="-1"></a>  <span class="at">legend.text =</span> <span class="fu">element_text</span>(</span>
+<span id="cb29-219"><a href="neutral-landscape-models.html#cb29-219" tabindex="-1"></a>    <span class="at">size =</span> <span class="dv">14</span></span>
+<span id="cb29-220"><a href="neutral-landscape-models.html#cb29-220" tabindex="-1"></a>  )</span>
+<span id="cb29-221"><a href="neutral-landscape-models.html#cb29-221" tabindex="-1"></a>)<span class="sc">+</span></span>
+<span id="cb29-222"><a href="neutral-landscape-models.html#cb29-222" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb29-223"><a href="neutral-landscape-models.html#cb29-223" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Largest Forest Patch Index&quot;</span>,</span>
+<span id="cb29-224"><a href="neutral-landscape-models.html#cb29-224" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">&quot;Neutral Landscape Model&quot;</span>,</span>
+<span id="cb29-225"><a href="neutral-landscape-models.html#cb29-225" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;Forest Cover&quot;</span>,</span>
+<span id="cb29-226"><a href="neutral-landscape-models.html#cb29-226" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;LPI (%)&quot;</span></span>
+<span id="cb29-227"><a href="neutral-landscape-models.html#cb29-227" tabindex="-1"></a>  )</span>
+<span id="cb29-228"><a href="neutral-landscape-models.html#cb29-228" tabindex="-1"></a></span>
+<span id="cb29-229"><a href="neutral-landscape-models.html#cb29-229" tabindex="-1"></a><span class="co">#----------------------------------------------------------------------------</span></span>
+<span id="cb29-230"><a href="neutral-landscape-models.html#cb29-230" tabindex="-1"></a><span class="co"># PLOT 3: EDGE DENSITY</span></span>
+<span id="cb29-231"><a href="neutral-landscape-models.html#cb29-231" tabindex="-1"></a><span class="co">#----------------------------------------------------------------------------</span></span>
+<span id="cb29-232"><a href="neutral-landscape-models.html#cb29-232" tabindex="-1"></a></span>
+<span id="cb29-233"><a href="neutral-landscape-models.html#cb29-233" tabindex="-1"></a>p3 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(</span>
+<span id="cb29-234"><a href="neutral-landscape-models.html#cb29-234" tabindex="-1"></a>  summary_results,</span>
+<span id="cb29-235"><a href="neutral-landscape-models.html#cb29-235" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> cover,</span>
+<span id="cb29-236"><a href="neutral-landscape-models.html#cb29-236" tabindex="-1"></a>      <span class="at">y =</span> mean_ED)</span>
+<span id="cb29-237"><a href="neutral-landscape-models.html#cb29-237" tabindex="-1"></a>) <span class="sc">+</span></span>
+<span id="cb29-238"><a href="neutral-landscape-models.html#cb29-238" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">linewidth =</span> <span class="fl">1.1</span>) <span class="sc">+</span></span>
+<span id="cb29-239"><a href="neutral-landscape-models.html#cb29-239" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb29-240"><a href="neutral-landscape-models.html#cb29-240" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb29-241"><a href="neutral-landscape-models.html#cb29-241" tabindex="-1"></a>   <span class="fu">theme</span>(</span>
+<span id="cb29-242"><a href="neutral-landscape-models.html#cb29-242" tabindex="-1"></a>  <span class="at">plot.title =</span> <span class="fu">element_text</span>(</span>
+<span id="cb29-243"><a href="neutral-landscape-models.html#cb29-243" tabindex="-1"></a>    <span class="at">size =</span> <span class="dv">18</span>,</span>
+<span id="cb29-244"><a href="neutral-landscape-models.html#cb29-244" tabindex="-1"></a>    <span class="at">face =</span> <span class="st">&quot;bold&quot;</span></span>
+<span id="cb29-245"><a href="neutral-landscape-models.html#cb29-245" tabindex="-1"></a>  ),</span>
+<span id="cb29-246"><a href="neutral-landscape-models.html#cb29-246" tabindex="-1"></a>  <span class="at">plot.subtitle =</span> <span class="fu">element_text</span>(</span>
+<span id="cb29-247"><a href="neutral-landscape-models.html#cb29-247" tabindex="-1"></a>    <span class="at">size =</span> <span class="dv">16</span></span>
+<span id="cb29-248"><a href="neutral-landscape-models.html#cb29-248" tabindex="-1"></a>  ),</span>
+<span id="cb29-249"><a href="neutral-landscape-models.html#cb29-249" tabindex="-1"></a>  <span class="at">axis.title =</span> <span class="fu">element_text</span>(</span>
+<span id="cb29-250"><a href="neutral-landscape-models.html#cb29-250" tabindex="-1"></a>    <span class="at">size =</span> <span class="dv">14</span></span>
+<span id="cb29-251"><a href="neutral-landscape-models.html#cb29-251" tabindex="-1"></a>  ),</span>
+<span id="cb29-252"><a href="neutral-landscape-models.html#cb29-252" tabindex="-1"></a>  <span class="at">axis.text =</span> <span class="fu">element_text</span>(</span>
+<span id="cb29-253"><a href="neutral-landscape-models.html#cb29-253" tabindex="-1"></a>    <span class="at">size =</span> <span class="dv">12</span></span>
+<span id="cb29-254"><a href="neutral-landscape-models.html#cb29-254" tabindex="-1"></a>  ),</span>
+<span id="cb29-255"><a href="neutral-landscape-models.html#cb29-255" tabindex="-1"></a>  <span class="at">legend.title =</span> <span class="fu">element_text</span>(</span>
+<span id="cb29-256"><a href="neutral-landscape-models.html#cb29-256" tabindex="-1"></a>    <span class="at">size =</span> <span class="dv">14</span></span>
+<span id="cb29-257"><a href="neutral-landscape-models.html#cb29-257" tabindex="-1"></a>  ),</span>
+<span id="cb29-258"><a href="neutral-landscape-models.html#cb29-258" tabindex="-1"></a>  <span class="at">legend.text =</span> <span class="fu">element_text</span>(</span>
+<span id="cb29-259"><a href="neutral-landscape-models.html#cb29-259" tabindex="-1"></a>    <span class="at">size =</span> <span class="dv">14</span></span>
+<span id="cb29-260"><a href="neutral-landscape-models.html#cb29-260" tabindex="-1"></a>  )</span>
+<span id="cb29-261"><a href="neutral-landscape-models.html#cb29-261" tabindex="-1"></a>)<span class="sc">+</span></span>
+<span id="cb29-262"><a href="neutral-landscape-models.html#cb29-262" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb29-263"><a href="neutral-landscape-models.html#cb29-263" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Edge Density&quot;</span>,</span>
+<span id="cb29-264"><a href="neutral-landscape-models.html#cb29-264" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">&quot;Neutral Landscape Model&quot;</span>,</span>
+<span id="cb29-265"><a href="neutral-landscape-models.html#cb29-265" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;Forest Cover&quot;</span>,</span>
+<span id="cb29-266"><a href="neutral-landscape-models.html#cb29-266" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;Edge Density&quot;</span></span>
+<span id="cb29-267"><a href="neutral-landscape-models.html#cb29-267" tabindex="-1"></a>  )</span>
+<span id="cb29-268"><a href="neutral-landscape-models.html#cb29-268" tabindex="-1"></a><span class="co">#----------------------------------------------------------------------------</span></span>
+<span id="cb29-269"><a href="neutral-landscape-models.html#cb29-269" tabindex="-1"></a><span class="co"># PLOT 4: CLUMPINESS</span></span>
+<span id="cb29-270"><a href="neutral-landscape-models.html#cb29-270" tabindex="-1"></a><span class="co">#----------------------------------------------------------------------------</span></span>
+<span id="cb29-271"><a href="neutral-landscape-models.html#cb29-271" tabindex="-1"></a></span>
+<span id="cb29-272"><a href="neutral-landscape-models.html#cb29-272" tabindex="-1"></a>p4 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(</span>
+<span id="cb29-273"><a href="neutral-landscape-models.html#cb29-273" tabindex="-1"></a>  summary_results,</span>
+<span id="cb29-274"><a href="neutral-landscape-models.html#cb29-274" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> cover,</span>
+<span id="cb29-275"><a href="neutral-landscape-models.html#cb29-275" tabindex="-1"></a>      <span class="at">y =</span> mean_CLUMPY)</span>
+<span id="cb29-276"><a href="neutral-landscape-models.html#cb29-276" tabindex="-1"></a>) <span class="sc">+</span></span>
+<span id="cb29-277"><a href="neutral-landscape-models.html#cb29-277" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">linewidth =</span> <span class="fl">1.1</span>) <span class="sc">+</span></span>
+<span id="cb29-278"><a href="neutral-landscape-models.html#cb29-278" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb29-279"><a href="neutral-landscape-models.html#cb29-279" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb29-280"><a href="neutral-landscape-models.html#cb29-280" tabindex="-1"></a>   <span class="fu">theme</span>(</span>
+<span id="cb29-281"><a href="neutral-landscape-models.html#cb29-281" tabindex="-1"></a>  <span class="at">plot.title =</span> <span class="fu">element_text</span>(</span>
+<span id="cb29-282"><a href="neutral-landscape-models.html#cb29-282" tabindex="-1"></a>    <span class="at">size =</span> <span class="dv">18</span>,</span>
+<span id="cb29-283"><a href="neutral-landscape-models.html#cb29-283" tabindex="-1"></a>    <span class="at">face =</span> <span class="st">&quot;bold&quot;</span></span>
+<span id="cb29-284"><a href="neutral-landscape-models.html#cb29-284" tabindex="-1"></a>  ),</span>
+<span id="cb29-285"><a href="neutral-landscape-models.html#cb29-285" tabindex="-1"></a>  <span class="at">plot.subtitle =</span> <span class="fu">element_text</span>(</span>
+<span id="cb29-286"><a href="neutral-landscape-models.html#cb29-286" tabindex="-1"></a>    <span class="at">size =</span> <span class="dv">16</span></span>
+<span id="cb29-287"><a href="neutral-landscape-models.html#cb29-287" tabindex="-1"></a>  ),</span>
+<span id="cb29-288"><a href="neutral-landscape-models.html#cb29-288" tabindex="-1"></a>  <span class="at">axis.title =</span> <span class="fu">element_text</span>(</span>
+<span id="cb29-289"><a href="neutral-landscape-models.html#cb29-289" tabindex="-1"></a>    <span class="at">size =</span> <span class="dv">14</span></span>
+<span id="cb29-290"><a href="neutral-landscape-models.html#cb29-290" tabindex="-1"></a>  ),</span>
+<span id="cb29-291"><a href="neutral-landscape-models.html#cb29-291" tabindex="-1"></a>  <span class="at">axis.text =</span> <span class="fu">element_text</span>(</span>
+<span id="cb29-292"><a href="neutral-landscape-models.html#cb29-292" tabindex="-1"></a>    <span class="at">size =</span> <span class="dv">12</span></span>
+<span id="cb29-293"><a href="neutral-landscape-models.html#cb29-293" tabindex="-1"></a>  ),</span>
+<span id="cb29-294"><a href="neutral-landscape-models.html#cb29-294" tabindex="-1"></a>  <span class="at">legend.title =</span> <span class="fu">element_text</span>(</span>
+<span id="cb29-295"><a href="neutral-landscape-models.html#cb29-295" tabindex="-1"></a>    <span class="at">size =</span> <span class="dv">14</span></span>
+<span id="cb29-296"><a href="neutral-landscape-models.html#cb29-296" tabindex="-1"></a>  ),</span>
+<span id="cb29-297"><a href="neutral-landscape-models.html#cb29-297" tabindex="-1"></a>  <span class="at">legend.text =</span> <span class="fu">element_text</span>(</span>
+<span id="cb29-298"><a href="neutral-landscape-models.html#cb29-298" tabindex="-1"></a>    <span class="at">size =</span> <span class="dv">14</span></span>
+<span id="cb29-299"><a href="neutral-landscape-models.html#cb29-299" tabindex="-1"></a>  )</span>
+<span id="cb29-300"><a href="neutral-landscape-models.html#cb29-300" tabindex="-1"></a>)<span class="sc">+</span></span>
+<span id="cb29-301"><a href="neutral-landscape-models.html#cb29-301" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb29-302"><a href="neutral-landscape-models.html#cb29-302" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Forest Clumpiness&quot;</span>,</span>
+<span id="cb29-303"><a href="neutral-landscape-models.html#cb29-303" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">&quot;Neutral Landscape Model&quot;</span>,</span>
+<span id="cb29-304"><a href="neutral-landscape-models.html#cb29-304" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;Forest Cover&quot;</span>,</span>
+<span id="cb29-305"><a href="neutral-landscape-models.html#cb29-305" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;CLUMPY&quot;</span></span>
+<span id="cb29-306"><a href="neutral-landscape-models.html#cb29-306" tabindex="-1"></a>  )</span></code></pre></div>
 </details>
 </div>
 <div id="nlm-results" class="section level2 hasAnchor" number="8.3">
@@ -1271,201 +1268,201 @@ Figure 8.1: Fragmentation metrics across a forest-cover gradient generated using
 <p><img src="Modelling_Foundations_files/figure-html/cluster_exam_nm-1.png" width="80%" /></p>
 <p>In this experiment, spatial autocorrelation was introduced using the midpoint displacement algorithm (nlm_mpd), which generates continuous spatially autocorrelated surfaces characterized by clusters of similar values. Forest cover was varied from 10% to 90% by applying quantile-based thresholds to these surfaces, producing binary forest and non-forest landscapes with controlled habitat abundance. The same thresholding procedure was applied to both random and spatially autocorrelated landscapes, ensuring that differences in fragmentation metrics reflected habitat configuration rather than habitat amount. Compared with random landscapes, autocorrelated landscapes exhibited substantially lower edge densities (ED) and much higher clumpiness values (CLUMPY), indicating the presence of larger, more contiguous habitat patches. These results demonstrate that spatial structure can strongly influence fragmentation dynamics, even when the total amount of habitat remains constant.</p>
 <details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
-<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="neutral-landscape-models.html#cb27-1" tabindex="-1"></a></span>
-<span id="cb27-2"><a href="neutral-landscape-models.html#cb27-2" tabindex="-1"></a></span>
-<span id="cb27-3"><a href="neutral-landscape-models.html#cb27-3" tabindex="-1"></a><span class="fu">library</span>(NLMR)</span>
-<span id="cb27-4"><a href="neutral-landscape-models.html#cb27-4" tabindex="-1"></a><span class="fu">library</span>(raster)</span>
-<span id="cb27-5"><a href="neutral-landscape-models.html#cb27-5" tabindex="-1"></a><span class="fu">library</span>(landscapemetrics)</span>
-<span id="cb27-6"><a href="neutral-landscape-models.html#cb27-6" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb27-7"><a href="neutral-landscape-models.html#cb27-7" tabindex="-1"></a><span class="fu">library</span>(gt)</span>
-<span id="cb27-8"><a href="neutral-landscape-models.html#cb27-8" tabindex="-1"></a></span>
-<span id="cb27-9"><a href="neutral-landscape-models.html#cb27-9" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
-<span id="cb27-10"><a href="neutral-landscape-models.html#cb27-10" tabindex="-1"></a></span>
-<span id="cb27-11"><a href="neutral-landscape-models.html#cb27-11" tabindex="-1"></a><span class="co">#---------------------------------------------------------------------------</span></span>
-<span id="cb27-12"><a href="neutral-landscape-models.html#cb27-12" tabindex="-1"></a><span class="co"># Experimental Design</span></span>
-<span id="cb27-13"><a href="neutral-landscape-models.html#cb27-13" tabindex="-1"></a><span class="co">#---------------------------------------------------------------------------</span></span>
-<span id="cb27-14"><a href="neutral-landscape-models.html#cb27-14" tabindex="-1"></a></span>
-<span id="cb27-15"><a href="neutral-landscape-models.html#cb27-15" tabindex="-1"></a>cover_levels <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="fl">0.9</span>, <span class="fl">0.1</span>, <span class="at">by =</span> <span class="sc">-</span><span class="fl">0.1</span>)</span>
-<span id="cb27-16"><a href="neutral-landscape-models.html#cb27-16" tabindex="-1"></a></span>
-<span id="cb27-17"><a href="neutral-landscape-models.html#cb27-17" tabindex="-1"></a>n_replicates <span class="ot">&lt;-</span> <span class="dv">100</span></span>
-<span id="cb27-18"><a href="neutral-landscape-models.html#cb27-18" tabindex="-1"></a></span>
-<span id="cb27-19"><a href="neutral-landscape-models.html#cb27-19" tabindex="-1"></a><span class="co">#---------------------------------------------------------------------------</span></span>
-<span id="cb27-20"><a href="neutral-landscape-models.html#cb27-20" tabindex="-1"></a><span class="co"># Simulation Function</span></span>
-<span id="cb27-21"><a href="neutral-landscape-models.html#cb27-21" tabindex="-1"></a><span class="co">#---------------------------------------------------------------------------</span></span>
-<span id="cb27-22"><a href="neutral-landscape-models.html#cb27-22" tabindex="-1"></a></span>
-<span id="cb27-23"><a href="neutral-landscape-models.html#cb27-23" tabindex="-1"></a>simulate_landscape <span class="ot">&lt;-</span> <span class="cf">function</span>(</span>
-<span id="cb27-24"><a href="neutral-landscape-models.html#cb27-24" tabindex="-1"></a>    cover,</span>
-<span id="cb27-25"><a href="neutral-landscape-models.html#cb27-25" tabindex="-1"></a>    <span class="at">model =</span> <span class="st">&quot;random&quot;</span>,</span>
-<span id="cb27-26"><a href="neutral-landscape-models.html#cb27-26" tabindex="-1"></a>    <span class="at">nrow =</span> <span class="dv">100</span>,</span>
-<span id="cb27-27"><a href="neutral-landscape-models.html#cb27-27" tabindex="-1"></a>    <span class="at">ncol =</span> <span class="dv">100</span>){</span>
-<span id="cb27-28"><a href="neutral-landscape-models.html#cb27-28" tabindex="-1"></a></span>
-<span id="cb27-29"><a href="neutral-landscape-models.html#cb27-29" tabindex="-1"></a>  <span class="co">#-----------------------------------------------------------------------</span></span>
-<span id="cb27-30"><a href="neutral-landscape-models.html#cb27-30" tabindex="-1"></a>  <span class="co"># Generate Landscape</span></span>
-<span id="cb27-31"><a href="neutral-landscape-models.html#cb27-31" tabindex="-1"></a>  <span class="co">#-----------------------------------------------------------------------</span></span>
-<span id="cb27-32"><a href="neutral-landscape-models.html#cb27-32" tabindex="-1"></a></span>
-<span id="cb27-33"><a href="neutral-landscape-models.html#cb27-33" tabindex="-1"></a>  <span class="cf">if</span>(model <span class="sc">==</span> <span class="st">&quot;random&quot;</span>){</span>
-<span id="cb27-34"><a href="neutral-landscape-models.html#cb27-34" tabindex="-1"></a></span>
-<span id="cb27-35"><a href="neutral-landscape-models.html#cb27-35" tabindex="-1"></a>    nlm <span class="ot">&lt;-</span> <span class="fu">nlm_random</span>(</span>
-<span id="cb27-36"><a href="neutral-landscape-models.html#cb27-36" tabindex="-1"></a>      <span class="at">nrow =</span> nrow,</span>
-<span id="cb27-37"><a href="neutral-landscape-models.html#cb27-37" tabindex="-1"></a>      <span class="at">ncol =</span> ncol</span>
-<span id="cb27-38"><a href="neutral-landscape-models.html#cb27-38" tabindex="-1"></a>    )</span>
-<span id="cb27-39"><a href="neutral-landscape-models.html#cb27-39" tabindex="-1"></a></span>
-<span id="cb27-40"><a href="neutral-landscape-models.html#cb27-40" tabindex="-1"></a>  } <span class="cf">else</span> <span class="cf">if</span>(model <span class="sc">==</span> <span class="st">&quot;clustered&quot;</span>){</span>
-<span id="cb27-41"><a href="neutral-landscape-models.html#cb27-41" tabindex="-1"></a></span>
-<span id="cb27-42"><a href="neutral-landscape-models.html#cb27-42" tabindex="-1"></a>    nlm <span class="ot">&lt;-</span> <span class="fu">nlm_mpd</span>(</span>
-<span id="cb27-43"><a href="neutral-landscape-models.html#cb27-43" tabindex="-1"></a>      <span class="at">nrow =</span> nrow,</span>
-<span id="cb27-44"><a href="neutral-landscape-models.html#cb27-44" tabindex="-1"></a>      <span class="at">ncol =</span> ncol,</span>
-<span id="cb27-45"><a href="neutral-landscape-models.html#cb27-45" tabindex="-1"></a>      <span class="at">roughness =</span> <span class="fl">0.7</span></span>
-<span id="cb27-46"><a href="neutral-landscape-models.html#cb27-46" tabindex="-1"></a>    )</span>
-<span id="cb27-47"><a href="neutral-landscape-models.html#cb27-47" tabindex="-1"></a></span>
-<span id="cb27-48"><a href="neutral-landscape-models.html#cb27-48" tabindex="-1"></a>  }</span>
-<span id="cb27-49"><a href="neutral-landscape-models.html#cb27-49" tabindex="-1"></a></span>
-<span id="cb27-50"><a href="neutral-landscape-models.html#cb27-50" tabindex="-1"></a>  <span class="co">#-----------------------------------------------------------------------</span></span>
-<span id="cb27-51"><a href="neutral-landscape-models.html#cb27-51" tabindex="-1"></a>  <span class="co"># Convert to Forest / Non-Forest</span></span>
-<span id="cb27-52"><a href="neutral-landscape-models.html#cb27-52" tabindex="-1"></a>  <span class="co">#-----------------------------------------------------------------------</span></span>
-<span id="cb27-53"><a href="neutral-landscape-models.html#cb27-53" tabindex="-1"></a></span>
-<span id="cb27-54"><a href="neutral-landscape-models.html#cb27-54" tabindex="-1"></a>  threshold <span class="ot">&lt;-</span> <span class="fu">quantile</span>(</span>
-<span id="cb27-55"><a href="neutral-landscape-models.html#cb27-55" tabindex="-1"></a>    <span class="fu">values</span>(nlm),</span>
-<span id="cb27-56"><a href="neutral-landscape-models.html#cb27-56" tabindex="-1"></a>    <span class="at">probs =</span> cover,</span>
-<span id="cb27-57"><a href="neutral-landscape-models.html#cb27-57" tabindex="-1"></a>    <span class="at">na.rm =</span> <span class="cn">TRUE</span></span>
-<span id="cb27-58"><a href="neutral-landscape-models.html#cb27-58" tabindex="-1"></a>  )</span>
-<span id="cb27-59"><a href="neutral-landscape-models.html#cb27-59" tabindex="-1"></a></span>
-<span id="cb27-60"><a href="neutral-landscape-models.html#cb27-60" tabindex="-1"></a>  forest <span class="ot">&lt;-</span> nlm</span>
-<span id="cb27-61"><a href="neutral-landscape-models.html#cb27-61" tabindex="-1"></a>  forest[] <span class="ot">&lt;-</span> <span class="fu">as.integer</span>(<span class="fu">values</span>(nlm) <span class="sc">&lt;=</span> threshold)</span>
-<span id="cb27-62"><a href="neutral-landscape-models.html#cb27-62" tabindex="-1"></a></span>
-<span id="cb27-63"><a href="neutral-landscape-models.html#cb27-63" tabindex="-1"></a>  <span class="co">#-----------------------------------------------------------------------</span></span>
-<span id="cb27-64"><a href="neutral-landscape-models.html#cb27-64" tabindex="-1"></a>  <span class="co"># Fragmentation Metrics</span></span>
-<span id="cb27-65"><a href="neutral-landscape-models.html#cb27-65" tabindex="-1"></a>  <span class="co">#-----------------------------------------------------------------------</span></span>
-<span id="cb27-66"><a href="neutral-landscape-models.html#cb27-66" tabindex="-1"></a></span>
-<span id="cb27-67"><a href="neutral-landscape-models.html#cb27-67" tabindex="-1"></a>  np <span class="ot">&lt;-</span> <span class="fu">lsm_l_np</span>(forest)<span class="sc">$</span>value</span>
-<span id="cb27-68"><a href="neutral-landscape-models.html#cb27-68" tabindex="-1"></a></span>
-<span id="cb27-69"><a href="neutral-landscape-models.html#cb27-69" tabindex="-1"></a>  lpi <span class="ot">&lt;-</span> <span class="fu">lsm_c_lpi</span>(forest) <span class="sc">|&gt;</span></span>
-<span id="cb27-70"><a href="neutral-landscape-models.html#cb27-70" tabindex="-1"></a>    <span class="fu">filter</span>(class <span class="sc">==</span> <span class="dv">1</span>) <span class="sc">|&gt;</span></span>
-<span id="cb27-71"><a href="neutral-landscape-models.html#cb27-71" tabindex="-1"></a>    <span class="fu">pull</span>(value)</span>
-<span id="cb27-72"><a href="neutral-landscape-models.html#cb27-72" tabindex="-1"></a></span>
-<span id="cb27-73"><a href="neutral-landscape-models.html#cb27-73" tabindex="-1"></a>  ed <span class="ot">&lt;-</span> <span class="fu">lsm_c_ed</span>(forest) <span class="sc">|&gt;</span></span>
-<span id="cb27-74"><a href="neutral-landscape-models.html#cb27-74" tabindex="-1"></a>    <span class="fu">filter</span>(class <span class="sc">==</span> <span class="dv">1</span>) <span class="sc">|&gt;</span></span>
-<span id="cb27-75"><a href="neutral-landscape-models.html#cb27-75" tabindex="-1"></a>    <span class="fu">pull</span>(value)</span>
-<span id="cb27-76"><a href="neutral-landscape-models.html#cb27-76" tabindex="-1"></a></span>
-<span id="cb27-77"><a href="neutral-landscape-models.html#cb27-77" tabindex="-1"></a>  clumpy <span class="ot">&lt;-</span> <span class="fu">lsm_c_clumpy</span>(forest) <span class="sc">|&gt;</span></span>
-<span id="cb27-78"><a href="neutral-landscape-models.html#cb27-78" tabindex="-1"></a>    <span class="fu">filter</span>(class <span class="sc">==</span> <span class="dv">1</span>) <span class="sc">|&gt;</span></span>
-<span id="cb27-79"><a href="neutral-landscape-models.html#cb27-79" tabindex="-1"></a>    <span class="fu">pull</span>(value)</span>
-<span id="cb27-80"><a href="neutral-landscape-models.html#cb27-80" tabindex="-1"></a></span>
-<span id="cb27-81"><a href="neutral-landscape-models.html#cb27-81" tabindex="-1"></a>  <span class="fu">data.frame</span>(</span>
-<span id="cb27-82"><a href="neutral-landscape-models.html#cb27-82" tabindex="-1"></a>    <span class="at">Model =</span> model,</span>
-<span id="cb27-83"><a href="neutral-landscape-models.html#cb27-83" tabindex="-1"></a>    <span class="at">Cover =</span> cover,</span>
-<span id="cb27-84"><a href="neutral-landscape-models.html#cb27-84" tabindex="-1"></a>    <span class="at">NP =</span> np,</span>
-<span id="cb27-85"><a href="neutral-landscape-models.html#cb27-85" tabindex="-1"></a>    <span class="at">LPI =</span> lpi,</span>
-<span id="cb27-86"><a href="neutral-landscape-models.html#cb27-86" tabindex="-1"></a>    <span class="at">ED =</span> ed,</span>
-<span id="cb27-87"><a href="neutral-landscape-models.html#cb27-87" tabindex="-1"></a>    <span class="at">CLUMPY =</span> clumpy</span>
-<span id="cb27-88"><a href="neutral-landscape-models.html#cb27-88" tabindex="-1"></a>  )</span>
-<span id="cb27-89"><a href="neutral-landscape-models.html#cb27-89" tabindex="-1"></a></span>
-<span id="cb27-90"><a href="neutral-landscape-models.html#cb27-90" tabindex="-1"></a>}</span>
-<span id="cb27-91"><a href="neutral-landscape-models.html#cb27-91" tabindex="-1"></a></span>
-<span id="cb27-92"><a href="neutral-landscape-models.html#cb27-92" tabindex="-1"></a><span class="co">#---------------------------------------------------------------------------</span></span>
-<span id="cb27-93"><a href="neutral-landscape-models.html#cb27-93" tabindex="-1"></a><span class="co"># Run Simulations</span></span>
-<span id="cb27-94"><a href="neutral-landscape-models.html#cb27-94" tabindex="-1"></a><span class="co">#---------------------------------------------------------------------------</span></span>
-<span id="cb27-95"><a href="neutral-landscape-models.html#cb27-95" tabindex="-1"></a></span>
-<span id="cb27-96"><a href="neutral-landscape-models.html#cb27-96" tabindex="-1"></a>results <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
-<span id="cb27-97"><a href="neutral-landscape-models.html#cb27-97" tabindex="-1"></a>counter <span class="ot">&lt;-</span> <span class="dv">1</span></span>
-<span id="cb27-98"><a href="neutral-landscape-models.html#cb27-98" tabindex="-1"></a></span>
-<span id="cb27-99"><a href="neutral-landscape-models.html#cb27-99" tabindex="-1"></a>total_runs <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="sc">*</span> <span class="fu">length</span>(cover_levels) <span class="sc">*</span> n_replicates</span>
-<span id="cb27-100"><a href="neutral-landscape-models.html#cb27-100" tabindex="-1"></a></span>
-<span id="cb27-101"><a href="neutral-landscape-models.html#cb27-101" tabindex="-1"></a><span class="cf">for</span>(model <span class="cf">in</span> <span class="fu">c</span>(<span class="st">&quot;random&quot;</span>, <span class="st">&quot;clustered&quot;</span>)){</span>
-<span id="cb27-102"><a href="neutral-landscape-models.html#cb27-102" tabindex="-1"></a></span>
-<span id="cb27-103"><a href="neutral-landscape-models.html#cb27-103" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">&quot;Running:&quot;</span>, model, <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span>
-<span id="cb27-104"><a href="neutral-landscape-models.html#cb27-104" tabindex="-1"></a></span>
-<span id="cb27-105"><a href="neutral-landscape-models.html#cb27-105" tabindex="-1"></a>  <span class="cf">for</span>(cover <span class="cf">in</span> cover_levels){</span>
-<span id="cb27-106"><a href="neutral-landscape-models.html#cb27-106" tabindex="-1"></a></span>
-<span id="cb27-107"><a href="neutral-landscape-models.html#cb27-107" tabindex="-1"></a>    <span class="cf">for</span>(rep <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>n_replicates){</span>
-<span id="cb27-108"><a href="neutral-landscape-models.html#cb27-108" tabindex="-1"></a></span>
-<span id="cb27-109"><a href="neutral-landscape-models.html#cb27-109" tabindex="-1"></a>      results[[counter]] <span class="ot">&lt;-</span> <span class="fu">simulate_landscape</span>(</span>
-<span id="cb27-110"><a href="neutral-landscape-models.html#cb27-110" tabindex="-1"></a>        <span class="at">cover =</span> cover,</span>
-<span id="cb27-111"><a href="neutral-landscape-models.html#cb27-111" tabindex="-1"></a>        <span class="at">model =</span> model</span>
-<span id="cb27-112"><a href="neutral-landscape-models.html#cb27-112" tabindex="-1"></a>      )</span>
-<span id="cb27-113"><a href="neutral-landscape-models.html#cb27-113" tabindex="-1"></a></span>
-<span id="cb27-114"><a href="neutral-landscape-models.html#cb27-114" tabindex="-1"></a>      <span class="cf">if</span>(counter <span class="sc">%%</span> <span class="dv">100</span> <span class="sc">==</span> <span class="dv">0</span>){</span>
-<span id="cb27-115"><a href="neutral-landscape-models.html#cb27-115" tabindex="-1"></a></span>
-<span id="cb27-116"><a href="neutral-landscape-models.html#cb27-116" tabindex="-1"></a>        <span class="fu">cat</span>(</span>
-<span id="cb27-117"><a href="neutral-landscape-models.html#cb27-117" tabindex="-1"></a>          <span class="fu">sprintf</span>(</span>
-<span id="cb27-118"><a href="neutral-landscape-models.html#cb27-118" tabindex="-1"></a>            <span class="st">&quot;Completed %d of %d (%.1f%%)</span><span class="sc">\n</span><span class="st">&quot;</span>,</span>
-<span id="cb27-119"><a href="neutral-landscape-models.html#cb27-119" tabindex="-1"></a>            counter,</span>
-<span id="cb27-120"><a href="neutral-landscape-models.html#cb27-120" tabindex="-1"></a>            total_runs,</span>
-<span id="cb27-121"><a href="neutral-landscape-models.html#cb27-121" tabindex="-1"></a>            <span class="dv">100</span> <span class="sc">*</span> counter <span class="sc">/</span> total_runs</span>
-<span id="cb27-122"><a href="neutral-landscape-models.html#cb27-122" tabindex="-1"></a>          )</span>
-<span id="cb27-123"><a href="neutral-landscape-models.html#cb27-123" tabindex="-1"></a>        )</span>
-<span id="cb27-124"><a href="neutral-landscape-models.html#cb27-124" tabindex="-1"></a></span>
-<span id="cb27-125"><a href="neutral-landscape-models.html#cb27-125" tabindex="-1"></a>        <span class="fu">flush.console</span>()</span>
-<span id="cb27-126"><a href="neutral-landscape-models.html#cb27-126" tabindex="-1"></a></span>
-<span id="cb27-127"><a href="neutral-landscape-models.html#cb27-127" tabindex="-1"></a>      }</span>
-<span id="cb27-128"><a href="neutral-landscape-models.html#cb27-128" tabindex="-1"></a></span>
-<span id="cb27-129"><a href="neutral-landscape-models.html#cb27-129" tabindex="-1"></a>      counter <span class="ot">&lt;-</span> counter <span class="sc">+</span> <span class="dv">1</span></span>
-<span id="cb27-130"><a href="neutral-landscape-models.html#cb27-130" tabindex="-1"></a></span>
-<span id="cb27-131"><a href="neutral-landscape-models.html#cb27-131" tabindex="-1"></a>    }</span>
-<span id="cb27-132"><a href="neutral-landscape-models.html#cb27-132" tabindex="-1"></a></span>
-<span id="cb27-133"><a href="neutral-landscape-models.html#cb27-133" tabindex="-1"></a>  }</span>
-<span id="cb27-134"><a href="neutral-landscape-models.html#cb27-134" tabindex="-1"></a></span>
-<span id="cb27-135"><a href="neutral-landscape-models.html#cb27-135" tabindex="-1"></a>}</span>
-<span id="cb27-136"><a href="neutral-landscape-models.html#cb27-136" tabindex="-1"></a><span class="do">## Running: random </span></span>
-<span id="cb27-137"><a href="neutral-landscape-models.html#cb27-137" tabindex="-1"></a><span class="do">## Completed 100 of 1800 (5.6%)</span></span>
-<span id="cb27-138"><a href="neutral-landscape-models.html#cb27-138" tabindex="-1"></a><span class="do">## Completed 200 of 1800 (11.1%)</span></span>
-<span id="cb27-139"><a href="neutral-landscape-models.html#cb27-139" tabindex="-1"></a><span class="do">## Completed 300 of 1800 (16.7%)</span></span>
-<span id="cb27-140"><a href="neutral-landscape-models.html#cb27-140" tabindex="-1"></a><span class="do">## Completed 400 of 1800 (22.2%)</span></span>
-<span id="cb27-141"><a href="neutral-landscape-models.html#cb27-141" tabindex="-1"></a><span class="do">## Completed 500 of 1800 (27.8%)</span></span>
-<span id="cb27-142"><a href="neutral-landscape-models.html#cb27-142" tabindex="-1"></a><span class="do">## Completed 600 of 1800 (33.3%)</span></span>
-<span id="cb27-143"><a href="neutral-landscape-models.html#cb27-143" tabindex="-1"></a><span class="do">## Completed 700 of 1800 (38.9%)</span></span>
-<span id="cb27-144"><a href="neutral-landscape-models.html#cb27-144" tabindex="-1"></a><span class="do">## Completed 800 of 1800 (44.4%)</span></span>
-<span id="cb27-145"><a href="neutral-landscape-models.html#cb27-145" tabindex="-1"></a><span class="do">## Completed 900 of 1800 (50.0%)</span></span>
-<span id="cb27-146"><a href="neutral-landscape-models.html#cb27-146" tabindex="-1"></a><span class="do">## Running: clustered</span></span>
-<span id="cb27-147"><a href="neutral-landscape-models.html#cb27-147" tabindex="-1"></a><span class="do">## Completed 1000 of 1800 (55.6%)</span></span>
-<span id="cb27-148"><a href="neutral-landscape-models.html#cb27-148" tabindex="-1"></a><span class="do">## Completed 1100 of 1800 (61.1%)</span></span>
-<span id="cb27-149"><a href="neutral-landscape-models.html#cb27-149" tabindex="-1"></a><span class="do">## Completed 1200 of 1800 (66.7%)</span></span>
-<span id="cb27-150"><a href="neutral-landscape-models.html#cb27-150" tabindex="-1"></a><span class="do">## Completed 1300 of 1800 (72.2%)</span></span>
-<span id="cb27-151"><a href="neutral-landscape-models.html#cb27-151" tabindex="-1"></a><span class="do">## Completed 1400 of 1800 (77.8%)</span></span>
-<span id="cb27-152"><a href="neutral-landscape-models.html#cb27-152" tabindex="-1"></a><span class="do">## Completed 1500 of 1800 (83.3%)</span></span>
-<span id="cb27-153"><a href="neutral-landscape-models.html#cb27-153" tabindex="-1"></a><span class="do">## Completed 1600 of 1800 (88.9%)</span></span>
-<span id="cb27-154"><a href="neutral-landscape-models.html#cb27-154" tabindex="-1"></a><span class="do">## Completed 1700 of 1800 (94.4%)</span></span>
-<span id="cb27-155"><a href="neutral-landscape-models.html#cb27-155" tabindex="-1"></a><span class="do">## Completed 1800 of 1800 (100.0%)</span></span>
-<span id="cb27-156"><a href="neutral-landscape-models.html#cb27-156" tabindex="-1"></a></span>
-<span id="cb27-157"><a href="neutral-landscape-models.html#cb27-157" tabindex="-1"></a>results <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(results)</span>
-<span id="cb27-158"><a href="neutral-landscape-models.html#cb27-158" tabindex="-1"></a></span>
-<span id="cb27-159"><a href="neutral-landscape-models.html#cb27-159" tabindex="-1"></a><span class="co">#---------------------------------------------------------------------------</span></span>
-<span id="cb27-160"><a href="neutral-landscape-models.html#cb27-160" tabindex="-1"></a><span class="co"># Summarize Results</span></span>
-<span id="cb27-161"><a href="neutral-landscape-models.html#cb27-161" tabindex="-1"></a><span class="co">#---------------------------------------------------------------------------</span></span>
-<span id="cb27-162"><a href="neutral-landscape-models.html#cb27-162" tabindex="-1"></a></span>
-<span id="cb27-163"><a href="neutral-landscape-models.html#cb27-163" tabindex="-1"></a>summary_results <span class="ot">&lt;-</span> results <span class="sc">|&gt;</span></span>
-<span id="cb27-164"><a href="neutral-landscape-models.html#cb27-164" tabindex="-1"></a>  <span class="fu">group_by</span>(Model, Cover) <span class="sc">|&gt;</span></span>
-<span id="cb27-165"><a href="neutral-landscape-models.html#cb27-165" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
-<span id="cb27-166"><a href="neutral-landscape-models.html#cb27-166" tabindex="-1"></a>    <span class="at">Mean_NP =</span> <span class="fu">mean</span>(NP, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb27-167"><a href="neutral-landscape-models.html#cb27-167" tabindex="-1"></a>    <span class="at">Mean_LPI =</span> <span class="fu">mean</span>(LPI, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb27-168"><a href="neutral-landscape-models.html#cb27-168" tabindex="-1"></a>    <span class="at">Mean_ED =</span> <span class="fu">mean</span>(ED, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb27-169"><a href="neutral-landscape-models.html#cb27-169" tabindex="-1"></a>    <span class="at">Mean_CLUMPY =</span> <span class="fu">mean</span>(CLUMPY, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb27-170"><a href="neutral-landscape-models.html#cb27-170" tabindex="-1"></a>    <span class="at">.groups =</span> <span class="st">&quot;drop&quot;</span></span>
-<span id="cb27-171"><a href="neutral-landscape-models.html#cb27-171" tabindex="-1"></a>  )</span>
-<span id="cb27-172"><a href="neutral-landscape-models.html#cb27-172" tabindex="-1"></a></span>
-<span id="cb27-173"><a href="neutral-landscape-models.html#cb27-173" tabindex="-1"></a><span class="co">#---------------------------------------------------------------------------</span></span>
-<span id="cb27-174"><a href="neutral-landscape-models.html#cb27-174" tabindex="-1"></a><span class="co"># Display Summary Table</span></span>
-<span id="cb27-175"><a href="neutral-landscape-models.html#cb27-175" tabindex="-1"></a><span class="co">#---------------------------------------------------------------------------</span></span>
-<span id="cb27-176"><a href="neutral-landscape-models.html#cb27-176" tabindex="-1"></a></span>
-<span id="cb27-177"><a href="neutral-landscape-models.html#cb27-177" tabindex="-1"></a>summary_results <span class="sc">|&gt;</span></span>
-<span id="cb27-178"><a href="neutral-landscape-models.html#cb27-178" tabindex="-1"></a>  <span class="fu">arrange</span>(Model, <span class="fu">desc</span>(Cover)) <span class="sc">|&gt;</span></span>
-<span id="cb27-179"><a href="neutral-landscape-models.html#cb27-179" tabindex="-1"></a>  <span class="fu">gt</span>() <span class="sc">|&gt;</span></span>
-<span id="cb27-180"><a href="neutral-landscape-models.html#cb27-180" tabindex="-1"></a>  <span class="fu">tab_header</span>(</span>
-<span id="cb27-181"><a href="neutral-landscape-models.html#cb27-181" tabindex="-1"></a>    <span class="at">title =</span> <span class="fu">md</span>(<span class="st">&quot;**Random vs. Clustered Neutral Landscapes**&quot;</span>),</span>
-<span id="cb27-182"><a href="neutral-landscape-models.html#cb27-182" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">&quot;100 × 100 grids; 100 replicates per cover level&quot;</span></span>
-<span id="cb27-183"><a href="neutral-landscape-models.html#cb27-183" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
-<span id="cb27-184"><a href="neutral-landscape-models.html#cb27-184" tabindex="-1"></a>  <span class="fu">fmt_number</span>(</span>
-<span id="cb27-185"><a href="neutral-landscape-models.html#cb27-185" tabindex="-1"></a>    <span class="at">columns =</span> <span class="fu">c</span>(</span>
-<span id="cb27-186"><a href="neutral-landscape-models.html#cb27-186" tabindex="-1"></a>      Mean_NP,</span>
-<span id="cb27-187"><a href="neutral-landscape-models.html#cb27-187" tabindex="-1"></a>      Mean_LPI,</span>
-<span id="cb27-188"><a href="neutral-landscape-models.html#cb27-188" tabindex="-1"></a>      Mean_ED</span>
-<span id="cb27-189"><a href="neutral-landscape-models.html#cb27-189" tabindex="-1"></a>    ),</span>
-<span id="cb27-190"><a href="neutral-landscape-models.html#cb27-190" tabindex="-1"></a>    <span class="at">decimals =</span> <span class="dv">2</span></span>
-<span id="cb27-191"><a href="neutral-landscape-models.html#cb27-191" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
-<span id="cb27-192"><a href="neutral-landscape-models.html#cb27-192" tabindex="-1"></a>  <span class="fu">fmt_number</span>(</span>
-<span id="cb27-193"><a href="neutral-landscape-models.html#cb27-193" tabindex="-1"></a>    <span class="at">columns =</span> Mean_CLUMPY,</span>
-<span id="cb27-194"><a href="neutral-landscape-models.html#cb27-194" tabindex="-1"></a>    <span class="at">decimals =</span> <span class="dv">4</span></span>
-<span id="cb27-195"><a href="neutral-landscape-models.html#cb27-195" tabindex="-1"></a>  )</span></code></pre></div>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="neutral-landscape-models.html#cb30-1" tabindex="-1"></a></span>
+<span id="cb30-2"><a href="neutral-landscape-models.html#cb30-2" tabindex="-1"></a></span>
+<span id="cb30-3"><a href="neutral-landscape-models.html#cb30-3" tabindex="-1"></a><span class="fu">library</span>(NLMR)</span>
+<span id="cb30-4"><a href="neutral-landscape-models.html#cb30-4" tabindex="-1"></a><span class="fu">library</span>(raster)</span>
+<span id="cb30-5"><a href="neutral-landscape-models.html#cb30-5" tabindex="-1"></a><span class="fu">library</span>(landscapemetrics)</span>
+<span id="cb30-6"><a href="neutral-landscape-models.html#cb30-6" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb30-7"><a href="neutral-landscape-models.html#cb30-7" tabindex="-1"></a><span class="fu">library</span>(gt)</span>
+<span id="cb30-8"><a href="neutral-landscape-models.html#cb30-8" tabindex="-1"></a></span>
+<span id="cb30-9"><a href="neutral-landscape-models.html#cb30-9" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb30-10"><a href="neutral-landscape-models.html#cb30-10" tabindex="-1"></a></span>
+<span id="cb30-11"><a href="neutral-landscape-models.html#cb30-11" tabindex="-1"></a><span class="co">#---------------------------------------------------------------------------</span></span>
+<span id="cb30-12"><a href="neutral-landscape-models.html#cb30-12" tabindex="-1"></a><span class="co"># Experimental Design</span></span>
+<span id="cb30-13"><a href="neutral-landscape-models.html#cb30-13" tabindex="-1"></a><span class="co">#---------------------------------------------------------------------------</span></span>
+<span id="cb30-14"><a href="neutral-landscape-models.html#cb30-14" tabindex="-1"></a></span>
+<span id="cb30-15"><a href="neutral-landscape-models.html#cb30-15" tabindex="-1"></a>cover_levels <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="fl">0.9</span>, <span class="fl">0.1</span>, <span class="at">by =</span> <span class="sc">-</span><span class="fl">0.1</span>)</span>
+<span id="cb30-16"><a href="neutral-landscape-models.html#cb30-16" tabindex="-1"></a></span>
+<span id="cb30-17"><a href="neutral-landscape-models.html#cb30-17" tabindex="-1"></a>n_replicates <span class="ot">&lt;-</span> <span class="dv">100</span></span>
+<span id="cb30-18"><a href="neutral-landscape-models.html#cb30-18" tabindex="-1"></a></span>
+<span id="cb30-19"><a href="neutral-landscape-models.html#cb30-19" tabindex="-1"></a><span class="co">#---------------------------------------------------------------------------</span></span>
+<span id="cb30-20"><a href="neutral-landscape-models.html#cb30-20" tabindex="-1"></a><span class="co"># Simulation Function</span></span>
+<span id="cb30-21"><a href="neutral-landscape-models.html#cb30-21" tabindex="-1"></a><span class="co">#---------------------------------------------------------------------------</span></span>
+<span id="cb30-22"><a href="neutral-landscape-models.html#cb30-22" tabindex="-1"></a></span>
+<span id="cb30-23"><a href="neutral-landscape-models.html#cb30-23" tabindex="-1"></a>simulate_landscape <span class="ot">&lt;-</span> <span class="cf">function</span>(</span>
+<span id="cb30-24"><a href="neutral-landscape-models.html#cb30-24" tabindex="-1"></a>    cover,</span>
+<span id="cb30-25"><a href="neutral-landscape-models.html#cb30-25" tabindex="-1"></a>    <span class="at">model =</span> <span class="st">&quot;random&quot;</span>,</span>
+<span id="cb30-26"><a href="neutral-landscape-models.html#cb30-26" tabindex="-1"></a>    <span class="at">nrow =</span> <span class="dv">100</span>,</span>
+<span id="cb30-27"><a href="neutral-landscape-models.html#cb30-27" tabindex="-1"></a>    <span class="at">ncol =</span> <span class="dv">100</span>){</span>
+<span id="cb30-28"><a href="neutral-landscape-models.html#cb30-28" tabindex="-1"></a></span>
+<span id="cb30-29"><a href="neutral-landscape-models.html#cb30-29" tabindex="-1"></a>  <span class="co">#-----------------------------------------------------------------------</span></span>
+<span id="cb30-30"><a href="neutral-landscape-models.html#cb30-30" tabindex="-1"></a>  <span class="co"># Generate Landscape</span></span>
+<span id="cb30-31"><a href="neutral-landscape-models.html#cb30-31" tabindex="-1"></a>  <span class="co">#-----------------------------------------------------------------------</span></span>
+<span id="cb30-32"><a href="neutral-landscape-models.html#cb30-32" tabindex="-1"></a></span>
+<span id="cb30-33"><a href="neutral-landscape-models.html#cb30-33" tabindex="-1"></a>  <span class="cf">if</span>(model <span class="sc">==</span> <span class="st">&quot;random&quot;</span>){</span>
+<span id="cb30-34"><a href="neutral-landscape-models.html#cb30-34" tabindex="-1"></a></span>
+<span id="cb30-35"><a href="neutral-landscape-models.html#cb30-35" tabindex="-1"></a>    nlm <span class="ot">&lt;-</span> <span class="fu">nlm_random</span>(</span>
+<span id="cb30-36"><a href="neutral-landscape-models.html#cb30-36" tabindex="-1"></a>      <span class="at">nrow =</span> nrow,</span>
+<span id="cb30-37"><a href="neutral-landscape-models.html#cb30-37" tabindex="-1"></a>      <span class="at">ncol =</span> ncol</span>
+<span id="cb30-38"><a href="neutral-landscape-models.html#cb30-38" tabindex="-1"></a>    )</span>
+<span id="cb30-39"><a href="neutral-landscape-models.html#cb30-39" tabindex="-1"></a></span>
+<span id="cb30-40"><a href="neutral-landscape-models.html#cb30-40" tabindex="-1"></a>  } <span class="cf">else</span> <span class="cf">if</span>(model <span class="sc">==</span> <span class="st">&quot;clustered&quot;</span>){</span>
+<span id="cb30-41"><a href="neutral-landscape-models.html#cb30-41" tabindex="-1"></a></span>
+<span id="cb30-42"><a href="neutral-landscape-models.html#cb30-42" tabindex="-1"></a>    nlm <span class="ot">&lt;-</span> <span class="fu">nlm_mpd</span>(</span>
+<span id="cb30-43"><a href="neutral-landscape-models.html#cb30-43" tabindex="-1"></a>      <span class="at">nrow =</span> nrow,</span>
+<span id="cb30-44"><a href="neutral-landscape-models.html#cb30-44" tabindex="-1"></a>      <span class="at">ncol =</span> ncol,</span>
+<span id="cb30-45"><a href="neutral-landscape-models.html#cb30-45" tabindex="-1"></a>      <span class="at">roughness =</span> <span class="fl">0.7</span></span>
+<span id="cb30-46"><a href="neutral-landscape-models.html#cb30-46" tabindex="-1"></a>    )</span>
+<span id="cb30-47"><a href="neutral-landscape-models.html#cb30-47" tabindex="-1"></a></span>
+<span id="cb30-48"><a href="neutral-landscape-models.html#cb30-48" tabindex="-1"></a>  }</span>
+<span id="cb30-49"><a href="neutral-landscape-models.html#cb30-49" tabindex="-1"></a></span>
+<span id="cb30-50"><a href="neutral-landscape-models.html#cb30-50" tabindex="-1"></a>  <span class="co">#-----------------------------------------------------------------------</span></span>
+<span id="cb30-51"><a href="neutral-landscape-models.html#cb30-51" tabindex="-1"></a>  <span class="co"># Convert to Forest / Non-Forest</span></span>
+<span id="cb30-52"><a href="neutral-landscape-models.html#cb30-52" tabindex="-1"></a>  <span class="co">#-----------------------------------------------------------------------</span></span>
+<span id="cb30-53"><a href="neutral-landscape-models.html#cb30-53" tabindex="-1"></a></span>
+<span id="cb30-54"><a href="neutral-landscape-models.html#cb30-54" tabindex="-1"></a>  threshold <span class="ot">&lt;-</span> <span class="fu">quantile</span>(</span>
+<span id="cb30-55"><a href="neutral-landscape-models.html#cb30-55" tabindex="-1"></a>    <span class="fu">values</span>(nlm),</span>
+<span id="cb30-56"><a href="neutral-landscape-models.html#cb30-56" tabindex="-1"></a>    <span class="at">probs =</span> cover,</span>
+<span id="cb30-57"><a href="neutral-landscape-models.html#cb30-57" tabindex="-1"></a>    <span class="at">na.rm =</span> <span class="cn">TRUE</span></span>
+<span id="cb30-58"><a href="neutral-landscape-models.html#cb30-58" tabindex="-1"></a>  )</span>
+<span id="cb30-59"><a href="neutral-landscape-models.html#cb30-59" tabindex="-1"></a></span>
+<span id="cb30-60"><a href="neutral-landscape-models.html#cb30-60" tabindex="-1"></a>  forest <span class="ot">&lt;-</span> nlm</span>
+<span id="cb30-61"><a href="neutral-landscape-models.html#cb30-61" tabindex="-1"></a>  forest[] <span class="ot">&lt;-</span> <span class="fu">as.integer</span>(<span class="fu">values</span>(nlm) <span class="sc">&lt;=</span> threshold)</span>
+<span id="cb30-62"><a href="neutral-landscape-models.html#cb30-62" tabindex="-1"></a></span>
+<span id="cb30-63"><a href="neutral-landscape-models.html#cb30-63" tabindex="-1"></a>  <span class="co">#-----------------------------------------------------------------------</span></span>
+<span id="cb30-64"><a href="neutral-landscape-models.html#cb30-64" tabindex="-1"></a>  <span class="co"># Fragmentation Metrics</span></span>
+<span id="cb30-65"><a href="neutral-landscape-models.html#cb30-65" tabindex="-1"></a>  <span class="co">#-----------------------------------------------------------------------</span></span>
+<span id="cb30-66"><a href="neutral-landscape-models.html#cb30-66" tabindex="-1"></a></span>
+<span id="cb30-67"><a href="neutral-landscape-models.html#cb30-67" tabindex="-1"></a>  np <span class="ot">&lt;-</span> <span class="fu">lsm_l_np</span>(forest)<span class="sc">$</span>value</span>
+<span id="cb30-68"><a href="neutral-landscape-models.html#cb30-68" tabindex="-1"></a></span>
+<span id="cb30-69"><a href="neutral-landscape-models.html#cb30-69" tabindex="-1"></a>  lpi <span class="ot">&lt;-</span> <span class="fu">lsm_c_lpi</span>(forest) <span class="sc">|&gt;</span></span>
+<span id="cb30-70"><a href="neutral-landscape-models.html#cb30-70" tabindex="-1"></a>    <span class="fu">filter</span>(class <span class="sc">==</span> <span class="dv">1</span>) <span class="sc">|&gt;</span></span>
+<span id="cb30-71"><a href="neutral-landscape-models.html#cb30-71" tabindex="-1"></a>    <span class="fu">pull</span>(value)</span>
+<span id="cb30-72"><a href="neutral-landscape-models.html#cb30-72" tabindex="-1"></a></span>
+<span id="cb30-73"><a href="neutral-landscape-models.html#cb30-73" tabindex="-1"></a>  ed <span class="ot">&lt;-</span> <span class="fu">lsm_c_ed</span>(forest) <span class="sc">|&gt;</span></span>
+<span id="cb30-74"><a href="neutral-landscape-models.html#cb30-74" tabindex="-1"></a>    <span class="fu">filter</span>(class <span class="sc">==</span> <span class="dv">1</span>) <span class="sc">|&gt;</span></span>
+<span id="cb30-75"><a href="neutral-landscape-models.html#cb30-75" tabindex="-1"></a>    <span class="fu">pull</span>(value)</span>
+<span id="cb30-76"><a href="neutral-landscape-models.html#cb30-76" tabindex="-1"></a></span>
+<span id="cb30-77"><a href="neutral-landscape-models.html#cb30-77" tabindex="-1"></a>  clumpy <span class="ot">&lt;-</span> <span class="fu">lsm_c_clumpy</span>(forest) <span class="sc">|&gt;</span></span>
+<span id="cb30-78"><a href="neutral-landscape-models.html#cb30-78" tabindex="-1"></a>    <span class="fu">filter</span>(class <span class="sc">==</span> <span class="dv">1</span>) <span class="sc">|&gt;</span></span>
+<span id="cb30-79"><a href="neutral-landscape-models.html#cb30-79" tabindex="-1"></a>    <span class="fu">pull</span>(value)</span>
+<span id="cb30-80"><a href="neutral-landscape-models.html#cb30-80" tabindex="-1"></a></span>
+<span id="cb30-81"><a href="neutral-landscape-models.html#cb30-81" tabindex="-1"></a>  <span class="fu">data.frame</span>(</span>
+<span id="cb30-82"><a href="neutral-landscape-models.html#cb30-82" tabindex="-1"></a>    <span class="at">Model =</span> model,</span>
+<span id="cb30-83"><a href="neutral-landscape-models.html#cb30-83" tabindex="-1"></a>    <span class="at">Cover =</span> cover,</span>
+<span id="cb30-84"><a href="neutral-landscape-models.html#cb30-84" tabindex="-1"></a>    <span class="at">NP =</span> np,</span>
+<span id="cb30-85"><a href="neutral-landscape-models.html#cb30-85" tabindex="-1"></a>    <span class="at">LPI =</span> lpi,</span>
+<span id="cb30-86"><a href="neutral-landscape-models.html#cb30-86" tabindex="-1"></a>    <span class="at">ED =</span> ed,</span>
+<span id="cb30-87"><a href="neutral-landscape-models.html#cb30-87" tabindex="-1"></a>    <span class="at">CLUMPY =</span> clumpy</span>
+<span id="cb30-88"><a href="neutral-landscape-models.html#cb30-88" tabindex="-1"></a>  )</span>
+<span id="cb30-89"><a href="neutral-landscape-models.html#cb30-89" tabindex="-1"></a></span>
+<span id="cb30-90"><a href="neutral-landscape-models.html#cb30-90" tabindex="-1"></a>}</span>
+<span id="cb30-91"><a href="neutral-landscape-models.html#cb30-91" tabindex="-1"></a></span>
+<span id="cb30-92"><a href="neutral-landscape-models.html#cb30-92" tabindex="-1"></a><span class="co">#---------------------------------------------------------------------------</span></span>
+<span id="cb30-93"><a href="neutral-landscape-models.html#cb30-93" tabindex="-1"></a><span class="co"># Run Simulations</span></span>
+<span id="cb30-94"><a href="neutral-landscape-models.html#cb30-94" tabindex="-1"></a><span class="co">#---------------------------------------------------------------------------</span></span>
+<span id="cb30-95"><a href="neutral-landscape-models.html#cb30-95" tabindex="-1"></a></span>
+<span id="cb30-96"><a href="neutral-landscape-models.html#cb30-96" tabindex="-1"></a>results <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
+<span id="cb30-97"><a href="neutral-landscape-models.html#cb30-97" tabindex="-1"></a>counter <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb30-98"><a href="neutral-landscape-models.html#cb30-98" tabindex="-1"></a></span>
+<span id="cb30-99"><a href="neutral-landscape-models.html#cb30-99" tabindex="-1"></a>total_runs <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="sc">*</span> <span class="fu">length</span>(cover_levels) <span class="sc">*</span> n_replicates</span>
+<span id="cb30-100"><a href="neutral-landscape-models.html#cb30-100" tabindex="-1"></a></span>
+<span id="cb30-101"><a href="neutral-landscape-models.html#cb30-101" tabindex="-1"></a><span class="cf">for</span>(model <span class="cf">in</span> <span class="fu">c</span>(<span class="st">&quot;random&quot;</span>, <span class="st">&quot;clustered&quot;</span>)){</span>
+<span id="cb30-102"><a href="neutral-landscape-models.html#cb30-102" tabindex="-1"></a></span>
+<span id="cb30-103"><a href="neutral-landscape-models.html#cb30-103" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">&quot;Running:&quot;</span>, model, <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb30-104"><a href="neutral-landscape-models.html#cb30-104" tabindex="-1"></a></span>
+<span id="cb30-105"><a href="neutral-landscape-models.html#cb30-105" tabindex="-1"></a>  <span class="cf">for</span>(cover <span class="cf">in</span> cover_levels){</span>
+<span id="cb30-106"><a href="neutral-landscape-models.html#cb30-106" tabindex="-1"></a></span>
+<span id="cb30-107"><a href="neutral-landscape-models.html#cb30-107" tabindex="-1"></a>    <span class="cf">for</span>(rep <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>n_replicates){</span>
+<span id="cb30-108"><a href="neutral-landscape-models.html#cb30-108" tabindex="-1"></a></span>
+<span id="cb30-109"><a href="neutral-landscape-models.html#cb30-109" tabindex="-1"></a>      results[[counter]] <span class="ot">&lt;-</span> <span class="fu">simulate_landscape</span>(</span>
+<span id="cb30-110"><a href="neutral-landscape-models.html#cb30-110" tabindex="-1"></a>        <span class="at">cover =</span> cover,</span>
+<span id="cb30-111"><a href="neutral-landscape-models.html#cb30-111" tabindex="-1"></a>        <span class="at">model =</span> model</span>
+<span id="cb30-112"><a href="neutral-landscape-models.html#cb30-112" tabindex="-1"></a>      )</span>
+<span id="cb30-113"><a href="neutral-landscape-models.html#cb30-113" tabindex="-1"></a></span>
+<span id="cb30-114"><a href="neutral-landscape-models.html#cb30-114" tabindex="-1"></a>      <span class="cf">if</span>(counter <span class="sc">%%</span> <span class="dv">100</span> <span class="sc">==</span> <span class="dv">0</span>){</span>
+<span id="cb30-115"><a href="neutral-landscape-models.html#cb30-115" tabindex="-1"></a></span>
+<span id="cb30-116"><a href="neutral-landscape-models.html#cb30-116" tabindex="-1"></a>        <span class="fu">cat</span>(</span>
+<span id="cb30-117"><a href="neutral-landscape-models.html#cb30-117" tabindex="-1"></a>          <span class="fu">sprintf</span>(</span>
+<span id="cb30-118"><a href="neutral-landscape-models.html#cb30-118" tabindex="-1"></a>            <span class="st">&quot;Completed %d of %d (%.1f%%)</span><span class="sc">\n</span><span class="st">&quot;</span>,</span>
+<span id="cb30-119"><a href="neutral-landscape-models.html#cb30-119" tabindex="-1"></a>            counter,</span>
+<span id="cb30-120"><a href="neutral-landscape-models.html#cb30-120" tabindex="-1"></a>            total_runs,</span>
+<span id="cb30-121"><a href="neutral-landscape-models.html#cb30-121" tabindex="-1"></a>            <span class="dv">100</span> <span class="sc">*</span> counter <span class="sc">/</span> total_runs</span>
+<span id="cb30-122"><a href="neutral-landscape-models.html#cb30-122" tabindex="-1"></a>          )</span>
+<span id="cb30-123"><a href="neutral-landscape-models.html#cb30-123" tabindex="-1"></a>        )</span>
+<span id="cb30-124"><a href="neutral-landscape-models.html#cb30-124" tabindex="-1"></a></span>
+<span id="cb30-125"><a href="neutral-landscape-models.html#cb30-125" tabindex="-1"></a>        <span class="fu">flush.console</span>()</span>
+<span id="cb30-126"><a href="neutral-landscape-models.html#cb30-126" tabindex="-1"></a></span>
+<span id="cb30-127"><a href="neutral-landscape-models.html#cb30-127" tabindex="-1"></a>      }</span>
+<span id="cb30-128"><a href="neutral-landscape-models.html#cb30-128" tabindex="-1"></a></span>
+<span id="cb30-129"><a href="neutral-landscape-models.html#cb30-129" tabindex="-1"></a>      counter <span class="ot">&lt;-</span> counter <span class="sc">+</span> <span class="dv">1</span></span>
+<span id="cb30-130"><a href="neutral-landscape-models.html#cb30-130" tabindex="-1"></a></span>
+<span id="cb30-131"><a href="neutral-landscape-models.html#cb30-131" tabindex="-1"></a>    }</span>
+<span id="cb30-132"><a href="neutral-landscape-models.html#cb30-132" tabindex="-1"></a></span>
+<span id="cb30-133"><a href="neutral-landscape-models.html#cb30-133" tabindex="-1"></a>  }</span>
+<span id="cb30-134"><a href="neutral-landscape-models.html#cb30-134" tabindex="-1"></a></span>
+<span id="cb30-135"><a href="neutral-landscape-models.html#cb30-135" tabindex="-1"></a>}</span>
+<span id="cb30-136"><a href="neutral-landscape-models.html#cb30-136" tabindex="-1"></a><span class="do">## Running: random </span></span>
+<span id="cb30-137"><a href="neutral-landscape-models.html#cb30-137" tabindex="-1"></a><span class="do">## Completed 100 of 1800 (5.6%)</span></span>
+<span id="cb30-138"><a href="neutral-landscape-models.html#cb30-138" tabindex="-1"></a><span class="do">## Completed 200 of 1800 (11.1%)</span></span>
+<span id="cb30-139"><a href="neutral-landscape-models.html#cb30-139" tabindex="-1"></a><span class="do">## Completed 300 of 1800 (16.7%)</span></span>
+<span id="cb30-140"><a href="neutral-landscape-models.html#cb30-140" tabindex="-1"></a><span class="do">## Completed 400 of 1800 (22.2%)</span></span>
+<span id="cb30-141"><a href="neutral-landscape-models.html#cb30-141" tabindex="-1"></a><span class="do">## Completed 500 of 1800 (27.8%)</span></span>
+<span id="cb30-142"><a href="neutral-landscape-models.html#cb30-142" tabindex="-1"></a><span class="do">## Completed 600 of 1800 (33.3%)</span></span>
+<span id="cb30-143"><a href="neutral-landscape-models.html#cb30-143" tabindex="-1"></a><span class="do">## Completed 700 of 1800 (38.9%)</span></span>
+<span id="cb30-144"><a href="neutral-landscape-models.html#cb30-144" tabindex="-1"></a><span class="do">## Completed 800 of 1800 (44.4%)</span></span>
+<span id="cb30-145"><a href="neutral-landscape-models.html#cb30-145" tabindex="-1"></a><span class="do">## Completed 900 of 1800 (50.0%)</span></span>
+<span id="cb30-146"><a href="neutral-landscape-models.html#cb30-146" tabindex="-1"></a><span class="do">## Running: clustered</span></span>
+<span id="cb30-147"><a href="neutral-landscape-models.html#cb30-147" tabindex="-1"></a><span class="do">## Completed 1000 of 1800 (55.6%)</span></span>
+<span id="cb30-148"><a href="neutral-landscape-models.html#cb30-148" tabindex="-1"></a><span class="do">## Completed 1100 of 1800 (61.1%)</span></span>
+<span id="cb30-149"><a href="neutral-landscape-models.html#cb30-149" tabindex="-1"></a><span class="do">## Completed 1200 of 1800 (66.7%)</span></span>
+<span id="cb30-150"><a href="neutral-landscape-models.html#cb30-150" tabindex="-1"></a><span class="do">## Completed 1300 of 1800 (72.2%)</span></span>
+<span id="cb30-151"><a href="neutral-landscape-models.html#cb30-151" tabindex="-1"></a><span class="do">## Completed 1400 of 1800 (77.8%)</span></span>
+<span id="cb30-152"><a href="neutral-landscape-models.html#cb30-152" tabindex="-1"></a><span class="do">## Completed 1500 of 1800 (83.3%)</span></span>
+<span id="cb30-153"><a href="neutral-landscape-models.html#cb30-153" tabindex="-1"></a><span class="do">## Completed 1600 of 1800 (88.9%)</span></span>
+<span id="cb30-154"><a href="neutral-landscape-models.html#cb30-154" tabindex="-1"></a><span class="do">## Completed 1700 of 1800 (94.4%)</span></span>
+<span id="cb30-155"><a href="neutral-landscape-models.html#cb30-155" tabindex="-1"></a><span class="do">## Completed 1800 of 1800 (100.0%)</span></span>
+<span id="cb30-156"><a href="neutral-landscape-models.html#cb30-156" tabindex="-1"></a></span>
+<span id="cb30-157"><a href="neutral-landscape-models.html#cb30-157" tabindex="-1"></a>results <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(results)</span>
+<span id="cb30-158"><a href="neutral-landscape-models.html#cb30-158" tabindex="-1"></a></span>
+<span id="cb30-159"><a href="neutral-landscape-models.html#cb30-159" tabindex="-1"></a><span class="co">#---------------------------------------------------------------------------</span></span>
+<span id="cb30-160"><a href="neutral-landscape-models.html#cb30-160" tabindex="-1"></a><span class="co"># Summarize Results</span></span>
+<span id="cb30-161"><a href="neutral-landscape-models.html#cb30-161" tabindex="-1"></a><span class="co">#---------------------------------------------------------------------------</span></span>
+<span id="cb30-162"><a href="neutral-landscape-models.html#cb30-162" tabindex="-1"></a></span>
+<span id="cb30-163"><a href="neutral-landscape-models.html#cb30-163" tabindex="-1"></a>summary_results <span class="ot">&lt;-</span> results <span class="sc">|&gt;</span></span>
+<span id="cb30-164"><a href="neutral-landscape-models.html#cb30-164" tabindex="-1"></a>  <span class="fu">group_by</span>(Model, Cover) <span class="sc">|&gt;</span></span>
+<span id="cb30-165"><a href="neutral-landscape-models.html#cb30-165" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb30-166"><a href="neutral-landscape-models.html#cb30-166" tabindex="-1"></a>    <span class="at">Mean_NP =</span> <span class="fu">mean</span>(NP, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb30-167"><a href="neutral-landscape-models.html#cb30-167" tabindex="-1"></a>    <span class="at">Mean_LPI =</span> <span class="fu">mean</span>(LPI, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb30-168"><a href="neutral-landscape-models.html#cb30-168" tabindex="-1"></a>    <span class="at">Mean_ED =</span> <span class="fu">mean</span>(ED, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb30-169"><a href="neutral-landscape-models.html#cb30-169" tabindex="-1"></a>    <span class="at">Mean_CLUMPY =</span> <span class="fu">mean</span>(CLUMPY, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb30-170"><a href="neutral-landscape-models.html#cb30-170" tabindex="-1"></a>    <span class="at">.groups =</span> <span class="st">&quot;drop&quot;</span></span>
+<span id="cb30-171"><a href="neutral-landscape-models.html#cb30-171" tabindex="-1"></a>  )</span>
+<span id="cb30-172"><a href="neutral-landscape-models.html#cb30-172" tabindex="-1"></a></span>
+<span id="cb30-173"><a href="neutral-landscape-models.html#cb30-173" tabindex="-1"></a><span class="co">#---------------------------------------------------------------------------</span></span>
+<span id="cb30-174"><a href="neutral-landscape-models.html#cb30-174" tabindex="-1"></a><span class="co"># Display Summary Table</span></span>
+<span id="cb30-175"><a href="neutral-landscape-models.html#cb30-175" tabindex="-1"></a><span class="co">#---------------------------------------------------------------------------</span></span>
+<span id="cb30-176"><a href="neutral-landscape-models.html#cb30-176" tabindex="-1"></a></span>
+<span id="cb30-177"><a href="neutral-landscape-models.html#cb30-177" tabindex="-1"></a>summary_results <span class="sc">|&gt;</span></span>
+<span id="cb30-178"><a href="neutral-landscape-models.html#cb30-178" tabindex="-1"></a>  <span class="fu">arrange</span>(Model, <span class="fu">desc</span>(Cover)) <span class="sc">|&gt;</span></span>
+<span id="cb30-179"><a href="neutral-landscape-models.html#cb30-179" tabindex="-1"></a>  <span class="fu">gt</span>() <span class="sc">|&gt;</span></span>
+<span id="cb30-180"><a href="neutral-landscape-models.html#cb30-180" tabindex="-1"></a>  <span class="fu">tab_header</span>(</span>
+<span id="cb30-181"><a href="neutral-landscape-models.html#cb30-181" tabindex="-1"></a>    <span class="at">title =</span> <span class="fu">md</span>(<span class="st">&quot;**Random vs. Clustered Neutral Landscapes**&quot;</span>),</span>
+<span id="cb30-182"><a href="neutral-landscape-models.html#cb30-182" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">&quot;100 × 100 grids; 100 replicates per cover level&quot;</span></span>
+<span id="cb30-183"><a href="neutral-landscape-models.html#cb30-183" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb30-184"><a href="neutral-landscape-models.html#cb30-184" tabindex="-1"></a>  <span class="fu">fmt_number</span>(</span>
+<span id="cb30-185"><a href="neutral-landscape-models.html#cb30-185" tabindex="-1"></a>    <span class="at">columns =</span> <span class="fu">c</span>(</span>
+<span id="cb30-186"><a href="neutral-landscape-models.html#cb30-186" tabindex="-1"></a>      Mean_NP,</span>
+<span id="cb30-187"><a href="neutral-landscape-models.html#cb30-187" tabindex="-1"></a>      Mean_LPI,</span>
+<span id="cb30-188"><a href="neutral-landscape-models.html#cb30-188" tabindex="-1"></a>      Mean_ED</span>
+<span id="cb30-189"><a href="neutral-landscape-models.html#cb30-189" tabindex="-1"></a>    ),</span>
+<span id="cb30-190"><a href="neutral-landscape-models.html#cb30-190" tabindex="-1"></a>    <span class="at">decimals =</span> <span class="dv">2</span></span>
+<span id="cb30-191"><a href="neutral-landscape-models.html#cb30-191" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb30-192"><a href="neutral-landscape-models.html#cb30-192" tabindex="-1"></a>  <span class="fu">fmt_number</span>(</span>
+<span id="cb30-193"><a href="neutral-landscape-models.html#cb30-193" tabindex="-1"></a>    <span class="at">columns =</span> Mean_CLUMPY,</span>
+<span id="cb30-194"><a href="neutral-landscape-models.html#cb30-194" tabindex="-1"></a>    <span class="at">decimals =</span> <span class="dv">4</span></span>
+<span id="cb30-195"><a href="neutral-landscape-models.html#cb30-195" tabindex="-1"></a>  )</span></code></pre></div>
 </details>
 <div id="mlzxgmdavl" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>#mlzxgmdavl table {

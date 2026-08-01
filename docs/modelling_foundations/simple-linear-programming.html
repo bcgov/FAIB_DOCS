@@ -23,7 +23,7 @@
 <meta name="author" content="A collaborative effort between a Human (Kelly Izzard) and AI" />
 
 
-<meta name="date" content="2026-07-31" />
+<meta name="date" content="2026-08-01" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -305,10 +305,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="11.1" data-path="spatial-data-accuracy-and-precision-in-strategic-modelling.html"><a href="spatial-data-accuracy-and-precision-in-strategic-modelling.html#introduction-10"><i class="fa fa-check"></i><b>11.1</b> Introduction</a></li>
 <li class="chapter" data-level="11.2" data-path="spatial-data-accuracy-and-precision-in-strategic-modelling.html"><a href="spatial-data-accuracy-and-precision-in-strategic-modelling.html#precision-and-the-grid"><i class="fa fa-check"></i><b>11.2</b> Precision and the grid</a></li>
 <li class="chapter" data-level="11.3" data-path="spatial-data-accuracy-and-precision-in-strategic-modelling.html"><a href="spatial-data-accuracy-and-precision-in-strategic-modelling.html#the-weakest-link-principle-in-spatial-analysis"><i class="fa fa-check"></i><b>11.3</b> The Weakest Link Principle in Spatial Analysis</a></li>
-<li class="chapter" data-level="11.4" data-path="spatial-data-accuracy-and-precision-in-strategic-modelling.html"><a href="spatial-data-accuracy-and-precision-in-strategic-modelling.html#fitness-for-purpose"><i class="fa fa-check"></i><b>11.4</b> Fitness for Purpose</a>
-<ul>
-<li class="chapter" data-level="11.4.1" data-path="spatial-data-accuracy-and-precision-in-strategic-modelling.html"><a href="spatial-data-accuracy-and-precision-in-strategic-modelling.html#raster-versus-vector-redux"><i class="fa fa-check"></i><b>11.4.1</b> Raster versus Vector Redux</a></li>
-</ul></li>
+<li class="chapter" data-level="11.4" data-path="spatial-data-accuracy-and-precision-in-strategic-modelling.html"><a href="spatial-data-accuracy-and-precision-in-strategic-modelling.html#fitness-for-purpose"><i class="fa fa-check"></i><b>11.4</b> Fitness for Purpose</a></li>
 <li class="chapter" data-level="11.5" data-path="spatial-data-accuracy-and-precision-in-strategic-modelling.html"><a href="spatial-data-accuracy-and-precision-in-strategic-modelling.html#path-dependency-and-the-illusion-of-precision"><i class="fa fa-check"></i><b>11.5</b> Path Dependency and the Illusion of Precision</a>
 <ul>
 <li class="chapter" data-level="11.5.1" data-path="spatial-data-accuracy-and-precision-in-strategic-modelling.html"><a href="spatial-data-accuracy-and-precision-in-strategic-modelling.html#precision-becomes-a-proxy-for-quality"><i class="fa fa-check"></i><b>11.5.1</b> Precision Becomes a Proxy for Quality</a></li>
@@ -412,8 +409,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h1><span class="header-section-number">2</span> Simple Linear Programming<a href="simple-linear-programming.html#simple-linear-programming" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <div id="introduction-1" class="section level2 hasAnchor" number="2.1">
 <h2><span class="header-section-number">2.1</span> Introduction<a href="simple-linear-programming.html#introduction-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Linear programming (LP) is a mathematical optimization technique used to identify the best possible solution to a problem when resources are limited and decisions are constrained. In its simplest form, linear programming seeks to maximize or minimize an objective function—such as profit, cost, timber volume, or net present value—while satisfying a set of linear constraints that represent real-world limitations. These constraints may include budgets, labour availability, harvest capacities, road construction limits, wildlife requirements, or other operational considerations. The term linear refers to the fact that both the objective function and the constraints are expressed as linear equations or inequalities.</p>
-<p>Linear programming has been widely applied in fields such as transportation, manufacturing, agriculture, finance, and natural resource management. In forestry, linear programming can be used to determine harvest schedules, allocate silviculture investments, design road networks, or balance timber production with environmental objectives. Although modern forest planning problems often involve thousands of decision variables and complex non-linear relationships, linear programming provides an important foundation for understanding optimization. The concepts of decision variables, objective functions, constraints, feasible solutions, and optimal solutions form the basis of many more advanced approaches, including simulated annealing, goal programming, and other heuristic optimization techniques used in contemporary forest estate planning.</p>
+<p>Linear programming (LP) is a mathematical optimization technique used to identify the best possible solution to a problem when resources are limited and decisions are constrained. In its simplest form, linear programming seeks to maximize or minimize an objective function—such as profit, cost, timber volume, or net present value—while satisfying a set of linear constraints that represent real-world limitations. In a forestry context these constraints may include budgets, labour availability, harvest capacities, road construction limits, wildlife requirements, or other operational considerations. The term linear refers to the fact that both the objective function and the constraints are expressed as linear equations or inequalities.</p>
+<p>Although modern forest planning problems often involve thousands of decision variables and complex non-linear relationships, linear programming provides an important foundation for understanding optimization. The concepts of decision variables, objective functions, constraints, feasible solutions, and optimal solutions form the basis of many more advanced approaches, including simulated annealing, goal programming, and other heuristic optimization techniques used in contemporary forest estate planning.</p>
 <p>A good explainer is found
 <a href="https://www.youtube.com/watch?v=K7TL5NMlKIk">here</a></p>
 </div>
@@ -423,7 +420,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Before understanding how the Simplex Method works, it is important to define several key terms. The <strong>objective function</strong> is the equation that measures the quantity to be maximized or minimized, such as profit, timber volume, net present value, or cost. For example, a forest manager might wish to maximize:</p>
 <p><strong>NPV=500x+800y</strong></p>
 <p>where x and y represent harvest areas in two forest stands. The objective function provides a numerical score for every possible solution and defines what the optimization process is trying to achieve. In a maximization problem, larger objective function values represent better solutions, while in a minimization problem, smaller values are preferred.</p>
-<p>A <strong>constraint</strong> is a mathematical restriction that limits the allowable values of the decision variables. Constraints represent real-world limitations such as budgets, harvesting capacities, road construction costs, labour availability, or wildlife habitat requirements. Together, all constraints define the set of solutions that are acceptable. The collection of points that satisfy every constraint simultaneously is known as the <strong>feasible region</strong>. In a two-variable problem, the feasible region can often be visualized as a polygon on a graph. Every point inside this region represents a valid solution, while points outside violate one or more constraints and are therefore infeasible.</p>
+<p>A <strong>constraint</strong> is a mathematical restriction that limits the allowable values of the decision variables. Constraints represent real-world limitations such as budgets, harvesting capacities, road construction costs, labour availability, or wildlife habitat requirements. Together, all constraints define the set of solutions that are acceptable. The collection of points that satisfy every constraint simultaneously is known as the <strong>feasible region</strong>. In a simple two-variable problem, the feasible region can often be visualized as a polygon on a graph. Every point inside this region represents a valid solution, while points outside violate one or more constraints and are therefore infeasible.</p>
 <p>The Simplex Method exploits an important property of linear programming: if an optimal solution exists, it must occur at one of the corner points, or vertices, of the feasible region. Rather than searching the entire region, the algorithm begins at one feasible vertex and systematically moves to adjacent vertices that improve the objective function value. Each move is guaranteed to maintain feasibility while providing an equal or better solution. The process continues until no neighboring vertex offers further improvement, at which point the current vertex is the optimal solution. In essence, the Simplex Method finds the best solution by “walking” along the edges of the feasible region from one corner to another, efficiently locating the point that maximizes or minimizes the objective function.</p>
 <div id="a-simple-problem" class="section level4 hasAnchor" number="2.2.0.1">
 <h4><span class="header-section-number">2.2.0.1</span> A Simple Problem<a href="simple-linear-programming.html#a-simple-problem" class="anchor-section" aria-label="Anchor link to header"></a></h4>
@@ -488,23 +485,23 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="results" class="section level3 hasAnchor" number="2.2.1">
 <h3><span class="header-section-number">2.2.1</span> Results<a href="simple-linear-programming.html#results" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div id="onbdqxvlub" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#onbdqxvlub table {
+<div id="mxqzeqkinz" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#mxqzeqkinz table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#onbdqxvlub thead, #onbdqxvlub tbody, #onbdqxvlub tfoot, #onbdqxvlub tr, #onbdqxvlub td, #onbdqxvlub th {
+#mxqzeqkinz thead, #mxqzeqkinz tbody, #mxqzeqkinz tfoot, #mxqzeqkinz tr, #mxqzeqkinz td, #mxqzeqkinz th {
   border-style: none;
 }
 
-#onbdqxvlub p {
+#mxqzeqkinz p {
   margin: 0;
   padding: 0;
 }
 
-#onbdqxvlub .gt_table {
+#mxqzeqkinz .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -530,12 +527,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-left-color: #D3D3D3;
 }
 
-#onbdqxvlub .gt_caption {
+#mxqzeqkinz .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#onbdqxvlub .gt_title {
+#mxqzeqkinz .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -547,7 +544,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-bottom-width: 0;
 }
 
-#onbdqxvlub .gt_subtitle {
+#mxqzeqkinz .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -559,7 +556,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-top-width: 0;
 }
 
-#onbdqxvlub .gt_heading {
+#mxqzeqkinz .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -571,13 +568,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-right-color: #D3D3D3;
 }
 
-#onbdqxvlub .gt_bottom_border {
+#mxqzeqkinz .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#onbdqxvlub .gt_col_headings {
+#mxqzeqkinz .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -592,7 +589,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-right-color: #D3D3D3;
 }
 
-#onbdqxvlub .gt_col_heading {
+#mxqzeqkinz .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -612,7 +609,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   overflow-x: hidden;
 }
 
-#onbdqxvlub .gt_column_spanner_outer {
+#mxqzeqkinz .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -624,15 +621,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   padding-right: 4px;
 }
 
-#onbdqxvlub .gt_column_spanner_outer:first-child {
+#mxqzeqkinz .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#onbdqxvlub .gt_column_spanner_outer:last-child {
+#mxqzeqkinz .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#onbdqxvlub .gt_column_spanner {
+#mxqzeqkinz .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -644,11 +641,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   width: 100%;
 }
 
-#onbdqxvlub .gt_spanner_row {
+#mxqzeqkinz .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#onbdqxvlub .gt_group_heading {
+#mxqzeqkinz .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -674,7 +671,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   text-align: left;
 }
 
-#onbdqxvlub .gt_empty_group_heading {
+#mxqzeqkinz .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -689,15 +686,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   vertical-align: middle;
 }
 
-#onbdqxvlub .gt_from_md > :first-child {
+#mxqzeqkinz .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#onbdqxvlub .gt_from_md > :last-child {
+#mxqzeqkinz .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#onbdqxvlub .gt_row {
+#mxqzeqkinz .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -716,7 +713,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   overflow-x: hidden;
 }
 
-#onbdqxvlub .gt_stub {
+#mxqzeqkinz .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -729,7 +726,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   padding-right: 5px;
 }
 
-#onbdqxvlub .gt_stub_row_group {
+#mxqzeqkinz .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -743,15 +740,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   vertical-align: top;
 }
 
-#onbdqxvlub .gt_row_group_first td {
+#mxqzeqkinz .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#onbdqxvlub .gt_row_group_first th {
+#mxqzeqkinz .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#onbdqxvlub .gt_summary_row {
+#mxqzeqkinz .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -761,16 +758,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   padding-right: 5px;
 }
 
-#onbdqxvlub .gt_first_summary_row {
+#mxqzeqkinz .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#onbdqxvlub .gt_first_summary_row.thick {
+#mxqzeqkinz .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#onbdqxvlub .gt_last_summary_row {
+#mxqzeqkinz .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -780,7 +777,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-bottom-color: #D3D3D3;
 }
 
-#onbdqxvlub .gt_grand_summary_row {
+#mxqzeqkinz .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -790,7 +787,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   padding-right: 5px;
 }
 
-#onbdqxvlub .gt_first_grand_summary_row {
+#mxqzeqkinz .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -800,7 +797,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-top-color: #D3D3D3;
 }
 
-#onbdqxvlub .gt_last_grand_summary_row_top {
+#mxqzeqkinz .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -810,11 +807,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-bottom-color: #D3D3D3;
 }
 
-#onbdqxvlub .gt_striped {
+#mxqzeqkinz .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#onbdqxvlub .gt_table_body {
+#mxqzeqkinz .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -823,7 +820,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-bottom-color: #D3D3D3;
 }
 
-#onbdqxvlub .gt_footnotes {
+#mxqzeqkinz .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -837,7 +834,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-right-color: #D3D3D3;
 }
 
-#onbdqxvlub .gt_footnote {
+#mxqzeqkinz .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -846,7 +843,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   padding-right: 5px;
 }
 
-#onbdqxvlub .gt_sourcenotes {
+#mxqzeqkinz .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -860,7 +857,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-right-color: #D3D3D3;
 }
 
-#onbdqxvlub .gt_sourcenote {
+#mxqzeqkinz .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -868,72 +865,72 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   padding-right: 5px;
 }
 
-#onbdqxvlub .gt_left {
+#mxqzeqkinz .gt_left {
   text-align: left;
 }
 
-#onbdqxvlub .gt_center {
+#mxqzeqkinz .gt_center {
   text-align: center;
 }
 
-#onbdqxvlub .gt_right {
+#mxqzeqkinz .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#onbdqxvlub .gt_font_normal {
+#mxqzeqkinz .gt_font_normal {
   font-weight: normal;
 }
 
-#onbdqxvlub .gt_font_bold {
+#mxqzeqkinz .gt_font_bold {
   font-weight: bold;
 }
 
-#onbdqxvlub .gt_font_italic {
+#mxqzeqkinz .gt_font_italic {
   font-style: italic;
 }
 
-#onbdqxvlub .gt_super {
+#mxqzeqkinz .gt_super {
   font-size: 65%;
 }
 
-#onbdqxvlub .gt_footnote_marks {
+#mxqzeqkinz .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#onbdqxvlub .gt_asterisk {
+#mxqzeqkinz .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#onbdqxvlub .gt_indent_1 {
+#mxqzeqkinz .gt_indent_1 {
   text-indent: 5px;
 }
 
-#onbdqxvlub .gt_indent_2 {
+#mxqzeqkinz .gt_indent_2 {
   text-indent: 10px;
 }
 
-#onbdqxvlub .gt_indent_3 {
+#mxqzeqkinz .gt_indent_3 {
   text-indent: 15px;
 }
 
-#onbdqxvlub .gt_indent_4 {
+#mxqzeqkinz .gt_indent_4 {
   text-indent: 20px;
 }
 
-#onbdqxvlub .gt_indent_5 {
+#mxqzeqkinz .gt_indent_5 {
   text-indent: 25px;
 }
 
-#onbdqxvlub .katex-display {
+#mxqzeqkinz .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#onbdqxvlub div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#mxqzeqkinz div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
