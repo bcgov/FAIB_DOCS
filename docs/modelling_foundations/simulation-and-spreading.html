@@ -23,7 +23,7 @@
 <meta name="author" content="A collaborative effort between a Human (Kelly Izzard) and AI" />
 
 
-<meta name="date" content="2026-08-01" />
+<meta name="date" content="2026-08-02" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -149,6 +149,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 </style>
 
+<link rel="stylesheet" href="style.css" type="text/css" />
 </head>
 
 <body>
@@ -409,19 +410,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h1><span class="header-section-number">9</span> Simulation and Spreading<a href="simulation-and-spreading.html#simulation-and-spreading" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <div id="introduction-8" class="section level2 hasAnchor" number="9.1">
 <h2><span class="header-section-number">9.1</span> Introduction<a href="simulation-and-spreading.html#introduction-8" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Simulation modelling is a powerful tool in landscape analysis because it allows researchers to investigate ecological processes under controlled and repeatable conditions that would be difficult, costly, or impossible to observe directly in real landscapes. By generating artificial landscapes with known properties, researchers can isolate the effects of habitat amount, spatial arrangement, and connectivity on ecological processes such as species movement, disturbance propagation, gene flow, or disease transmission. Neutral Landscape Models (NLMs) are particularly useful because they create landscapes according to specified statistical rules rather than observed ecological patterns, allowing hypotheses about landscape structure and function to be examined without the confounding influences present in real-world systems.</p>
-<p>This script uses simulation to examine how differences in landscape structure influence connectivity and the spread of a contagion process. The model is designed to identify critical connectivity thresholds predicted by percolation theory, where small increases in habitat cover cause isolated habitat patches to become linked into large connected networks, resulting in a rapid increase in the potential for landscape-scale contagion. This provides a rigorous framework for understanding how landscape pattern influences ecological processes and for exploring the consequences of habitat fragmentation and connectivity in complex spatial systems.</p>
+<p>Simulation modelling is a powerful tool in landscape analysis because it allows modellers to investigate ecological processes under controlled and repeatable conditions that would be difficult, costly, or impossible to observe directly in real landscapes. By generating artificial landscapes with known properties, modellers can isolate the effects of habitat amount, spatial arrangement, and connectivity on ecological processes such as species movement, disturbance propagation, gene flow, or disease transmission.</p>
+<p>This exercise uses simulation to examine how differences in landscape structure influence connectivity and the spread of a contagion process. The model is designed to identify critical connectivity thresholds predicted by percolation theory, where small increases in forest cover cause isolatedpatches to become linked into large connected networks, resulting in a rapid increase in the potential for landscape-scale contagion. This provides a rigorous framework for understanding how landscape pattern influences ecological processes and for exploring the consequences of habitat fragmentation and connectivity in complex spatial systems.</p>
 </div>
 <div id="spreading" class="section level2 hasAnchor" number="9.2">
 <h2><span class="header-section-number">9.2</span> Spreading<a href="simulation-and-spreading.html#spreading" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>This simulation is based on the principle that landscape pattern influences ecological connectivity, and that connectivity influences the ability of a process to spread across a landscape. Two neutral landscape models are generated: a completely random landscape and a spatially autocorrelated (clustered) landscape. Each landscape is converted into a binary raster in which cells are classified as either forest habitat or non-forest habitat according to a specified level of forest cover. By varying forest cover from 10% to 90%, the simulation examines how changes in habitat amount affect the formation of connected habitat networks.</p>
-<p>Forest habitat is represented as a <strong>graph</strong> (network), where each forest cell is treated as a node and adjacent forest cells are connected by edges. This graph-based representation allows the landscape to be analysed using connectivity theory. Metrics such as the number of connected components, the size of the largest connected component, mean node degree, edge density, and clustering coefficient describe the structure of the habitat network. Of particular importance is the proportion of habitat contained within the largest connected component, which represents the amount of habitat that is accessible through continuous forest connections.</p>
+<p>Landscape pattern influences ecological connectivity, and that connectivity influences the ability of a process to spread across a landscape. Two neutral landscape models are generated: a completely random landscape and a spatially autocorrelated (clustered) landscape. Each landscape is converted into a binary raster in which cells are classified as either forest habitat or non-forest habitat according to a specified level of forest cover. By varying forest cover from 10% to 90%, the simulation examines how changes in habitat amount affect the formation of connected habitat networks.</p>
+<p>Forest habitat is represented as a <strong>graph</strong> (network), where each forest cell is treated as a node and adjacent forest cells are connected by edges. This graph-based representation allows the landscape to be analysed using connectivity theory. Metrics such as the number of connected components, the size of the largest connected component, mean node degree, edge density, and clustering coefficient describe the structure of the network. Of particular importance is the proportion of forest cover contained within the largest connected component, which represents the amount of habitat that is accessible through continuous forest connections.</p>
 <div style="font-size: 80%;">
-<p><strong><em>Graph theory is a branch of mathematics that studies networks consisting of vertices (nodes) connected by edges (links), providing a framework for analyzing relationships, connections, and movement within complex systems. Graphs can represent a wide variety of real-world phenomena, including road networks, social interactions, ecological corridors, communication systems, and transportation routes. In graph theory, properties such as connectivity, shortest paths, centrality, clustering, and network structure can be quantified and analyzed using mathematical algorithms. By representing a system as a graph, researchers can identify critical nodes and links, evaluate the efficiency of movement or information flow, detect isolated components, and assess overall network resilience. As a result, graph theory is widely applied in fields such as computer science, geography, transportation planning, ecology, telecommunications, and operations research to better understand and optimize interconnected systems.</em></strong></p>
+<p><strong><em>Graph theory is a branch of mathematics that studies networks consisting of vertices (nodes) connected by edges (links), providing a framework for analyzing relationships, connections, and movement within complex systems. Graphs can represent a wide variety of real-world phenomena, including road networks, social interactions, ecological corridors, communication systems, and transportation routes. In graph theory, properties such as connectivity, shortest paths, centrality, clustering, and network structure can be quantified and analyzed using mathematical algorithms. By representing a system as a graph, modellers can identify critical nodes and links, evaluate the efficiency of movement or information flow, detect isolated components, and assess overall network resilience. As a result, graph theory is widely applied in fields such as computer science, geography, transportation planning, ecology, telecommunications, and operations research to better understand and optimize interconnected systems.</em></strong></p>
 </div>
 <p><img src="random_contagion2.gif" width="49%" /><img src="clustered_contagion2.gif" width="49%" /></p>
-<p>A <strong>contagion</strong> is any process that spreads from one location to another through a connected system. Although the term originates from epidemiology, in landscape ecology it can represent the spread of wildfire, pests, pathogens, invasive species, disturbances, information, or organisms moving through habitat. In this simulation, contagion begins in a randomly selected forest cell and spreads to neighbouring forest cells with a specified transmission probability. Because transmission can only occur through existing graph connections, the spread is constrained by the structure and connectivity of the landscape. Highly fragmented landscapes tend to limit contagion because movement is restricted to small, isolated habitat patches, whereas highly connected landscapes provide pathways that allow the contagion to propagate across much larger areas.</p>
-<p>The simulation adopts a Monte Carlo framework in which hundreds of replicate landscapes are generated for every combination of landscape type and forest cover. Connectivity metrics and contagion outcomes are recorded and analysed statistically. A key objective is to identify patterns predicted by <a href="https://en.wikipedia.org/wiki/Percolation_theory">percolation theory</a>, which examines how large-scale connectivity emerges as the proportion of occupied habitat increases. Percolation theory predicts that a critical threshold exists where a small increase in habitat cover causes many isolated patches to become connected into a large, landscape-spanning network known as a giant connected component. At this threshold, connectivity increases rapidly and contagion spread can shift from being highly localized to spreading across much of the landscape. Identifying this transition provides insight into how habitat amount, fragmentation, and connectivity jointly influence ecological processes at landscape scales.</p>
+<p>A <strong>contagion</strong> is any process that spreads from one location to another through a connected system. Although the term originates from epidemiology, in landscape ecology it can represent the spread of wildfire, pests, pathogens, invasive species, information, or organisms moving through habitat. In this simulation, contagion begins in a randomly selected forest cell and spreads to neighbouring forest cells with a specified transmission probability. Because transmission can only occur through existing graph connections, the spread is constrained by the structure and connectivity of the landscape. Highly fragmented landscapes tend to limit contagion because movement is restricted to small, isolated patches, whereas highly connected landscapes provide pathways that allow the contagion to propagate across much larger areas.</p>
+<p>The simulation uses a Monte Carlo framework in which hundreds of replicate landscapes are generated for every combination of landscape type and forest cover. Connectivity metrics and contagion outcomes are recorded and analysed statistically. A key objective is to identify patterns predicted by <a href="https://en.wikipedia.org/wiki/Percolation_theory">percolation theory</a>, which examines how large-scale connectivity emerges as the proportion of occupied habitat increases. Percolation theory predicts that a critical threshold exists where a small increase in habitat cover causes many isolated patches to become connected into a large, landscape-spanning network known as a <strong>giant connected component</strong>. At this threshold, connectivity increases rapidly and contagion spread can shift from being highly localized to spreading across much of the landscape. Identifying this transition provides insight into how habitat amount, fragmentation, and connectivity jointly influence spreading processes at landscape scales.</p>
 <details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
 <div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="simulation-and-spreading.html#cb31-1" tabindex="-1"></a></span>
 <span id="cb31-2"><a href="simulation-and-spreading.html#cb31-2" tabindex="-1"></a><span class="fu">library</span>(NLMR)</span>
@@ -507,8 +508,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="spreading-with-a-graph" class="section level3 hasAnchor" number="9.2.2">
 <h3><span class="header-section-number">9.2.2</span> Spreading with a graph<a href="simulation-and-spreading.html#spreading-with-a-graph" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>The <code>build_graph()</code> function converts the binary forest landscape into a graph (network) representation that can be analyzed using graph theory. First, all forest cells are identified by selecting raster cells with a value of <code>1</code>, representing habitat. The function then uses the <code>adjacent()</code> routine to determine which forest cells are connected through a four-neighbour rule (north, south, east, and west). These adjacency relationships are filtered so that only connections between forest cells are retained, excluding any links that would involve non-forest habitat. In ecological terms, this step transforms the raster landscape into a network where each forest cell becomes a potential habitat node and neighboring forest cells become connected through edges, thereby representing the structural connectivity of the landscape.</p>
-<p>The adjacency information is then used to construct an undirected graph using <code>graph_from_edgelist()</code>, where movement or contagion can occur in both directions between connected habitat cells. The function also includes safeguards for highly fragmented landscapes. If no adjacent habitat cells exist, an empty graph is created containing only isolated habitat nodes. Similarly, any forest cells that do not appear in the adjacency list are added as isolated vertices to ensure that every habitat cell is represented in the final network. The resulting graph therefore provides a complete representation of the habitat configuration, including both connected habitat patches and isolated cells. This graph serves as the foundation for subsequent connectivity analyses, such as calculating connected components and giant component size, as well as for simulating contagion spread through the landscape.</p>
+<p>The <code>build_graph()</code> function converts the binary forest landscape into a graph (network) representation that can be analyzed using graph theory. First, all forest cells are identified by selecting raster cells with a value of <code>1</code>, representing forest cover. The function then uses the <code>adjacent()</code> routine to determine which forest cells are connected through a four-neighbour rule (north, south, east, and west). These adjacency relationships are filtered so that only connections between forest cells are retained, excluding any links that would involve non-forest. In ecological terms, this step transforms the raster landscape into a network where each forest cell becomes a potential habitat node and neighbouring forest cells become connected through edges, thereby representing the structural connectivity of the landscape.</p>
+<p>The adjacency information is then used to construct an undirected graph using <code>graph_from_edgelist()</code>, where movement or contagion can occur in both directions between connected forest cells. The function also includes safeguards for highly fragmented landscapes. If no adjacent habitat cells exist, an empty graph is created containing only isolated habitat nodes. Similarly, any forest cells that do not appear in the adjacency list are added as isolated vertices to ensure that every forest cell is represented in the final network. The resulting graph therefore provides a complete representation of the habitat configuration, including both connected forest patches and isolated cells. This graph serves as the foundation for subsequent connectivity analyses, such as calculating connected components and giant component size, as well as for simulating contagion spread through the landscape.</p>
 <details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
 <div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="simulation-and-spreading.html#cb33-1" tabindex="-1"></a><span class="co">#------------------------------------------------------------------------------</span></span>
 <span id="cb33-2"><a href="simulation-and-spreading.html#cb33-2" tabindex="-1"></a><span class="co"># BUILD GRAPH</span></span>
@@ -612,7 +613,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="contagion" class="section level3 hasAnchor" number="9.2.3">
 <h3><span class="header-section-number">9.2.3</span> Contagion<a href="simulation-and-spreading.html#contagion" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>The <code>simulate_contagion()</code> function models the spread of a contagion through a habitat network represented as a graph. The simulation begins by randomly selecting a forest cell (graph node) as the initial infection source. The function identifies the connected component containing this starting node and records the size of that component, providing a measure of the total habitat that is potentially accessible to the contagion. The starting node is added to the set of infected cells and is also placed in an active infectious pool. Each active node is assigned an age that tracks how long it remains capable of transmitting the contagion. The model therefore represents a susceptible–infectious–removed process, in which infected nodes can spread the contagion for a limited period before becoming inactive.</p>
+<p>The <code>simulate_contagion()</code> function models the spread of a contagion through a forest network represented as a graph. The simulation begins by randomly selecting a forest cell (graph node) as the initial infection source. The function identifies the connected component containing this starting node and records the size of that component, providing a measure of the total habitat that is potentially accessible to the contagion. The starting node is added to the set of infected cells and is also placed in an active infectious pool. Each active node is assigned an age that tracks how long it remains capable of transmitting the contagion. The model therefore represents a susceptible–infectious–removed process, in which infected nodes can spread the contagion for a limited period before becoming inactive.</p>
 <p>At each simulation step, every active infectious node attempts to transmit the contagion to its susceptible neighbouring nodes. Transmission occurs probabilistically according to the user-defined transmission probability (<code>p_transmit</code>). Newly infected cells are added to the infected population and become part of the active infectious pool with an initial age of zero. At the end of each timestep, the age of all active infectious nodes is increased, and nodes that exceed the specified infectious period are removed from the active pool and can no longer spread infection. The simulation continues until either the maximum number of timesteps is reached or there are no remaining active infectious nodes, indicating that the outbreak has died out. The function returns three outputs: the total number of infected cells, the number of timesteps over which the outbreak persisted, and the size of the connected habitat component in which the contagion originated. These outputs are subsequently used to quantify outbreak magnitude, outbreak duration, and the influence of habitat connectivity on contagion spread.</p>
 <details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
 <div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="simulation-and-spreading.html#cb34-1" tabindex="-1"></a><span class="co">#------------------------------------------------------------------------------</span></span>
@@ -1075,23 +1076,23 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="results-3" class="section level2 hasAnchor" number="9.3">
 <h2><span class="header-section-number">9.3</span> Results<a href="simulation-and-spreading.html#results-3" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div id="xgdxmojbgg" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#xgdxmojbgg table {
+<div id="xjthkmxjxm" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#xjthkmxjxm table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#xgdxmojbgg thead, #xgdxmojbgg tbody, #xgdxmojbgg tfoot, #xgdxmojbgg tr, #xgdxmojbgg td, #xgdxmojbgg th {
+#xjthkmxjxm thead, #xjthkmxjxm tbody, #xjthkmxjxm tfoot, #xjthkmxjxm tr, #xjthkmxjxm td, #xjthkmxjxm th {
   border-style: none;
 }
 
-#xgdxmojbgg p {
+#xjthkmxjxm p {
   margin: 0;
   padding: 0;
 }
 
-#xgdxmojbgg .gt_table {
+#xjthkmxjxm .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -1117,12 +1118,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-left-color: #D3D3D3;
 }
 
-#xgdxmojbgg .gt_caption {
+#xjthkmxjxm .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#xgdxmojbgg .gt_title {
+#xjthkmxjxm .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -1134,7 +1135,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-bottom-width: 0;
 }
 
-#xgdxmojbgg .gt_subtitle {
+#xjthkmxjxm .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -1146,7 +1147,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-top-width: 0;
 }
 
-#xgdxmojbgg .gt_heading {
+#xjthkmxjxm .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -1158,13 +1159,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-right-color: #D3D3D3;
 }
 
-#xgdxmojbgg .gt_bottom_border {
+#xjthkmxjxm .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#xgdxmojbgg .gt_col_headings {
+#xjthkmxjxm .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1179,7 +1180,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-right-color: #D3D3D3;
 }
 
-#xgdxmojbgg .gt_col_heading {
+#xjthkmxjxm .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1199,7 +1200,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   overflow-x: hidden;
 }
 
-#xgdxmojbgg .gt_column_spanner_outer {
+#xjthkmxjxm .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1211,15 +1212,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   padding-right: 4px;
 }
 
-#xgdxmojbgg .gt_column_spanner_outer:first-child {
+#xjthkmxjxm .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#xgdxmojbgg .gt_column_spanner_outer:last-child {
+#xjthkmxjxm .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#xgdxmojbgg .gt_column_spanner {
+#xjthkmxjxm .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1231,11 +1232,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   width: 100%;
 }
 
-#xgdxmojbgg .gt_spanner_row {
+#xjthkmxjxm .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#xgdxmojbgg .gt_group_heading {
+#xjthkmxjxm .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1261,7 +1262,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   text-align: left;
 }
 
-#xgdxmojbgg .gt_empty_group_heading {
+#xjthkmxjxm .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1276,15 +1277,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   vertical-align: middle;
 }
 
-#xgdxmojbgg .gt_from_md > :first-child {
+#xjthkmxjxm .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#xgdxmojbgg .gt_from_md > :last-child {
+#xjthkmxjxm .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#xgdxmojbgg .gt_row {
+#xjthkmxjxm .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1303,7 +1304,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   overflow-x: hidden;
 }
 
-#xgdxmojbgg .gt_stub {
+#xjthkmxjxm .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1316,7 +1317,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   padding-right: 5px;
 }
 
-#xgdxmojbgg .gt_stub_row_group {
+#xjthkmxjxm .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1330,15 +1331,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   vertical-align: top;
 }
 
-#xgdxmojbgg .gt_row_group_first td {
+#xjthkmxjxm .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#xgdxmojbgg .gt_row_group_first th {
+#xjthkmxjxm .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#xgdxmojbgg .gt_summary_row {
+#xjthkmxjxm .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1348,16 +1349,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   padding-right: 5px;
 }
 
-#xgdxmojbgg .gt_first_summary_row {
+#xjthkmxjxm .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#xgdxmojbgg .gt_first_summary_row.thick {
+#xjthkmxjxm .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#xgdxmojbgg .gt_last_summary_row {
+#xjthkmxjxm .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1367,7 +1368,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-bottom-color: #D3D3D3;
 }
 
-#xgdxmojbgg .gt_grand_summary_row {
+#xjthkmxjxm .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1377,7 +1378,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   padding-right: 5px;
 }
 
-#xgdxmojbgg .gt_first_grand_summary_row {
+#xjthkmxjxm .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1387,7 +1388,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-top-color: #D3D3D3;
 }
 
-#xgdxmojbgg .gt_last_grand_summary_row_top {
+#xjthkmxjxm .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1397,11 +1398,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-bottom-color: #D3D3D3;
 }
 
-#xgdxmojbgg .gt_striped {
+#xjthkmxjxm .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#xgdxmojbgg .gt_table_body {
+#xjthkmxjxm .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1410,7 +1411,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-bottom-color: #D3D3D3;
 }
 
-#xgdxmojbgg .gt_footnotes {
+#xjthkmxjxm .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1424,7 +1425,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-right-color: #D3D3D3;
 }
 
-#xgdxmojbgg .gt_footnote {
+#xjthkmxjxm .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1433,7 +1434,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   padding-right: 5px;
 }
 
-#xgdxmojbgg .gt_sourcenotes {
+#xjthkmxjxm .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1447,7 +1448,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-right-color: #D3D3D3;
 }
 
-#xgdxmojbgg .gt_sourcenote {
+#xjthkmxjxm .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1455,72 +1456,72 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   padding-right: 5px;
 }
 
-#xgdxmojbgg .gt_left {
+#xjthkmxjxm .gt_left {
   text-align: left;
 }
 
-#xgdxmojbgg .gt_center {
+#xjthkmxjxm .gt_center {
   text-align: center;
 }
 
-#xgdxmojbgg .gt_right {
+#xjthkmxjxm .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#xgdxmojbgg .gt_font_normal {
+#xjthkmxjxm .gt_font_normal {
   font-weight: normal;
 }
 
-#xgdxmojbgg .gt_font_bold {
+#xjthkmxjxm .gt_font_bold {
   font-weight: bold;
 }
 
-#xgdxmojbgg .gt_font_italic {
+#xjthkmxjxm .gt_font_italic {
   font-style: italic;
 }
 
-#xgdxmojbgg .gt_super {
+#xjthkmxjxm .gt_super {
   font-size: 65%;
 }
 
-#xgdxmojbgg .gt_footnote_marks {
+#xjthkmxjxm .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#xgdxmojbgg .gt_asterisk {
+#xjthkmxjxm .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#xgdxmojbgg .gt_indent_1 {
+#xjthkmxjxm .gt_indent_1 {
   text-indent: 5px;
 }
 
-#xgdxmojbgg .gt_indent_2 {
+#xjthkmxjxm .gt_indent_2 {
   text-indent: 10px;
 }
 
-#xgdxmojbgg .gt_indent_3 {
+#xjthkmxjxm .gt_indent_3 {
   text-indent: 15px;
 }
 
-#xgdxmojbgg .gt_indent_4 {
+#xjthkmxjxm .gt_indent_4 {
   text-indent: 20px;
 }
 
-#xgdxmojbgg .gt_indent_5 {
+#xjthkmxjxm .gt_indent_5 {
   text-indent: 25px;
 }
 
-#xgdxmojbgg .katex-display {
+#xjthkmxjxm .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#xgdxmojbgg div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#xjthkmxjxm div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -1545,143 +1546,143 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     </tr>
     <tr class="gt_row_group_first"><td headers="clustered  Forest Cover" class="gt_row gt_center">0.10</td>
 <td headers="clustered  Giant Component" class="gt_row gt_center">0.41</td>
-<td headers="clustered  Mean Outbreak Size" class="gt_row gt_center">31.9</td>
-<td headers="clustered  mean_spread_component" class="gt_row gt_center">0.69119947</td></tr>
+<td headers="clustered  Mean Outbreak Size" class="gt_row gt_center">30.1</td>
+<td headers="clustered  mean_spread_component" class="gt_row gt_center">0.62324608</td></tr>
     <tr><td headers="clustered  Forest Cover" class="gt_row gt_center">0.15</td>
-<td headers="clustered  Giant Component" class="gt_row gt_center">0.42</td>
-<td headers="clustered  Mean Outbreak Size" class="gt_row gt_center">43.5</td>
-<td headers="clustered  mean_spread_component" class="gt_row gt_center">0.60690189</td></tr>
+<td headers="clustered  Giant Component" class="gt_row gt_center">0.41</td>
+<td headers="clustered  Mean Outbreak Size" class="gt_row gt_center">49.6</td>
+<td headers="clustered  mean_spread_component" class="gt_row gt_center">0.68369401</td></tr>
     <tr><td headers="clustered  Forest Cover" class="gt_row gt_center">0.20</td>
-<td headers="clustered  Giant Component" class="gt_row gt_center">0.48</td>
-<td headers="clustered  Mean Outbreak Size" class="gt_row gt_center">84.5</td>
-<td headers="clustered  mean_spread_component" class="gt_row gt_center">0.62747870</td></tr>
+<td headers="clustered  Giant Component" class="gt_row gt_center">0.47</td>
+<td headers="clustered  Mean Outbreak Size" class="gt_row gt_center">71.2</td>
+<td headers="clustered  mean_spread_component" class="gt_row gt_center">0.66575875</td></tr>
     <tr><td headers="clustered  Forest Cover" class="gt_row gt_center">0.25</td>
-<td headers="clustered  Giant Component" class="gt_row gt_center">0.51</td>
-<td headers="clustered  Mean Outbreak Size" class="gt_row gt_center">124.0</td>
-<td headers="clustered  mean_spread_component" class="gt_row gt_center">0.57052818</td></tr>
+<td headers="clustered  Giant Component" class="gt_row gt_center">0.49</td>
+<td headers="clustered  Mean Outbreak Size" class="gt_row gt_center">106.4</td>
+<td headers="clustered  mean_spread_component" class="gt_row gt_center">0.64537626</td></tr>
     <tr><td headers="clustered  Forest Cover" class="gt_row gt_center">0.30</td>
-<td headers="clustered  Giant Component" class="gt_row gt_center">0.53</td>
-<td headers="clustered  Mean Outbreak Size" class="gt_row gt_center">111.2</td>
-<td headers="clustered  mean_spread_component" class="gt_row gt_center">0.62391593</td></tr>
+<td headers="clustered  Giant Component" class="gt_row gt_center">0.52</td>
+<td headers="clustered  Mean Outbreak Size" class="gt_row gt_center">150.2</td>
+<td headers="clustered  mean_spread_component" class="gt_row gt_center">0.61246735</td></tr>
     <tr><td headers="clustered  Forest Cover" class="gt_row gt_center">0.35</td>
-<td headers="clustered  Giant Component" class="gt_row gt_center">0.59</td>
-<td headers="clustered  Mean Outbreak Size" class="gt_row gt_center">186.2</td>
-<td headers="clustered  mean_spread_component" class="gt_row gt_center">0.55079696</td></tr>
+<td headers="clustered  Giant Component" class="gt_row gt_center">0.58</td>
+<td headers="clustered  Mean Outbreak Size" class="gt_row gt_center">154.5</td>
+<td headers="clustered  mean_spread_component" class="gt_row gt_center">0.57761489</td></tr>
     <tr><td headers="clustered  Forest Cover" class="gt_row gt_center">0.40</td>
-<td headers="clustered  Giant Component" class="gt_row gt_center">0.61</td>
-<td headers="clustered  Mean Outbreak Size" class="gt_row gt_center">209.8</td>
-<td headers="clustered  mean_spread_component" class="gt_row gt_center">0.56095337</td></tr>
+<td headers="clustered  Giant Component" class="gt_row gt_center">0.63</td>
+<td headers="clustered  Mean Outbreak Size" class="gt_row gt_center">216.2</td>
+<td headers="clustered  mean_spread_component" class="gt_row gt_center">0.56525230</td></tr>
     <tr><td headers="clustered  Forest Cover" class="gt_row gt_center">0.45</td>
-<td headers="clustered  Giant Component" class="gt_row gt_center">0.67</td>
-<td headers="clustered  Mean Outbreak Size" class="gt_row gt_center">230.6</td>
-<td headers="clustered  mean_spread_component" class="gt_row gt_center">0.55151268</td></tr>
+<td headers="clustered  Giant Component" class="gt_row gt_center">0.69</td>
+<td headers="clustered  Mean Outbreak Size" class="gt_row gt_center">257.4</td>
+<td headers="clustered  mean_spread_component" class="gt_row gt_center">0.54740001</td></tr>
     <tr><td headers="clustered  Forest Cover" class="gt_row gt_center">0.50</td>
-<td headers="clustered  Giant Component" class="gt_row gt_center">0.70</td>
-<td headers="clustered  Mean Outbreak Size" class="gt_row gt_center">274.6</td>
-<td headers="clustered  mean_spread_component" class="gt_row gt_center">0.52253022</td></tr>
+<td headers="clustered  Giant Component" class="gt_row gt_center">0.71</td>
+<td headers="clustered  Mean Outbreak Size" class="gt_row gt_center">263.6</td>
+<td headers="clustered  mean_spread_component" class="gt_row gt_center">0.48745266</td></tr>
     <tr><td headers="clustered  Forest Cover" class="gt_row gt_center">0.55</td>
-<td headers="clustered  Giant Component" class="gt_row gt_center">0.77</td>
-<td headers="clustered  Mean Outbreak Size" class="gt_row gt_center">404.7</td>
-<td headers="clustered  mean_spread_component" class="gt_row gt_center">0.48270262</td></tr>
+<td headers="clustered  Giant Component" class="gt_row gt_center">0.74</td>
+<td headers="clustered  Mean Outbreak Size" class="gt_row gt_center">356.4</td>
+<td headers="clustered  mean_spread_component" class="gt_row gt_center">0.51572058</td></tr>
     <tr><td headers="clustered  Forest Cover" class="gt_row gt_center">0.60</td>
 <td headers="clustered  Giant Component" class="gt_row gt_center">0.82</td>
-<td headers="clustered  Mean Outbreak Size" class="gt_row gt_center">385.1</td>
-<td headers="clustered  mean_spread_component" class="gt_row gt_center">0.45452982</td></tr>
+<td headers="clustered  Mean Outbreak Size" class="gt_row gt_center">398.3</td>
+<td headers="clustered  mean_spread_component" class="gt_row gt_center">0.41078714</td></tr>
     <tr><td headers="clustered  Forest Cover" class="gt_row gt_center">0.65</td>
 <td headers="clustered  Giant Component" class="gt_row gt_center">0.86</td>
-<td headers="clustered  Mean Outbreak Size" class="gt_row gt_center">520.1</td>
-<td headers="clustered  mean_spread_component" class="gt_row gt_center">0.45891004</td></tr>
+<td headers="clustered  Mean Outbreak Size" class="gt_row gt_center">450.9</td>
+<td headers="clustered  mean_spread_component" class="gt_row gt_center">0.41387688</td></tr>
     <tr><td headers="clustered  Forest Cover" class="gt_row gt_center">0.70</td>
-<td headers="clustered  Giant Component" class="gt_row gt_center">0.90</td>
-<td headers="clustered  Mean Outbreak Size" class="gt_row gt_center">517.5</td>
-<td headers="clustered  mean_spread_component" class="gt_row gt_center">0.42013913</td></tr>
+<td headers="clustered  Giant Component" class="gt_row gt_center">0.92</td>
+<td headers="clustered  Mean Outbreak Size" class="gt_row gt_center">529.7</td>
+<td headers="clustered  mean_spread_component" class="gt_row gt_center">0.41116519</td></tr>
     <tr><td headers="clustered  Forest Cover" class="gt_row gt_center">0.75</td>
-<td headers="clustered  Giant Component" class="gt_row gt_center">0.95</td>
-<td headers="clustered  Mean Outbreak Size" class="gt_row gt_center">621.8</td>
-<td headers="clustered  mean_spread_component" class="gt_row gt_center">0.37761967</td></tr>
+<td headers="clustered  Giant Component" class="gt_row gt_center">0.94</td>
+<td headers="clustered  Mean Outbreak Size" class="gt_row gt_center">594.7</td>
+<td headers="clustered  mean_spread_component" class="gt_row gt_center">0.43295571</td></tr>
     <tr><td headers="clustered  Forest Cover" class="gt_row gt_center">0.80</td>
 <td headers="clustered  Giant Component" class="gt_row gt_center">0.97</td>
-<td headers="clustered  Mean Outbreak Size" class="gt_row gt_center">673.6</td>
-<td headers="clustered  mean_spread_component" class="gt_row gt_center">0.37551430</td></tr>
+<td headers="clustered  Mean Outbreak Size" class="gt_row gt_center">633.3</td>
+<td headers="clustered  mean_spread_component" class="gt_row gt_center">0.42671673</td></tr>
     <tr><td headers="clustered  Forest Cover" class="gt_row gt_center">0.85</td>
 <td headers="clustered  Giant Component" class="gt_row gt_center">0.98</td>
-<td headers="clustered  Mean Outbreak Size" class="gt_row gt_center">815.6</td>
-<td headers="clustered  mean_spread_component" class="gt_row gt_center">0.41704912</td></tr>
+<td headers="clustered  Mean Outbreak Size" class="gt_row gt_center">787.6</td>
+<td headers="clustered  mean_spread_component" class="gt_row gt_center">0.41376362</td></tr>
     <tr><td headers="clustered  Forest Cover" class="gt_row gt_center">0.90</td>
 <td headers="clustered  Giant Component" class="gt_row gt_center">0.99</td>
-<td headers="clustered  Mean Outbreak Size" class="gt_row gt_center">885.9</td>
-<td headers="clustered  mean_spread_component" class="gt_row gt_center">0.41348940</td></tr>
+<td headers="clustered  Mean Outbreak Size" class="gt_row gt_center">932.9</td>
+<td headers="clustered  mean_spread_component" class="gt_row gt_center">0.45578061</td></tr>
     <tr class="gt_group_heading_row">
       <th colspan="4" class="gt_group_heading" scope="colgroup" id="random">random</th>
     </tr>
     <tr class="gt_row_group_first"><td headers="random  Forest Cover" class="gt_row gt_center">0.10</td>
 <td headers="random  Giant Component" class="gt_row gt_center">0.02</td>
-<td headers="random  Mean Outbreak Size" class="gt_row gt_center">1.4</td>
-<td headers="random  mean_spread_component" class="gt_row gt_center">0.93800000</td></tr>
+<td headers="random  Mean Outbreak Size" class="gt_row gt_center">1.3</td>
+<td headers="random  mean_spread_component" class="gt_row gt_center">0.96333333</td></tr>
     <tr><td headers="random  Forest Cover" class="gt_row gt_center">0.15</td>
 <td headers="random  Giant Component" class="gt_row gt_center">0.02</td>
-<td headers="random  Mean Outbreak Size" class="gt_row gt_center">1.5</td>
-<td headers="random  mean_spread_component" class="gt_row gt_center">0.89811111</td></tr>
+<td headers="random  Mean Outbreak Size" class="gt_row gt_center">1.6</td>
+<td headers="random  mean_spread_component" class="gt_row gt_center">0.92516667</td></tr>
     <tr><td headers="random  Forest Cover" class="gt_row gt_center">0.20</td>
 <td headers="random  Giant Component" class="gt_row gt_center">0.02</td>
-<td headers="random  Mean Outbreak Size" class="gt_row gt_center">1.7</td>
-<td headers="random  mean_spread_component" class="gt_row gt_center">0.88047619</td></tr>
+<td headers="random  Mean Outbreak Size" class="gt_row gt_center">1.8</td>
+<td headers="random  mean_spread_component" class="gt_row gt_center">0.86616667</td></tr>
     <tr><td headers="random  Forest Cover" class="gt_row gt_center">0.25</td>
 <td headers="random  Giant Component" class="gt_row gt_center">0.02</td>
-<td headers="random  Mean Outbreak Size" class="gt_row gt_center">2.9</td>
-<td headers="random  mean_spread_component" class="gt_row gt_center">0.78907067</td></tr>
+<td headers="random  Mean Outbreak Size" class="gt_row gt_center">2.3</td>
+<td headers="random  mean_spread_component" class="gt_row gt_center">0.77128712</td></tr>
     <tr><td headers="random  Forest Cover" class="gt_row gt_center">0.30</td>
 <td headers="random  Giant Component" class="gt_row gt_center">0.03</td>
 <td headers="random  Mean Outbreak Size" class="gt_row gt_center">3.2</td>
-<td headers="random  mean_spread_component" class="gt_row gt_center">0.80240314</td></tr>
+<td headers="random  mean_spread_component" class="gt_row gt_center">0.76029314</td></tr>
     <tr><td headers="random  Forest Cover" class="gt_row gt_center">0.35</td>
 <td headers="random  Giant Component" class="gt_row gt_center">0.03</td>
 <td headers="random  Mean Outbreak Size" class="gt_row gt_center">3.9</td>
-<td headers="random  mean_spread_component" class="gt_row gt_center">0.69929125</td></tr>
+<td headers="random  mean_spread_component" class="gt_row gt_center">0.70646531</td></tr>
     <tr><td headers="random  Forest Cover" class="gt_row gt_center">0.40</td>
 <td headers="random  Giant Component" class="gt_row gt_center">0.04</td>
-<td headers="random  Mean Outbreak Size" class="gt_row gt_center">4.3</td>
-<td headers="random  mean_spread_component" class="gt_row gt_center">0.63127454</td></tr>
+<td headers="random  Mean Outbreak Size" class="gt_row gt_center">4.8</td>
+<td headers="random  mean_spread_component" class="gt_row gt_center">0.59938711</td></tr>
     <tr><td headers="random  Forest Cover" class="gt_row gt_center">0.45</td>
 <td headers="random  Giant Component" class="gt_row gt_center">0.06</td>
-<td headers="random  Mean Outbreak Size" class="gt_row gt_center">6.2</td>
-<td headers="random  mean_spread_component" class="gt_row gt_center">0.56133492</td></tr>
+<td headers="random  Mean Outbreak Size" class="gt_row gt_center">7.2</td>
+<td headers="random  mean_spread_component" class="gt_row gt_center">0.51569536</td></tr>
     <tr><td headers="random  Forest Cover" class="gt_row gt_center">0.50</td>
-<td headers="random  Giant Component" class="gt_row gt_center">0.12</td>
-<td headers="random  Mean Outbreak Size" class="gt_row gt_center">9.6</td>
-<td headers="random  mean_spread_component" class="gt_row gt_center">0.42664472</td></tr>
+<td headers="random  Giant Component" class="gt_row gt_center">0.11</td>
+<td headers="random  Mean Outbreak Size" class="gt_row gt_center">9.9</td>
+<td headers="random  mean_spread_component" class="gt_row gt_center">0.41649376</td></tr>
     <tr><td headers="random  Forest Cover" class="gt_row gt_center">0.55</td>
 <td headers="random  Giant Component" class="gt_row gt_center">0.23</td>
-<td headers="random  Mean Outbreak Size" class="gt_row gt_center">15.8</td>
-<td headers="random  mean_spread_component" class="gt_row gt_center">0.34001002</td></tr>
+<td headers="random  Mean Outbreak Size" class="gt_row gt_center">14.0</td>
+<td headers="random  mean_spread_component" class="gt_row gt_center">0.32365598</td></tr>
     <tr><td headers="random  Forest Cover" class="gt_row gt_center">0.60</td>
-<td headers="random  Giant Component" class="gt_row gt_center">0.56</td>
-<td headers="random  Mean Outbreak Size" class="gt_row gt_center">28.5</td>
-<td headers="random  mean_spread_component" class="gt_row gt_center">0.19293391</td></tr>
+<td headers="random  Giant Component" class="gt_row gt_center">0.54</td>
+<td headers="random  Mean Outbreak Size" class="gt_row gt_center">22.9</td>
+<td headers="random  mean_spread_component" class="gt_row gt_center">0.15165849</td></tr>
     <tr><td headers="random  Forest Cover" class="gt_row gt_center">0.65</td>
-<td headers="random  Giant Component" class="gt_row gt_center">0.88</td>
-<td headers="random  Mean Outbreak Size" class="gt_row gt_center">55.5</td>
-<td headers="random  mean_spread_component" class="gt_row gt_center">0.15316256</td></tr>
+<td headers="random  Giant Component" class="gt_row gt_center">0.89</td>
+<td headers="random  Mean Outbreak Size" class="gt_row gt_center">42.8</td>
+<td headers="random  mean_spread_component" class="gt_row gt_center">0.15461528</td></tr>
     <tr><td headers="random  Forest Cover" class="gt_row gt_center">0.70</td>
 <td headers="random  Giant Component" class="gt_row gt_center">0.97</td>
-<td headers="random  Mean Outbreak Size" class="gt_row gt_center">88.5</td>
-<td headers="random  mean_spread_component" class="gt_row gt_center">0.07889965</td></tr>
+<td headers="random  Mean Outbreak Size" class="gt_row gt_center">77.1</td>
+<td headers="random  mean_spread_component" class="gt_row gt_center">0.05817162</td></tr>
     <tr><td headers="random  Forest Cover" class="gt_row gt_center">0.75</td>
 <td headers="random  Giant Component" class="gt_row gt_center">0.99</td>
-<td headers="random  Mean Outbreak Size" class="gt_row gt_center">192.7</td>
-<td headers="random  mean_spread_component" class="gt_row gt_center">0.13317555</td></tr>
+<td headers="random  Mean Outbreak Size" class="gt_row gt_center">183.8</td>
+<td headers="random  mean_spread_component" class="gt_row gt_center">0.09922004</td></tr>
     <tr><td headers="random  Forest Cover" class="gt_row gt_center">0.80</td>
 <td headers="random  Giant Component" class="gt_row gt_center">1.00</td>
-<td headers="random  Mean Outbreak Size" class="gt_row gt_center">303.0</td>
-<td headers="random  mean_spread_component" class="gt_row gt_center">0.15209586</td></tr>
+<td headers="random  Mean Outbreak Size" class="gt_row gt_center">331.8</td>
+<td headers="random  mean_spread_component" class="gt_row gt_center">0.16651885</td></tr>
     <tr><td headers="random  Forest Cover" class="gt_row gt_center">0.85</td>
 <td headers="random  Giant Component" class="gt_row gt_center">1.00</td>
-<td headers="random  Mean Outbreak Size" class="gt_row gt_center">581.4</td>
-<td headers="random  mean_spread_component" class="gt_row gt_center">0.27396823</td></tr>
+<td headers="random  Mean Outbreak Size" class="gt_row gt_center">563.3</td>
+<td headers="random  mean_spread_component" class="gt_row gt_center">0.26537111</td></tr>
     <tr><td headers="random  Forest Cover" class="gt_row gt_center">0.90</td>
 <td headers="random  Giant Component" class="gt_row gt_center">1.00</td>
-<td headers="random  Mean Outbreak Size" class="gt_row gt_center">747.1</td>
-<td headers="random  mean_spread_component" class="gt_row gt_center">0.33213844</td></tr>
+<td headers="random  Mean Outbreak Size" class="gt_row gt_center">766.8</td>
+<td headers="random  mean_spread_component" class="gt_row gt_center">0.34088057</td></tr>
   </tbody>
   
 </table>
@@ -1721,19 +1722,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb36-29"><a href="simulation-and-spreading.html#cb36-29" tabindex="-1"></a><span class="do">## </span></span>
 <span id="cb36-30"><a href="simulation-and-spreading.html#cb36-30" tabindex="-1"></a><span class="do">## Residuals:</span></span>
 <span id="cb36-31"><a href="simulation-and-spreading.html#cb36-31" tabindex="-1"></a><span class="do">##     Min      1Q  Median      3Q     Max </span></span>
-<span id="cb36-32"><a href="simulation-and-spreading.html#cb36-32" tabindex="-1"></a><span class="do">## -699.69 -150.54  -20.57  137.08  993.31 </span></span>
+<span id="cb36-32"><a href="simulation-and-spreading.html#cb36-32" tabindex="-1"></a><span class="do">## -688.88 -152.39  -15.68  135.54  977.12 </span></span>
 <span id="cb36-33"><a href="simulation-and-spreading.html#cb36-33" tabindex="-1"></a><span class="do">## </span></span>
 <span id="cb36-34"><a href="simulation-and-spreading.html#cb36-34" tabindex="-1"></a><span class="do">## Coefficients:</span></span>
 <span id="cb36-35"><a href="simulation-and-spreading.html#cb36-35" tabindex="-1"></a><span class="do">##                      Estimate Std. Error t value Pr(&gt;|t|)    </span></span>
-<span id="cb36-36"><a href="simulation-and-spreading.html#cb36-36" tabindex="-1"></a><span class="do">## (Intercept)           -65.811      9.857  -6.677 2.85e-11 ***</span></span>
-<span id="cb36-37"><a href="simulation-and-spreading.html#cb36-37" tabindex="-1"></a><span class="do">## forest_cover          851.671     16.205  52.556  &lt; 2e-16 ***</span></span>
-<span id="cb36-38"><a href="simulation-and-spreading.html#cb36-38" tabindex="-1"></a><span class="do">## landscape_typerandom -239.602      7.939 -30.181  &lt; 2e-16 ***</span></span>
+<span id="cb36-36"><a href="simulation-and-spreading.html#cb36-36" tabindex="-1"></a><span class="do">## (Intercept)           -70.500     10.040  -7.022 2.63e-12 ***</span></span>
+<span id="cb36-37"><a href="simulation-and-spreading.html#cb36-37" tabindex="-1"></a><span class="do">## forest_cover          844.867     16.506  51.187  &lt; 2e-16 ***</span></span>
+<span id="cb36-38"><a href="simulation-and-spreading.html#cb36-38" tabindex="-1"></a><span class="do">## landscape_typerandom -232.012      8.086 -28.693  &lt; 2e-16 ***</span></span>
 <span id="cb36-39"><a href="simulation-and-spreading.html#cb36-39" tabindex="-1"></a><span class="do">## ---</span></span>
 <span id="cb36-40"><a href="simulation-and-spreading.html#cb36-40" tabindex="-1"></a><span class="do">## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span></span>
 <span id="cb36-41"><a href="simulation-and-spreading.html#cb36-41" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb36-42"><a href="simulation-and-spreading.html#cb36-42" tabindex="-1"></a><span class="do">## Residual standard error: 231.5 on 3397 degrees of freedom</span></span>
-<span id="cb36-43"><a href="simulation-and-spreading.html#cb36-43" tabindex="-1"></a><span class="do">## Multiple R-squared:  0.5195, Adjusted R-squared:  0.5192 </span></span>
-<span id="cb36-44"><a href="simulation-and-spreading.html#cb36-44" tabindex="-1"></a><span class="do">## F-statistic:  1837 on 2 and 3397 DF,  p-value: &lt; 2.2e-16</span></span>
+<span id="cb36-42"><a href="simulation-and-spreading.html#cb36-42" tabindex="-1"></a><span class="do">## Residual standard error: 235.7 on 3397 degrees of freedom</span></span>
+<span id="cb36-43"><a href="simulation-and-spreading.html#cb36-43" tabindex="-1"></a><span class="do">## Multiple R-squared:  0.5034, Adjusted R-squared:  0.5031 </span></span>
+<span id="cb36-44"><a href="simulation-and-spreading.html#cb36-44" tabindex="-1"></a><span class="do">## F-statistic:  1722 on 2 and 3397 DF,  p-value: &lt; 2.2e-16</span></span>
 <span id="cb36-45"><a href="simulation-and-spreading.html#cb36-45" tabindex="-1"></a><span class="fu">summary</span>(m2)</span>
 <span id="cb36-46"><a href="simulation-and-spreading.html#cb36-46" tabindex="-1"></a><span class="do">## </span></span>
 <span id="cb36-47"><a href="simulation-and-spreading.html#cb36-47" tabindex="-1"></a><span class="do">## Call:</span></span>
@@ -1742,19 +1743,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb36-50"><a href="simulation-and-spreading.html#cb36-50" tabindex="-1"></a><span class="do">## </span></span>
 <span id="cb36-51"><a href="simulation-and-spreading.html#cb36-51" tabindex="-1"></a><span class="do">## Residuals:</span></span>
 <span id="cb36-52"><a href="simulation-and-spreading.html#cb36-52" tabindex="-1"></a><span class="do">##     Min      1Q  Median      3Q     Max </span></span>
-<span id="cb36-53"><a href="simulation-and-spreading.html#cb36-53" tabindex="-1"></a><span class="do">## -497.60 -186.14   34.89   75.85 1197.90 </span></span>
+<span id="cb36-53"><a href="simulation-and-spreading.html#cb36-53" tabindex="-1"></a><span class="do">## -488.25 -180.59   29.28   73.97 1178.06 </span></span>
 <span id="cb36-54"><a href="simulation-and-spreading.html#cb36-54" tabindex="-1"></a><span class="do">## </span></span>
 <span id="cb36-55"><a href="simulation-and-spreading.html#cb36-55" tabindex="-1"></a><span class="do">## Coefficients:</span></span>
 <span id="cb36-56"><a href="simulation-and-spreading.html#cb36-56" tabindex="-1"></a><span class="do">##                      Estimate Std. Error t value Pr(&gt;|t|)    </span></span>
-<span id="cb36-57"><a href="simulation-and-spreading.html#cb36-57" tabindex="-1"></a><span class="do">## (Intercept)             8.812     10.918   0.807     0.42    </span></span>
-<span id="cb36-58"><a href="simulation-and-spreading.html#cb36-58" tabindex="-1"></a><span class="do">## giant_component_prop  490.695     12.489  39.289   &lt;2e-16 ***</span></span>
-<span id="cb36-59"><a href="simulation-and-spreading.html#cb36-59" tabindex="-1"></a><span class="do">## landscape_typerandom  -89.782      9.649  -9.305   &lt;2e-16 ***</span></span>
+<span id="cb36-57"><a href="simulation-and-spreading.html#cb36-57" tabindex="-1"></a><span class="do">## (Intercept)             3.838     10.977   0.350    0.727    </span></span>
+<span id="cb36-58"><a href="simulation-and-spreading.html#cb36-58" tabindex="-1"></a><span class="do">## giant_component_prop  488.039     12.571  38.823   &lt;2e-16 ***</span></span>
+<span id="cb36-59"><a href="simulation-and-spreading.html#cb36-59" tabindex="-1"></a><span class="do">## landscape_typerandom  -83.614      9.738  -8.586   &lt;2e-16 ***</span></span>
 <span id="cb36-60"><a href="simulation-and-spreading.html#cb36-60" tabindex="-1"></a><span class="do">## ---</span></span>
 <span id="cb36-61"><a href="simulation-and-spreading.html#cb36-61" tabindex="-1"></a><span class="do">## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span></span>
 <span id="cb36-62"><a href="simulation-and-spreading.html#cb36-62" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb36-63"><a href="simulation-and-spreading.html#cb36-63" tabindex="-1"></a><span class="do">## Residual standard error: 258.4 on 3397 degrees of freedom</span></span>
-<span id="cb36-64"><a href="simulation-and-spreading.html#cb36-64" tabindex="-1"></a><span class="do">## Multiple R-squared:  0.401,  Adjusted R-squared:  0.4007 </span></span>
-<span id="cb36-65"><a href="simulation-and-spreading.html#cb36-65" tabindex="-1"></a><span class="do">## F-statistic:  1137 on 2 and 3397 DF,  p-value: &lt; 2.2e-16</span></span>
+<span id="cb36-63"><a href="simulation-and-spreading.html#cb36-63" tabindex="-1"></a><span class="do">## Residual standard error: 261.1 on 3397 degrees of freedom</span></span>
+<span id="cb36-64"><a href="simulation-and-spreading.html#cb36-64" tabindex="-1"></a><span class="do">## Multiple R-squared:  0.3907, Adjusted R-squared:  0.3903 </span></span>
+<span id="cb36-65"><a href="simulation-and-spreading.html#cb36-65" tabindex="-1"></a><span class="do">## F-statistic:  1089 on 2 and 3397 DF,  p-value: &lt; 2.2e-16</span></span>
 <span id="cb36-66"><a href="simulation-and-spreading.html#cb36-66" tabindex="-1"></a><span class="fu">summary</span>(m3)</span>
 <span id="cb36-67"><a href="simulation-and-spreading.html#cb36-67" tabindex="-1"></a><span class="do">## </span></span>
 <span id="cb36-68"><a href="simulation-and-spreading.html#cb36-68" tabindex="-1"></a><span class="do">## Call:</span></span>
@@ -1763,23 +1764,23 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb36-71"><a href="simulation-and-spreading.html#cb36-71" tabindex="-1"></a><span class="do">## </span></span>
 <span id="cb36-72"><a href="simulation-and-spreading.html#cb36-72" tabindex="-1"></a><span class="do">## Residuals:</span></span>
 <span id="cb36-73"><a href="simulation-and-spreading.html#cb36-73" tabindex="-1"></a><span class="do">##     Min      1Q  Median      3Q     Max </span></span>
-<span id="cb36-74"><a href="simulation-and-spreading.html#cb36-74" tabindex="-1"></a><span class="do">## -700.10 -150.70  -20.67  137.02  992.89 </span></span>
+<span id="cb36-74"><a href="simulation-and-spreading.html#cb36-74" tabindex="-1"></a><span class="do">## -687.24 -152.65  -16.52  135.70  978.67 </span></span>
 <span id="cb36-75"><a href="simulation-and-spreading.html#cb36-75" tabindex="-1"></a><span class="do">## </span></span>
 <span id="cb36-76"><a href="simulation-and-spreading.html#cb36-76" tabindex="-1"></a><span class="do">## Coefficients:</span></span>
 <span id="cb36-77"><a href="simulation-and-spreading.html#cb36-77" tabindex="-1"></a><span class="do">##                      Estimate Std. Error t value Pr(&gt;|t|)    </span></span>
-<span id="cb36-78"><a href="simulation-and-spreading.html#cb36-78" tabindex="-1"></a><span class="do">## (Intercept)           -65.589     10.112  -6.486 1.01e-10 ***</span></span>
-<span id="cb36-79"><a href="simulation-and-spreading.html#cb36-79" tabindex="-1"></a><span class="do">## forest_cover          854.108     29.511  28.942  &lt; 2e-16 ***</span></span>
-<span id="cb36-80"><a href="simulation-and-spreading.html#cb36-80" tabindex="-1"></a><span class="do">## giant_component_prop   -2.012     20.371  -0.099    0.921    </span></span>
-<span id="cb36-81"><a href="simulation-and-spreading.html#cb36-81" tabindex="-1"></a><span class="do">## landscape_typerandom -240.216     10.086 -23.817  &lt; 2e-16 ***</span></span>
+<span id="cb36-78"><a href="simulation-and-spreading.html#cb36-78" tabindex="-1"></a><span class="do">## (Intercept)           -71.292     10.274  -6.939 4.72e-12 ***</span></span>
+<span id="cb36-79"><a href="simulation-and-spreading.html#cb36-79" tabindex="-1"></a><span class="do">## forest_cover          835.701     30.101  27.763  &lt; 2e-16 ***</span></span>
+<span id="cb36-80"><a href="simulation-and-spreading.html#cb36-80" tabindex="-1"></a><span class="do">## giant_component_prop    7.536     20.697   0.364    0.716    </span></span>
+<span id="cb36-81"><a href="simulation-and-spreading.html#cb36-81" tabindex="-1"></a><span class="do">## landscape_typerandom -229.721     10.247 -22.418  &lt; 2e-16 ***</span></span>
 <span id="cb36-82"><a href="simulation-and-spreading.html#cb36-82" tabindex="-1"></a><span class="do">## ---</span></span>
 <span id="cb36-83"><a href="simulation-and-spreading.html#cb36-83" tabindex="-1"></a><span class="do">## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span></span>
 <span id="cb36-84"><a href="simulation-and-spreading.html#cb36-84" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb36-85"><a href="simulation-and-spreading.html#cb36-85" tabindex="-1"></a><span class="do">## Residual standard error: 231.5 on 3396 degrees of freedom</span></span>
-<span id="cb36-86"><a href="simulation-and-spreading.html#cb36-86" tabindex="-1"></a><span class="do">## Multiple R-squared:  0.5195, Adjusted R-squared:  0.5191 </span></span>
-<span id="cb36-87"><a href="simulation-and-spreading.html#cb36-87" tabindex="-1"></a><span class="do">## F-statistic:  1224 on 3 and 3396 DF,  p-value: &lt; 2.2e-16</span></span></code></pre></div>
+<span id="cb36-85"><a href="simulation-and-spreading.html#cb36-85" tabindex="-1"></a><span class="do">## Residual standard error: 235.8 on 3396 degrees of freedom</span></span>
+<span id="cb36-86"><a href="simulation-and-spreading.html#cb36-86" tabindex="-1"></a><span class="do">## Multiple R-squared:  0.5034, Adjusted R-squared:  0.503 </span></span>
+<span id="cb36-87"><a href="simulation-and-spreading.html#cb36-87" tabindex="-1"></a><span class="do">## F-statistic:  1148 on 3 and 3396 DF,  p-value: &lt; 2.2e-16</span></span></code></pre></div>
 </details>
 <p>Statistical modelling further supported these patterns. Forest cover was the strongest predictor of outbreak size, explaining a substantial proportion of the variation in the number of infected cells. Giant component proportion was also strongly related to outbreak size when examined independently, indicating that landscapes containing larger connected habitat networks tended to support larger outbreaks. However, when both forest cover and connectivity were included in the same model, the effect of giant component size became much weaker. This occurred because forest cover and connectivity were themselves highly correlated, indicating that increasing habitat amount simultaneously increases landscape connectivity and the potential for contagion spread.</p>
-<p>Taken together, the results suggest that habitat amount acts as the primary driver of contagion dynamics, while connectivity serves as the mechanism through which habitat amount influences outbreak size. Clustered landscapes consistently produced larger and earlier outbreaks because habitat cells were organized into connected networks at lower levels of forest cover. Random landscapes required substantially greater habitat cover before a giant connected component emerged and contagion could spread extensively. Overall, the study provides strong evidence that percolation processes govern the transition from localized outbreaks in fragmented landscapes to landscape-scale contagion in highly connected systems, highlighting the critical role of habitat configuration and connectivity in determining ecological spread processes.</p>
+<p>Taken together, the results suggest that habitat amount acts as the primary driver of contagion dynamics, while connectivity serves as the mechanism through which habitat amount influences outbreak size. Clustered landscapes consistently produced larger and earlier outbreaks because habitat cells were organized into connected networks at lower levels of forest cover. Random landscapes required substantially greater habitat cover before a giant connected component emerged and contagion could spread extensively. Overall, the study provides strong evidence that percolation processes govern the transition from localized outbreaks in fragmented landscapes to landscape-scale contagion in highly connected systems, highlighting the critical role of forest cover configuration and connectivity in determining spread processes.</p>
 </div>
 <div id="summary-2" class="section level2 hasAnchor" number="9.4">
 <h2><span class="header-section-number">9.4</span> Summary<a href="simulation-and-spreading.html#summary-2" class="anchor-section" aria-label="Anchor link to header"></a></h2>

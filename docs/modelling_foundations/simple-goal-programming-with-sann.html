@@ -23,7 +23,7 @@
 <meta name="author" content="A collaborative effort between a Human (Kelly Izzard) and AI" />
 
 
-<meta name="date" content="2026-08-01" />
+<meta name="date" content="2026-08-02" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -149,6 +149,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 </style>
 
+<link rel="stylesheet" href="style.css" type="text/css" />
 </head>
 
 <body>
@@ -469,6 +470,51 @@ The function also enforces operational constraints by applying large penalty val
 habitat falls below 250 units, or harvest in Unit 3 exceeds 80 ha. The penalties are added to the objective value,
 making infeasible solutions much less desirable. Finally, the function returns the total objective value, where lower values
 represent solutions that better satisfy the management goals while remaining within the operational constraints.</p>
+<div id="objective-function-formula" class="section level4 hasAnchor" number="4.2.1.1">
+<h4><span class="header-section-number">4.2.1.1</span> Objective Function Formula<a href="simple-goal-programming-with-sann.html#objective-function-formula" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Let:</p>
+<ul>
+<li><span class="math inline">\(x_i\)</span> = harvest allocation decision variable for unit <span class="math inline">\(i\)</span></li>
+<li><span class="math inline">\(h_i\)</span> = harvest coefficient</li>
+<li><span class="math inline">\(r_i\)</span> = revenue coefficient</li>
+<li><span class="math inline">\(b_i\)</span> = habitat coefficient</li>
+<li><span class="math inline">\(H^*\)</span>, <span class="math inline">\(R^*\)</span>, <span class="math inline">\(B^*\)</span> = target values</li>
+<li><span class="math inline">\(w_1\)</span>, <span class="math inline">\(w_2\)</span>, <span class="math inline">\(w_3\)</span> = objective weights</li>
+</ul>
+<p>The performance measures are:</p>
+<p><span class="math display">\[
+H(x) = \sum_{i=1}^{n} h_i x_i
+\]</span></p>
+<p><span class="math display">\[
+R(x) = \sum_{i=1}^{n} r_i x_i
+\]</span></p>
+<p><span class="math display">\[
+B(x) = \sum_{i=1}^{n} b_i x_i
+\]</span></p>
+<p>The normalized deviations from target values are:</p>
+<p><span class="math display">\[
+d_H = \frac{|H(x)-H^*|}{H^*}
+\]</span></p>
+<p><span class="math display">\[
+d_R = \frac{|R(x)-R^*|}{R^*}
+\]</span></p>
+<p><span class="math display">\[
+d_B = \frac{|B(x)-B^*|}{B^*}
+\]</span></p>
+<p>The weighted goal programming objective function is:</p>
+<p><span class="math display">\[
+\min z = w_1 d_H + w_2 d_R + w_3 d_B
+\]</span></p>
+<p>or equivalently,</p>
+<p><span class="math display">\[
+\min z =
+w_1 \frac{\left|\sum_{i=1}^{n} h_i x_i - H^*\right|}{H^*}
++
+w_2 \frac{\left|\sum_{i=1}^{n} r_i x_i - R^*\right|}{R^*}
++
+w_3 \frac{\left|\sum_{i=1}^{n} b_i x_i - B^*\right|}{B^*}.
+\]</span></p>
+</div>
 </div>
 <div id="code-notes-2" class="section level3 hasAnchor" number="4.2.2">
 <h3><span class="header-section-number">4.2.2</span> Code Notes:<a href="simple-goal-programming-with-sann.html#code-notes-2" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -565,11 +611,11 @@ the simulated annealing schedule (internal to the optim function), making the al
 <div id="code-notes-3" class="section level3 hasAnchor" number="4.3.1">
 <h3><span class="header-section-number">4.3.1</span> Code Notes:<a href="simple-goal-programming-with-sann.html#code-notes-3" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <div id="extract-best-solution-found" class="section level4 hasAnchor" number="4.3.1.1">
-<h4><span class="header-section-number">4.3.1.1</span> EXTRACT BEST SOLUTION FOUND<a href="simple-goal-programming-with-sann.html#extract-best-solution-found" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<h4><span class="header-section-number">4.3.1.1</span> Extract Best Solution Found<a href="simple-goal-programming-with-sann.html#extract-best-solution-found" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>After the optimization is complete, the best solution found is extracted from <code>result$par</code> and used to calculate the final performance measures for timber harvest, revenue, and habitat. The code then computes the normalized deviations of these outcomes from their target values, allowing the user to assess how closely each objective was achieved.</p>
 </div>
 <div id="check-constraints" class="section level4 hasAnchor" number="4.3.1.2">
-<h4><span class="header-section-number">4.3.1.2</span> CHECK CONSTRAINTS<a href="simple-goal-programming-with-sann.html#check-constraints" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<h4><span class="header-section-number">4.3.1.2</span> Check Constraints<a href="simple-goal-programming-with-sann.html#check-constraints" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Finally, it evaluates whether the optimized solution satisfies the three operational constraints by
 checking that the total harvested area does not exceed 200 ha, habitat remains at or above 250 units, and harvest in Unit 3 does
 not exceed 80 ha. These calculations provide a summary of both the quality and feasibility of the optimized solution.</p>

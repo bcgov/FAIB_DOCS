@@ -35,6 +35,7 @@ simple-goal-programming-with-sann
 introduction-3
 a-simple-goal-programming-model
 the-objective-function
+objective-function-formula
 code-notes-2
 normalized-deviations-from-the-target
 operational-constraints
@@ -53,7 +54,7 @@ markov-habitat-function
 the-objective-function-1
 the-sann-optimization-and-results
 code-notes-5
-final-calculations
+final-calculationss
 harvest-pressure
 results-1
 monte-carlo-markov-chain

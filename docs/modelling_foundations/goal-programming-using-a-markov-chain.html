@@ -23,7 +23,7 @@
 <meta name="author" content="A collaborative effort between a Human (Kelly Izzard) and AI" />
 
 
-<meta name="date" content="2026-08-01" />
+<meta name="date" content="2026-08-02" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -149,6 +149,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 </style>
 
+<link rel="stylesheet" href="style.css" type="text/css" />
 </head>
 
 <body>
@@ -513,8 +514,8 @@ value across forest types</p>
 </div>
 <div id="markov-habitat-function" class="section level3 hasAnchor" number="5.3.2">
 <h3><span class="header-section-number">5.3.2</span> Markov Habitat Function<a href="goal-programming-using-a-markov-chain.html#markov-habitat-function" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>The <strong>Markov Habitat Function</strong> is used to represent how forest habitat conditions change over time in response to harvesting activity. Rather than treating habitat as a simple linear sum of habitat values, the function models the forest as occupying one of three habitat states—poor, moderate, or high quality—and uses a Markov transition matrix to describe the probability of moving between these states from one time period to the next. The base transition matrix defines the natural dynamics of the forest, while harvest pressure modifies these probabilities by reducing the likelihood that high-quality habitat remains in the highest state and increasing the probability of degradation to lower-quality states. This approach enables the model to capture the long-term ecological effects of harvesting rather than only measuring immediate habitat impacts.</p>
-<p>To better reflect differences among management units, the function incorporates a habitat quality index based on the weighted habitat value of the harvested area. Habitat quality is combined with overall harvest pressure to calculate an ecological impact factor that adjusts the Markov transition probabilities. Harvesting large areas of habitat-rich forest therefore results in a greater reduction in future habitat quality than harvesting the same area from lower-value habitat. The adjusted transition matrix is then used to calculate the steady-state distribution of habitat states, representing the long-run proportion of the landscape expected to occur in each condition. Finally, these proportions are converted into a habitat index that serves as the habitat objective within the goal-programming optimization model, allowing the simulated annealing algorithm to balance timber production, revenue generation, and long-term habitat conservation.</p>
+<p>The <strong>Markov Habitat Function</strong> is used to represent how modelled habitat conditions change over time in response to harvesting activity. Rather than treating habitat as a simple linear sum of habitat values, the function models the forest as occupying one of three habitat states—poor, moderate, or high quality—and uses a Markov transition matrix to describe the probability of moving between these states from one time period to the next. The base transition matrix defines the natural dynamics of the forest, while harvest pressure modifies these probabilities by reducing the likelihood that high-quality habitat remains in the highest state and increasing the probability of degradation to lower-quality states. This approach enables the model to capture the long-term effects of harvesting rather than only measuring immediate habitat impacts.</p>
+<p>To better reflect differences among management units, the function incorporates a habitat quality index (synthetic) based on the weighted habitat value of the harvested area. Habitat quality is combined with overall harvest pressure to calculate an impact factor that adjusts the Markov transition probabilities. Harvesting large areas of habitat-rich forest therefore results in a greater reduction in future habitat quality than harvesting the same area from lower-value habitat. The adjusted transition matrix is then used to calculate the steady-state distribution of habitat states, representing the long-run proportion of the landscape expected to occur in each condition. Finally, these proportions are converted into a habitat index that serves as the habitat objective within the goal-programming optimization model, allowing the simulated annealing algorithm to attempt to balance timber production, revenue generation, and long-term habitat conservation.</p>
 <details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
 <div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="goal-programming-using-a-markov-chain.html#cb15-1" tabindex="-1"></a>forest_habitat <span class="ot">&lt;-</span> <span class="cf">function</span>(habitat_raw, harvest_pressure, x) {</span>
 <span id="cb15-2"><a href="goal-programming-using-a-markov-chain.html#cb15-2" tabindex="-1"></a>  </span>
@@ -653,14 +654,14 @@ with the <code>"SANN"</code> method, starting from an initial solution of 50 ha 
 running for up to 50,000 iterations with an initial temperature of 50.</p>
 <div id="code-notes-5" class="section level4 hasAnchor" number="5.3.4.1">
 <h4><span class="header-section-number">5.3.4.1</span> Code Notes:<a href="goal-programming-using-a-markov-chain.html#code-notes-5" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<div id="final-calculations" class="section level5 hasAnchor" number="5.3.4.1.1">
-<h5><span class="header-section-number">5.3.4.1.1</span> FINAL CALCULATIONS<a href="goal-programming-using-a-markov-chain.html#final-calculations" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<div id="final-calculationss" class="section level5 hasAnchor" number="5.3.4.1.1">
+<h5><span class="header-section-number">5.3.4.1.1</span> Final CalculationsS<a href="goal-programming-using-a-markov-chain.html#final-calculationss" class="anchor-section" aria-label="Anchor link to header"></a></h5>
 <p>The code calculates total harvest, revenue, and a baseline habitat value by applying linear coefficients to
 the optimal allocation vector x. It then computes a normalized harvest pressure index and uses it as input to the
 Markov-chain-based function that adjusts habitat to reflect ecological changes driven by harvesting intensity</p>
 </div>
 <div id="harvest-pressure" class="section level5 hasAnchor" number="5.3.4.1.2">
-<h5><span class="header-section-number">5.3.4.1.2</span> HARVEST PRESSURE<a href="goal-programming-using-a-markov-chain.html#harvest-pressure" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<h5><span class="header-section-number">5.3.4.1.2</span> Harvest Pressure<a href="goal-programming-using-a-markov-chain.html#harvest-pressure" class="anchor-section" aria-label="Anchor link to header"></a></h5>
 <p>harvest_pressure &lt;- sum(x) / 200 is a normalized indicator of total harvesting intensity that scales harvest decisions relative to the maximum allowable forest area and is used to drive ecological changes in the Markov chain model.</p>
 <details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
 <div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="goal-programming-using-a-markov-chain.html#cb17-1" tabindex="-1"></a></span>
