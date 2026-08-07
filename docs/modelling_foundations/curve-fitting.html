@@ -1,0 +1,3295 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>7 Curve Fitting | Modelling Foundations</title>
+  <meta name="description" content="7 Curve Fitting | Modelling Foundations" />
+  <meta name="generator" content="bookdown 0.40 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="7 Curve Fitting | Modelling Foundations" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="7 Curve Fitting | Modelling Foundations" />
+  
+  
+  
+
+<meta name="author" content="A collaborative effort between a Human (Kelly Izzard) and AI" />
+
+
+<meta name="date" content="2026-08-07" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="monte-carlo-markov-chain.html"/>
+<link rel="next" href="cellular-automata-and-the-game-of-life.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/codefolding-lua-1.1/codefolding-lua.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<link href="libs/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet" />
+<script src="libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+<script src="libs/plotly-binding-4.10.4/plotly.js"></script>
+<script src="libs/typedarray-0.1/typedarray.min.js"></script>
+<link href="libs/crosstalk-1.2.1/css/crosstalk.min.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.2.1/js/crosstalk.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-2.11.1/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-2.11.1/plotly-latest.min.js"></script>
+<link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
+<script src="libs/leaflet-1.3.1/leaflet.js"></script>
+<link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet" />
+<script src="libs/proj4-2.6.2/proj4.min.js"></script>
+<script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
+<link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet" />
+<script src="libs/leaflet-binding-2.2.2/leaflet.js"></script>
+<script src="libs/leaflet-providers-2.0.0/leaflet-providers_2.0.0.js"></script>
+<script src="libs/leaflet-providers-plugin-2.2.2/leaflet-providers-plugin.js"></script>
+<script src="libs/HomeButton-0.0.1/home-button.js"></script>
+<script src="libs/HomeButton-0.0.1/easy-button-src.min.js"></script>
+<link href="libs/segment_poly-CSS-0.0.1/segment_poly_home-button.css" rel="stylesheet" />
+<script src="libs/clipboard-0.0.1/setClipboardText.js"></script>
+<link href="libs/mapviewCSS-0.0.1/mapview-popup.css" rel="stylesheet" />
+<link href="libs/mapviewCSS-0.0.1/mapview.css" rel="stylesheet" />
+
+
+<style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#models-and-modellers"><i class="fa fa-check"></i><b>1.1</b> Models and Modellers</a>
+<ul>
+<li class="chapter" data-level="1.1.1" data-path="index.html"><a href="index.html#what-is-a-model"><i class="fa fa-check"></i><b>1.1.1</b> What is a Model</a></li>
+<li class="chapter" data-level="1.1.2" data-path="index.html"><a href="index.html#classification-of-models"><i class="fa fa-check"></i><b>1.1.2</b> Classification of Models</a></li>
+<li class="chapter" data-level="1.1.3" data-path="index.html"><a href="index.html#building-a-model-defining-the-problem-and-its-considerations"><i class="fa fa-check"></i><b>1.1.3</b> Building a Model (Defining the Problem and it’s Considerations)</a></li>
+<li class="chapter" data-level="1.1.4" data-path="index.html"><a href="index.html#the-modellers-creed"><i class="fa fa-check"></i><b>1.1.4</b> The Modeller’s creed</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="simple-linear-programming.html"><a href="simple-linear-programming.html"><i class="fa fa-check"></i><b>2</b> Simple Linear Programming</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="simple-linear-programming.html"><a href="simple-linear-programming.html#introduction-1"><i class="fa fa-check"></i><b>2.1</b> Introduction</a></li>
+<li class="chapter" data-level="2.2" data-path="simple-linear-programming.html"><a href="simple-linear-programming.html#the-simplex-method"><i class="fa fa-check"></i><b>2.2</b> The Simplex Method</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="simple-linear-programming.html"><a href="simple-linear-programming.html#results"><i class="fa fa-check"></i><b>2.2.1</b> Results</a></li>
+<li class="chapter" data-level="2.2.2" data-path="simple-linear-programming.html"><a href="simple-linear-programming.html#the-feasible-solution-space"><i class="fa fa-check"></i><b>2.2.2</b> The Feasible Solution Space</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="simple-linear-programming.html"><a href="simple-linear-programming.html#summary"><i class="fa fa-check"></i><b>2.3</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="simulated-annealing-and-the-sudoku-solver.html"><a href="simulated-annealing-and-the-sudoku-solver.html"><i class="fa fa-check"></i><b>3</b> Simulated Annealing and the Sudoku Solver</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="simulated-annealing-and-the-sudoku-solver.html"><a href="simulated-annealing-and-the-sudoku-solver.html#introduction-2"><i class="fa fa-check"></i><b>3.1</b> Introduction</a></li>
+<li class="chapter" data-level="3.2" data-path="simulated-annealing-and-the-sudoku-solver.html"><a href="simulated-annealing-and-the-sudoku-solver.html#simple-model"><i class="fa fa-check"></i><b>3.2</b> Simple Model</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="simulated-annealing-and-the-sudoku-solver.html"><a href="simulated-annealing-and-the-sudoku-solver.html#plot-objective-value"><i class="fa fa-check"></i><b>3.2.1</b> Plot objective value</a></li>
+<li class="chapter" data-level="3.2.2" data-path="simulated-annealing-and-the-sudoku-solver.html"><a href="simulated-annealing-and-the-sudoku-solver.html#plot-search-trajectory"><i class="fa fa-check"></i><b>3.2.2</b> Plot search trajectory</a></li>
+<li class="chapter" data-level="3.2.3" data-path="simulated-annealing-and-the-sudoku-solver.html"><a href="simulated-annealing-and-the-sudoku-solver.html#plot-objective-function-with-optimization-path"><i class="fa fa-check"></i><b>3.2.3</b> Plot objective function with optimization path</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="simulated-annealing-and-the-sudoku-solver.html"><a href="simulated-annealing-and-the-sudoku-solver.html#sudoku-solver"><i class="fa fa-check"></i><b>3.3</b> Sudoku Solver</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="simulated-annealing-and-the-sudoku-solver.html"><a href="simulated-annealing-and-the-sudoku-solver.html#code-notes"><i class="fa fa-check"></i><b>3.3.1</b> Code Notes:</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="simulated-annealing-and-the-sudoku-solver.html"><a href="simulated-annealing-and-the-sudoku-solver.html#simulated-annealing-solver"><i class="fa fa-check"></i><b>3.4</b> Simulated Annealing Solver</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="simulated-annealing-and-the-sudoku-solver.html"><a href="simulated-annealing-and-the-sudoku-solver.html#code-notes-1"><i class="fa fa-check"></i><b>3.4.1</b> Code Notes:</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="simulated-annealing-and-the-sudoku-solver.html"><a href="simulated-annealing-and-the-sudoku-solver.html#d-plot-of-sudoku-loss-landscape"><i class="fa fa-check"></i><b>3.5</b> 3D plot of Sudoku loss landscape</a>
+<ul>
+<li class="chapter" data-level="3.5.1" data-path="simulated-annealing-and-the-sudoku-solver.html"><a href="simulated-annealing-and-the-sudoku-solver.html#why-use-pca"><i class="fa fa-check"></i><b>3.5.1</b> Why use PCA</a></li>
+<li class="chapter" data-level="3.5.2" data-path="simulated-annealing-and-the-sudoku-solver.html"><a href="simulated-annealing-and-the-sudoku-solver.html#interpretation"><i class="fa fa-check"></i><b>3.5.2</b> Interpretation</a></li>
+<li class="chapter" data-level="3.5.3" data-path="simulated-annealing-and-the-sudoku-solver.html"><a href="simulated-annealing-and-the-sudoku-solver.html#constraint-decomposition-and-the-sudoku-solver"><i class="fa fa-check"></i><b>3.5.3</b> Constraint Decomposition and the Sudoku Solver</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="simple-goal-programming-with-sann.html"><a href="simple-goal-programming-with-sann.html"><i class="fa fa-check"></i><b>4</b> Simple Goal Programming with SANN</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="simple-goal-programming-with-sann.html"><a href="simple-goal-programming-with-sann.html#introduction-3"><i class="fa fa-check"></i><b>4.1</b> Introduction</a></li>
+<li class="chapter" data-level="4.2" data-path="simple-goal-programming-with-sann.html"><a href="simple-goal-programming-with-sann.html#a-simple-goal-programming-model"><i class="fa fa-check"></i><b>4.2</b> A Simple Goal Programming Model</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="simple-goal-programming-with-sann.html"><a href="simple-goal-programming-with-sann.html#the-objective-function"><i class="fa fa-check"></i><b>4.2.1</b> The Objective Function</a></li>
+<li class="chapter" data-level="4.2.2" data-path="simple-goal-programming-with-sann.html"><a href="simple-goal-programming-with-sann.html#code-notes-2"><i class="fa fa-check"></i><b>4.2.2</b> Code Notes:</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="simple-goal-programming-with-sann.html"><a href="simple-goal-programming-with-sann.html#the-sann-optimization"><i class="fa fa-check"></i><b>4.3</b> The SANN Optimization</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="simple-goal-programming-with-sann.html"><a href="simple-goal-programming-with-sann.html#code-notes-3"><i class="fa fa-check"></i><b>4.3.1</b> Code Notes:</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="simple-goal-programming-with-sann.html"><a href="simple-goal-programming-with-sann.html#the-results"><i class="fa fa-check"></i><b>4.4</b> The Results</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="goal-programming-using-a-markov-chain.html"><a href="goal-programming-using-a-markov-chain.html"><i class="fa fa-check"></i><b>5</b> Goal Programming using a Markov Chain</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="goal-programming-using-a-markov-chain.html"><a href="goal-programming-using-a-markov-chain.html#introduction-4"><i class="fa fa-check"></i><b>5.1</b> Introduction</a></li>
+<li class="chapter" data-level="5.2" data-path="goal-programming-using-a-markov-chain.html"><a href="goal-programming-using-a-markov-chain.html#markov-chain-and-goal-programming"><i class="fa fa-check"></i><b>5.2</b> Markov Chain and Goal Programming</a></li>
+<li class="chapter" data-level="5.3" data-path="goal-programming-using-a-markov-chain.html"><a href="goal-programming-using-a-markov-chain.html#the-markov-chain-transition-probability-matrix"><i class="fa fa-check"></i><b>5.3</b> The Markov Chain Transition Probability Matrix</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="goal-programming-using-a-markov-chain.html"><a href="goal-programming-using-a-markov-chain.html#code-notes-4"><i class="fa fa-check"></i><b>5.3.1</b> Code Notes:</a></li>
+<li class="chapter" data-level="5.3.2" data-path="goal-programming-using-a-markov-chain.html"><a href="goal-programming-using-a-markov-chain.html#markov-habitat-function"><i class="fa fa-check"></i><b>5.3.2</b> Markov Habitat Function</a></li>
+<li class="chapter" data-level="5.3.3" data-path="goal-programming-using-a-markov-chain.html"><a href="goal-programming-using-a-markov-chain.html#the-objective-function-1"><i class="fa fa-check"></i><b>5.3.3</b> The Objective Function</a></li>
+<li class="chapter" data-level="5.3.4" data-path="goal-programming-using-a-markov-chain.html"><a href="goal-programming-using-a-markov-chain.html#the-sann-optimization-and-results"><i class="fa fa-check"></i><b>5.3.4</b> The SANN Optimization and RESULTS</a></li>
+<li class="chapter" data-level="5.3.5" data-path="goal-programming-using-a-markov-chain.html"><a href="goal-programming-using-a-markov-chain.html#results-1"><i class="fa fa-check"></i><b>5.3.5</b> Results</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="monte-carlo-markov-chain.html"><a href="monte-carlo-markov-chain.html"><i class="fa fa-check"></i><b>6</b> Monte Carlo Markov Chain</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="monte-carlo-markov-chain.html"><a href="monte-carlo-markov-chain.html#introduction-5"><i class="fa fa-check"></i><b>6.1</b> Introduction</a></li>
+<li class="chapter" data-level="6.2" data-path="monte-carlo-markov-chain.html"><a href="monte-carlo-markov-chain.html#the-monte-carlo-markov-chain"><i class="fa fa-check"></i><b>6.2</b> The Monte Carlo Markov Chain</a></li>
+<li class="chapter" data-level="6.3" data-path="monte-carlo-markov-chain.html"><a href="monte-carlo-markov-chain.html#mcmc-sampling-loop-joint-bulk-and-tail-model"><i class="fa fa-check"></i><b>6.3</b> MCMC Sampling Loop (Joint Bulk and Tail Model)</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="monte-carlo-markov-chain.html"><a href="monte-carlo-markov-chain.html#code-notes-6"><i class="fa fa-check"></i><b>6.3.1</b> Code Notes:</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="monte-carlo-markov-chain.html"><a href="monte-carlo-markov-chain.html#results-2"><i class="fa fa-check"></i><b>6.4</b> Results</a></li>
+<li class="chapter" data-level="6.5" data-path="monte-carlo-markov-chain.html"><a href="monte-carlo-markov-chain.html#summary-1"><i class="fa fa-check"></i><b>6.5</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="curve-fitting.html"><a href="curve-fitting.html"><i class="fa fa-check"></i><b>7</b> Curve Fitting</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="curve-fitting.html"><a href="curve-fitting.html#introduction-6"><i class="fa fa-check"></i><b>7.1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="7.1.1" data-path="curve-fitting.html"><a href="curve-fitting.html#the-chapman-richards-height-age-model"><i class="fa fa-check"></i><b>7.1.1</b> The Chapman-Richards height-age model</a></li>
+<li class="chapter" data-level="7.1.2" data-path="curve-fitting.html"><a href="curve-fitting.html#mixed-effects-chapman-richards-model"><i class="fa fa-check"></i><b>7.1.2</b> Mixed Effects Chapman-Richards model</a></li>
+<li class="chapter" data-level="7.1.3" data-path="curve-fitting.html"><a href="curve-fitting.html#summary-2"><i class="fa fa-check"></i><b>7.1.3</b> Summary</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="cellular-automata-and-the-game-of-life.html"><a href="cellular-automata-and-the-game-of-life.html"><i class="fa fa-check"></i><b>8</b> Cellular Automata and the Game of Life</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="cellular-automata-and-the-game-of-life.html"><a href="cellular-automata-and-the-game-of-life.html#introduction-7"><i class="fa fa-check"></i><b>8.1</b> Introduction</a></li>
+<li class="chapter" data-level="8.2" data-path="cellular-automata-and-the-game-of-life.html"><a href="cellular-automata-and-the-game-of-life.html#wolfram"><i class="fa fa-check"></i><b>8.2</b> Wolfram</a>
+<ul>
+<li class="chapter" data-level="8.2.1" data-path="cellular-automata-and-the-game-of-life.html"><a href="cellular-automata-and-the-game-of-life.html#codes-notes"><i class="fa fa-check"></i><b>8.2.1</b> Codes Notes</a></li>
+<li class="chapter" data-level="8.2.2" data-path="cellular-automata-and-the-game-of-life.html"><a href="cellular-automata-and-the-game-of-life.html#class-iii-rule-30"><i class="fa fa-check"></i><b>8.2.2</b> Class III Rule 30</a></li>
+<li class="chapter" data-level="8.2.3" data-path="cellular-automata-and-the-game-of-life.html"><a href="cellular-automata-and-the-game-of-life.html#class-iv-rule-90"><i class="fa fa-check"></i><b>8.2.3</b> Class IV Rule 90</a></li>
+<li class="chapter" data-level="8.2.4" data-path="cellular-automata-and-the-game-of-life.html"><a href="cellular-automata-and-the-game-of-life.html#class-iv-rule-125"><i class="fa fa-check"></i><b>8.2.4</b> Class IV Rule 125</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="cellular-automata-and-the-game-of-life.html"><a href="cellular-automata-and-the-game-of-life.html#the-game-of-life"><i class="fa fa-check"></i><b>8.3</b> The Game of Life</a>
+<ul>
+<li class="chapter" data-level="8.3.1" data-path="cellular-automata-and-the-game-of-life.html"><a href="cellular-automata-and-the-game-of-life.html#code-notes-7"><i class="fa fa-check"></i><b>8.3.1</b> Code Notes</a></li>
+<li class="chapter" data-level="8.3.2" data-path="cellular-automata-and-the-game-of-life.html"><a href="cellular-automata-and-the-game-of-life.html#animate"><i class="fa fa-check"></i><b>8.3.2</b> Animate</a></li>
+<li class="chapter" data-level="8.3.3" data-path="cellular-automata-and-the-game-of-life.html"><a href="cellular-automata-and-the-game-of-life.html#population-trend"><i class="fa fa-check"></i><b>8.3.3</b> Population Trend</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="neutral-landscape-models.html"><a href="neutral-landscape-models.html"><i class="fa fa-check"></i><b>9</b> Neutral Landscape Models</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="neutral-landscape-models.html"><a href="neutral-landscape-models.html#introduction-this-chapter-borrows-heavily-from-landscape-ecology-in-theory-and-practice"><i class="fa fa-check"></i><b>9.1</b> Introduction (This chapter borrows heavily from Landscape Ecology in Theory and Practice)</a></li>
+<li class="chapter" data-level="9.2" data-path="neutral-landscape-models.html"><a href="neutral-landscape-models.html#understanding-forest-fragmentation-and-connectivity"><i class="fa fa-check"></i><b>9.2</b> Understanding forest fragmentation and connectivity</a></li>
+<li class="chapter" data-level="9.3" data-path="neutral-landscape-models.html"><a href="neutral-landscape-models.html#nlm-results"><i class="fa fa-check"></i><b>9.3</b> NLM Results</a></li>
+<li class="chapter" data-level="9.4" data-path="neutral-landscape-models.html"><a href="neutral-landscape-models.html#introducing-spatial-autocorrolation"><i class="fa fa-check"></i><b>9.4</b> Introducing Spatial Autocorrolation</a></li>
+<li class="chapter" data-level="9.5" data-path="neutral-landscape-models.html"><a href="neutral-landscape-models.html#cluster-results"><i class="fa fa-check"></i><b>9.5</b> Cluster Results</a></li>
+<li class="chapter" data-level="9.6" data-path="neutral-landscape-models.html"><a href="neutral-landscape-models.html#summary-3"><i class="fa fa-check"></i><b>9.6</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="simulation-and-spreading.html"><a href="simulation-and-spreading.html"><i class="fa fa-check"></i><b>10</b> Simulation and Spreading</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="simulation-and-spreading.html"><a href="simulation-and-spreading.html#introduction-8"><i class="fa fa-check"></i><b>10.1</b> Introduction</a></li>
+<li class="chapter" data-level="10.2" data-path="simulation-and-spreading.html"><a href="simulation-and-spreading.html#spreading"><i class="fa fa-check"></i><b>10.2</b> Spreading</a>
+<ul>
+<li class="chapter" data-level="10.2.1" data-path="simulation-and-spreading.html"><a href="simulation-and-spreading.html#simulated-landscapes"><i class="fa fa-check"></i><b>10.2.1</b> Simulated Landscapes</a></li>
+<li class="chapter" data-level="10.2.2" data-path="simulation-and-spreading.html"><a href="simulation-and-spreading.html#spreading-with-a-graph"><i class="fa fa-check"></i><b>10.2.2</b> Spreading with a graph</a></li>
+<li class="chapter" data-level="10.2.3" data-path="simulation-and-spreading.html"><a href="simulation-and-spreading.html#contagion"><i class="fa fa-check"></i><b>10.2.3</b> Contagion</a></li>
+<li class="chapter" data-level="10.2.4" data-path="simulation-and-spreading.html"><a href="simulation-and-spreading.html#monte-carlo-simulation"><i class="fa fa-check"></i><b>10.2.4</b> Monte Carlo Simulation</a></li>
+</ul></li>
+<li class="chapter" data-level="10.3" data-path="simulation-and-spreading.html"><a href="simulation-and-spreading.html#results-3"><i class="fa fa-check"></i><b>10.3</b> Results</a></li>
+<li class="chapter" data-level="10.4" data-path="simulation-and-spreading.html"><a href="simulation-and-spreading.html#summary-4"><i class="fa fa-check"></i><b>10.4</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="spreading-and-the-wildfire-behaviour-framework.html"><a href="spreading-and-the-wildfire-behaviour-framework.html"><i class="fa fa-check"></i><b>11</b> Spreading and the Wildfire Behaviour Framework</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="spreading-and-the-wildfire-behaviour-framework.html"><a href="spreading-and-the-wildfire-behaviour-framework.html#introduction-9"><i class="fa fa-check"></i><b>11.1</b> Introduction</a></li>
+<li class="chapter" data-level="11.2" data-path="spreading-and-the-wildfire-behaviour-framework.html"><a href="spreading-and-the-wildfire-behaviour-framework.html#framework-parameters-and-functions"><i class="fa fa-check"></i><b>11.2</b> Framework Parameters and Functions</a>
+<ul>
+<li class="chapter" data-level="11.2.1" data-path="spreading-and-the-wildfire-behaviour-framework.html"><a href="spreading-and-the-wildfire-behaviour-framework.html#user-parameters"><i class="fa fa-check"></i><b>11.2.1</b> User Parameters</a></li>
+<li class="chapter" data-level="11.2.2" data-path="spreading-and-the-wildfire-behaviour-framework.html"><a href="spreading-and-the-wildfire-behaviour-framework.html#wind-module"><i class="fa fa-check"></i><b>11.2.2</b> Wind Module</a></li>
+<li class="chapter" data-level="11.2.3" data-path="spreading-and-the-wildfire-behaviour-framework.html"><a href="spreading-and-the-wildfire-behaviour-framework.html#fuel-landscape"><i class="fa fa-check"></i><b>11.2.3</b> Fuel Landscape</a></li>
+<li class="chapter" data-level="11.2.4" data-path="spreading-and-the-wildfire-behaviour-framework.html"><a href="spreading-and-the-wildfire-behaviour-framework.html#flammability"><i class="fa fa-check"></i><b>11.2.4</b> Flammability</a></li>
+<li class="chapter" data-level="11.2.5" data-path="spreading-and-the-wildfire-behaviour-framework.html"><a href="spreading-and-the-wildfire-behaviour-framework.html#moisture"><i class="fa fa-check"></i><b>11.2.5</b> Moisture</a></li>
+<li class="chapter" data-level="11.2.6" data-path="spreading-and-the-wildfire-behaviour-framework.html"><a href="spreading-and-the-wildfire-behaviour-framework.html#resistance-is-futile"><i class="fa fa-check"></i><b>11.2.6</b> Resistance (is futile)</a></li>
+<li class="chapter" data-level="11.2.7" data-path="spreading-and-the-wildfire-behaviour-framework.html"><a href="spreading-and-the-wildfire-behaviour-framework.html#ignition"><i class="fa fa-check"></i><b>11.2.7</b> Ignition</a></li>
+<li class="chapter" data-level="11.2.8" data-path="spreading-and-the-wildfire-behaviour-framework.html"><a href="spreading-and-the-wildfire-behaviour-framework.html#surfaces"><i class="fa fa-check"></i><b>11.2.8</b> Surfaces</a></li>
+</ul></li>
+<li class="chapter" data-level="11.3" data-path="spreading-and-the-wildfire-behaviour-framework.html"><a href="spreading-and-the-wildfire-behaviour-framework.html#the-dijkstra-algorithm"><i class="fa fa-check"></i><b>11.3</b> The Dijkstra Algorithm</a></li>
+<li class="chapter" data-level="11.4" data-path="spreading-and-the-wildfire-behaviour-framework.html"><a href="spreading-and-the-wildfire-behaviour-framework.html#metrics"><i class="fa fa-check"></i><b>11.4</b> Metrics</a></li>
+<li class="chapter" data-level="11.5" data-path="spreading-and-the-wildfire-behaviour-framework.html"><a href="spreading-and-the-wildfire-behaviour-framework.html#results-4"><i class="fa fa-check"></i><b>11.5</b> Results</a></li>
+<li class="chapter" data-level="11.6" data-path="spreading-and-the-wildfire-behaviour-framework.html"><a href="spreading-and-the-wildfire-behaviour-framework.html#summary-5"><i class="fa fa-check"></i><b>11.6</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="spatial-data-accuracy-and-precision-in-strategic-modelling.html"><a href="spatial-data-accuracy-and-precision-in-strategic-modelling.html"><i class="fa fa-check"></i><b>12</b> Spatial Data Accuracy and Precision in Strategic Modelling</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="spatial-data-accuracy-and-precision-in-strategic-modelling.html"><a href="spatial-data-accuracy-and-precision-in-strategic-modelling.html#introduction-10"><i class="fa fa-check"></i><b>12.1</b> Introduction</a></li>
+<li class="chapter" data-level="12.2" data-path="spatial-data-accuracy-and-precision-in-strategic-modelling.html"><a href="spatial-data-accuracy-and-precision-in-strategic-modelling.html#precision-and-the-grid"><i class="fa fa-check"></i><b>12.2</b> Precision and the grid</a></li>
+<li class="chapter" data-level="12.3" data-path="spatial-data-accuracy-and-precision-in-strategic-modelling.html"><a href="spatial-data-accuracy-and-precision-in-strategic-modelling.html#the-weakest-link-principle-in-spatial-analysis"><i class="fa fa-check"></i><b>12.3</b> The Weakest Link Principle in Spatial Analysis</a></li>
+<li class="chapter" data-level="12.4" data-path="spatial-data-accuracy-and-precision-in-strategic-modelling.html"><a href="spatial-data-accuracy-and-precision-in-strategic-modelling.html#fitness-for-purpose"><i class="fa fa-check"></i><b>12.4</b> Fitness for Purpose</a></li>
+<li class="chapter" data-level="12.5" data-path="spatial-data-accuracy-and-precision-in-strategic-modelling.html"><a href="spatial-data-accuracy-and-precision-in-strategic-modelling.html#path-dependency-and-the-illusion-of-precision"><i class="fa fa-check"></i><b>12.5</b> Path Dependency and the Illusion of Precision</a>
+<ul>
+<li class="chapter" data-level="12.5.1" data-path="spatial-data-accuracy-and-precision-in-strategic-modelling.html"><a href="spatial-data-accuracy-and-precision-in-strategic-modelling.html#precision-becomes-a-proxy-for-quality"><i class="fa fa-check"></i><b>12.5.1</b> Precision Becomes a Proxy for Quality</a></li>
+<li class="chapter" data-level="12.5.2" data-path="spatial-data-accuracy-and-precision-in-strategic-modelling.html"><a href="spatial-data-accuracy-and-precision-in-strategic-modelling.html#institutional-investment-reinforces-the-bias"><i class="fa fa-check"></i><b>12.5.2</b> Institutional Investment Reinforces the Bias</a></li>
+<li class="chapter" data-level="12.5.3" data-path="spatial-data-accuracy-and-precision-in-strategic-modelling.html"><a href="spatial-data-accuracy-and-precision-in-strategic-modelling.html#strategic-modelling-changes-the-question"><i class="fa fa-check"></i><b>12.5.3</b> Strategic Modelling Changes the Question</a></li>
+<li class="chapter" data-level="12.5.4" data-path="spatial-data-accuracy-and-precision-in-strategic-modelling.html"><a href="spatial-data-accuracy-and-precision-in-strategic-modelling.html#the-false-equivalence-between-detail-and-insight"><i class="fa fa-check"></i><b>12.5.4</b> The False Equivalence Between Detail and Insight</a></li>
+<li class="chapter" data-level="12.5.5" data-path="spatial-data-accuracy-and-precision-in-strategic-modelling.html"><a href="spatial-data-accuracy-and-precision-in-strategic-modelling.html#a-more-useful-perspective"><i class="fa fa-check"></i><b>12.5.5</b> A More Useful Perspective</a></li>
+</ul></li>
+<li class="chapter" data-level="12.6" data-path="spatial-data-accuracy-and-precision-in-strategic-modelling.html"><a href="spatial-data-accuracy-and-precision-in-strategic-modelling.html#scale-and-uncertainty"><i class="fa fa-check"></i><b>12.6</b> Scale and Uncertainty</a></li>
+<li class="chapter" data-level="12.7" data-path="spatial-data-accuracy-and-precision-in-strategic-modelling.html"><a href="spatial-data-accuracy-and-precision-in-strategic-modelling.html#summary-6"><i class="fa fa-check"></i><b>12.7</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="comparing-and-contrasting-the-patchworks-and-stsm-forest-estate-models.html"><a href="comparing-and-contrasting-the-patchworks-and-stsm-forest-estate-models.html"><i class="fa fa-check"></i><b>13</b> Comparing and Contrasting the Patchworks and STSM Forest Estate Models</a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="comparing-and-contrasting-the-patchworks-and-stsm-forest-estate-models.html"><a href="comparing-and-contrasting-the-patchworks-and-stsm-forest-estate-models.html#introduction-11"><i class="fa fa-check"></i><b>13.1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="13.1.1" data-path="comparing-and-contrasting-the-patchworks-and-stsm-forest-estate-models.html"><a href="comparing-and-contrasting-the-patchworks-and-stsm-forest-estate-models.html#modelling-philosophy"><i class="fa fa-check"></i><b>13.1.1</b> Modelling Philosophy</a></li>
+<li class="chapter" data-level="13.1.2" data-path="comparing-and-contrasting-the-patchworks-and-stsm-forest-estate-models.html"><a href="comparing-and-contrasting-the-patchworks-and-stsm-forest-estate-models.html#planning-horizon-perspective-whole-horizon-optimization-versus-step-wise-simulation"><i class="fa fa-check"></i><b>13.1.2</b> Planning Horizon Perspective: Whole-Horizon Optimization versus Step-Wise Simulation</a></li>
+<li class="chapter" data-level="13.1.3" data-path="comparing-and-contrasting-the-patchworks-and-stsm-forest-estate-models.html"><a href="comparing-and-contrasting-the-patchworks-and-stsm-forest-estate-models.html#stochastic-and-deterministic-modelling-in-patchworks-and-stsm"><i class="fa fa-check"></i><b>13.1.3</b> Stochastic and Deterministic Modelling in Patchworks and STSM</a></li>
+<li class="chapter" data-level="13.1.4" data-path="comparing-and-contrasting-the-patchworks-and-stsm-forest-estate-models.html"><a href="comparing-and-contrasting-the-patchworks-and-stsm-forest-estate-models.html#forest-dynamics"><i class="fa fa-check"></i><b>13.1.4</b> Forest Dynamics</a></li>
+<li class="chapter" data-level="13.1.5" data-path="comparing-and-contrasting-the-patchworks-and-stsm-forest-estate-models.html"><a href="comparing-and-contrasting-the-patchworks-and-stsm-forest-estate-models.html#natural-disturbance"><i class="fa fa-check"></i><b>13.1.5</b> Natural Disturbance</a></li>
+<li class="chapter" data-level="13.1.6" data-path="comparing-and-contrasting-the-patchworks-and-stsm-forest-estate-models.html"><a href="comparing-and-contrasting-the-patchworks-and-stsm-forest-estate-models.html#roads"><i class="fa fa-check"></i><b>13.1.6</b> Roads</a></li>
+<li class="chapter" data-level="13.1.7" data-path="comparing-and-contrasting-the-patchworks-and-stsm-forest-estate-models.html"><a href="comparing-and-contrasting-the-patchworks-and-stsm-forest-estate-models.html#user-interaction"><i class="fa fa-check"></i><b>13.1.7</b> User Interaction</a></li>
+<li class="chapter" data-level="13.1.8" data-path="comparing-and-contrasting-the-patchworks-and-stsm-forest-estate-models.html"><a href="comparing-and-contrasting-the-patchworks-and-stsm-forest-estate-models.html#software-availability-and-licensing"><i class="fa fa-check"></i><b>13.1.8</b> Software Availability and Licensing</a></li>
+</ul></li>
+<li class="chapter" data-level="13.2" data-path="comparing-and-contrasting-the-patchworks-and-stsm-forest-estate-models.html"><a href="comparing-and-contrasting-the-patchworks-and-stsm-forest-estate-models.html#conclusion"><i class="fa fa-check"></i><b>13.2</b> Conclusion</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="introduction-to-geostatistics.html"><a href="introduction-to-geostatistics.html"><i class="fa fa-check"></i><b>14</b> Introduction to Geostatistics</a>
+<ul>
+<li class="chapter" data-level="14.1" data-path="introduction-to-geostatistics.html"><a href="introduction-to-geostatistics.html#introduction-12"><i class="fa fa-check"></i><b>14.1</b> Introduction</a></li>
+<li class="chapter" data-level="14.2" data-path="introduction-to-geostatistics.html"><a href="introduction-to-geostatistics.html#geostatistical-modelling"><i class="fa fa-check"></i><b>14.2</b> Geostatistical Modelling</a>
+<ul>
+<li class="chapter" data-level="14.2.1" data-path="introduction-to-geostatistics.html"><a href="introduction-to-geostatistics.html#machine-learning"><i class="fa fa-check"></i><b>14.2.1</b> Machine Learning</a></li>
+<li class="chapter" data-level="14.2.2" data-path="introduction-to-geostatistics.html"><a href="introduction-to-geostatistics.html#area-of-applicability"><i class="fa fa-check"></i><b>14.2.2</b> Area of Applicability</a></li>
+<li class="chapter" data-level="14.2.3" data-path="introduction-to-geostatistics.html"><a href="introduction-to-geostatistics.html#measures-of-model-reliability"><i class="fa fa-check"></i><b>14.2.3</b> Measures of Model Reliability</a></li>
+</ul></li>
+<li class="chapter" data-level="14.3" data-path="introduction-to-geostatistics.html"><a href="introduction-to-geostatistics.html#summary-7"><i class="fa fa-check"></i><b>14.3</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="appendix-1-creating-forest-road-networks-using-graph-theory.html"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html"><i class="fa fa-check"></i><b>15</b> Appendix #1 Creating Forest Road Networks using Graph Theory</a>
+<ul>
+<li class="chapter" data-level="15.1" data-path="appendix-1-creating-forest-road-networks-using-graph-theory.html"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#introduction-13"><i class="fa fa-check"></i><b>15.1</b> Introduction</a></li>
+<li class="chapter" data-level="15.2" data-path="appendix-1-creating-forest-road-networks-using-graph-theory.html"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#creating-a-road-network-using-graph-theory"><i class="fa fa-check"></i><b>15.2</b> Creating a road network using graph theory</a>
+<ul>
+<li class="chapter" data-level="15.2.1" data-path="appendix-1-creating-forest-road-networks-using-graph-theory.html"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#creating-a-simplified-network-in-r"><i class="fa fa-check"></i><b>15.2.1</b> Creating a simplified network in R</a></li>
+<li class="chapter" data-level="15.2.2" data-path="appendix-1-creating-forest-road-networks-using-graph-theory.html"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#creating-future-roads"><i class="fa fa-check"></i><b>15.2.2</b> Creating Future Roads</a></li>
+<li class="chapter" data-level="15.2.3" data-path="appendix-1-creating-forest-road-networks-using-graph-theory.html"><a href="appendix-1-creating-forest-road-networks-using-graph-theory.html#create-patchworks-ready-road-network"><i class="fa fa-check"></i><b>15.2.3</b> Create Patchworks-Ready Road Network</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="16" data-path="appendix-2-patchworks-fire-adjustments.html"><a href="appendix-2-patchworks-fire-adjustments.html"><i class="fa fa-check"></i><b>16</b> Appendix #2: Patchworks Fire Adjustments</a>
+<ul>
+<li class="chapter" data-level="16.1" data-path="appendix-2-patchworks-fire-adjustments.html"><a href="appendix-2-patchworks-fire-adjustments.html#introduction-14"><i class="fa fa-check"></i><b>16.1</b> Introduction</a></li>
+<li class="chapter" data-level="16.2" data-path="appendix-2-patchworks-fire-adjustments.html"><a href="appendix-2-patchworks-fire-adjustments.html#process-summary"><i class="fa fa-check"></i><b>16.2</b> Process Summary</a>
+<ul>
+<li class="chapter" data-level="16.2.1" data-path="appendix-2-patchworks-fire-adjustments.html"><a href="appendix-2-patchworks-fire-adjustments.html#step-1-calculate-cmai"><i class="fa fa-check"></i><b>16.2.1</b> Step 1: Calculate CMAI</a></li>
+<li class="chapter" data-level="16.2.2" data-path="appendix-2-patchworks-fire-adjustments.html"><a href="appendix-2-patchworks-fire-adjustments.html#step-2-master-dataframe"><i class="fa fa-check"></i><b>16.2.2</b> Step 2: Master Dataframe</a></li>
+<li class="chapter" data-level="16.2.3" data-path="appendix-2-patchworks-fire-adjustments.html"><a href="appendix-2-patchworks-fire-adjustments.html#step-3-species-and-si"><i class="fa fa-check"></i><b>16.2.3</b> Step 3: Species and SI</a></li>
+<li class="chapter" data-level="16.2.4" data-path="appendix-2-patchworks-fire-adjustments.html"><a href="appendix-2-patchworks-fire-adjustments.html#step-4-aggregation-fields"><i class="fa fa-check"></i><b>16.2.4</b> Step 4: Aggregation Fields</a></li>
+<li class="chapter" data-level="16.2.5" data-path="appendix-2-patchworks-fire-adjustments.html"><a href="appendix-2-patchworks-fire-adjustments.html#step-5-find-aggregates"><i class="fa fa-check"></i><b>16.2.5</b> Step 5: Find Aggregates</a></li>
+<li class="chapter" data-level="16.2.6" data-path="appendix-2-patchworks-fire-adjustments.html"><a href="appendix-2-patchworks-fire-adjustments.html#step-6-reset-ages-and-aus"><i class="fa fa-check"></i><b>16.2.6</b> Step 6: Reset Ages and AUs</a></li>
+<li class="chapter" data-level="16.2.7" data-path="appendix-2-patchworks-fire-adjustments.html"><a href="appendix-2-patchworks-fire-adjustments.html#step-7-view-spatial"><i class="fa fa-check"></i><b>16.2.7</b> Step 7: View Spatial</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="17" data-path="appendix-3-the-provincial-age-table.html"><a href="appendix-3-the-provincial-age-table.html"><i class="fa fa-check"></i><b>17</b> Appendix #3: The Provincial Age Table</a>
+<ul>
+<li class="chapter" data-level="17.1" data-path="appendix-3-the-provincial-age-table.html"><a href="appendix-3-the-provincial-age-table.html#introduction-15"><i class="fa fa-check"></i><b>17.1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="17.1.1" data-path="appendix-3-the-provincial-age-table.html"><a href="appendix-3-the-provincial-age-table.html#age"><i class="fa fa-check"></i><b>17.1.1</b> Age</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="18" data-path="appendix-4-segmentation-and-block-aggregation.html"><a href="appendix-4-segmentation-and-block-aggregation.html"><i class="fa fa-check"></i><b>18</b> Appendix #4 Segmentation and Block Aggregation</a>
+<ul>
+<li class="chapter" data-level="18.1" data-path="appendix-4-segmentation-and-block-aggregation.html"><a href="appendix-4-segmentation-and-block-aggregation.html#introduction-16"><i class="fa fa-check"></i><b>18.1</b> Introduction</a></li>
+<li class="chapter" data-level="18.2" data-path="appendix-4-segmentation-and-block-aggregation.html"><a href="appendix-4-segmentation-and-block-aggregation.html#methods"><i class="fa fa-check"></i><b>18.2</b> Methods</a>
+<ul>
+<li class="chapter" data-level="18.2.1" data-path="appendix-4-segmentation-and-block-aggregation.html"><a href="appendix-4-segmentation-and-block-aggregation.html#set-up"><i class="fa fa-check"></i><b>18.2.1</b> Set-up</a></li>
+<li class="chapter" data-level="18.2.2" data-path="appendix-4-segmentation-and-block-aggregation.html"><a href="appendix-4-segmentation-and-block-aggregation.html#normalize-the-attributes"><i class="fa fa-check"></i><b>18.2.2</b> Normalize the attributes</a></li>
+<li class="chapter" data-level="18.2.3" data-path="appendix-4-segmentation-and-block-aggregation.html"><a href="appendix-4-segmentation-and-block-aggregation.html#build-the-adjacency-graph"><i class="fa fa-check"></i><b>18.2.3</b> Build the adjacency graph</a></li>
+<li class="chapter" data-level="18.2.4" data-path="appendix-4-segmentation-and-block-aggregation.html"><a href="appendix-4-segmentation-and-block-aggregation.html#convert-raster-cell-ids-to-x-row-ids"><i class="fa fa-check"></i><b>18.2.4</b> Convert Raster Cell IDs to X Row IDs</a></li>
+<li class="chapter" data-level="18.2.5" data-path="appendix-4-segmentation-and-block-aggregation.html"><a href="appendix-4-segmentation-and-block-aggregation.html#calculate-edge-weights"><i class="fa fa-check"></i><b>18.2.5</b> Calculate Edge Weights</a></li>
+<li class="chapter" data-level="18.2.6" data-path="appendix-4-segmentation-and-block-aggregation.html"><a href="appendix-4-segmentation-and-block-aggregation.html#build-the-graph"><i class="fa fa-check"></i><b>18.2.6</b> Build the Graph</a></li>
+<li class="chapter" data-level="18.2.7" data-path="appendix-4-segmentation-and-block-aggregation.html"><a href="appendix-4-segmentation-and-block-aggregation.html#segmentation"><i class="fa fa-check"></i><b>18.2.7</b> Segmentation</a></li>
+</ul></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Modelling Foundations</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="curve-fitting" class="section level1 hasAnchor" number="7">
+<h1><span class="header-section-number">7</span> Curve Fitting<a href="curve-fitting.html#curve-fitting" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="introduction-6" class="section level2 hasAnchor" number="7.1">
+<h2><span class="header-section-number">7.1</span> Introduction<a href="curve-fitting.html#introduction-6" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Curve fitting plays a fundamental role in modelling because it
+provides a way to translate observed data into mathematical
+relationships that can be used for prediction, simulation, and
+decision-making. Forests are governed by complex biological and
+ecological processes, but many of these processes can be approximated by
+fitted equations that describe how variables change over time or
+interact with one another. For example, growth-and-yield models commonly
+fit curves to relationships between tree age and volume, height and
+diameter, diameter and biomass, or stand density and productivity. Once
+fitted, these curves can be used to estimate future forest conditions,
+timber supply, carbon stocks, habitat characteristics, and disturbance
+impacts.</p>
+<p>In traditional applications, curve fitting is often
+deterministic. A model might fit a Logistic, LogNormal, Weibull, or other growth
+function to historical measurements and produce a single “best-fit”
+parameter set. The resulting curve represents the average expected
+relationship in the data.The primary objective is
+usually prediction accuracy and biological realism.</p>
+<p>However, modern modelling increasingly recognizes that forests dynamics
+are inherently uncertain. Growth rates vary among sites, disturbance
+processes are stochastic, future climates are unknown, and observations
+contain measurement error. In these situations, curve fitting evolves
+into statistical inference, where the goal is not only to estimate the
+best-fitting curve but also to quantify uncertainty around it. Bayesian
+methods, mixed-effects models, and MCMC approaches are examples of this
+shift.</p>
+<p>The wildfire-size MCMC model discussed in the previous chapter is a good
+example. It performed a form of curve fitting because it is fitting a
+hybrid Lognormal-Pareto distribution to the observed fire-size data.
+However, instead of producing a single fitted curve, it estimates a
+probability distribution of possible parameter values and therefore a
+family of plausible curves. The output includes uncertainty about the
+fitted distribution as well as uncertainty in future simulations.</p>
+<p>In the broader context of forest modelling, curve fitting serves four
+major purposes:</p>
+<ul>
+<li><strong>Description</strong></li>
+</ul>
+<p>Summarizing observed forest patterns with mathematical relationships
+(e.g., diameter distributions or age-volume curves).</p>
+<ul>
+<li><strong>Prediction</strong></li>
+</ul>
+<p>Estimating future forest conditions such as stand volume, biomass,
+carbon storage, habitat suitability, or wildfire occurrence.</p>
+<ul>
+<li><strong>Simulation</strong></li>
+</ul>
+<p>Providing equations that drive larger forest landscape models, timber
+supply models, succession models, or disturbance simulations.</p>
+<ul>
+<li><strong>Uncertainty Quantification</strong></li>
+</ul>
+<p>Estimating confidence intervals, credible intervals, and alternative
+future outcomes through Bayesian or stochastic modelling approaches.</p>
+<div id="the-chapman-richards-height-age-model" class="section level3 hasAnchor" number="7.1.1">
+<h3><span class="header-section-number">7.1.1</span> The Chapman-Richards height-age model<a href="curve-fitting.html#the-chapman-richards-height-age-model" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>This analysis was designed to demonstrate the progression from simple
+curve fitting to more realistic forest growth modelling using FAIB White
+Spruce ground plot data. Beginning with a dataset of 1,810 white spruce
+observations containing stand age, top height, and site index
+information, a series of Chapman-Richards height-age models were fitted
+to evaluate how increasing levels of ecological information improve
+growth predictions.</p>
+<p>The Chapman-Richards growth model is a flexible nonlinear equation
+widely used in forestry to describe biological growth processes such as
+dominant height, volume, diameter, and biomass development over time.
+The model produces a sigmoidal (S-shaped) growth curve that closely
+reflects how trees and forest stands grow in nature: growth is initially
+slow in young stands, accelerates during the rapid juvenile and
+mid-rotation stages, and then gradually slows as the stand approaches a
+biological maximum.</p>
+<p><span class="math display">\[H = a(1-e^{-bA})^c\]</span></p>
+<p>where:</p>
+<ul>
+<li><span class="math inline">\(H\)</span> = top height (m)</li>
+<li><span class="math inline">\(A\)</span> = stand age (years)</li>
+<li><span class="math inline">\(a\)</span> = asymptotic maximum height</li>
+<li><span class="math inline">\(b\)</span> = growth rate parameter</li>
+<li><span class="math inline">\(c\)</span> = curve shape parameter</li>
+</ul>
+<p>In its common form, parameter <code>a</code> represents the asymptotic maximum
+height (asymptotic means that the predicted value approaches an upper
+limit but never quite reaches it. For a tree height curve, the asymptote
+represents the theoretical maximum height that the stand approaches as
+age becomes very large and growth radually slows toward zero.), <code>b</code>
+controls the rate of growth, and <code>c</code> determines the shape and inflection
+of the curve. Because each parameter has a biological interpretation,
+the Chapman-Richards model is particularly useful for developing
+realistic forest height-age relationships and site productivity curves.</p>
+<p>The workflow first fit an age-only Chapman-Richards model to describe
+average height development across all stands and then developed a
+separate curve for poor productivity sites to examine growth patterns
+under low site quality conditions. The workflow then extended the
+Chapman-Richards model to include Site Index as a continuous measure of
+productivity, allowing the asymptotic height component to vary according
+to site quality and generating a family of site-specific height-age
+curves.</p>
+<p><span class="math display">\[H = (a + dSI)(1 - e^{-bA})^c\]</span></p>
+<p>where:</p>
+<ul>
+<li><span class="math inline">\(H\)</span> = top height (m)</li>
+<li><span class="math inline">\(A\)</span> = stand age (years)</li>
+<li><span class="math inline">\(SI\)</span> = Site Index (m at breast-height age 50)</li>
+<li><span class="math inline">\(a\)</span> = baseline asymptotic height parameter</li>
+<li><span class="math inline">\(d\)</span> = Site Index effect parameter</li>
+<li><span class="math inline">\(b\)</span> = growth rate parameter</li>
+<li><span class="math inline">\(c\)</span> = curve shape parameter</li>
+</ul>
+<p>The term <span class="math inline">\((a + dSI)\)</span> allows the asymptotic height component to vary with
+site quality, producing a family of height-age curves in which more
+productive sites attain greater heights while maintaining a common
+growth form. As a result, stands with the same age but different Site
+Index values are predicted to follow different growth trajectories,
+reflecting the influence of environmental conditions on long-term stand
+development.</p>
+<details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="curve-fitting.html#cb21-1" tabindex="-1"></a></span>
+<span id="cb21-2"><a href="curve-fitting.html#cb21-2" tabindex="-1"></a><span class="do">#####################################################################</span></span>
+<span id="cb21-3"><a href="curve-fitting.html#cb21-3" tabindex="-1"></a><span class="co"># FAIB WHITE SPRUCE HEIGHT-AGE MODELLING WORKFLOW</span></span>
+<span id="cb21-4"><a href="curve-fitting.html#cb21-4" tabindex="-1"></a><span class="co">#</span></span>
+<span id="cb21-5"><a href="curve-fitting.html#cb21-5" tabindex="-1"></a><span class="co"># Demonstrates:</span></span>
+<span id="cb21-6"><a href="curve-fitting.html#cb21-6" tabindex="-1"></a><span class="co">#   1. Age-only Chapman-Richards growth model</span></span>
+<span id="cb21-7"><a href="curve-fitting.html#cb21-7" tabindex="-1"></a><span class="co">#   2. Poor Site growth model</span></span>
+<span id="cb21-8"><a href="curve-fitting.html#cb21-8" tabindex="-1"></a><span class="co">#   3. Age + Site Index growth model</span></span>
+<span id="cb21-9"><a href="curve-fitting.html#cb21-9" tabindex="-1"></a><span class="co">#   4. Model comparison</span></span>
+<span id="cb21-10"><a href="curve-fitting.html#cb21-10" tabindex="-1"></a><span class="co">#   5. Residual diagnostics</span></span>
+<span id="cb21-11"><a href="curve-fitting.html#cb21-11" tabindex="-1"></a><span class="co">#   6. Site productivity growth trajectories</span></span>
+<span id="cb21-12"><a href="curve-fitting.html#cb21-12" tabindex="-1"></a><span class="co">#</span></span>
+<span id="cb21-13"><a href="curve-fitting.html#cb21-13" tabindex="-1"></a><span class="co"># Dataset:</span></span>
+<span id="cb21-14"><a href="curve-fitting.html#cb21-14" tabindex="-1"></a><span class="co">#   faib_compiled_spcsmries_siteage.csv</span></span>
+<span id="cb21-15"><a href="curve-fitting.html#cb21-15" tabindex="-1"></a><span class="co">#</span></span>
+<span id="cb21-16"><a href="curve-fitting.html#cb21-16" tabindex="-1"></a><span class="do">#####################################################################</span></span>
+<span id="cb21-17"><a href="curve-fitting.html#cb21-17" tabindex="-1"></a></span>
+<span id="cb21-18"><a href="curve-fitting.html#cb21-18" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb21-19"><a href="curve-fitting.html#cb21-19" tabindex="-1"></a><span class="fu">library</span>(gt)</span>
+<span id="cb21-20"><a href="curve-fitting.html#cb21-20" tabindex="-1"></a><span class="co">#---------------------------------------------------------------</span></span>
+<span id="cb21-21"><a href="curve-fitting.html#cb21-21" tabindex="-1"></a><span class="co"># Load Data</span></span>
+<span id="cb21-22"><a href="curve-fitting.html#cb21-22" tabindex="-1"></a><span class="co">#---------------------------------------------------------------</span></span>
+<span id="cb21-23"><a href="curve-fitting.html#cb21-23" tabindex="-1"></a></span>
+<span id="cb21-24"><a href="curve-fitting.html#cb21-24" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;./faib_compiled_spcsmries_siteage.csv&quot;</span>)</span>
+<span id="cb21-25"><a href="curve-fitting.html#cb21-25" tabindex="-1"></a></span>
+<span id="cb21-26"><a href="curve-fitting.html#cb21-26" tabindex="-1"></a><span class="co">#--------------------------------------------------------------------</span></span>
+<span id="cb21-27"><a href="curve-fitting.html#cb21-27" tabindex="-1"></a><span class="co"># 2. Build White Spruce Dataset</span></span>
+<span id="cb21-28"><a href="curve-fitting.html#cb21-28" tabindex="-1"></a><span class="co">#--------------------------------------------------------------------</span></span>
+<span id="cb21-29"><a href="curve-fitting.html#cb21-29" tabindex="-1"></a></span>
+<span id="cb21-30"><a href="curve-fitting.html#cb21-30" tabindex="-1"></a>sw <span class="ot">&lt;-</span> dat <span class="sc">%&gt;%</span></span>
+<span id="cb21-31"><a href="curve-fitting.html#cb21-31" tabindex="-1"></a>  <span class="fu">filter</span>(</span>
+<span id="cb21-32"><a href="curve-fitting.html#cb21-32" tabindex="-1"></a>    SPECIES <span class="sc">==</span> <span class="st">&quot;SW&quot;</span>,</span>
+<span id="cb21-33"><a href="curve-fitting.html#cb21-33" tabindex="-1"></a>    <span class="sc">!</span><span class="fu">is.na</span>(AGET_TLSO),</span>
+<span id="cb21-34"><a href="curve-fitting.html#cb21-34" tabindex="-1"></a>    <span class="sc">!</span><span class="fu">is.na</span>(HT_TLSO),</span>
+<span id="cb21-35"><a href="curve-fitting.html#cb21-35" tabindex="-1"></a>    <span class="sc">!</span><span class="fu">is.na</span>(SI_M_TLSO),</span>
+<span id="cb21-36"><a href="curve-fitting.html#cb21-36" tabindex="-1"></a>    AGET_TLSO <span class="sc">&gt;</span> <span class="dv">0</span>,</span>
+<span id="cb21-37"><a href="curve-fitting.html#cb21-37" tabindex="-1"></a>    HT_TLSO <span class="sc">&gt;</span> <span class="dv">0</span>,</span>
+<span id="cb21-38"><a href="curve-fitting.html#cb21-38" tabindex="-1"></a>    SI_M_TLSO <span class="sc">&gt;</span> <span class="dv">0</span></span>
+<span id="cb21-39"><a href="curve-fitting.html#cb21-39" tabindex="-1"></a>  )</span>
+<span id="cb21-40"><a href="curve-fitting.html#cb21-40" tabindex="-1"></a></span>
+<span id="cb21-41"><a href="curve-fitting.html#cb21-41" tabindex="-1"></a></span>
+<span id="cb21-42"><a href="curve-fitting.html#cb21-42" tabindex="-1"></a><span class="co">#--------------------------------------------------------------------</span></span>
+<span id="cb21-43"><a href="curve-fitting.html#cb21-43" tabindex="-1"></a><span class="co"># 3. Create Site Index Classes</span></span>
+<span id="cb21-44"><a href="curve-fitting.html#cb21-44" tabindex="-1"></a><span class="co">#--------------------------------------------------------------------</span></span>
+<span id="cb21-45"><a href="curve-fitting.html#cb21-45" tabindex="-1"></a></span>
+<span id="cb21-46"><a href="curve-fitting.html#cb21-46" tabindex="-1"></a>sw<span class="sc">$</span>SI_CLASS <span class="ot">&lt;-</span> <span class="fu">cut</span>(</span>
+<span id="cb21-47"><a href="curve-fitting.html#cb21-47" tabindex="-1"></a>  sw<span class="sc">$</span>SI_M_TLSO,</span>
+<span id="cb21-48"><a href="curve-fitting.html#cb21-48" tabindex="-1"></a>  <span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">10</span>,<span class="dv">15</span>,<span class="dv">20</span>,<span class="dv">100</span>),</span>
+<span id="cb21-49"><a href="curve-fitting.html#cb21-49" tabindex="-1"></a>  <span class="at">labels =</span> <span class="fu">c</span>(</span>
+<span id="cb21-50"><a href="curve-fitting.html#cb21-50" tabindex="-1"></a>    <span class="st">&quot;Poor&quot;</span>,</span>
+<span id="cb21-51"><a href="curve-fitting.html#cb21-51" tabindex="-1"></a>    <span class="st">&quot;Medium&quot;</span>,</span>
+<span id="cb21-52"><a href="curve-fitting.html#cb21-52" tabindex="-1"></a>    <span class="st">&quot;Good&quot;</span>,</span>
+<span id="cb21-53"><a href="curve-fitting.html#cb21-53" tabindex="-1"></a>    <span class="st">&quot;Excellent&quot;</span></span>
+<span id="cb21-54"><a href="curve-fitting.html#cb21-54" tabindex="-1"></a>  )</span>
+<span id="cb21-55"><a href="curve-fitting.html#cb21-55" tabindex="-1"></a>)</span>
+<span id="cb21-56"><a href="curve-fitting.html#cb21-56" tabindex="-1"></a></span>
+<span id="cb21-57"><a href="curve-fitting.html#cb21-57" tabindex="-1"></a></span>
+<span id="cb21-58"><a href="curve-fitting.html#cb21-58" tabindex="-1"></a></span>
+<span id="cb21-59"><a href="curve-fitting.html#cb21-59" tabindex="-1"></a><span class="co">#--------------------------------------------------------------------</span></span>
+<span id="cb21-60"><a href="curve-fitting.html#cb21-60" tabindex="-1"></a><span class="co"># 4. Utility Function</span></span>
+<span id="cb21-61"><a href="curve-fitting.html#cb21-61" tabindex="-1"></a><span class="co">#--------------------------------------------------------------------</span></span>
+<span id="cb21-62"><a href="curve-fitting.html#cb21-62" tabindex="-1"></a><span class="co">#The model_stats() function evaluates the performance of a predictive model </span></span>
+<span id="cb21-63"><a href="curve-fitting.html#cb21-63" tabindex="-1"></a><span class="co">#by comparing observed values (obs) with model-predicted values (pred). </span></span>
+<span id="cb21-64"><a href="curve-fitting.html#cb21-64" tabindex="-1"></a><span class="co">#It calculates the Root Mean Square Error (RMSE), which measures the </span></span>
+<span id="cb21-65"><a href="curve-fitting.html#cb21-65" tabindex="-1"></a><span class="co">#average magnitude of prediction errors in the original units of the </span></span>
+<span id="cb21-66"><a href="curve-fitting.html#cb21-66" tabindex="-1"></a><span class="co">#response variable, with lower values indicating better model accuracy. </span></span>
+<span id="cb21-67"><a href="curve-fitting.html#cb21-67" tabindex="-1"></a><span class="co">#The function also calculates the coefficient of determination (R²) by </span></span>
+<span id="cb21-68"><a href="curve-fitting.html#cb21-68" tabindex="-1"></a><span class="co">#comparing the residual sum of squares (ss.res) to the total sum of squares </span></span>
+<span id="cb21-69"><a href="curve-fitting.html#cb21-69" tabindex="-1"></a><span class="co">#(ss.tot). R² represents the proportion of variation in the observed data </span></span>
+<span id="cb21-70"><a href="curve-fitting.html#cb21-70" tabindex="-1"></a><span class="co">#explained by the model, with values closer to 1 indicating a better fit. </span></span>
+<span id="cb21-71"><a href="curve-fitting.html#cb21-71" tabindex="-1"></a><span class="co">#The function returns both statistics in a data frame, providing a concise </span></span>
+<span id="cb21-72"><a href="curve-fitting.html#cb21-72" tabindex="-1"></a><span class="co">#summary of model performance for comparing alternative growth models.</span></span>
+<span id="cb21-73"><a href="curve-fitting.html#cb21-73" tabindex="-1"></a></span>
+<span id="cb21-74"><a href="curve-fitting.html#cb21-74" tabindex="-1"></a>model_stats <span class="ot">&lt;-</span> <span class="cf">function</span>(obs, pred){</span>
+<span id="cb21-75"><a href="curve-fitting.html#cb21-75" tabindex="-1"></a>  </span>
+<span id="cb21-76"><a href="curve-fitting.html#cb21-76" tabindex="-1"></a>  rmse <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(<span class="fu">mean</span>((obs <span class="sc">-</span> pred)<span class="sc">^</span><span class="dv">2</span>))</span>
+<span id="cb21-77"><a href="curve-fitting.html#cb21-77" tabindex="-1"></a>  </span>
+<span id="cb21-78"><a href="curve-fitting.html#cb21-78" tabindex="-1"></a>  ss.res <span class="ot">&lt;-</span> <span class="fu">sum</span>((obs <span class="sc">-</span> pred)<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb21-79"><a href="curve-fitting.html#cb21-79" tabindex="-1"></a>  ss.tot <span class="ot">&lt;-</span> <span class="fu">sum</span>((obs <span class="sc">-</span> <span class="fu">mean</span>(obs))<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb21-80"><a href="curve-fitting.html#cb21-80" tabindex="-1"></a>  </span>
+<span id="cb21-81"><a href="curve-fitting.html#cb21-81" tabindex="-1"></a>  r2 <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">-</span> ss.res <span class="sc">/</span> ss.tot</span>
+<span id="cb21-82"><a href="curve-fitting.html#cb21-82" tabindex="-1"></a>  </span>
+<span id="cb21-83"><a href="curve-fitting.html#cb21-83" tabindex="-1"></a>  <span class="fu">return</span>(</span>
+<span id="cb21-84"><a href="curve-fitting.html#cb21-84" tabindex="-1"></a>    <span class="fu">data.frame</span>(</span>
+<span id="cb21-85"><a href="curve-fitting.html#cb21-85" tabindex="-1"></a>      <span class="at">RMSE =</span> rmse,</span>
+<span id="cb21-86"><a href="curve-fitting.html#cb21-86" tabindex="-1"></a>      <span class="at">R2 =</span> r2</span>
+<span id="cb21-87"><a href="curve-fitting.html#cb21-87" tabindex="-1"></a>    )</span>
+<span id="cb21-88"><a href="curve-fitting.html#cb21-88" tabindex="-1"></a>  )</span>
+<span id="cb21-89"><a href="curve-fitting.html#cb21-89" tabindex="-1"></a>}</span>
+<span id="cb21-90"><a href="curve-fitting.html#cb21-90" tabindex="-1"></a></span>
+<span id="cb21-91"><a href="curve-fitting.html#cb21-91" tabindex="-1"></a><span class="co">#This section fits an age-only Chapman-Richards height growth model to the white </span></span>
+<span id="cb21-92"><a href="curve-fitting.html#cb21-92" tabindex="-1"></a><span class="co">#spruce dataset using nonlinear least squares (nls). The model estimates the </span></span>
+<span id="cb21-93"><a href="curve-fitting.html#cb21-93" tabindex="-1"></a><span class="co">#parameters a, b, and c, which respectively represent the asymptotic </span></span>
+<span id="cb21-94"><a href="curve-fitting.html#cb21-94" tabindex="-1"></a><span class="co">#maximum height, growth rate, and curve shape, using stand total age (AGET_TLSO) </span></span>
+<span id="cb21-95"><a href="curve-fitting.html#cb21-95" tabindex="-1"></a><span class="co">#as the sole predictor of top height (HT_TLSO). Initial parameter values are </span></span>
+<span id="cb21-96"><a href="curve-fitting.html#cb21-96" tabindex="-1"></a><span class="co">#supplied to aid model convergence, and the fitted model summary is examined to </span></span>
+<span id="cb21-97"><a href="curve-fitting.html#cb21-97" tabindex="-1"></a><span class="co">#assess parameter significance and overall fit. Predicted heights </span></span>
+<span id="cb21-98"><a href="curve-fitting.html#cb21-98" tabindex="-1"></a><span class="co">#are then generated for all observations using the fitted model, and the </span></span>
+<span id="cb21-99"><a href="curve-fitting.html#cb21-99" tabindex="-1"></a><span class="co">#predictions are compared with the observed heights through the model_stats() </span></span>
+<span id="cb21-100"><a href="curve-fitting.html#cb21-100" tabindex="-1"></a><span class="co">#function.</span></span>
+<span id="cb21-101"><a href="curve-fitting.html#cb21-101" tabindex="-1"></a></span>
+<span id="cb21-102"><a href="curve-fitting.html#cb21-102" tabindex="-1"></a></span>
+<span id="cb21-103"><a href="curve-fitting.html#cb21-103" tabindex="-1"></a>fit.age <span class="ot">&lt;-</span> <span class="fu">nls</span>(</span>
+<span id="cb21-104"><a href="curve-fitting.html#cb21-104" tabindex="-1"></a>  HT_TLSO <span class="sc">~</span> a <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="fu">exp</span>(<span class="sc">-</span>b <span class="sc">*</span> AGET_TLSO))<span class="sc">^</span>c,</span>
+<span id="cb21-105"><a href="curve-fitting.html#cb21-105" tabindex="-1"></a>  </span>
+<span id="cb21-106"><a href="curve-fitting.html#cb21-106" tabindex="-1"></a>  <span class="at">data =</span> sw,</span>
+<span id="cb21-107"><a href="curve-fitting.html#cb21-107" tabindex="-1"></a>  </span>
+<span id="cb21-108"><a href="curve-fitting.html#cb21-108" tabindex="-1"></a>  <span class="at">start =</span> <span class="fu">list</span>(</span>
+<span id="cb21-109"><a href="curve-fitting.html#cb21-109" tabindex="-1"></a>    <span class="at">a =</span> <span class="dv">35</span>,</span>
+<span id="cb21-110"><a href="curve-fitting.html#cb21-110" tabindex="-1"></a>    <span class="at">b =</span> <span class="fl">0.01</span>,</span>
+<span id="cb21-111"><a href="curve-fitting.html#cb21-111" tabindex="-1"></a>    <span class="at">c =</span> <span class="fl">1.5</span></span>
+<span id="cb21-112"><a href="curve-fitting.html#cb21-112" tabindex="-1"></a>  )</span>
+<span id="cb21-113"><a href="curve-fitting.html#cb21-113" tabindex="-1"></a>)</span>
+<span id="cb21-114"><a href="curve-fitting.html#cb21-114" tabindex="-1"></a></span>
+<span id="cb21-115"><a href="curve-fitting.html#cb21-115" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">summary</span>(fit.age))</span>
+<span id="cb21-116"><a href="curve-fitting.html#cb21-116" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb21-117"><a href="curve-fitting.html#cb21-117" tabindex="-1"></a><span class="do">## Formula: HT_TLSO ~ a * (1 - exp(-b * AGET_TLSO))^c</span></span>
+<span id="cb21-118"><a href="curve-fitting.html#cb21-118" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb21-119"><a href="curve-fitting.html#cb21-119" tabindex="-1"></a><span class="do">## Parameters:</span></span>
+<span id="cb21-120"><a href="curve-fitting.html#cb21-120" tabindex="-1"></a><span class="do">##   Estimate Std. Error t value Pr(&gt;|t|)    </span></span>
+<span id="cb21-121"><a href="curve-fitting.html#cb21-121" tabindex="-1"></a><span class="do">## a 27.73359    0.35628   77.84   &lt;2e-16 ***</span></span>
+<span id="cb21-122"><a href="curve-fitting.html#cb21-122" tabindex="-1"></a><span class="do">## b  0.02273    0.00165   13.78   &lt;2e-16 ***</span></span>
+<span id="cb21-123"><a href="curve-fitting.html#cb21-123" tabindex="-1"></a><span class="do">## c  1.40315    0.11159   12.57   &lt;2e-16 ***</span></span>
+<span id="cb21-124"><a href="curve-fitting.html#cb21-124" tabindex="-1"></a><span class="do">## ---</span></span>
+<span id="cb21-125"><a href="curve-fitting.html#cb21-125" tabindex="-1"></a><span class="do">## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span></span>
+<span id="cb21-126"><a href="curve-fitting.html#cb21-126" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb21-127"><a href="curve-fitting.html#cb21-127" tabindex="-1"></a><span class="do">## Residual standard error: 5.288 on 1807 degrees of freedom</span></span>
+<span id="cb21-128"><a href="curve-fitting.html#cb21-128" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb21-129"><a href="curve-fitting.html#cb21-129" tabindex="-1"></a><span class="do">## Number of iterations to convergence: 7 </span></span>
+<span id="cb21-130"><a href="curve-fitting.html#cb21-130" tabindex="-1"></a><span class="do">## Achieved convergence tolerance: 1.965e-06</span></span>
+<span id="cb21-131"><a href="curve-fitting.html#cb21-131" tabindex="-1"></a></span>
+<span id="cb21-132"><a href="curve-fitting.html#cb21-132" tabindex="-1"></a>pred.age <span class="ot">&lt;-</span> <span class="fu">predict</span>(fit.age)</span>
+<span id="cb21-133"><a href="curve-fitting.html#cb21-133" tabindex="-1"></a></span>
+<span id="cb21-134"><a href="curve-fitting.html#cb21-134" tabindex="-1"></a>stats.age <span class="ot">&lt;-</span> <span class="fu">model_stats</span>(</span>
+<span id="cb21-135"><a href="curve-fitting.html#cb21-135" tabindex="-1"></a>  sw<span class="sc">$</span>HT_TLSO,</span>
+<span id="cb21-136"><a href="curve-fitting.html#cb21-136" tabindex="-1"></a>  pred.age</span>
+<span id="cb21-137"><a href="curve-fitting.html#cb21-137" tabindex="-1"></a>)</span>
+<span id="cb21-138"><a href="curve-fitting.html#cb21-138" tabindex="-1"></a></span>
+<span id="cb21-139"><a href="curve-fitting.html#cb21-139" tabindex="-1"></a></span>
+<span id="cb21-140"><a href="curve-fitting.html#cb21-140" tabindex="-1"></a>stats.age_gt <span class="ot">&lt;-</span> stats.age <span class="sc">%&gt;%</span></span>
+<span id="cb21-141"><a href="curve-fitting.html#cb21-141" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Model =</span> <span class="st">&quot;Age Only&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb21-142"><a href="curve-fitting.html#cb21-142" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(Model, RMSE, R2)</span>
+<span id="cb21-143"><a href="curve-fitting.html#cb21-143" tabindex="-1"></a></span>
+<span id="cb21-144"><a href="curve-fitting.html#cb21-144" tabindex="-1"></a>stats.age_gt <span class="sc">%&gt;%</span></span>
+<span id="cb21-145"><a href="curve-fitting.html#cb21-145" tabindex="-1"></a>  <span class="fu">gt</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb21-146"><a href="curve-fitting.html#cb21-146" tabindex="-1"></a>  <span class="fu">fmt_number</span>(</span>
+<span id="cb21-147"><a href="curve-fitting.html#cb21-147" tabindex="-1"></a>    <span class="at">columns =</span> <span class="fu">c</span>(RMSE, R2),</span>
+<span id="cb21-148"><a href="curve-fitting.html#cb21-148" tabindex="-1"></a>    <span class="at">decimals =</span> <span class="dv">3</span></span>
+<span id="cb21-149"><a href="curve-fitting.html#cb21-149" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb21-150"><a href="curve-fitting.html#cb21-150" tabindex="-1"></a>  <span class="fu">cols_label</span>(</span>
+<span id="cb21-151"><a href="curve-fitting.html#cb21-151" tabindex="-1"></a>    <span class="at">RMSE =</span> <span class="st">&quot;RMSE (m)&quot;</span>,</span>
+<span id="cb21-152"><a href="curve-fitting.html#cb21-152" tabindex="-1"></a>    <span class="at">R2 =</span> <span class="st">&quot;R²&quot;</span></span>
+<span id="cb21-153"><a href="curve-fitting.html#cb21-153" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb21-154"><a href="curve-fitting.html#cb21-154" tabindex="-1"></a>  <span class="fu">tab_header</span>(</span>
+<span id="cb21-155"><a href="curve-fitting.html#cb21-155" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Model Performance Statistics&quot;</span></span>
+<span id="cb21-156"><a href="curve-fitting.html#cb21-156" tabindex="-1"></a>  )</span></code></pre></div>
+</details>
+<div id="xmnriwcwiu" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#xmnriwcwiu table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#xmnriwcwiu thead, #xmnriwcwiu tbody, #xmnriwcwiu tfoot, #xmnriwcwiu tr, #xmnriwcwiu td, #xmnriwcwiu th {
+  border-style: none;
+}
+
+#xmnriwcwiu p {
+  margin: 0;
+  padding: 0;
+}
+
+#xmnriwcwiu .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#xmnriwcwiu .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#xmnriwcwiu .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#xmnriwcwiu .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#xmnriwcwiu .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#xmnriwcwiu .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#xmnriwcwiu .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#xmnriwcwiu .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#xmnriwcwiu .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#xmnriwcwiu .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#xmnriwcwiu .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#xmnriwcwiu .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#xmnriwcwiu .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#xmnriwcwiu .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#xmnriwcwiu .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#xmnriwcwiu .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#xmnriwcwiu .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#xmnriwcwiu .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#xmnriwcwiu .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#xmnriwcwiu .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#xmnriwcwiu .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#xmnriwcwiu .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#xmnriwcwiu .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#xmnriwcwiu .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#xmnriwcwiu .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#xmnriwcwiu .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#xmnriwcwiu .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#xmnriwcwiu .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#xmnriwcwiu .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#xmnriwcwiu .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#xmnriwcwiu .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#xmnriwcwiu .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#xmnriwcwiu .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#xmnriwcwiu .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#xmnriwcwiu .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#xmnriwcwiu .gt_left {
+  text-align: left;
+}
+
+#xmnriwcwiu .gt_center {
+  text-align: center;
+}
+
+#xmnriwcwiu .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#xmnriwcwiu .gt_font_normal {
+  font-weight: normal;
+}
+
+#xmnriwcwiu .gt_font_bold {
+  font-weight: bold;
+}
+
+#xmnriwcwiu .gt_font_italic {
+  font-style: italic;
+}
+
+#xmnriwcwiu .gt_super {
+  font-size: 65%;
+}
+
+#xmnriwcwiu .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#xmnriwcwiu .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#xmnriwcwiu .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#xmnriwcwiu .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#xmnriwcwiu .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#xmnriwcwiu .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#xmnriwcwiu .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#xmnriwcwiu .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#xmnriwcwiu div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+</style>
+<table class="gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+  <thead>
+    <tr class="gt_heading">
+      <td colspan="3" class="gt_heading gt_title gt_font_normal gt_bottom_border" style>Model Performance Statistics</td>
+    </tr>
+    
+    <tr class="gt_col_headings">
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="Model">Model</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="RMSE">RMSE (m)</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="R2">R²</th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr><td headers="Model" class="gt_row gt_left">Age Only</td>
+<td headers="RMSE" class="gt_row gt_right">5.283</td>
+<td headers="R2" class="gt_row gt_right">0.576</td></tr>
+  </tbody>
+  
+</table>
+</div>
+<p><img src="Modelling_Foundations_files/figure-html/vis_cf1-1.png" width="80%" /></p>
+<p>The Age Only Chapman-Richards model explained approximately 57.6% of the
+variation in observed white spruce top heights (R² = 0.576), indicating
+that stand age is an important predictor of height growth but does not
+fully account for differences among stands. The model’s RMSE of 5.28 m
+indicates that predicted heights differed from observed heights by an
+average of about ±5.3 m, which is relatively large for operational
+growth modelling. These results suggest that while the model
+successfully captures the general pattern of increasing height with age,
+substantial variability remains unexplained because stands of the same
+age can exhibit very different heights depending on factors such as site
+productivity, soil conditions, climate, and stand history. Consequently,
+age alone provides only a moderate description of white spruce height
+development and highlights the need to incorporate additional
+explanatory variables, such as Site Index, to more accurately
+characterize growth trajectories.</p>
+<details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="curve-fitting.html#cb22-1" tabindex="-1"></a><span class="co">#====================================================================</span></span>
+<span id="cb22-2"><a href="curve-fitting.html#cb22-2" tabindex="-1"></a><span class="co"># MODEL 2</span></span>
+<span id="cb22-3"><a href="curve-fitting.html#cb22-3" tabindex="-1"></a><span class="co"># POOR SITE CURVE</span></span>
+<span id="cb22-4"><a href="curve-fitting.html#cb22-4" tabindex="-1"></a><span class="co">#====================================================================</span></span>
+<span id="cb22-5"><a href="curve-fitting.html#cb22-5" tabindex="-1"></a></span>
+<span id="cb22-6"><a href="curve-fitting.html#cb22-6" tabindex="-1"></a></span>
+<span id="cb22-7"><a href="curve-fitting.html#cb22-7" tabindex="-1"></a>poor <span class="ot">&lt;-</span> <span class="fu">subset</span>(</span>
+<span id="cb22-8"><a href="curve-fitting.html#cb22-8" tabindex="-1"></a>  sw,</span>
+<span id="cb22-9"><a href="curve-fitting.html#cb22-9" tabindex="-1"></a>  SI_CLASS <span class="sc">==</span> <span class="st">&quot;Poor&quot;</span></span>
+<span id="cb22-10"><a href="curve-fitting.html#cb22-10" tabindex="-1"></a>)</span>
+<span id="cb22-11"><a href="curve-fitting.html#cb22-11" tabindex="-1"></a></span>
+<span id="cb22-12"><a href="curve-fitting.html#cb22-12" tabindex="-1"></a>fit.poor <span class="ot">&lt;-</span> <span class="fu">nls</span>(</span>
+<span id="cb22-13"><a href="curve-fitting.html#cb22-13" tabindex="-1"></a>  HT_TLSO <span class="sc">~</span></span>
+<span id="cb22-14"><a href="curve-fitting.html#cb22-14" tabindex="-1"></a>    a <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="fu">exp</span>(<span class="sc">-</span>b <span class="sc">*</span> AGET_TLSO))<span class="sc">^</span>c,</span>
+<span id="cb22-15"><a href="curve-fitting.html#cb22-15" tabindex="-1"></a>  </span>
+<span id="cb22-16"><a href="curve-fitting.html#cb22-16" tabindex="-1"></a>  <span class="at">data =</span> poor,</span>
+<span id="cb22-17"><a href="curve-fitting.html#cb22-17" tabindex="-1"></a>  </span>
+<span id="cb22-18"><a href="curve-fitting.html#cb22-18" tabindex="-1"></a>  <span class="at">algorithm =</span> <span class="st">&quot;port&quot;</span>,</span>
+<span id="cb22-19"><a href="curve-fitting.html#cb22-19" tabindex="-1"></a>  </span>
+<span id="cb22-20"><a href="curve-fitting.html#cb22-20" tabindex="-1"></a>  <span class="at">start =</span> <span class="fu">list</span>(</span>
+<span id="cb22-21"><a href="curve-fitting.html#cb22-21" tabindex="-1"></a>    <span class="at">a =</span> <span class="dv">25</span>,</span>
+<span id="cb22-22"><a href="curve-fitting.html#cb22-22" tabindex="-1"></a>    <span class="at">b =</span> <span class="fl">0.01</span>,</span>
+<span id="cb22-23"><a href="curve-fitting.html#cb22-23" tabindex="-1"></a>    <span class="at">c =</span> <span class="dv">1</span></span>
+<span id="cb22-24"><a href="curve-fitting.html#cb22-24" tabindex="-1"></a>  ),</span>
+<span id="cb22-25"><a href="curve-fitting.html#cb22-25" tabindex="-1"></a>  </span>
+<span id="cb22-26"><a href="curve-fitting.html#cb22-26" tabindex="-1"></a>  <span class="at">lower =</span> <span class="fu">c</span>(</span>
+<span id="cb22-27"><a href="curve-fitting.html#cb22-27" tabindex="-1"></a>    <span class="at">a =</span> <span class="dv">10</span>,</span>
+<span id="cb22-28"><a href="curve-fitting.html#cb22-28" tabindex="-1"></a>    <span class="at">b =</span> <span class="fl">0.0001</span>,</span>
+<span id="cb22-29"><a href="curve-fitting.html#cb22-29" tabindex="-1"></a>    <span class="at">c =</span> <span class="fl">0.1</span></span>
+<span id="cb22-30"><a href="curve-fitting.html#cb22-30" tabindex="-1"></a>  ),</span>
+<span id="cb22-31"><a href="curve-fitting.html#cb22-31" tabindex="-1"></a>  </span>
+<span id="cb22-32"><a href="curve-fitting.html#cb22-32" tabindex="-1"></a>  <span class="at">upper =</span> <span class="fu">c</span>(</span>
+<span id="cb22-33"><a href="curve-fitting.html#cb22-33" tabindex="-1"></a>    <span class="at">a =</span> <span class="dv">50</span>,</span>
+<span id="cb22-34"><a href="curve-fitting.html#cb22-34" tabindex="-1"></a>    <span class="at">b =</span> <span class="fl">0.1</span>,</span>
+<span id="cb22-35"><a href="curve-fitting.html#cb22-35" tabindex="-1"></a>    <span class="at">c =</span> <span class="dv">5</span></span>
+<span id="cb22-36"><a href="curve-fitting.html#cb22-36" tabindex="-1"></a>  )</span>
+<span id="cb22-37"><a href="curve-fitting.html#cb22-37" tabindex="-1"></a>)</span>
+<span id="cb22-38"><a href="curve-fitting.html#cb22-38" tabindex="-1"></a></span>
+<span id="cb22-39"><a href="curve-fitting.html#cb22-39" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">summary</span>(fit.poor))</span>
+<span id="cb22-40"><a href="curve-fitting.html#cb22-40" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb22-41"><a href="curve-fitting.html#cb22-41" tabindex="-1"></a><span class="do">## Formula: HT_TLSO ~ a * (1 - exp(-b * AGET_TLSO))^c</span></span>
+<span id="cb22-42"><a href="curve-fitting.html#cb22-42" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb22-43"><a href="curve-fitting.html#cb22-43" tabindex="-1"></a><span class="do">## Parameters:</span></span>
+<span id="cb22-44"><a href="curve-fitting.html#cb22-44" tabindex="-1"></a><span class="do">##    Estimate Std. Error t value Pr(&gt;|t|)    </span></span>
+<span id="cb22-45"><a href="curve-fitting.html#cb22-45" tabindex="-1"></a><span class="do">## a 23.829491   0.972806  24.496  &lt; 2e-16 ***</span></span>
+<span id="cb22-46"><a href="curve-fitting.html#cb22-46" tabindex="-1"></a><span class="do">## b  0.014380   0.002974   4.835 2.32e-06 ***</span></span>
+<span id="cb22-47"><a href="curve-fitting.html#cb22-47" tabindex="-1"></a><span class="do">## c  2.020375   0.603559   3.347 0.000941 ***</span></span>
+<span id="cb22-48"><a href="curve-fitting.html#cb22-48" tabindex="-1"></a><span class="do">## ---</span></span>
+<span id="cb22-49"><a href="curve-fitting.html#cb22-49" tabindex="-1"></a><span class="do">## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span></span>
+<span id="cb22-50"><a href="curve-fitting.html#cb22-50" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb22-51"><a href="curve-fitting.html#cb22-51" tabindex="-1"></a><span class="do">## Residual standard error: 4.191 on 250 degrees of freedom</span></span>
+<span id="cb22-52"><a href="curve-fitting.html#cb22-52" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb22-53"><a href="curve-fitting.html#cb22-53" tabindex="-1"></a><span class="do">## Algorithm &quot;port&quot;, convergence message: relative convergence (4)</span></span>
+<span id="cb22-54"><a href="curve-fitting.html#cb22-54" tabindex="-1"></a></span>
+<span id="cb22-55"><a href="curve-fitting.html#cb22-55" tabindex="-1"></a>pred.poor <span class="ot">&lt;-</span> <span class="fu">predict</span>(fit.poor)</span>
+<span id="cb22-56"><a href="curve-fitting.html#cb22-56" tabindex="-1"></a></span>
+<span id="cb22-57"><a href="curve-fitting.html#cb22-57" tabindex="-1"></a>stats.poor <span class="ot">&lt;-</span> <span class="fu">model_stats</span>(</span>
+<span id="cb22-58"><a href="curve-fitting.html#cb22-58" tabindex="-1"></a>  poor<span class="sc">$</span>HT_TLSO,</span>
+<span id="cb22-59"><a href="curve-fitting.html#cb22-59" tabindex="-1"></a>  pred.poor</span>
+<span id="cb22-60"><a href="curve-fitting.html#cb22-60" tabindex="-1"></a>) </span>
+<span id="cb22-61"><a href="curve-fitting.html#cb22-61" tabindex="-1"></a></span>
+<span id="cb22-62"><a href="curve-fitting.html#cb22-62" tabindex="-1"></a>  </span>
+<span id="cb22-63"><a href="curve-fitting.html#cb22-63" tabindex="-1"></a></span>
+<span id="cb22-64"><a href="curve-fitting.html#cb22-64" tabindex="-1"></a>stats.poor_gt <span class="ot">&lt;-</span> stats.poor <span class="sc">%&gt;%</span></span>
+<span id="cb22-65"><a href="curve-fitting.html#cb22-65" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Model =</span> <span class="st">&quot;Poor Only&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb22-66"><a href="curve-fitting.html#cb22-66" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(Model, RMSE, R2)</span>
+<span id="cb22-67"><a href="curve-fitting.html#cb22-67" tabindex="-1"></a></span>
+<span id="cb22-68"><a href="curve-fitting.html#cb22-68" tabindex="-1"></a>stats.poor_gt <span class="sc">%&gt;%</span></span>
+<span id="cb22-69"><a href="curve-fitting.html#cb22-69" tabindex="-1"></a>  <span class="fu">gt</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb22-70"><a href="curve-fitting.html#cb22-70" tabindex="-1"></a>  <span class="fu">fmt_number</span>(</span>
+<span id="cb22-71"><a href="curve-fitting.html#cb22-71" tabindex="-1"></a>    <span class="at">columns =</span> <span class="fu">c</span>(RMSE, R2),</span>
+<span id="cb22-72"><a href="curve-fitting.html#cb22-72" tabindex="-1"></a>    <span class="at">decimals =</span> <span class="dv">3</span></span>
+<span id="cb22-73"><a href="curve-fitting.html#cb22-73" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb22-74"><a href="curve-fitting.html#cb22-74" tabindex="-1"></a>  <span class="fu">cols_label</span>(</span>
+<span id="cb22-75"><a href="curve-fitting.html#cb22-75" tabindex="-1"></a>    <span class="at">RMSE =</span> <span class="st">&quot;RMSE (m)&quot;</span>,</span>
+<span id="cb22-76"><a href="curve-fitting.html#cb22-76" tabindex="-1"></a>    <span class="at">R2 =</span> <span class="st">&quot;R²&quot;</span></span>
+<span id="cb22-77"><a href="curve-fitting.html#cb22-77" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb22-78"><a href="curve-fitting.html#cb22-78" tabindex="-1"></a>  <span class="fu">tab_header</span>(</span>
+<span id="cb22-79"><a href="curve-fitting.html#cb22-79" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Model Performance Statistics&quot;</span></span>
+<span id="cb22-80"><a href="curve-fitting.html#cb22-80" tabindex="-1"></a>  )</span></code></pre></div>
+</details>
+<div id="cdjoiwljyc" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#cdjoiwljyc table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#cdjoiwljyc thead, #cdjoiwljyc tbody, #cdjoiwljyc tfoot, #cdjoiwljyc tr, #cdjoiwljyc td, #cdjoiwljyc th {
+  border-style: none;
+}
+
+#cdjoiwljyc p {
+  margin: 0;
+  padding: 0;
+}
+
+#cdjoiwljyc .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#cdjoiwljyc .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#cdjoiwljyc .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#cdjoiwljyc .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#cdjoiwljyc .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#cdjoiwljyc .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#cdjoiwljyc .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#cdjoiwljyc .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#cdjoiwljyc .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#cdjoiwljyc .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#cdjoiwljyc .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#cdjoiwljyc .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#cdjoiwljyc .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#cdjoiwljyc .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#cdjoiwljyc .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#cdjoiwljyc .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#cdjoiwljyc .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#cdjoiwljyc .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#cdjoiwljyc .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#cdjoiwljyc .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#cdjoiwljyc .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#cdjoiwljyc .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#cdjoiwljyc .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#cdjoiwljyc .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#cdjoiwljyc .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#cdjoiwljyc .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#cdjoiwljyc .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#cdjoiwljyc .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#cdjoiwljyc .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#cdjoiwljyc .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#cdjoiwljyc .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#cdjoiwljyc .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#cdjoiwljyc .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#cdjoiwljyc .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#cdjoiwljyc .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#cdjoiwljyc .gt_left {
+  text-align: left;
+}
+
+#cdjoiwljyc .gt_center {
+  text-align: center;
+}
+
+#cdjoiwljyc .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#cdjoiwljyc .gt_font_normal {
+  font-weight: normal;
+}
+
+#cdjoiwljyc .gt_font_bold {
+  font-weight: bold;
+}
+
+#cdjoiwljyc .gt_font_italic {
+  font-style: italic;
+}
+
+#cdjoiwljyc .gt_super {
+  font-size: 65%;
+}
+
+#cdjoiwljyc .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#cdjoiwljyc .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#cdjoiwljyc .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#cdjoiwljyc .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#cdjoiwljyc .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#cdjoiwljyc .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#cdjoiwljyc .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#cdjoiwljyc .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#cdjoiwljyc div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+</style>
+<table class="gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+  <thead>
+    <tr class="gt_heading">
+      <td colspan="3" class="gt_heading gt_title gt_font_normal gt_bottom_border" style>Model Performance Statistics</td>
+    </tr>
+    
+    <tr class="gt_col_headings">
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="Model">Model</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="RMSE">RMSE (m)</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="R2">R²</th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr><td headers="Model" class="gt_row gt_left">Poor Only</td>
+<td headers="RMSE" class="gt_row gt_right">4.167</td>
+<td headers="R2" class="gt_row gt_right">0.478</td></tr>
+  </tbody>
+  
+</table>
+</div>
+<p><img src="Modelling_Foundations_files/figure-html/vis_cf2-1.png" width="80%" /></p>
+<p>The Poor Site Chapman-Richards model explained approximately 47.8% of
+the variation in white spruce top height within stands classified as
+having poor site productivity (R² = 0.478), indicating that age alone
+provides only a moderate description of height development under
+low-productivity growing conditions. The model’s RMSE of 4.17 m suggests
+that predicted heights differed from observed heights by an average of
+about ±4.2 m, which represents a modest improvement in prediction error
+compared to the age-only model fitted across all sites. However, the
+relatively low R² indicates that substantial variability remains
+unexplained, likely reflecting differences in local site conditions,
+stand history, microsite factors, and measurement variability even among
+stands sharing similar low site productivity ratings. These results
+suggest that while a poor-site-specific height curve captures the
+general growth pattern of low-productivity white spruce stands,
+additional explanatory variables beyond age are required to accurately
+characterize height development across the full range of observed
+conditions.</p>
+<details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="curve-fitting.html#cb23-1" tabindex="-1"></a></span>
+<span id="cb23-2"><a href="curve-fitting.html#cb23-2" tabindex="-1"></a><span class="co">#====================================================================</span></span>
+<span id="cb23-3"><a href="curve-fitting.html#cb23-3" tabindex="-1"></a><span class="co"># MODEL 3</span></span>
+<span id="cb23-4"><a href="curve-fitting.html#cb23-4" tabindex="-1"></a><span class="co"># AGE + SITE INDEX</span></span>
+<span id="cb23-5"><a href="curve-fitting.html#cb23-5" tabindex="-1"></a><span class="co">#====================================================================</span></span>
+<span id="cb23-6"><a href="curve-fitting.html#cb23-6" tabindex="-1"></a><span class="co">#This section fits a Chapman-Richards height growth model that incorporates both</span></span>
+<span id="cb23-7"><a href="curve-fitting.html#cb23-7" tabindex="-1"></a><span class="co">#stand age and Site Index, allowing site productivity to directly influence </span></span>
+<span id="cb23-8"><a href="curve-fitting.html#cb23-8" tabindex="-1"></a><span class="co">#projected height development. Instead of assuming a single growth trajectory </span></span>
+<span id="cb23-9"><a href="curve-fitting.html#cb23-9" tabindex="-1"></a><span class="co">#for all white spruce stands, the model modifies the asymptotic height parameter</span></span>
+<span id="cb23-10"><a href="curve-fitting.html#cb23-10" tabindex="-1"></a><span class="co">#through the term (a + d × SI_M_TLSO), where Site Index (SI_M_TLSO) acts as a </span></span>
+<span id="cb23-11"><a href="curve-fitting.html#cb23-11" tabindex="-1"></a><span class="co">#continuous measure of site productivity. The remaining Chapman-Richards </span></span>
+<span id="cb23-12"><a href="curve-fitting.html#cb23-12" tabindex="-1"></a><span class="co">#parameters control the rate and shape of height growth as a function of age </span></span>
+<span id="cb23-13"><a href="curve-fitting.html#cb23-13" tabindex="-1"></a><span class="co">#(AGET_TLSO). As a result, stands with higher Site Index values are projected to</span></span>
+<span id="cb23-14"><a href="curve-fitting.html#cb23-14" tabindex="-1"></a><span class="co">#follow taller growth trajectoriesthan stands on less productive sites, while </span></span>
+<span id="cb23-15"><a href="curve-fitting.html#cb23-15" tabindex="-1"></a><span class="co">#maintaining a common underlying growth form. </span></span>
+<span id="cb23-16"><a href="curve-fitting.html#cb23-16" tabindex="-1"></a><span class="co">#This approach produces a family of biologically realistic height-age curves </span></span>
+<span id="cb23-17"><a href="curve-fitting.html#cb23-17" tabindex="-1"></a><span class="co">#that account for differences in site quality and typically explains </span></span>
+<span id="cb23-18"><a href="curve-fitting.html#cb23-18" tabindex="-1"></a><span class="co">#substantially more variation in observed heights than an age-only model.</span></span>
+<span id="cb23-19"><a href="curve-fitting.html#cb23-19" tabindex="-1"></a></span>
+<span id="cb23-20"><a href="curve-fitting.html#cb23-20" tabindex="-1"></a>fit.si <span class="ot">&lt;-</span> <span class="fu">nls</span>(</span>
+<span id="cb23-21"><a href="curve-fitting.html#cb23-21" tabindex="-1"></a>  HT_TLSO <span class="sc">~</span></span>
+<span id="cb23-22"><a href="curve-fitting.html#cb23-22" tabindex="-1"></a>    (a <span class="sc">+</span> d <span class="sc">*</span> SI_M_TLSO) <span class="sc">*</span></span>
+<span id="cb23-23"><a href="curve-fitting.html#cb23-23" tabindex="-1"></a>    (<span class="dv">1</span> <span class="sc">-</span> <span class="fu">exp</span>(<span class="sc">-</span>b <span class="sc">*</span> AGET_TLSO))<span class="sc">^</span>c,</span>
+<span id="cb23-24"><a href="curve-fitting.html#cb23-24" tabindex="-1"></a>  </span>
+<span id="cb23-25"><a href="curve-fitting.html#cb23-25" tabindex="-1"></a>  <span class="at">data =</span> sw,</span>
+<span id="cb23-26"><a href="curve-fitting.html#cb23-26" tabindex="-1"></a><span class="co">#The &quot;port&quot; optimization algorithm is an alternative fitting method available </span></span>
+<span id="cb23-27"><a href="curve-fitting.html#cb23-27" tabindex="-1"></a><span class="co">#in R&#39;s nls() function that allows you to place parameter constraints (bounds) </span></span>
+<span id="cb23-28"><a href="curve-fitting.html#cb23-28" tabindex="-1"></a><span class="co">#on the values being estimated. Unlike the default Gauss-Newton algorithm, </span></span>
+<span id="cb23-29"><a href="curve-fitting.html#cb23-29" tabindex="-1"></a><span class="co">#which can freely search the entire parameter space, the &quot;port&quot; algorithm </span></span>
+<span id="cb23-30"><a href="curve-fitting.html#cb23-30" tabindex="-1"></a><span class="co">#restricts the search to user-specified lower and upper limits, ensuring that </span></span>
+<span id="cb23-31"><a href="curve-fitting.html#cb23-31" tabindex="-1"></a><span class="co">#parameter estimates remain within biologically reasonable ranges  </span></span>
+<span id="cb23-32"><a href="curve-fitting.html#cb23-32" tabindex="-1"></a>  <span class="at">algorithm =</span> <span class="st">&quot;port&quot;</span>,</span>
+<span id="cb23-33"><a href="curve-fitting.html#cb23-33" tabindex="-1"></a>  </span>
+<span id="cb23-34"><a href="curve-fitting.html#cb23-34" tabindex="-1"></a>  <span class="at">start =</span> <span class="fu">list</span>(</span>
+<span id="cb23-35"><a href="curve-fitting.html#cb23-35" tabindex="-1"></a>    <span class="at">a =</span> <span class="dv">10</span>,</span>
+<span id="cb23-36"><a href="curve-fitting.html#cb23-36" tabindex="-1"></a>    <span class="at">d =</span> <span class="dv">1</span>,</span>
+<span id="cb23-37"><a href="curve-fitting.html#cb23-37" tabindex="-1"></a>    <span class="at">b =</span> <span class="fl">0.02</span>,</span>
+<span id="cb23-38"><a href="curve-fitting.html#cb23-38" tabindex="-1"></a>    <span class="at">c =</span> <span class="fl">1.3</span></span>
+<span id="cb23-39"><a href="curve-fitting.html#cb23-39" tabindex="-1"></a>  ),</span>
+<span id="cb23-40"><a href="curve-fitting.html#cb23-40" tabindex="-1"></a>  </span>
+<span id="cb23-41"><a href="curve-fitting.html#cb23-41" tabindex="-1"></a>  <span class="at">lower =</span> <span class="fu">c</span>(</span>
+<span id="cb23-42"><a href="curve-fitting.html#cb23-42" tabindex="-1"></a>    <span class="at">a =</span> <span class="dv">0</span>,</span>
+<span id="cb23-43"><a href="curve-fitting.html#cb23-43" tabindex="-1"></a>    <span class="at">d =</span> <span class="dv">0</span>,</span>
+<span id="cb23-44"><a href="curve-fitting.html#cb23-44" tabindex="-1"></a>    <span class="at">b =</span> <span class="fl">0.0001</span>,</span>
+<span id="cb23-45"><a href="curve-fitting.html#cb23-45" tabindex="-1"></a>    <span class="at">c =</span> <span class="fl">0.1</span></span>
+<span id="cb23-46"><a href="curve-fitting.html#cb23-46" tabindex="-1"></a>  )</span>
+<span id="cb23-47"><a href="curve-fitting.html#cb23-47" tabindex="-1"></a>)</span>
+<span id="cb23-48"><a href="curve-fitting.html#cb23-48" tabindex="-1"></a></span>
+<span id="cb23-49"><a href="curve-fitting.html#cb23-49" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">summary</span>(fit.si))</span>
+<span id="cb23-50"><a href="curve-fitting.html#cb23-50" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb23-51"><a href="curve-fitting.html#cb23-51" tabindex="-1"></a><span class="do">## Formula: HT_TLSO ~ (a + d * SI_M_TLSO) * (1 - exp(-b * AGET_TLSO))^c</span></span>
+<span id="cb23-52"><a href="curve-fitting.html#cb23-52" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb23-53"><a href="curve-fitting.html#cb23-53" tabindex="-1"></a><span class="do">## Parameters:</span></span>
+<span id="cb23-54"><a href="curve-fitting.html#cb23-54" tabindex="-1"></a><span class="do">##    Estimate Std. Error t value Pr(&gt;|t|)    </span></span>
+<span id="cb23-55"><a href="curve-fitting.html#cb23-55" tabindex="-1"></a><span class="do">## a 1.160e+01  2.368e-01   48.97   &lt;2e-16 ***</span></span>
+<span id="cb23-56"><a href="curve-fitting.html#cb23-56" tabindex="-1"></a><span class="do">## d 1.834e+00  3.097e-02   59.20   &lt;2e-16 ***</span></span>
+<span id="cb23-57"><a href="curve-fitting.html#cb23-57" tabindex="-1"></a><span class="do">## b 9.959e-03  3.199e-04   31.13   &lt;2e-16 ***</span></span>
+<span id="cb23-58"><a href="curve-fitting.html#cb23-58" tabindex="-1"></a><span class="do">## c 1.168e+00  1.987e-02   58.76   &lt;2e-16 ***</span></span>
+<span id="cb23-59"><a href="curve-fitting.html#cb23-59" tabindex="-1"></a><span class="do">## ---</span></span>
+<span id="cb23-60"><a href="curve-fitting.html#cb23-60" tabindex="-1"></a><span class="do">## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span></span>
+<span id="cb23-61"><a href="curve-fitting.html#cb23-61" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb23-62"><a href="curve-fitting.html#cb23-62" tabindex="-1"></a><span class="do">## Residual standard error: 1.887 on 1806 degrees of freedom</span></span>
+<span id="cb23-63"><a href="curve-fitting.html#cb23-63" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb23-64"><a href="curve-fitting.html#cb23-64" tabindex="-1"></a><span class="do">## Algorithm &quot;port&quot;, convergence message: relative convergence (4)</span></span>
+<span id="cb23-65"><a href="curve-fitting.html#cb23-65" tabindex="-1"></a></span>
+<span id="cb23-66"><a href="curve-fitting.html#cb23-66" tabindex="-1"></a>pred.si <span class="ot">&lt;-</span> <span class="fu">predict</span>(fit.si)</span>
+<span id="cb23-67"><a href="curve-fitting.html#cb23-67" tabindex="-1"></a></span>
+<span id="cb23-68"><a href="curve-fitting.html#cb23-68" tabindex="-1"></a>stats.si <span class="ot">&lt;-</span> <span class="fu">model_stats</span>(</span>
+<span id="cb23-69"><a href="curve-fitting.html#cb23-69" tabindex="-1"></a>  sw<span class="sc">$</span>HT_TLSO,</span>
+<span id="cb23-70"><a href="curve-fitting.html#cb23-70" tabindex="-1"></a>  pred.si</span>
+<span id="cb23-71"><a href="curve-fitting.html#cb23-71" tabindex="-1"></a>)</span>
+<span id="cb23-72"><a href="curve-fitting.html#cb23-72" tabindex="-1"></a></span>
+<span id="cb23-73"><a href="curve-fitting.html#cb23-73" tabindex="-1"></a>stats.si_gt <span class="ot">&lt;-</span> stats.si <span class="sc">%&gt;%</span></span>
+<span id="cb23-74"><a href="curve-fitting.html#cb23-74" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Model =</span> <span class="st">&quot;Age and SI&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb23-75"><a href="curve-fitting.html#cb23-75" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(Model, RMSE, R2)</span>
+<span id="cb23-76"><a href="curve-fitting.html#cb23-76" tabindex="-1"></a></span>
+<span id="cb23-77"><a href="curve-fitting.html#cb23-77" tabindex="-1"></a>stats.si_gt <span class="sc">%&gt;%</span></span>
+<span id="cb23-78"><a href="curve-fitting.html#cb23-78" tabindex="-1"></a>  <span class="fu">gt</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb23-79"><a href="curve-fitting.html#cb23-79" tabindex="-1"></a>  <span class="fu">fmt_number</span>(</span>
+<span id="cb23-80"><a href="curve-fitting.html#cb23-80" tabindex="-1"></a>    <span class="at">columns =</span> <span class="fu">c</span>(RMSE, R2),</span>
+<span id="cb23-81"><a href="curve-fitting.html#cb23-81" tabindex="-1"></a>    <span class="at">decimals =</span> <span class="dv">3</span></span>
+<span id="cb23-82"><a href="curve-fitting.html#cb23-82" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb23-83"><a href="curve-fitting.html#cb23-83" tabindex="-1"></a>  <span class="fu">cols_label</span>(</span>
+<span id="cb23-84"><a href="curve-fitting.html#cb23-84" tabindex="-1"></a>    <span class="at">RMSE =</span> <span class="st">&quot;RMSE (m)&quot;</span>,</span>
+<span id="cb23-85"><a href="curve-fitting.html#cb23-85" tabindex="-1"></a>    <span class="at">R2 =</span> <span class="st">&quot;R²&quot;</span></span>
+<span id="cb23-86"><a href="curve-fitting.html#cb23-86" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb23-87"><a href="curve-fitting.html#cb23-87" tabindex="-1"></a>  <span class="fu">tab_header</span>(</span>
+<span id="cb23-88"><a href="curve-fitting.html#cb23-88" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Model Performance Statistics&quot;</span></span>
+<span id="cb23-89"><a href="curve-fitting.html#cb23-89" tabindex="-1"></a>  )</span></code></pre></div>
+</details>
+<div id="ihtctoziue" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#ihtctoziue table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#ihtctoziue thead, #ihtctoziue tbody, #ihtctoziue tfoot, #ihtctoziue tr, #ihtctoziue td, #ihtctoziue th {
+  border-style: none;
+}
+
+#ihtctoziue p {
+  margin: 0;
+  padding: 0;
+}
+
+#ihtctoziue .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#ihtctoziue .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#ihtctoziue .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#ihtctoziue .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#ihtctoziue .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#ihtctoziue .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#ihtctoziue .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#ihtctoziue .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#ihtctoziue .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#ihtctoziue .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#ihtctoziue .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#ihtctoziue .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#ihtctoziue .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#ihtctoziue .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#ihtctoziue .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#ihtctoziue .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#ihtctoziue .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#ihtctoziue .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#ihtctoziue .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#ihtctoziue .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#ihtctoziue .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#ihtctoziue .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#ihtctoziue .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#ihtctoziue .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#ihtctoziue .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#ihtctoziue .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#ihtctoziue .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#ihtctoziue .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#ihtctoziue .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#ihtctoziue .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#ihtctoziue .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#ihtctoziue .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#ihtctoziue .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#ihtctoziue .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#ihtctoziue .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#ihtctoziue .gt_left {
+  text-align: left;
+}
+
+#ihtctoziue .gt_center {
+  text-align: center;
+}
+
+#ihtctoziue .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#ihtctoziue .gt_font_normal {
+  font-weight: normal;
+}
+
+#ihtctoziue .gt_font_bold {
+  font-weight: bold;
+}
+
+#ihtctoziue .gt_font_italic {
+  font-style: italic;
+}
+
+#ihtctoziue .gt_super {
+  font-size: 65%;
+}
+
+#ihtctoziue .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#ihtctoziue .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#ihtctoziue .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#ihtctoziue .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#ihtctoziue .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#ihtctoziue .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#ihtctoziue .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#ihtctoziue .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#ihtctoziue div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+</style>
+<table class="gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+  <thead>
+    <tr class="gt_heading">
+      <td colspan="3" class="gt_heading gt_title gt_font_normal gt_bottom_border" style>Model Performance Statistics</td>
+    </tr>
+    
+    <tr class="gt_col_headings">
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="Model">Model</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="RMSE">RMSE (m)</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="R2">R²</th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr><td headers="Model" class="gt_row gt_left">Age and SI</td>
+<td headers="RMSE" class="gt_row gt_right">1.885</td>
+<td headers="R2" class="gt_row gt_right">0.946</td></tr>
+  </tbody>
+  
+</table>
+</div>
+<p>The Age + Site Index Chapman-Richards model provided an excellent fit to
+the white spruce data, explaining approximately 94.6% of the observed
+variation in top height (R² = 0.946) while achieving a low RMSE of 1.89
+m. This represents a substantial improvement over models based on age
+alone and demonstrates that Site Index is a critical determinant of
+white spruce height growth. The strong model performance indicates that
+the combination of stand age and site productivity captures nearly all
+of the systematic variation in observed heights, resulting in accurate
+and biologically realistic growth trajectories across a wide range of
+site conditions.</p>
+<p><img src="Modelling_Foundations_files/figure-html/vis_cf3-1.png" width="80%" /></p>
+<p>The residual plots show a clear improvement in model performance when
+Site Index is incorporated into the growth model. In the Age-Only model
+(left panel), residuals become increasingly dispersed as predicted
+height increases, producing a distinct fan-shaped pattern. This
+indicates
+<a href="https://en.wikipedia.org/wiki/Homoscedasticity_and_heteroscedasticity">heteroscedasticity</a>
+and suggests that age alone cannot adequately explain differences in
+height among stands, particularly at larger heights where both high- and
+low-productivity sites are forced onto the same growth trajectory. The
+large spread of positive and negative residuals at higher predicted
+heights indicates systematic under- and over-prediction across different
+site qualities, helping explain the relatively modest model performance
+(R² = 0.576).</p>
+<p><img src="Modelling_Foundations_files/figure-html/vis_cf4-1.png" width="80%" /></p>
+<p>In contrast, the Age + Site Index model (right panel) produces a much
+tighter clustering of residuals around zero, demonstrating that site
+productivity accounts for a substantial proportion of the variation
+previously left unexplained. The overall magnitude of residuals is
+markedly reduced, consistent with the improvement in model fit (R² =
+0.946 and RMSE = 1.885 m). Although a slight curved pattern remains,
+suggesting some residual structure that may reflect stand-level
+differences, microsite conditions, or repeated measurements within
+plots, the residuals are generally more evenly distributed and exhibit
+far less variance than the age-only model.</p>
+<p><img src="Modelling_Foundations_files/figure-html/vis_cf5-1.png" width="80%" /></p>
+<p>The residual histograms provide a visual comparison of the error
+distributions for the Age-Only and Age + Site Index Chapman-Richards
+models. The Age-Only residuals (left panel) exhibit a broad distribution
+spanning approximately -20 m to +20 m, indicating substantial prediction
+error and considerable unexplained variation in stand height when age is
+used as the sole predictor. In contrast, the Age + Site Index residuals
+(right panel) are much more tightly concentrated around zero, with the
+majority of residuals falling within a relatively narrow range of
+approximately ±3 m. This dramatic reduction in the spread of residuals
+demonstrates that incorporating Site Index accounts for much of the
+variability previously left unexplained by age alone. The near-symmetric
+distribution centered on zero suggests that the Age + Site Index model
+exhibits minimal overall bias and provides substantially more accurate
+predictions, which is consistent with its higher R² (0.946) and lower
+RMSE (1.885 m).</p>
+</div>
+<div id="mixed-effects-chapman-richards-model" class="section level3 hasAnchor" number="7.1.2">
+<h3><span class="header-section-number">7.1.2</span> Mixed Effects Chapman-Richards model<a href="curve-fitting.html#mixed-effects-chapman-richards-model" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>This analysis extends the previously developed Chapman-Richards
+height-age-site index model by incorporating a nonlinear mixed-effects
+modelling framework that accounts for repeated measurements and
+stand-to-stand variability within the white spruce dataset. While
+the fixed-effects Chapman-Richards model assumes that all stands sharing
+the same age and site productivity follow a common growth trajectory,
+forest inventory data often contain multiple observations from the same
+permanent or temporary sample plot, resulting in correlated measurements
+that violate the assumption of statistical independence. To address
+this, a nonlinear mixed-effects (NLME) version of the Chapman-Richards
+model was fitted using stand age and Site Index as fixed effects while
+allowing the asymptotic height parameter to vary among individual plots
+through a plot-level random effect. This approach recognizes that stands
+with similar ages and site indices may nevertheless differ in growth
+potential due to factors such as microsite conditions, soil properties,
+disturbance history, genetics, and measurement variation.</p>
+<p>Model performance was evaluated using several complementary approaches
+to assess both predictive accuracy and overall model adequacy.
+Information criteria, including the Akaike Information Criterion (AIC)
+and Bayesian Information Criterion (BIC), were used to compare the
+competing model formulations while accounting for differences in model
+complexity. Lower AIC and BIC values indicate a better balance between
+goodness-of-fit and the number of parameters being estimated. Additional
+evaluation was conducted through residual diagnostics, including
+residual-versus-predicted plots and residual histograms, to identify
+potential biases, non-linear patterns, heteroscedasticity, and
+departures from model assumptions. Prediction performance was further
+quantified using the Root Mean Square Error (RMSE) and coefficient of
+determination (R²).</p>
+<details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="curve-fitting.html#cb24-1" tabindex="-1"></a></span>
+<span id="cb24-2"><a href="curve-fitting.html#cb24-2" tabindex="-1"></a></span>
+<span id="cb24-3"><a href="curve-fitting.html#cb24-3" tabindex="-1"></a><span class="do">#####################################################################</span></span>
+<span id="cb24-4"><a href="curve-fitting.html#cb24-4" tabindex="-1"></a><span class="co"># FAIB WHITE SPRUCE</span></span>
+<span id="cb24-5"><a href="curve-fitting.html#cb24-5" tabindex="-1"></a><span class="co"># NONLINEAR MIXED-EFFECTS CHAPMAN-RICHARDS MODEL</span></span>
+<span id="cb24-6"><a href="curve-fitting.html#cb24-6" tabindex="-1"></a><span class="co">#</span></span>
+<span id="cb24-7"><a href="curve-fitting.html#cb24-7" tabindex="-1"></a><span class="co"># Fixed Effects:</span></span>
+<span id="cb24-8"><a href="curve-fitting.html#cb24-8" tabindex="-1"></a><span class="co">#   a, d, b, c</span></span>
+<span id="cb24-9"><a href="curve-fitting.html#cb24-9" tabindex="-1"></a><span class="co">#</span></span>
+<span id="cb24-10"><a href="curve-fitting.html#cb24-10" tabindex="-1"></a><span class="co"># Random Effects:</span></span>
+<span id="cb24-11"><a href="curve-fitting.html#cb24-11" tabindex="-1"></a><span class="co">#   Plot-specific asymptotic height (a)</span></span>
+<span id="cb24-12"><a href="curve-fitting.html#cb24-12" tabindex="-1"></a><span class="co">#</span></span>
+<span id="cb24-13"><a href="curve-fitting.html#cb24-13" tabindex="-1"></a><span class="co"># Model:</span></span>
+<span id="cb24-14"><a href="curve-fitting.html#cb24-14" tabindex="-1"></a><span class="co">#</span></span>
+<span id="cb24-15"><a href="curve-fitting.html#cb24-15" tabindex="-1"></a><span class="co"># HT =</span></span>
+<span id="cb24-16"><a href="curve-fitting.html#cb24-16" tabindex="-1"></a><span class="co"># (a + d*SI) *</span></span>
+<span id="cb24-17"><a href="curve-fitting.html#cb24-17" tabindex="-1"></a><span class="co"># (1-exp(-b*Age))^c</span></span>
+<span id="cb24-18"><a href="curve-fitting.html#cb24-18" tabindex="-1"></a><span class="co">#</span></span>
+<span id="cb24-19"><a href="curve-fitting.html#cb24-19" tabindex="-1"></a><span class="co"># a_i = a + u_i</span></span>
+<span id="cb24-20"><a href="curve-fitting.html#cb24-20" tabindex="-1"></a><span class="co">#</span></span>
+<span id="cb24-21"><a href="curve-fitting.html#cb24-21" tabindex="-1"></a><span class="co"># where:</span></span>
+<span id="cb24-22"><a href="curve-fitting.html#cb24-22" tabindex="-1"></a><span class="co">#</span></span>
+<span id="cb24-23"><a href="curve-fitting.html#cb24-23" tabindex="-1"></a><span class="co"># u_i ~ N(0,sigma_plot)</span></span>
+<span id="cb24-24"><a href="curve-fitting.html#cb24-24" tabindex="-1"></a><span class="co">#</span></span>
+<span id="cb24-25"><a href="curve-fitting.html#cb24-25" tabindex="-1"></a><span class="do">#####################################################################</span></span>
+<span id="cb24-26"><a href="curve-fitting.html#cb24-26" tabindex="-1"></a></span>
+<span id="cb24-27"><a href="curve-fitting.html#cb24-27" tabindex="-1"></a></span>
+<span id="cb24-28"><a href="curve-fitting.html#cb24-28" tabindex="-1"></a><span class="fu">library</span>(nlme)</span>
+<span id="cb24-29"><a href="curve-fitting.html#cb24-29" tabindex="-1"></a></span>
+<span id="cb24-30"><a href="curve-fitting.html#cb24-30" tabindex="-1"></a><span class="co">#====================================================================</span></span>
+<span id="cb24-31"><a href="curve-fitting.html#cb24-31" tabindex="-1"></a><span class="co"># LOAD DATA</span></span>
+<span id="cb24-32"><a href="curve-fitting.html#cb24-32" tabindex="-1"></a><span class="co">#====================================================================</span></span>
+<span id="cb24-33"><a href="curve-fitting.html#cb24-33" tabindex="-1"></a></span>
+<span id="cb24-34"><a href="curve-fitting.html#cb24-34" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(</span>
+<span id="cb24-35"><a href="curve-fitting.html#cb24-35" tabindex="-1"></a>  <span class="st">&quot;./faib_compiled_spcsmries_siteage.csv&quot;</span></span>
+<span id="cb24-36"><a href="curve-fitting.html#cb24-36" tabindex="-1"></a>)</span>
+<span id="cb24-37"><a href="curve-fitting.html#cb24-37" tabindex="-1"></a></span>
+<span id="cb24-38"><a href="curve-fitting.html#cb24-38" tabindex="-1"></a>sw <span class="ot">&lt;-</span> dat <span class="sc">%&gt;%</span></span>
+<span id="cb24-39"><a href="curve-fitting.html#cb24-39" tabindex="-1"></a>  <span class="fu">filter</span>(</span>
+<span id="cb24-40"><a href="curve-fitting.html#cb24-40" tabindex="-1"></a>    SPECIES <span class="sc">==</span> <span class="st">&quot;SW&quot;</span>,</span>
+<span id="cb24-41"><a href="curve-fitting.html#cb24-41" tabindex="-1"></a>    <span class="sc">!</span><span class="fu">is.na</span>(AGET_TLSO),</span>
+<span id="cb24-42"><a href="curve-fitting.html#cb24-42" tabindex="-1"></a>    <span class="sc">!</span><span class="fu">is.na</span>(HT_TLSO),</span>
+<span id="cb24-43"><a href="curve-fitting.html#cb24-43" tabindex="-1"></a>    <span class="sc">!</span><span class="fu">is.na</span>(SI_M_TLSO),</span>
+<span id="cb24-44"><a href="curve-fitting.html#cb24-44" tabindex="-1"></a>    AGET_TLSO <span class="sc">&gt;</span> <span class="dv">0</span>,</span>
+<span id="cb24-45"><a href="curve-fitting.html#cb24-45" tabindex="-1"></a>    HT_TLSO <span class="sc">&gt;</span> <span class="dv">0</span>,</span>
+<span id="cb24-46"><a href="curve-fitting.html#cb24-46" tabindex="-1"></a>    SI_M_TLSO <span class="sc">&gt;</span> <span class="dv">0</span></span>
+<span id="cb24-47"><a href="curve-fitting.html#cb24-47" tabindex="-1"></a>  )</span>
+<span id="cb24-48"><a href="curve-fitting.html#cb24-48" tabindex="-1"></a></span>
+<span id="cb24-49"><a href="curve-fitting.html#cb24-49" tabindex="-1"></a></span>
+<span id="cb24-50"><a href="curve-fitting.html#cb24-50" tabindex="-1"></a></span>
+<span id="cb24-51"><a href="curve-fitting.html#cb24-51" tabindex="-1"></a></span>
+<span id="cb24-52"><a href="curve-fitting.html#cb24-52" tabindex="-1"></a><span class="co">#====================================================================</span></span>
+<span id="cb24-53"><a href="curve-fitting.html#cb24-53" tabindex="-1"></a><span class="co"># FIT BASE NLS MODEL</span></span>
+<span id="cb24-54"><a href="curve-fitting.html#cb24-54" tabindex="-1"></a><span class="co">#====================================================================</span></span>
+<span id="cb24-55"><a href="curve-fitting.html#cb24-55" tabindex="-1"></a></span>
+<span id="cb24-56"><a href="curve-fitting.html#cb24-56" tabindex="-1"></a>fit.nls <span class="ot">&lt;-</span> <span class="fu">nls</span>(</span>
+<span id="cb24-57"><a href="curve-fitting.html#cb24-57" tabindex="-1"></a>  </span>
+<span id="cb24-58"><a href="curve-fitting.html#cb24-58" tabindex="-1"></a>  HT_TLSO <span class="sc">~</span></span>
+<span id="cb24-59"><a href="curve-fitting.html#cb24-59" tabindex="-1"></a>    </span>
+<span id="cb24-60"><a href="curve-fitting.html#cb24-60" tabindex="-1"></a>    (a <span class="sc">+</span> d <span class="sc">*</span> SI_M_TLSO) <span class="sc">*</span></span>
+<span id="cb24-61"><a href="curve-fitting.html#cb24-61" tabindex="-1"></a>    (<span class="dv">1</span> <span class="sc">-</span> <span class="fu">exp</span>(<span class="sc">-</span>b <span class="sc">*</span> AGET_TLSO))<span class="sc">^</span>c,</span>
+<span id="cb24-62"><a href="curve-fitting.html#cb24-62" tabindex="-1"></a>  </span>
+<span id="cb24-63"><a href="curve-fitting.html#cb24-63" tabindex="-1"></a>  <span class="at">data =</span> sw,</span>
+<span id="cb24-64"><a href="curve-fitting.html#cb24-64" tabindex="-1"></a>  </span>
+<span id="cb24-65"><a href="curve-fitting.html#cb24-65" tabindex="-1"></a>  <span class="at">algorithm =</span> <span class="st">&quot;port&quot;</span>,</span>
+<span id="cb24-66"><a href="curve-fitting.html#cb24-66" tabindex="-1"></a>  </span>
+<span id="cb24-67"><a href="curve-fitting.html#cb24-67" tabindex="-1"></a>  <span class="at">start =</span> <span class="fu">list</span>(</span>
+<span id="cb24-68"><a href="curve-fitting.html#cb24-68" tabindex="-1"></a>    <span class="at">a =</span> <span class="dv">10</span>,</span>
+<span id="cb24-69"><a href="curve-fitting.html#cb24-69" tabindex="-1"></a>    <span class="at">d =</span> <span class="dv">1</span>,</span>
+<span id="cb24-70"><a href="curve-fitting.html#cb24-70" tabindex="-1"></a>    <span class="at">b =</span> <span class="fl">0.02</span>,</span>
+<span id="cb24-71"><a href="curve-fitting.html#cb24-71" tabindex="-1"></a>    <span class="at">c =</span> <span class="fl">1.3</span></span>
+<span id="cb24-72"><a href="curve-fitting.html#cb24-72" tabindex="-1"></a>  ),</span>
+<span id="cb24-73"><a href="curve-fitting.html#cb24-73" tabindex="-1"></a>  </span>
+<span id="cb24-74"><a href="curve-fitting.html#cb24-74" tabindex="-1"></a>  <span class="at">lower =</span> <span class="fu">c</span>(</span>
+<span id="cb24-75"><a href="curve-fitting.html#cb24-75" tabindex="-1"></a>    <span class="at">a =</span> <span class="dv">0</span>,</span>
+<span id="cb24-76"><a href="curve-fitting.html#cb24-76" tabindex="-1"></a>    <span class="at">d =</span> <span class="dv">0</span>,</span>
+<span id="cb24-77"><a href="curve-fitting.html#cb24-77" tabindex="-1"></a>    <span class="at">b =</span> <span class="fl">0.0001</span>,</span>
+<span id="cb24-78"><a href="curve-fitting.html#cb24-78" tabindex="-1"></a>    <span class="at">c =</span> <span class="fl">0.1</span></span>
+<span id="cb24-79"><a href="curve-fitting.html#cb24-79" tabindex="-1"></a>  )</span>
+<span id="cb24-80"><a href="curve-fitting.html#cb24-80" tabindex="-1"></a>  </span>
+<span id="cb24-81"><a href="curve-fitting.html#cb24-81" tabindex="-1"></a>)</span>
+<span id="cb24-82"><a href="curve-fitting.html#cb24-82" tabindex="-1"></a></span>
+<span id="cb24-83"><a href="curve-fitting.html#cb24-83" tabindex="-1"></a><span class="fu">summary</span>(fit.nls)</span>
+<span id="cb24-84"><a href="curve-fitting.html#cb24-84" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb24-85"><a href="curve-fitting.html#cb24-85" tabindex="-1"></a><span class="do">## Formula: HT_TLSO ~ (a + d * SI_M_TLSO) * (1 - exp(-b * AGET_TLSO))^c</span></span>
+<span id="cb24-86"><a href="curve-fitting.html#cb24-86" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb24-87"><a href="curve-fitting.html#cb24-87" tabindex="-1"></a><span class="do">## Parameters:</span></span>
+<span id="cb24-88"><a href="curve-fitting.html#cb24-88" tabindex="-1"></a><span class="do">##    Estimate Std. Error t value Pr(&gt;|t|)    </span></span>
+<span id="cb24-89"><a href="curve-fitting.html#cb24-89" tabindex="-1"></a><span class="do">## a 1.160e+01  2.368e-01   48.97   &lt;2e-16 ***</span></span>
+<span id="cb24-90"><a href="curve-fitting.html#cb24-90" tabindex="-1"></a><span class="do">## d 1.834e+00  3.097e-02   59.20   &lt;2e-16 ***</span></span>
+<span id="cb24-91"><a href="curve-fitting.html#cb24-91" tabindex="-1"></a><span class="do">## b 9.959e-03  3.199e-04   31.13   &lt;2e-16 ***</span></span>
+<span id="cb24-92"><a href="curve-fitting.html#cb24-92" tabindex="-1"></a><span class="do">## c 1.168e+00  1.987e-02   58.76   &lt;2e-16 ***</span></span>
+<span id="cb24-93"><a href="curve-fitting.html#cb24-93" tabindex="-1"></a><span class="do">## ---</span></span>
+<span id="cb24-94"><a href="curve-fitting.html#cb24-94" tabindex="-1"></a><span class="do">## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span></span>
+<span id="cb24-95"><a href="curve-fitting.html#cb24-95" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb24-96"><a href="curve-fitting.html#cb24-96" tabindex="-1"></a><span class="do">## Residual standard error: 1.887 on 1806 degrees of freedom</span></span>
+<span id="cb24-97"><a href="curve-fitting.html#cb24-97" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb24-98"><a href="curve-fitting.html#cb24-98" tabindex="-1"></a><span class="do">## Algorithm &quot;port&quot;, convergence message: relative convergence (4)</span></span>
+<span id="cb24-99"><a href="curve-fitting.html#cb24-99" tabindex="-1"></a></span>
+<span id="cb24-100"><a href="curve-fitting.html#cb24-100" tabindex="-1"></a><span class="co">#====================================================================</span></span>
+<span id="cb24-101"><a href="curve-fitting.html#cb24-101" tabindex="-1"></a><span class="co"># STARTING VALUES</span></span>
+<span id="cb24-102"><a href="curve-fitting.html#cb24-102" tabindex="-1"></a><span class="co">#====================================================================</span></span>
+<span id="cb24-103"><a href="curve-fitting.html#cb24-103" tabindex="-1"></a></span>
+<span id="cb24-104"><a href="curve-fitting.html#cb24-104" tabindex="-1"></a>start.vals <span class="ot">&lt;-</span> <span class="fu">coef</span>(fit.nls)</span>
+<span id="cb24-105"><a href="curve-fitting.html#cb24-105" tabindex="-1"></a></span>
+<span id="cb24-106"><a href="curve-fitting.html#cb24-106" tabindex="-1"></a><span class="co">#print(start.vals)</span></span>
+<span id="cb24-107"><a href="curve-fitting.html#cb24-107" tabindex="-1"></a></span>
+<span id="cb24-108"><a href="curve-fitting.html#cb24-108" tabindex="-1"></a><span class="co">#====================================================================</span></span>
+<span id="cb24-109"><a href="curve-fitting.html#cb24-109" tabindex="-1"></a><span class="co"># FIT NONLINEAR MIXED-EFFECTS MODEL</span></span>
+<span id="cb24-110"><a href="curve-fitting.html#cb24-110" tabindex="-1"></a><span class="co">#====================================================================</span></span>
+<span id="cb24-111"><a href="curve-fitting.html#cb24-111" tabindex="-1"></a></span>
+<span id="cb24-112"><a href="curve-fitting.html#cb24-112" tabindex="-1"></a>fit.nlme <span class="ot">&lt;-</span> <span class="fu">nlme</span>(</span>
+<span id="cb24-113"><a href="curve-fitting.html#cb24-113" tabindex="-1"></a>  </span>
+<span id="cb24-114"><a href="curve-fitting.html#cb24-114" tabindex="-1"></a>  HT_TLSO <span class="sc">~</span></span>
+<span id="cb24-115"><a href="curve-fitting.html#cb24-115" tabindex="-1"></a>    </span>
+<span id="cb24-116"><a href="curve-fitting.html#cb24-116" tabindex="-1"></a>    (a <span class="sc">+</span> d <span class="sc">*</span> SI_M_TLSO) <span class="sc">*</span></span>
+<span id="cb24-117"><a href="curve-fitting.html#cb24-117" tabindex="-1"></a>    (<span class="dv">1</span> <span class="sc">-</span> <span class="fu">exp</span>(<span class="sc">-</span>b <span class="sc">*</span> AGET_TLSO))<span class="sc">^</span>c,</span>
+<span id="cb24-118"><a href="curve-fitting.html#cb24-118" tabindex="-1"></a>  </span>
+<span id="cb24-119"><a href="curve-fitting.html#cb24-119" tabindex="-1"></a>  <span class="at">data =</span> sw,</span>
+<span id="cb24-120"><a href="curve-fitting.html#cb24-120" tabindex="-1"></a>  </span>
+<span id="cb24-121"><a href="curve-fitting.html#cb24-121" tabindex="-1"></a>  <span class="at">fixed =</span></span>
+<span id="cb24-122"><a href="curve-fitting.html#cb24-122" tabindex="-1"></a>    a <span class="sc">+</span> d <span class="sc">+</span> b <span class="sc">+</span> c <span class="sc">~</span> <span class="dv">1</span>,</span>
+<span id="cb24-123"><a href="curve-fitting.html#cb24-123" tabindex="-1"></a>  </span>
+<span id="cb24-124"><a href="curve-fitting.html#cb24-124" tabindex="-1"></a>  <span class="at">random =</span></span>
+<span id="cb24-125"><a href="curve-fitting.html#cb24-125" tabindex="-1"></a>    a <span class="sc">~</span> <span class="dv">1</span> <span class="sc">|</span> SITE_IDENTIFIER,</span>
+<span id="cb24-126"><a href="curve-fitting.html#cb24-126" tabindex="-1"></a>  </span>
+<span id="cb24-127"><a href="curve-fitting.html#cb24-127" tabindex="-1"></a>  <span class="at">start =</span> <span class="fu">c</span>(</span>
+<span id="cb24-128"><a href="curve-fitting.html#cb24-128" tabindex="-1"></a>    <span class="at">a =</span> start.vals[<span class="st">&quot;a&quot;</span>],</span>
+<span id="cb24-129"><a href="curve-fitting.html#cb24-129" tabindex="-1"></a>    <span class="at">d =</span> start.vals[<span class="st">&quot;d&quot;</span>],</span>
+<span id="cb24-130"><a href="curve-fitting.html#cb24-130" tabindex="-1"></a>    <span class="at">b =</span> start.vals[<span class="st">&quot;b&quot;</span>],</span>
+<span id="cb24-131"><a href="curve-fitting.html#cb24-131" tabindex="-1"></a>    <span class="at">c =</span> start.vals[<span class="st">&quot;c&quot;</span>]</span>
+<span id="cb24-132"><a href="curve-fitting.html#cb24-132" tabindex="-1"></a>  ),</span>
+<span id="cb24-133"><a href="curve-fitting.html#cb24-133" tabindex="-1"></a>  </span>
+<span id="cb24-134"><a href="curve-fitting.html#cb24-134" tabindex="-1"></a>  <span class="at">control =</span> <span class="fu">nlmeControl</span>(</span>
+<span id="cb24-135"><a href="curve-fitting.html#cb24-135" tabindex="-1"></a>    <span class="at">maxIter =</span> <span class="dv">500</span>,</span>
+<span id="cb24-136"><a href="curve-fitting.html#cb24-136" tabindex="-1"></a>    <span class="at">pnlsMaxIter =</span> <span class="dv">50</span>,</span>
+<span id="cb24-137"><a href="curve-fitting.html#cb24-137" tabindex="-1"></a>    <span class="at">msMaxIter =</span> <span class="dv">500</span></span>
+<span id="cb24-138"><a href="curve-fitting.html#cb24-138" tabindex="-1"></a>  )</span>
+<span id="cb24-139"><a href="curve-fitting.html#cb24-139" tabindex="-1"></a>  </span>
+<span id="cb24-140"><a href="curve-fitting.html#cb24-140" tabindex="-1"></a>)</span>
+<span id="cb24-141"><a href="curve-fitting.html#cb24-141" tabindex="-1"></a></span>
+<span id="cb24-142"><a href="curve-fitting.html#cb24-142" tabindex="-1"></a><span class="co">#====================================================================</span></span>
+<span id="cb24-143"><a href="curve-fitting.html#cb24-143" tabindex="-1"></a><span class="co"># MODEL SUMMARY</span></span>
+<span id="cb24-144"><a href="curve-fitting.html#cb24-144" tabindex="-1"></a><span class="co">#====================================================================</span></span>
+<span id="cb24-145"><a href="curve-fitting.html#cb24-145" tabindex="-1"></a></span>
+<span id="cb24-146"><a href="curve-fitting.html#cb24-146" tabindex="-1"></a><span class="fu">summary</span>(fit.nlme)</span>
+<span id="cb24-147"><a href="curve-fitting.html#cb24-147" tabindex="-1"></a><span class="do">## Nonlinear mixed-effects model fit by maximum likelihood</span></span>
+<span id="cb24-148"><a href="curve-fitting.html#cb24-148" tabindex="-1"></a><span class="do">##   Model: HT_TLSO ~ (a + d * SI_M_TLSO) * (1 - exp(-b * AGET_TLSO))^c </span></span>
+<span id="cb24-149"><a href="curve-fitting.html#cb24-149" tabindex="-1"></a><span class="do">##   Data: sw </span></span>
+<span id="cb24-150"><a href="curve-fitting.html#cb24-150" tabindex="-1"></a><span class="do">##        AIC      BIC    logLik</span></span>
+<span id="cb24-151"><a href="curve-fitting.html#cb24-151" tabindex="-1"></a><span class="do">##   7222.672 7255.678 -3605.336</span></span>
+<span id="cb24-152"><a href="curve-fitting.html#cb24-152" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb24-153"><a href="curve-fitting.html#cb24-153" tabindex="-1"></a><span class="do">## Random effects:</span></span>
+<span id="cb24-154"><a href="curve-fitting.html#cb24-154" tabindex="-1"></a><span class="do">##  Formula: a ~ 1 | SITE_IDENTIFIER</span></span>
+<span id="cb24-155"><a href="curve-fitting.html#cb24-155" tabindex="-1"></a><span class="do">##                a Residual</span></span>
+<span id="cb24-156"><a href="curve-fitting.html#cb24-156" tabindex="-1"></a><span class="do">## StdDev: 2.556665  1.06652</span></span>
+<span id="cb24-157"><a href="curve-fitting.html#cb24-157" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb24-158"><a href="curve-fitting.html#cb24-158" tabindex="-1"></a><span class="do">## Fixed effects:  a + d + b + c ~ 1 </span></span>
+<span id="cb24-159"><a href="curve-fitting.html#cb24-159" tabindex="-1"></a><span class="do">##      Value  Std.Error  DF  t-value p-value</span></span>
+<span id="cb24-160"><a href="curve-fitting.html#cb24-160" tabindex="-1"></a><span class="do">## a 9.404459 0.26066336 299 36.07894       0</span></span>
+<span id="cb24-161"><a href="curve-fitting.html#cb24-161" tabindex="-1"></a><span class="do">## d 1.634454 0.02673347 299 61.13888       0</span></span>
+<span id="cb24-162"><a href="curve-fitting.html#cb24-162" tabindex="-1"></a><span class="do">## b 0.014657 0.00038038 299 38.53187       0</span></span>
+<span id="cb24-163"><a href="curve-fitting.html#cb24-163" tabindex="-1"></a><span class="do">## c 1.435263 0.02385490 299 60.16638       0</span></span>
+<span id="cb24-164"><a href="curve-fitting.html#cb24-164" tabindex="-1"></a><span class="do">##  Correlation: </span></span>
+<span id="cb24-165"><a href="curve-fitting.html#cb24-165" tabindex="-1"></a><span class="do">##   a      d      b     </span></span>
+<span id="cb24-166"><a href="curve-fitting.html#cb24-166" tabindex="-1"></a><span class="do">## d -0.587              </span></span>
+<span id="cb24-167"><a href="curve-fitting.html#cb24-167" tabindex="-1"></a><span class="do">## b -0.081 -0.698       </span></span>
+<span id="cb24-168"><a href="curve-fitting.html#cb24-168" tabindex="-1"></a><span class="do">## c -0.203 -0.484  0.933</span></span>
+<span id="cb24-169"><a href="curve-fitting.html#cb24-169" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb24-170"><a href="curve-fitting.html#cb24-170" tabindex="-1"></a><span class="do">## Standardized Within-Group Residuals:</span></span>
+<span id="cb24-171"><a href="curve-fitting.html#cb24-171" tabindex="-1"></a><span class="do">##         Min          Q1         Med          Q3         Max </span></span>
+<span id="cb24-172"><a href="curve-fitting.html#cb24-172" tabindex="-1"></a><span class="do">## -4.86370259 -0.28974660  0.04217311  0.26662162  3.20326787 </span></span>
+<span id="cb24-173"><a href="curve-fitting.html#cb24-173" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb24-174"><a href="curve-fitting.html#cb24-174" tabindex="-1"></a><span class="do">## Number of Observations: 1810</span></span>
+<span id="cb24-175"><a href="curve-fitting.html#cb24-175" tabindex="-1"></a><span class="do">## Number of Groups: 1508</span></span></code></pre></div>
+</details>
+<div id="the-nlme-model" class="section level4 hasAnchor" number="7.1.2.1">
+<h4><span class="header-section-number">7.1.2.1</span> The NLME model<a href="curve-fitting.html#the-nlme-model" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>The nonlinear mixed-effects Chapman-Richards model provides a strong
+description of white spruce height growth while accounting for repeated
+measurements within plots. All fixed-effect parameters were highly
+significant, indicating that stand age and Site Index are important
+predictors of top height development. The model
+also identified substantial plot-to-plot variability, with the standard
+deviation of the plot-level random effect (2.56 m) being considerably
+larger than the residual error (1.07 m), indicating that individual
+plots differ in growth potential beyond what can be explained by age and
+Site Index alone. The inclusion of these random effects resulted in a
+substantial improvement in model fit compared to the fixed-effects NLS
+model (AIC = 7222.7 vs. 7441.0), demonstrating that accounting for
+stand-specific variation captures important environmental
+differences among plots. With 1,810 observations distributed across
+1,508 plots, the model provides a statistically robust representation of
+both regional white spruce growth patterns and local stand-level
+variability.</p>
+<details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="curve-fitting.html#cb25-1" tabindex="-1"></a></span>
+<span id="cb25-2"><a href="curve-fitting.html#cb25-2" tabindex="-1"></a><span class="co">#====================================================================</span></span>
+<span id="cb25-3"><a href="curve-fitting.html#cb25-3" tabindex="-1"></a><span class="co"># PREDICTIONS</span></span>
+<span id="cb25-4"><a href="curve-fitting.html#cb25-4" tabindex="-1"></a><span class="co">#====================================================================</span></span>
+<span id="cb25-5"><a href="curve-fitting.html#cb25-5" tabindex="-1"></a></span>
+<span id="cb25-6"><a href="curve-fitting.html#cb25-6" tabindex="-1"></a>sw<span class="sc">$</span>Pred <span class="ot">&lt;-</span> <span class="fu">predict</span>(</span>
+<span id="cb25-7"><a href="curve-fitting.html#cb25-7" tabindex="-1"></a>  fit.nlme,</span>
+<span id="cb25-8"><a href="curve-fitting.html#cb25-8" tabindex="-1"></a>  <span class="at">level =</span> <span class="dv">0</span></span>
+<span id="cb25-9"><a href="curve-fitting.html#cb25-9" tabindex="-1"></a>)</span>
+<span id="cb25-10"><a href="curve-fitting.html#cb25-10" tabindex="-1"></a></span>
+<span id="cb25-11"><a href="curve-fitting.html#cb25-11" tabindex="-1"></a><span class="co">#====================================================================</span></span>
+<span id="cb25-12"><a href="curve-fitting.html#cb25-12" tabindex="-1"></a><span class="co"># MODEL STATISTICS</span></span>
+<span id="cb25-13"><a href="curve-fitting.html#cb25-13" tabindex="-1"></a><span class="co">#====================================================================</span></span>
+<span id="cb25-14"><a href="curve-fitting.html#cb25-14" tabindex="-1"></a></span>
+<span id="cb25-15"><a href="curve-fitting.html#cb25-15" tabindex="-1"></a>model_stats <span class="ot">&lt;-</span> <span class="cf">function</span>(obs,pred){</span>
+<span id="cb25-16"><a href="curve-fitting.html#cb25-16" tabindex="-1"></a>  </span>
+<span id="cb25-17"><a href="curve-fitting.html#cb25-17" tabindex="-1"></a>  rmse <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(</span>
+<span id="cb25-18"><a href="curve-fitting.html#cb25-18" tabindex="-1"></a>    <span class="fu">mean</span>(</span>
+<span id="cb25-19"><a href="curve-fitting.html#cb25-19" tabindex="-1"></a>      (obs<span class="sc">-</span>pred)<span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb25-20"><a href="curve-fitting.html#cb25-20" tabindex="-1"></a>    )</span>
+<span id="cb25-21"><a href="curve-fitting.html#cb25-21" tabindex="-1"></a>  )</span>
+<span id="cb25-22"><a href="curve-fitting.html#cb25-22" tabindex="-1"></a>  </span>
+<span id="cb25-23"><a href="curve-fitting.html#cb25-23" tabindex="-1"></a>  ss.res <span class="ot">&lt;-</span> <span class="fu">sum</span>(</span>
+<span id="cb25-24"><a href="curve-fitting.html#cb25-24" tabindex="-1"></a>    (obs<span class="sc">-</span>pred)<span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb25-25"><a href="curve-fitting.html#cb25-25" tabindex="-1"></a>  )</span>
+<span id="cb25-26"><a href="curve-fitting.html#cb25-26" tabindex="-1"></a>  </span>
+<span id="cb25-27"><a href="curve-fitting.html#cb25-27" tabindex="-1"></a>  ss.tot <span class="ot">&lt;-</span> <span class="fu">sum</span>(</span>
+<span id="cb25-28"><a href="curve-fitting.html#cb25-28" tabindex="-1"></a>    (obs<span class="sc">-</span><span class="fu">mean</span>(obs))<span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb25-29"><a href="curve-fitting.html#cb25-29" tabindex="-1"></a>  )</span>
+<span id="cb25-30"><a href="curve-fitting.html#cb25-30" tabindex="-1"></a>  </span>
+<span id="cb25-31"><a href="curve-fitting.html#cb25-31" tabindex="-1"></a>  r2 <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">-</span></span>
+<span id="cb25-32"><a href="curve-fitting.html#cb25-32" tabindex="-1"></a>    ss.res<span class="sc">/</span>ss.tot</span>
+<span id="cb25-33"><a href="curve-fitting.html#cb25-33" tabindex="-1"></a>  </span>
+<span id="cb25-34"><a href="curve-fitting.html#cb25-34" tabindex="-1"></a>  <span class="fu">data.frame</span>(</span>
+<span id="cb25-35"><a href="curve-fitting.html#cb25-35" tabindex="-1"></a>    <span class="at">RMSE =</span> rmse,</span>
+<span id="cb25-36"><a href="curve-fitting.html#cb25-36" tabindex="-1"></a>    <span class="at">R2 =</span> r2</span>
+<span id="cb25-37"><a href="curve-fitting.html#cb25-37" tabindex="-1"></a>  )</span>
+<span id="cb25-38"><a href="curve-fitting.html#cb25-38" tabindex="-1"></a>  </span>
+<span id="cb25-39"><a href="curve-fitting.html#cb25-39" tabindex="-1"></a>}</span>
+<span id="cb25-40"><a href="curve-fitting.html#cb25-40" tabindex="-1"></a></span>
+<span id="cb25-41"><a href="curve-fitting.html#cb25-41" tabindex="-1"></a>stats.nlme <span class="ot">&lt;-</span> <span class="fu">model_stats</span>(</span>
+<span id="cb25-42"><a href="curve-fitting.html#cb25-42" tabindex="-1"></a>  sw<span class="sc">$</span>HT_TLSO,</span>
+<span id="cb25-43"><a href="curve-fitting.html#cb25-43" tabindex="-1"></a>  sw<span class="sc">$</span>Pred</span>
+<span id="cb25-44"><a href="curve-fitting.html#cb25-44" tabindex="-1"></a>)</span>
+<span id="cb25-45"><a href="curve-fitting.html#cb25-45" tabindex="-1"></a></span>
+<span id="cb25-46"><a href="curve-fitting.html#cb25-46" tabindex="-1"></a>stats.nlme_gt <span class="ot">&lt;-</span> stats.nlme <span class="sc">%&gt;%</span></span>
+<span id="cb25-47"><a href="curve-fitting.html#cb25-47" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Model =</span> <span class="st">&quot;nlme&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb25-48"><a href="curve-fitting.html#cb25-48" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(Model, RMSE, R2)</span>
+<span id="cb25-49"><a href="curve-fitting.html#cb25-49" tabindex="-1"></a></span>
+<span id="cb25-50"><a href="curve-fitting.html#cb25-50" tabindex="-1"></a>stats.nlme_gt <span class="sc">%&gt;%</span></span>
+<span id="cb25-51"><a href="curve-fitting.html#cb25-51" tabindex="-1"></a>  <span class="fu">gt</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb25-52"><a href="curve-fitting.html#cb25-52" tabindex="-1"></a>  <span class="fu">fmt_number</span>(</span>
+<span id="cb25-53"><a href="curve-fitting.html#cb25-53" tabindex="-1"></a>    <span class="at">columns =</span> <span class="fu">c</span>(RMSE, R2),</span>
+<span id="cb25-54"><a href="curve-fitting.html#cb25-54" tabindex="-1"></a>    <span class="at">decimals =</span> <span class="dv">3</span></span>
+<span id="cb25-55"><a href="curve-fitting.html#cb25-55" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb25-56"><a href="curve-fitting.html#cb25-56" tabindex="-1"></a>  <span class="fu">cols_label</span>(</span>
+<span id="cb25-57"><a href="curve-fitting.html#cb25-57" tabindex="-1"></a>    <span class="at">RMSE =</span> <span class="st">&quot;RMSE (m)&quot;</span>,</span>
+<span id="cb25-58"><a href="curve-fitting.html#cb25-58" tabindex="-1"></a>    <span class="at">R2 =</span> <span class="st">&quot;R²&quot;</span></span>
+<span id="cb25-59"><a href="curve-fitting.html#cb25-59" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb25-60"><a href="curve-fitting.html#cb25-60" tabindex="-1"></a>  <span class="fu">tab_header</span>(</span>
+<span id="cb25-61"><a href="curve-fitting.html#cb25-61" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Model Performance Statistics&quot;</span></span>
+<span id="cb25-62"><a href="curve-fitting.html#cb25-62" tabindex="-1"></a>  )</span></code></pre></div>
+</details>
+<div id="dhdqghiymr" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#dhdqghiymr table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#dhdqghiymr thead, #dhdqghiymr tbody, #dhdqghiymr tfoot, #dhdqghiymr tr, #dhdqghiymr td, #dhdqghiymr th {
+  border-style: none;
+}
+
+#dhdqghiymr p {
+  margin: 0;
+  padding: 0;
+}
+
+#dhdqghiymr .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#dhdqghiymr .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#dhdqghiymr .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#dhdqghiymr .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#dhdqghiymr .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#dhdqghiymr .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#dhdqghiymr .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#dhdqghiymr .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#dhdqghiymr .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#dhdqghiymr .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#dhdqghiymr .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#dhdqghiymr .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#dhdqghiymr .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#dhdqghiymr .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#dhdqghiymr .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#dhdqghiymr .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#dhdqghiymr .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#dhdqghiymr .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#dhdqghiymr .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#dhdqghiymr .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#dhdqghiymr .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#dhdqghiymr .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#dhdqghiymr .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#dhdqghiymr .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#dhdqghiymr .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#dhdqghiymr .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#dhdqghiymr .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#dhdqghiymr .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#dhdqghiymr .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#dhdqghiymr .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#dhdqghiymr .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#dhdqghiymr .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#dhdqghiymr .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#dhdqghiymr .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#dhdqghiymr .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#dhdqghiymr .gt_left {
+  text-align: left;
+}
+
+#dhdqghiymr .gt_center {
+  text-align: center;
+}
+
+#dhdqghiymr .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#dhdqghiymr .gt_font_normal {
+  font-weight: normal;
+}
+
+#dhdqghiymr .gt_font_bold {
+  font-weight: bold;
+}
+
+#dhdqghiymr .gt_font_italic {
+  font-style: italic;
+}
+
+#dhdqghiymr .gt_super {
+  font-size: 65%;
+}
+
+#dhdqghiymr .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#dhdqghiymr .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#dhdqghiymr .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#dhdqghiymr .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#dhdqghiymr .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#dhdqghiymr .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#dhdqghiymr .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#dhdqghiymr .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#dhdqghiymr div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+</style>
+<table class="gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+  <thead>
+    <tr class="gt_heading">
+      <td colspan="3" class="gt_heading gt_title gt_font_normal gt_bottom_border" style>Model Performance Statistics</td>
+    </tr>
+    
+    <tr class="gt_col_headings">
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="Model">Model</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="RMSE">RMSE (m)</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="R2">R²</th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr><td headers="Model" class="gt_row gt_left">nlme</td>
+<td headers="RMSE" class="gt_row gt_right">2.006</td>
+<td headers="R2" class="gt_row gt_right">0.939</td></tr>
+  </tbody>
+  
+</table>
+</div>
+<p>Compared to the fixed-effects Age + Site Index Chapman-Richards model
+(RMSE = 1.885 m, R² = 0.946), the nonlinear mixed-effects (NLME) model
+produced slightly lower predictive performance when evaluated using
+population-level predictions (RMSE = 2.006 m, R² = 0.939). At first
+glance, this might suggest that the simpler model is superior; however,
+the two models are addressing different objectives. The fixed-effects
+model seeks a single growth curve that minimizes overall prediction
+error across all observations, whereas the NLME model explicitly
+partitions variation into fixed effects (age and Site Index) and
+plot-level random effects. As a result, some variation that was
+previously attributed to the fixed growth curve is now recognized as
+real differences among plots. The NLME model therefore
+sacrifices a small amount of apparent predictive accuracy while
+providing a more realistic representation of the correlation structure
+inherent in repeated plot measurements.</p>
+<p>This interpretation is reinforced by the substantial improvement in
+information criteria achieved by the mixed-effects model, with AIC
+decreasing from approximately 7441 to 7223 and BIC decreasing from
+approximately 7469 to 7256. These large reductions indicate that
+accounting for plot-specific variability greatly improves the
+statistical explanation of the data, despite the slightly lower
+population-level R². The random-effect standard deviation of 2.56 m,
+compared to a residual standard deviation of only 1.07 m, further
+suggests that differences among plots are an important source of
+variation in white spruce height growth beyond what can be explained by
+age and Site Index alone.</p>
+<p><img src="Modelling_Foundations_files/figure-html/vis_cf6-1.png" width="80%" />
+The previous chart depicts the heigyt curves relative to an age 50 line.
+The reason the SI = 20 curve does not intersect the vertical Age 50 line
+at 20 m is that the model treats Site Index as an explanatory variable
+rather than enforcing the formal definition of Site Index. Site Index is
+typically defined as the top height of a stand
+at breast-height age 50 years, meaning a true SI 20 curve should pass
+through the point (Age = 50, Height = 20 m). However, the fitted model
+H=(a+d×SI)(1−e−bA)^c uses Site Index to modify the overall growth
+trajectory and asymptotic height, but it does not constrain the curve to
+equal the Site Index value at age 50. Consequently, the fitting process
+identifies the parameter values that best describe the entire dataset
+across all ages and site conditions, which can result in the SI 20 curve
+passing above or below 20 m at age 50. Therefore, the curves shown in
+the figure are best interpreted as productivity-based height growth
+curves rather than traditional site-index curves.</p>
+<p><img src="Modelling_Foundations_files/figure-html/vis_cf7-1.png" width="80%" /></p>
+<p>The residual plots suggest the nonlinear mixed-effects (NLME)
+model provides only a modest improvement in residual structure relative
+to the fixed-effects Age + Site Index model, but it does so by
+explicitly accounting for plot-level variability. In both panels,
+residuals remain centered around zero, suggesting little overall
+prediction bias; however, the NLME residuals are somewhat more tightly
+clustered near the zero line and exhibit slightly less dispersion across
+the range of predicted heights. The curved residual pattern observed in
+the Age + Site Index model is still present, indicating that some
+systematic variation remains unexplained, possibly due to factors such
+as stand density, species mixtures, microsite conditions, or limitations
+of the Chapman-Richards functional form. Nonetheless, the reduced spread
+and more concentrated residual cloud in the NLME model suggest that
+incorporating plot-level random effects successfully captures a portion
+of the stand-to-stand variability that was previously absorbed into the
+residual error. Combined with the substantial reductions in AIC and BIC,
+these plots support the conclusion that the mixed-effects model provides
+a more realistic representation of white spruce growth dynamics while
+maintaining a similar level of predictive accuracy.</p>
+</div>
+</div>
+<div id="summary-2" class="section level3 hasAnchor" number="7.1.3">
+<h3><span class="header-section-number">7.1.3</span> Summary<a href="curve-fitting.html#summary-2" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>This exercise demonstrated the development and evaluation of
+increasingly sophisticated height-growth models for white spruce using
+the FAIB ground plot database. The analysis began with a simple age-only
+Chapman-Richards model, which captured the general relationship between
+stand age and top height but explained only a moderate proportion of the
+observed variation. A separate poor-site model was then developed to
+characterize growth under low-productivity conditions, followed by an
+Age + Site Index Chapman-Richards model that explicitly incorporated
+site productivity as a predictor of height development. Model
+comparisons showed that Site Index was a critical driver of white spruce
+growth, with the Age + Site Index model improving model performance
+substantially and explaining approximately 95% of the variation in
+observed heights. Residual diagnostics and growth trajectory plots
+further demonstrated that accounting for site productivity produced more
+biologically realistic and accurate predictions than age alone.</p>
+<p>The analysis was then extended to a nonlinear mixed-effects framework to
+account for the repeated-measurement structure present within the FAIB
+dataset. By allowing individual plots to have their own asymptotic
+height adjustments through a random effect, the mixed-effects model
+recognized that stands of similar age and Site Index may still follow
+different growth trajectories because of unmeasured environmental and
+stand-level factors. Although the mixed-effects model produced similar
+prediction accuracy to the fixed-effects Age + Site Index model, it
+achieved substantially better information criteria and revealed that
+much of the remaining variation occurred among plots rather than within
+plots.</p>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="monte-carlo-markov-chain.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="cellular-automata-and-the-game-of-life.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
